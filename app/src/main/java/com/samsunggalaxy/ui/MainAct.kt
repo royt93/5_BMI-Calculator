@@ -10,17 +10,15 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
-import com.applovin.mediation.ads.MaxAdView
 import com.cncoderx.wheelview.OnWheelChangedListener
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.adt.WeightPickerAdt
 import com.samsunggalaxy.databinding.AMainBinding
-import com.samsunggalaxy.ext.createAdBanner
-import com.samsunggalaxy.ext.destroyAdBanner
 import com.samsunggalaxy.ext.moreApp
 import com.samsunggalaxy.ext.openBrowserPolicy
 import com.samsunggalaxy.ext.rateApp
@@ -38,7 +36,8 @@ class MainAct : BaseActivity() {
     var height = 1
     private var weight = 50
     private var doubleBackToExitPressedOnce = false
-    private var adView: MaxAdView? = null
+    //TODO roy93~ admob banner
+//    private var adView: MaxAdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,11 +134,12 @@ class MainAct : BaseActivity() {
             showMenu()
         }
 
-        adView = this.createAdBanner(
-            logTag = MainAct::class.simpleName,
-            viewGroup = binding.flAd,
-            isAdaptiveBanner = true,
-        )
+        //TODO roy93~ admob banner
+//        adView = this.createAdBanner(
+//            logTag = MainAct::class.simpleName,
+//            viewGroup = binding.flAd,
+//            isAdaptiveBanner = true,
+//        )
     }
 
     private fun getData(count: Int): List<String> {
@@ -237,7 +237,8 @@ class MainAct : BaseActivity() {
     }
 
     override fun onDestroy() {
-        binding.flAd?.destroyAdBanner(adView)
+        //TODO roy93~ admob banner
+//        binding.flAd?.destroyAdBanner(adView)
         super.onDestroy()
     }
 

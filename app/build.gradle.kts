@@ -12,8 +12,8 @@ android {
         minSdk = 21
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
-        versionCode = 20250405
-        versionName = "2025.04.05"
+        versionCode = 20250503
+        versionName = "2025.05.03"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,16 +50,15 @@ android {
 
             resValue("string", "app_name", "BMI Calculator 2025 DEV")
 
-            resValue(
-                "string",
-                "SDK_KEY",
-                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
-            )
-            resValue("string", "BANNER", "935687e95c2be5f5")
-            resValue("string", "INTER", "e080595a143cf78e")
-
-            resValue("string", "EnableAdInter", "false")
-            resValue("string", "EnableAdBanner", "true")
+//            resValue(
+//                "string",
+//                "SDK_KEY",
+//                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
+//            )
+//            resValue("string", "BANNER", "935687e95c2be5f5")
+//            resValue("string", "INTER", "e080595a143cf78e")
+//            resValue("string", "EnableAdInter", "false")
+//            resValue("string", "EnableAdBanner", "true")
         }
         create("production") {
             dimension = "type"
@@ -67,16 +66,15 @@ android {
 
             resValue("string", "app_name", "BMI Calculator 2025")
 
-            resValue(
-                "string",
-                "SDK_KEY",
-                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
-            )
-            resValue("string", "BANNER", "935687e95c2be5f5")
-            resValue("string", "INTER", "e080595a143cf78e")
-
-            resValue("string", "EnableAdInter", "true")
-            resValue("string", "EnableAdBanner", "true")
+//            resValue(
+//                "string",
+//                "SDK_KEY",
+//                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
+//            )
+//            resValue("string", "BANNER", "935687e95c2be5f5")
+//            resValue("string", "INTER", "e080595a143cf78e")
+//            resValue("string", "EnableAdInter", "true")
+//            resValue("string", "EnableAdBanner", "true")
         }
     }
 
@@ -100,7 +98,7 @@ dependencies {
     implementation("com.github.psuzn:WheelView:1.0.0")
     implementation("com.github.CNCoderX:WheelView:1.2.6")
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
-    implementation("com.applovin:applovin-sdk:13.1.0")
+//    implementation("com.applovin:applovin-sdk:13.1.0")
     //for testing
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")

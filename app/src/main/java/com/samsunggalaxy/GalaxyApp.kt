@@ -2,7 +2,6 @@ package com.samsunggalaxy
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
-import com.samsunggalaxy.ext.setupApplovinAd
 
 //TODO firebase
 //TODO keep value cuoi cung de hien thi len wheel view
@@ -27,6 +26,7 @@ class GalaxyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
-        this.setupApplovinAd()
+//        this.setupApplovinAd()
+        //TODO roy93~ admob init
     }
 }
