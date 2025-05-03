@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.drawToBitmap
 import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
@@ -22,6 +24,7 @@ import com.samsunggalaxy.databinding.AResultBinding
 import com.samsunggalaxy.ext.displayToast
 import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
+import com.samsunggalaxy.sdkadbmob.AdMobManager
 
 class ResultAct : BaseActivity() {
     private lateinit var binding: AResultBinding
@@ -30,8 +33,9 @@ class ResultAct : BaseActivity() {
     private var height: Double = 1.0
     private var result: Double = 0.0
     private var gender: Int = 0
-    //TODO roy93~ admob banner
-//    private var adView: MaxAdView? = null
+
+    //    private var adView: MaxAdView? = null
+    private var adView: AdView? = null
 
     // handle permission dialog
     private val requestLauncher =
@@ -54,6 +58,12 @@ class ResultAct : BaseActivity() {
     override fun onResume() {
         super.onResume()
         rateAppInApp(BuildConfig.DEBUG)
+        adView?.resume()
+    }
+
+    override fun onPause() {
+        adView?.pause()
+        super.onPause()
     }
 
     private fun setupViews() {
@@ -74,12 +84,19 @@ class ResultAct : BaseActivity() {
             shareImage()
         }
 
-        //TODO roy93~ admob banner
 //        adView = this.createAdBanner(
 //            logTag = ResultAct::class.simpleName,
 //            viewGroup = binding.flAd,
 //            isAdaptiveBanner = true,
 //        )
+        adView = binding.flAd?.let {
+            AdMobManager.loadBanner(
+                context = this,
+                adUnitId = BuildConfig.ADMOB_BANNER_ID,
+                container = it,
+                adSize = AdSize.BANNER,
+            )
+        }
     }
 
     private fun shareImage() {
@@ -234,8 +251,8 @@ class ResultAct : BaseActivity() {
     }
 
     override fun onDestroy() {
-        //TODO roy93~ admob banner
 //        binding.flAd?.destroyAdBanner(adView)
+        adView?.destroy()
         super.onDestroy()
     }
 
