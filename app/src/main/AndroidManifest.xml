@@ -25,6 +25,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
 
+        <!-- Khai báo AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3612191981543807~1273576268" /> <!-- Sample AdMob App ID -->
+
         <activity
             android:name=".ui.SplashAct"
             android:exported="true"

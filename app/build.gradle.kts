@@ -28,7 +28,17 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
+            buildConfigField("String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\"")
+        }
         getByName("release") {
+            //nho check APPLICATION_ID trong manifest
+            buildConfigField("String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/9117482667\"")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
+            buildConfigField("String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/5066557013\"")
+
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
@@ -99,6 +109,7 @@ dependencies {
     implementation("com.github.CNCoderX:WheelView:1.2.6")
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
 //    implementation("com.applovin:applovin-sdk:13.1.0")
+    implementation("com.google.android.gms:play-services-ads:24.2.0")
     //for testing
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")
