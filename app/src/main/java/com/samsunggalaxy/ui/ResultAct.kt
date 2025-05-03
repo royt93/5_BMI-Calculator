@@ -15,8 +15,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.drawToBitmap
 import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
@@ -26,7 +28,7 @@ import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
 import com.samsunggalaxy.sdkadbmob.AdMobManager
 
-class ResultAct : BaseActivity() {
+class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     private lateinit var binding: AResultBinding
     private val _binding get() = binding
     private var weight: Double = 1.0
@@ -50,7 +52,11 @@ class ResultAct : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.a_result)
-        //TODO roy93~ admob inter
+
+        AdMobManager.setCurrentActivity(this)
+        AdMobManager.interstitialListener = this
+        AdMobManager.loadInterstitial(this, BuildConfig.ADMOB_INTERSTITIAL_ID)
+
 //        createAdInter()
         setupViews()
     }
@@ -129,7 +135,12 @@ class ResultAct : BaseActivity() {
     private fun backPreviousPage() {
         animationViewUp()
         Handler(Looper.getMainLooper()).postDelayed({
-            //TODO roy93~ admob inter
+            val resultIntent = Intent()
+            resultIntent.putExtra(REQUEST_RESULT, true)
+            setResult(RESULT_OK, resultIntent)
+            finish()
+            overridePendingTransition(0, 0)
+            AdMobManager.showInterstitial(this)
 //            showAd {
 //                //            startActivity(Intent(this, MainAct::class.java))
 ////            overridePendingTransition(0, 0)
@@ -256,7 +267,27 @@ class ResultAct : BaseActivity() {
         super.onDestroy()
     }
 
-    //TODO roy93~ admob inter
+    override fun onAdLoaded() {
+    }
+
+    override fun onAdFailedToLoad(error: LoadAdError) {
+    }
+
+    override fun onAdShowed() {
+    }
+
+    override fun onAdDismissed() {
+    }
+
+    override fun onAdClicked() {
+    }
+
+    override fun onAdFailedToShow(error: AdError) {
+    }
+
+    override fun onAdNotAvailable() {
+    }
+
 //    private var interstitialAd: MaxInterstitialAd? = null
 //
 //    private fun createAdInter() {

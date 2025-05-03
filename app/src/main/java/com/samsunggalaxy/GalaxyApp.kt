@@ -60,7 +60,7 @@ class GalaxyApp : Application() {
                         if (activity.localClassName == SplashAct::class.java.simpleName) {
                             //do nothing
                         } else {
-                            AdMobManager.showAppOpenAd(activity)
+//                            AdMobManager.showAppOpenAd(activity)
                         }
                     } else {
                         Log.d("roy93~", "App moved to Background")
@@ -70,11 +70,11 @@ class GalaxyApp : Application() {
                     if (activity.localClassName == SplashAct::class.java.simpleName) {
                         //do nothing
                     } else {
-                        AdMobManager.loadAppOpenAd(
-                            context = this,
-                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-                            onAdLoaded = {},
-                        )
+//                        AdMobManager.loadAppOpenAd(
+//                            context = this,
+//                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+//                            onAdLoaded = {},
+//                        )
                     }
                 }
             )
