@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.samsunggalaxy.bmicalculator"
-        minSdk = 21
+        minSdk = 23
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
         versionCode = 20250503
