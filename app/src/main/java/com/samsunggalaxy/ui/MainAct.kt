@@ -15,7 +15,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.cncoderx.wheelview.OnWheelChangedListener
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.samsunggalaxy.BaseActivity
+import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.adt.WeightPickerAdt
 import com.samsunggalaxy.databinding.AMainBinding
@@ -23,6 +26,7 @@ import com.samsunggalaxy.ext.moreApp
 import com.samsunggalaxy.ext.openBrowserPolicy
 import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
+import com.samsunggalaxy.sdkadbmob.AdMobManager
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
 const val REQUEST_CODE = 69
@@ -36,8 +40,9 @@ class MainAct : BaseActivity() {
     var height = 1
     private var weight = 50
     private var doubleBackToExitPressedOnce = false
-    //TODO roy93~ admob banner
-//    private var adView: MaxAdView? = null
+
+    //    private var adView: MaxAdView? = null
+    private var adView: AdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,16 @@ class MainAct : BaseActivity() {
 
         animationView()
         setupViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adView?.resume()
+    }
+
+    override fun onPause() {
+        adView?.pause()
+        super.onPause()
     }
 
     private fun setupViews() {
@@ -134,12 +149,19 @@ class MainAct : BaseActivity() {
             showMenu()
         }
 
-        //TODO roy93~ admob banner
 //        adView = this.createAdBanner(
 //            logTag = MainAct::class.simpleName,
 //            viewGroup = binding.flAd,
 //            isAdaptiveBanner = true,
 //        )
+        adView = binding.flAd?.let {
+            AdMobManager.loadBanner(
+                context = this,
+                adUnitId = BuildConfig.ADMOB_BANNER_ID,
+                container = it,
+                adSize = AdSize.BANNER,
+            )
+        }
     }
 
     private fun getData(count: Int): List<String> {
@@ -237,8 +259,8 @@ class MainAct : BaseActivity() {
     }
 
     override fun onDestroy() {
-        //TODO roy93~ admob banner
 //        binding.flAd?.destroyAdBanner(adView)
+        adView?.destroy()
         super.onDestroy()
     }
 
@@ -246,7 +268,7 @@ class MainAct : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             val result = data?.getBooleanExtra(REQUEST_RESULT, false)
-            Log.d("roy93~", "result $result")
+//            Log.d("roy93~", "result $result")
             if (result == true) {
                 animationView()
                 _binding.startButton.alpha = 1f

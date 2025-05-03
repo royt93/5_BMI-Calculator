@@ -162,7 +162,7 @@
                 android:id="@+id/flAd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="6dp"
+                android:paddingBottom="0dp"
                 tools:background="@color/green"
                 tools:layout_height="56dp" />
         </FrameLayout>
