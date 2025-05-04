@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.BuildConfig
+import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.AdMobManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,31 +18,41 @@ class SplashAct : BaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
 
-        lifecycleScope.launch {
-            var hasCalledGoToMain = false
-            val job = launch {
-                delay(3_000)
-                if (!hasCalledGoToMain) {
-                    hasCalledGoToMain = true
-                    Log.d("roy93~", "goToMain #1")
-                    goToMain()
-                }
-            }
-            AdMobManager.loadAppOpenAd(
-                context = this@SplashAct,
-                adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-                onAdLoaded = {
-                    if (!hasCalledGoToMain) {
-                        hasCalledGoToMain = true
-                        job.cancel()
-                        Log.d("roy93~", "goToMain #2")
-                        goToMain()
-                        AdMobManager.showAppOpenAd(this@SplashAct)
-                    }
-                },
-            )
-        }
+        AdMobManager.loadAppOpenAd(
+            context = this@SplashAct,
+            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+            onAdLoaded = { result ->
+                Log.d("roy93~", "onAdLoaded result $result")
+                goToMain()
+                AdMobManager.showAppOpenAd(this@SplashAct)
+            },
+        )
+//        lifecycleScope.launch {
+//            var hasCalledGoToMain = false
+//            val job = launch {
+//                delay(3_000)
+//                if (!hasCalledGoToMain) {
+//                    hasCalledGoToMain = true
+//                    Log.d("roy93~", "goToMain #1")
+//                    goToMain()
+//                }
+//            }
+//            AdMobManager.loadAppOpenAd(
+//                context = this@SplashAct,
+//                adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+//                onAdLoaded = {
+//                    if (!hasCalledGoToMain) {
+//                        hasCalledGoToMain = true
+//                        job.cancel()
+//                        Log.d("roy93~", "goToMain #2")
+//                        goToMain()
+//                        AdMobManager.showAppOpenAd(this@SplashAct)
+//                    }
+//                },
+//            )
+//        }
     }
 
     private fun goToMain() {
