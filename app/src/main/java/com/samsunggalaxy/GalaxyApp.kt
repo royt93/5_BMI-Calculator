@@ -5,12 +5,9 @@ import android.util.Log
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.color.DynamicColors
 import com.samsunggalaxy.sdkadbmob.AdMobManager
-import com.samsunggalaxy.sdkadbmob.AppLifecycleListener
-import com.samsunggalaxy.ui.SplashAct
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.jvm.java
 
 //TODO firebase
 //TODO keep value cuoi cung de hien thi len wheel view

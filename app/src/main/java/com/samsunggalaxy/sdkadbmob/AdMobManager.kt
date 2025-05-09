@@ -92,9 +92,13 @@ object AdMobManager {
             if (appPreferences?.isAddVIPMemberFirstInitSuccess() == true) {
                 //do nothing
             } else {
-                var list = getMyListVipDevice()
-                addVIPMember(list)
-                appPreferences?.addVIPMemberFirstInitSuccess()
+                if (BuildConfig.DEBUG) {
+                    //do nothing
+                } else {
+                    var list = getMyListVipDevice()
+                    addVIPMember(list)
+                    appPreferences?.addVIPMemberFirstInitSuccess()
+                }
             }
             onComplete(true, gaidCurrent)
             CoroutineScope(Dispatchers.Default).launch {
@@ -163,7 +167,7 @@ object AdMobManager {
         context: Context,
         adUnitId: String,
         container: ViewGroup,
-        adSize: AdSize = AdSize.LARGE_BANNER,
+        adSize: AdSize = AdSize.BANNER,
     ): AdView? {
         if (isVIPMember) {
             Log.d(TAG, "Banner Ad skipped due to whitelist device")
@@ -494,43 +498,4 @@ object EventBus {
     suspend fun sendEvent(value: Boolean) {
         _eventFlow.emit(value)
     }
-}
-
-class AppLifecycleListener(
-    private val callbackForegroundBackground: (
-        isForeground: Boolean,
-        activity: Activity,
-    ) -> Unit,
-    private val callbackActivityCreated: (
-        activity: Activity,
-    ) -> Unit,
-) :
-    Application.ActivityLifecycleCallbacks {
-
-    private var activityCount = 0
-
-    override fun onActivityStarted(activity: Activity) {
-        activityCount++
-        if (activityCount == 1) {
-            // App moved to foreground
-            callbackForegroundBackground(true, activity)
-        }
-    }
-
-    override fun onActivityStopped(activity: Activity) {
-        activityCount--
-        if (activityCount == 0) {
-            // App moved to background
-            callbackForegroundBackground(false, activity)
-        }
-    }
-
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        callbackActivityCreated(activity)
-    }
-
-    override fun onActivityResumed(activity: Activity) {}
-    override fun onActivityPaused(activity: Activity) {}
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-    override fun onActivityDestroyed(activity: Activity) {}
 }
