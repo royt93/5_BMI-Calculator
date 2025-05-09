@@ -20,39 +20,9 @@ class SplashAct : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        AdMobManager.loadAppOpenAd(
-            context = this@SplashAct,
-            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-            onAdLoaded = { result ->
-                Log.d("roy93~", "onAdLoaded result $result")
-                goToMain()
-                AdMobManager.showAppOpenAd(this@SplashAct)
-            },
-        )
-//        lifecycleScope.launch {
-//            var hasCalledGoToMain = false
-//            val job = launch {
-//                delay(3_000)
-//                if (!hasCalledGoToMain) {
-//                    hasCalledGoToMain = true
-//                    Log.d("roy93~", "goToMain #1")
-//                    goToMain()
-//                }
-//            }
-//            AdMobManager.loadAppOpenAd(
-//                context = this@SplashAct,
-//                adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-//                onAdLoaded = {
-//                    if (!hasCalledGoToMain) {
-//                        hasCalledGoToMain = true
-//                        job.cancel()
-//                        Log.d("roy93~", "goToMain #2")
-//                        goToMain()
-//                        AdMobManager.showAppOpenAd(this@SplashAct)
-//                    }
-//                },
-//            )
-//        }
+        AdMobManager.initSplashScreen(this, {
+            goToMain()
+        })
     }
 
     private fun goToMain() {
