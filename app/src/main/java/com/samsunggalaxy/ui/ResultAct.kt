@@ -81,10 +81,10 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         animationView()
 
         _binding.cvReload.setOnClickListener {
-            backPreviousPage()
+            backPreviousPage(true)
         }
         _binding.ivDeleteBtn.setOnClickListener {
-            backPreviousPage()
+            backPreviousPage(true)
         }
         _binding.ivShare.setOnClickListener {
             shareImage()
@@ -132,7 +132,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
 
-    private fun backPreviousPage() {
+    private fun backPreviousPage(isShowAd: Boolean) {
         animationViewUp()
         Handler(Looper.getMainLooper()).postDelayed({
             val resultIntent = Intent()
@@ -140,7 +140,9 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             setResult(RESULT_OK, resultIntent)
             finish()
             overridePendingTransition(0, 0)
-            AdMobManager.showInterstitial(this)
+            if (isShowAd) {
+                AdMobManager.showInterstitial(this)
+            }
 //            showAd {
 //                //            startActivity(Intent(this, MainAct::class.java))
 ////            overridePendingTransition(0, 0)
@@ -258,7 +260,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        super.onBackPressed()
-        backPreviousPage()
+        backPreviousPage(false)
     }
 
     override fun onDestroy() {
