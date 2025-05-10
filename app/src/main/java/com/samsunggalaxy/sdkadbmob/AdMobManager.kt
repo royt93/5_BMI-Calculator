@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -295,7 +294,7 @@ object AdMobManager {
         }
     }
 
-    fun loadAppOpenAd(
+    private fun loadAppOpenAd(
         context: Context,
         adUnitId: String,
         onAdLoaded: (Boolean) -> Unit,
@@ -356,13 +355,18 @@ object AdMobManager {
         )
     }
 
-    fun showAppOpenAd(activity: Activity) {
+    private fun showAppOpenAd(
+        activity: Activity,
+        onAdDismiss: (Boolean) -> Unit,
+    ) {
         if (isVIPMember) {
             Log.d(TAG, "App Open Ad Show Skipped - Device in whitelist")
+            onAdDismiss.invoke(true)
             return
         }
         if (isAppOpenShowing) {
             Log.d(TAG, "Already showing App Open Ad")
+            onAdDismiss.invoke(true)
             return
         }
         if (appOpenAd != null) {
@@ -376,12 +380,14 @@ object AdMobManager {
                     Log.d(TAG, "App Open Ad Dismissed")
                     appOpenAd = null
                     isAppOpenShowing = false
+                    onAdDismiss.invoke(true)
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     Log.d(TAG, "App Open Ad Failed to Show: ${adError.message}")
                     appOpenAd = null
                     isAppOpenShowing = false
+                    onAdDismiss.invoke(true)
                 }
 
                 override fun onAdClicked() {
@@ -391,6 +397,7 @@ object AdMobManager {
             appOpenAd?.show(activity)
         } else {
             Log.d(TAG, "App Open Ad not ready")
+            onAdDismiss.invoke(true)
         }
     }
 
@@ -427,8 +434,13 @@ object AdMobManager {
                         adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
                         onAdLoaded = { result ->
                             Log.d(TAG, "onAdLoaded result $result")
-                            onAdLoaded.invoke()
-                            showAppOpenAd(activity)
+                            if (result) {
+                                showAppOpenAd(activity) {
+                                    onAdLoaded.invoke()
+                                }
+                            } else {
+                                onAdLoaded.invoke()
+                            }
                         },
                     )
                 }

@@ -28,7 +28,10 @@ class SplashAct : BaseActivity() {
     private fun goToMain() {
         val intent = Intent(this, MainAct::class.java)
         startActivity(intent)
-        overridePendingTransition(0, 0)
-        finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        // Trì hoãn finish để đợi animation hoàn tất
+        window.decorView.postDelayed({
+            finish() // Finish sau animation
+        }, 300) // delay khoảng 300ms (hoặc đúng thời gian của animation)
     }
 }
