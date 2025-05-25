@@ -110,7 +110,7 @@ dependencies {
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
 //    implementation("com.applovin:applovin-sdk:13.1.0")
     implementation("com.google.android.gms:play-services-ads:24.3.0")
-//    implementation("com.google.ads.mediation:applovin:13.2.0.1")
+    implementation("com.google.ads.mediation:applovin:13.2.0.1")
     //for testing
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")
