@@ -12,8 +12,8 @@ android {
         minSdk = 23
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
-        versionCode = 20250509
-        versionName = "2025.05.09"
+        versionCode = 20250525
+        versionName = "2025.05.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -109,7 +109,8 @@ dependencies {
     implementation("com.github.CNCoderX:WheelView:1.2.6")
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
 //    implementation("com.applovin:applovin-sdk:13.1.0")
-    implementation("com.google.android.gms:play-services-ads:24.2.0")
+    implementation("com.google.android.gms:play-services-ads:24.3.0")
+//    implementation("com.google.ads.mediation:applovin:13.2.0.1")
     //for testing
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")
