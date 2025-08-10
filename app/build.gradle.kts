@@ -5,15 +5,15 @@ plugins {
 
 android {
     namespace = "com.samsunggalaxy"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.samsunggalaxy.bmicalculator"
         minSdk = 23
         //noinspection EditedTargetSdkVersion
-        targetSdk = 35
-        versionCode = 20250525
-        versionName = "2025.05.25"
+        targetSdk = 36
+        versionCode = 20250810
+        versionName = "2025.08.10"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
