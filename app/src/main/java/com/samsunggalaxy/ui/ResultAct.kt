@@ -7,6 +7,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
@@ -27,6 +30,7 @@ import com.samsunggalaxy.ext.displayToast
 import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
 import com.samsunggalaxy.sdkadbmob.AdMobManager
+import kotlin.jvm.java
 
 class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     private lateinit var binding: AResultBinding
@@ -96,10 +100,13 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 //            isAdaptiveBanner = true,
 //        )
         adView = binding.flAd?.let {
+            val bannerContainer = it.findViewById<ViewGroup>(R.id.bannerContainer)
+            val tvLabelAd = it.findViewById<TextView>(R.id.tvLabelAd)
             AdMobManager.loadBanner(
                 context = this,
                 adUnitId = BuildConfig.ADMOB_BANNER_ID,
-                container = it,
+                container = bannerContainer,
+                tvLabelAd = tvLabelAd,
                 adSize = AdSize.BANNER,
             )
         }
@@ -141,17 +148,14 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             finish()
             overridePendingTransition(0, 0)
             if (isShowAd) {
-                AdMobManager.showInterstitial(this)
+                AdMobManager.showInterstitial(this) { success ->
+                    if (success) {
+                        Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
+                    } else {
+                        Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
+                    }
+                }
             }
-//            showAd {
-//                //            startActivity(Intent(this, MainAct::class.java))
-////            overridePendingTransition(0, 0)
-//                val resultIntent = Intent()
-//                resultIntent.putExtra(REQUEST_RESULT, true)
-//                setResult(RESULT_OK, resultIntent)
-//                finish()
-//                overridePendingTransition(0, 0)
-//            }
         }, 600)
     }
 

@@ -1,15 +1,26 @@
 package com.samsunggalaxy.sdkadbmob
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.core.content.edit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -32,7 +43,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
-//version 20250509
+//version 20250803
+//check gradle
+//copy full this class
+//check splash ProgressBar#indeterminateTint
+//xoa theme v35
+//loadBanner them tvLabelAd
+//layout_ad_banner them id tvLabelAd
+//migrate edge to egde (check setupEdgeToEdge1 & setupEdgeToEdge2)
+//copy full themes.xml
 object AdMobManager {
 
     private const val TAG = "roy93~AdMobManager"
@@ -94,7 +113,7 @@ object AdMobManager {
                 if (BuildConfig.DEBUG) {
                     //do nothing
                 } else {
-                    var list = getMyListVipDevice()
+                    val list = getMyListVipDevice()
                     addVIPMember(list)
                     appPreferences?.addVIPMemberFirstInitSuccess()
                 }
@@ -107,28 +126,28 @@ object AdMobManager {
     }
 
     fun getMyListVipDevice(): ArrayList<String> {
-        var list = ArrayList<String>()
-        list.add("9ad0127d-04be-4b6c-937a-ca3ed7f650b9")//vsmart iris
-        list.add("9b6499f2-d4de-4b9e-afdf-ac2a2b127fb1")//ss a50
-        list.add("c09b2f04-e145-490c-96f9-dab620074104")//oppo f7
-        list.add("c228aa08-bedd-4e6e-adf6-ae5e95bcddae")//vivo v15
-        list.add("46259467-0ac4-49c4-a3a2-7d3db3ce4bda")//tecno spark 20 pro +
-        list.add("1b7c3e3f-c709-4e85-b26f-dd74c4df2ed7")//vivo 1906
-        list.add("adaa42e7-9cc6-4a8a-9c90-d4d87842b12c")//tecno spark go 2024
-        list.add("f5a36a2f-5add-4315-a171-0f8dddab78c7")//ss s20u
-        list.add("6fbb207d-341d-470d-bb0a-dddd79522b32")//ss a52
-        list.add("40f8e222-cf7a-4fac-9913-6809c4c58817")//mipad 5
-        list.add("932099db-d381-4b52-98dc-5b96ba8b4ff4")//oppo reno 2f
-        list.add("a1339bd1-8ea5-47cd-969e-4b5721b576b7")//redmi note 8+
-        list.add("3f2f21d2-85eb-451b-a1a5-003668ba6345")//zte blade
-        list.add("261f772c-6a10-499c-b896-4157d9ab6a25")//ss a11
-        list.add("460d3f5c-bbe2-46fc-841a-6381e3c93864")//redmi95
-        list.add("49606ad7-5cee-43b4-9af7-8aa274644737")//redmi note 13 pro
-        list.add("6cf051f8-83f5-43b7-8c1a-1d20ae1f8d93")//redmi pad pro
-        list.add("da10cb05-5458-42df-ba86-630732356b35")//vivo z9
-        list.add("8f6ccdc1-08fd-4611-abdf-f48bdadb5581")//tablet lenovo
-        list.add("66e652de-79ef-4889-8074-9b482fd81b5a")//redmi a3
-        list.add("4ed22dd8-e8fb-442e-a75e-081a3d977957")//ss s24u
+        val list = ArrayList<String>()
+//        list.add("9ad0127d-04be-4b6c-937a-ca3ed7f650b9")//vsmart iris
+//        list.add("9b6499f2-d4de-4b9e-afdf-ac2a2b127fb1")//ss a50
+//        list.add("c09b2f04-e145-490c-96f9-dab620074104")//oppo f7
+//        list.add("c228aa08-bedd-4e6e-adf6-ae5e95bcddae")//vivo v15
+//        list.add("46259467-0ac4-49c4-a3a2-7d3db3ce4bda")//tecno spark 20 pro +
+//        list.add("1b7c3e3f-c709-4e85-b26f-dd74c4df2ed7")//vivo 1906
+//        list.add("adaa42e7-9cc6-4a8a-9c90-d4d87842b12c")//tecno spark go 2024
+//        list.add("f5a36a2f-5add-4315-a171-0f8dddab78c7")//ss s20u
+//        list.add("6fbb207d-341d-470d-bb0a-dddd79522b32")//ss a52
+//        list.add("40f8e222-cf7a-4fac-9913-6809c4c58817")//mipad 5
+//        list.add("932099db-d381-4b52-98dc-5b96ba8b4ff4")//oppo reno 2f
+//        list.add("a1339bd1-8ea5-47cd-969e-4b5721b576b7")//redmi note 8+
+//        list.add("3f2f21d2-85eb-451b-a1a5-003668ba6345")//zte blade
+//        list.add("261f772c-6a10-499c-b896-4157d9ab6a25")//ss a11
+//        list.add("460d3f5c-bbe2-46fc-841a-6381e3c93864")//redmi95
+//        list.add("49606ad7-5cee-43b4-9af7-8aa274644737")//redmi note 13 pro
+//        list.add("6cf051f8-83f5-43b7-8c1a-1d20ae1f8d93")//redmi pad pro
+//        list.add("da10cb05-5458-42df-ba86-630732356b35")//vivo z9
+//        list.add("8f6ccdc1-08fd-4611-abdf-f48bdadb5581")//tablet lenovo
+//        list.add("66e652de-79ef-4889-8074-9b482fd81b5a")//redmi a3
+//        list.add("4ed22dd8-e8fb-442e-a75e-081a3d977957")//ss s24u
         return list
     }
 
@@ -166,15 +185,28 @@ object AdMobManager {
         context: Context,
         adUnitId: String,
         container: ViewGroup,
+        tvLabelAd: TextView,
         adSize: AdSize = AdSize.BANNER,
     ): AdView? {
         if (isVIPMember) {
             Log.d(TAG, "Banner Ad skipped due to whitelist device")
+            container.isVisible = false
+            tvLabelAd.isVisible = false
             return null
         }
+        if (!NetworkUtils.isDeviceConnected(context)) {
+            Log.d(TAG, "loadBanner no internet")
+            container.isVisible = false
+            tvLabelAd.isVisible = false
+            return null
+        }
+        Log.d(TAG, "loadBanner~~~")
+        container.isVisible = true
+        tvLabelAd.isVisible = true
         val adView = AdView(context).apply {
             setAdSize(adSize)
             setAdUnitId(adUnitId)
+            Log.d(TAG, "adListener init~~~")
             adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     Log.d(TAG, "Banner Ad Loaded - Revenue +1 impression")
@@ -211,6 +243,10 @@ object AdMobManager {
             Log.d(TAG, "Interstitial Ad skipped due to whitelist device")
             return
         }
+        if (!NetworkUtils.isDeviceConnected(context)) {
+            Log.d(TAG, "loadInterstitial no internet")
+            return
+        }
         // Kiểm tra thời gian cooldown cho Interstitial
         if (System.currentTimeMillis() - lastInterstitialErrorTime < ERROR_COOLDOWN) {
             Log.d(TAG, "Interstitial Ad skipped due to recent error")
@@ -245,12 +281,12 @@ object AdMobManager {
     private fun setInterstitialCallback() {
         interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdShowedFullScreenContent() {
-                Log.d(TAG, "Interstitial Ad Shown - Revenue +1 impression")
+                Log.d(TAG, "#1 Interstitial Ad Shown - Revenue +1 impression")
                 interstitialListener?.onAdShowed()
             }
 
             override fun onAdDismissedFullScreenContent() {
-                Log.d(TAG, "Interstitial Ad Dismissed")
+                Log.d(TAG, "#1 Interstitial Ad Dismissed")
                 interstitialAd = null
 //                currentActivity?.get()?.let {
 //                    loadInterstitial(it, BuildConfig.ADMOB_INTERSTITIAL_ID)
@@ -259,22 +295,23 @@ object AdMobManager {
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                Log.d(TAG, "Interstitial Ad Failed to Show: ${adError.message}")
+                Log.d(TAG, "#1 Interstitial Ad Failed to Show: ${adError.message}")
                 interstitialAd = null
                 interstitialListener?.onAdFailedToShow(adError)
             }
 
             override fun onAdClicked() {
-                Log.d(TAG, "Interstitial Ad Clicked - Revenue +1 click")
+                Log.d(TAG, "#1 Interstitial Ad Clicked - Revenue +1 click")
                 interstitialListener?.onAdClicked()
             }
         }
     }
 
-    fun showInterstitial(activity: Activity) {
+    fun showInterstitial(activity: Activity, onDoneFlow: (result: Boolean) -> Unit) {
         if (isVIPMember) {
             Log.d(TAG, "Interstitial Show Skipped - Device in whitelist")
             interstitialListener?.onAdNotAvailable()
+            onDoneFlow(false)
             return
         }
 
@@ -287,10 +324,37 @@ object AdMobManager {
 //        }
 
         if (interstitialAd != null) {
+            // Lưu lại callback gốc
+            val originalCallback = interstitialAd?.fullScreenContentCallback
+            // Tạo callback mới có xử lý onDoneFlow
+            interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdShowedFullScreenContent() {
+                    Log.d(TAG, "#2 Interstitial Ad Shown - Revenue +1 impression")
+                    originalCallback?.onAdShowedFullScreenContent()
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    Log.d(TAG, "#2 Interstitial Ad Dismissed #2")
+                    originalCallback?.onAdDismissedFullScreenContent()
+                    onDoneFlow(true) // Ad đóng thành công
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    Log.d(TAG, "#2 Interstitial Ad Failed to Show: ${adError.message}")
+                    originalCallback?.onAdFailedToShowFullScreenContent(adError)
+                    onDoneFlow(false) // Hiển thị thất bại
+                }
+
+                override fun onAdClicked() {
+                    Log.d(TAG, "#2 Interstitial Ad Clicked - Revenue +1 click")
+                    originalCallback?.onAdClicked()
+                }
+            }
             interstitialAd?.show(activity)
         } else {
             Log.d(TAG, "Interstitial Ad not ready")
             interstitialListener?.onAdNotAvailable()
+            onDoneFlow(false)
         }
     }
 
@@ -302,6 +366,13 @@ object AdMobManager {
         Log.d(TAG, "~~~~~ loadAppOpenAd isVIPMember $isVIPMember")
         if (isVIPMember) {
             Log.d(TAG, "App Open Ad skipped due to whitelist device")
+            Handler(Looper.getMainLooper()).postDelayed({
+                onAdLoaded.invoke(false)
+            }, 1_000)
+            return
+        }
+        if (!NetworkUtils.isDeviceConnected(context)) {
+            Log.d(TAG, "loadAppOpenAd no internet")
             Handler(Looper.getMainLooper()).postDelayed({
                 onAdLoaded.invoke(false)
             }, 1_000)
@@ -423,26 +494,34 @@ object AdMobManager {
         Log.d(TAG, "deleteVIPMember listGaidDevice $listGaidDevice => isVIPMember $isVIPMember")
     }
 
+    var countInitSplashScreen = 0
+
     fun initSplashScreen(activity: Activity, onAdLoaded: () -> Unit) {
-        Log.d(TAG, "~~~initSplashScreen")
-        CoroutineScope(Dispatchers.Default).launch {
-            EventBus.eventFlow.collectLatest { value ->
-                Log.d(TAG, "initSplashScreen collectLatest: $value")
-                CoroutineScope(Dispatchers.Main).launch {
-                    loadAppOpenAd(
-                        context = activity,
-                        adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-                        onAdLoaded = { result ->
-                            Log.d(TAG, "onAdLoaded result $result")
-                            if (result) {
-                                showAppOpenAd(activity) {
+        countInitSplashScreen++
+        Log.d(TAG, "~~~initSplashScreen countInitSplashScreen $countInitSplashScreen")
+        if (countInitSplashScreen > 1) {
+            onAdLoaded.invoke()
+        } else {
+            CoroutineScope(Dispatchers.Default).launch {
+                Log.d(TAG, "~~~initSplashScreen launch")
+                EventBus.eventFlow.collectLatest { value ->
+                    Log.d(TAG, "initSplashScreen collectLatest: $value")
+                    CoroutineScope(Dispatchers.Main).launch {
+                        loadAppOpenAd(
+                            context = activity,
+                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+                            onAdLoaded = { result ->
+                                Log.d(TAG, "onAdLoaded result $result")
+                                if (result) {
+                                    showAppOpenAd(activity) {
+                                        onAdLoaded.invoke()
+                                    }
+                                } else {
                                     onAdLoaded.invoke()
                                 }
-                            } else {
-                                onAdLoaded.invoke()
-                            }
-                        },
-                    )
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -451,11 +530,11 @@ object AdMobManager {
     interface InterstitialAdListener {
         fun onAdLoaded()
         fun onAdFailedToLoad(error: LoadAdError)
-        fun onAdShowed()
-        fun onAdDismissed()
-        fun onAdClicked()
-        fun onAdFailedToShow(error: AdError)
-        fun onAdNotAvailable()
+        fun onAdShowed()       // Khi ad bắt đầu hiển thị
+        fun onAdDismissed()    // Khi ad đóng
+        fun onAdClicked()      // Khi user click ad
+        fun onAdFailedToShow(error: AdError) // Khi hiển thị lỗi
+        fun onAdNotAvailable() // Khi không có ad sẵn sàng
     }
 }
 
@@ -509,5 +588,78 @@ object EventBus {
 
     suspend fun sendEvent(value: Boolean) {
         _eventFlow.emit(value)
+    }
+}
+
+//class AppLifecycleListener(
+//    private val callbackForegroundBackground: (
+//        isForeground: Boolean,
+//        activity: Activity,
+//    ) -> Unit,
+//    private val callbackActivityCreated: (
+//        activity: Activity,
+//    ) -> Unit,
+//) :
+//    Application.ActivityLifecycleCallbacks {
+//
+//    private var activityCount = 0
+//
+//    override fun onActivityStarted(activity: Activity) {
+//        activityCount++
+//        if (activityCount == 1) {
+//            // App moved to foreground
+//            callbackForegroundBackground(true, activity)
+//        }
+//    }
+//
+//    override fun onActivityStopped(activity: Activity) {
+//        activityCount--
+//        if (activityCount == 0) {
+//            // App moved to background
+//            callbackForegroundBackground(false, activity)
+//        }
+//    }
+//
+//    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+//        callbackActivityCreated(activity)
+//    }
+//
+//    override fun onActivityResumed(activity: Activity) {}
+//    override fun onActivityPaused(activity: Activity) {}
+//    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+//    override fun onActivityDestroyed(activity: Activity) {}
+//}
+
+object NetworkUtils {
+    @SuppressLint("ObsoleteSdkInt")
+    fun isDeviceConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+    }
+}
+
+object UIUtils {
+    fun setupEdgeToEdge1(window: Window) {
+        // Edge-to-edge cho Android 10+ (API 29+)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+    }
+
+    fun setupEdgeToEdge2(rootLayout: View) {
+        // Nếu cần inset padding cho layout chính
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
     }
 }
