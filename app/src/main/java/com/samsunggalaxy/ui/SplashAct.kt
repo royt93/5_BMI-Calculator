@@ -9,6 +9,7 @@ import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.AdMobManager
+import com.samsunggalaxy.sdkadbmob.UIUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.jvm.java
@@ -18,8 +19,13 @@ class SplashAct : BaseActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UIUtils.setupEdgeToEdge1(window)
         setContentView(R.layout.activity_splash)
-
+        UIUtils.setupEdgeToEdge2(
+            rootView = findViewById(R.id.root_layout),
+            paddingTop = true,
+            paddingBottom = true
+        )
         AdMobManager.initSplashScreen(this, {
             goToMain()
         })
