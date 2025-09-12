@@ -30,6 +30,7 @@ import com.samsunggalaxy.ext.displayToast
 import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
 import com.samsunggalaxy.sdkadbmob.AdMobManager
+import com.samsunggalaxy.sdkadbmob.UIUtils
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
@@ -55,7 +56,13 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UIUtils.setupEdgeToEdge1(window)
         binding = DataBindingUtil.setContentView(this, R.layout.a_result)
+        UIUtils.setupEdgeToEdge2(
+            rootView = findViewById(R.id.layoutRoot),
+            paddingTop = true,
+            paddingBottom = true
+        )
 
         AdMobManager.setCurrentActivity(this)
         AdMobManager.interstitialListener = this
