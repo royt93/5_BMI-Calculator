@@ -29,6 +29,7 @@ import com.samsunggalaxy.ext.openBrowserPolicy
 import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
 import com.samsunggalaxy.sdkadbmob.AdMobManager
+import com.samsunggalaxy.sdkadbmob.UIUtils
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
 const val REQUEST_CODE = 69
@@ -48,8 +49,13 @@ class MainAct : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UIUtils.setupEdgeToEdge1(window)
         binding = DataBindingUtil.setContentView(this, R.layout.a_main)
-
+        UIUtils.setupEdgeToEdge2(
+            rootView = findViewById(R.id.layoutRoot),
+            paddingTop = true,
+            paddingBottom = true
+        )
         animationView()
         setupViews()
     }
@@ -156,7 +162,7 @@ class MainAct : BaseActivity() {
 //            viewGroup = binding.flAd,
 //            isAdaptiveBanner = true,
 //        )
-        adView = binding.flAd?.let {
+        adView = binding.flAd.let {
             val bannerContainer = it.findViewById<ViewGroup>(R.id.bannerContainer)
             val tvLabelAd = it.findViewById<TextView>(R.id.tvLabelAd)
             AdMobManager.loadBanner(
