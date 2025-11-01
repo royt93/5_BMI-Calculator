@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -71,6 +72,13 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             paddingTop = true,
             paddingBottom = true
         )
+
+        // Setup OnBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backPreviousPage(false)
+            }
+        })
 
         AdMobManager.setCurrentActivity(this)
         AdMobManager.interstitialListener = this
@@ -173,66 +181,90 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     private fun animationView() {
-
         _binding.apply {
+            // Glass card scale animation
+            val cardResult = root.findViewById<View>(R.id.cardResult)
+            cardResult.scaleX = 0.8f
+            cardResult.scaleY = 0.8f
+            cardResult.alpha = 0f
 
-            ivDesk.translationY = 100f
-            tvResult.translationY = 40f
-            tvBmi.translationY = 50f
-            tvBmiTextNormal.translationY = 50f
-            ivDeleteBtn.translationY = 70f
-            cvReload.translationY = 70f
-            ivShare.translationY = 70f
+            cardResult.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setDuration(700)
+                .setStartDelay(200)
+                .setInterpolator(android.view.animation.OvershootInterpolator(0.8f))
+                .start()
 
-            ivDesk.alpha = 0f
-            tvResult.alpha = 0f
-            tvBmi.alpha = 0f
-            tvBmiTextNormal.alpha = 0f
-            ivDeleteBtn.alpha = 0f
+            // Action buttons animation
+            ivDeleteBtn.parent.let { deleteCard ->
+                (deleteCard as? View)?.apply {
+                    scaleX = 0f
+                    scaleY = 0f
+                    alpha = 0f
+                    animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .alpha(1f)
+                        .setDuration(400)
+                        .setStartDelay(800)
+                        .setInterpolator(android.view.animation.OvershootInterpolator())
+                        .start()
+                }
+            }
+
+            cvReload.scaleX = 0f
+            cvReload.scaleY = 0f
             cvReload.alpha = 0f
-            ivShare.alpha = 0f
+            cvReload.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setDuration(400)
+                .setStartDelay(900)
+                .setInterpolator(android.view.animation.OvershootInterpolator())
+                .start()
 
-            ivDesk.setPadding(100)
-            ivDesk.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(300)
-                .start()
-            ivDesk.setPadding(0)
-            tvResult.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(500)
-                .start()
-            tvBmi.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(450).start()
-            tvBmiTextNormal.animate().translationY(0f).alpha(.3f).setDuration(500)
-                .setStartDelay(500)
-                .start()
-            ivDeleteBtn.animate().translationY(0f).alpha(.3f).setDuration(500).setStartDelay(600)
-                .start()
-            cvReload.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(750)
-                .start()
-            ivShare.animate().translationY(0f).alpha(.3f).setDuration(500).setStartDelay(900)
-                .start()
+            ivShare.parent.let { shareCard ->
+                (shareCard as? View)?.apply {
+                    scaleX = 0f
+                    scaleY = 0f
+                    alpha = 0f
+                    animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .alpha(1f)
+                        .setDuration(400)
+                        .setStartDelay(1000)
+                        .setInterpolator(android.view.animation.OvershootInterpolator())
+                        .start()
+                }
+            }
         }
     }
 
     private fun animationViewUp() {
-
         _binding.apply {
+            textView.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .start()
 
-            textView.animate().translationY(0f).alpha(0f).setDuration(500).setStartDelay(0)
-                .start()
-            ivDesk.animate().translationY(-250f).alpha(0f).setDuration(500).setStartDelay(0)
+            val cardResult = root.findViewById<View>(R.id.cardResult)
+            cardResult.animate()
+                .scaleX(0.85f)
+                .scaleY(0.85f)
+                .translationY(-100f)
+                .alpha(0f)
+                .setDuration(400)
+                .setInterpolator(android.view.animation.AccelerateInterpolator())
                 .start()
 
-            tvResult.animate().translationY(-250f).alpha(0f).setDuration(500).setStartDelay(50)
-                .start()
-            tvBmi.animate().translationY(-250f).alpha(0f).setDuration(500).setStartDelay(100)
-                .start()
-            tvBmiTextNormal.animate().translationY(-250f).alpha(0f).setDuration(500)
-                .setStartDelay(150)
-                .start()
-            ivDeleteBtn.animate().translationY(-250f).alpha(0f).setDuration(300).setStartDelay(200)
-                .start()
-            cvReload.animate().translationY(-250f).alpha(0f).setDuration(300)
-                .setStartDelay(250).start()
-            ivShare.animate().translationY(-250f).alpha(0f).setDuration(300).setStartDelay(300)
-                .start()
+            // Buttons fade out quickly
+            ivDeleteBtn.parent.let { (it as? View)?.animate()?.alpha(0f)?.setDuration(200)?.start() }
+            cvReload.animate().alpha(0f).setDuration(200).start()
+            ivShare.parent.let { (it as? View)?.animate()?.alpha(0f)?.setDuration(200)?.start() }
         }
     }
 
@@ -272,12 +304,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun bmiCalFemale() {
         result = ((weight / (height * height)) * 10000)
-    }
-
-    @SuppressLint("MissingSuperCall")
-    override fun onBackPressed() {
-//        super.onBackPressed()
-        backPreviousPage(false)
     }
 
     override fun onDestroy() {

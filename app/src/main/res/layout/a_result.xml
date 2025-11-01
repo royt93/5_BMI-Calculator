@@ -11,14 +11,14 @@
         android:id="@+id/layoutRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColorAdditional">
+        android:background="@drawable/bg_gradient_result">
 
         <LinearLayout
             android:id="@+id/llDetailView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="@color/backgroundColorAdditional"
+            android:background="@android:color/transparent"
             android:orientation="vertical"
             tools:context="com.samsunggalaxy.ui.ResultAct"
             tools:ignore="UselessParent">
@@ -33,130 +33,162 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="@color/backgroundColorAdditional"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:text="@string/your_health"
                     android:textColor="@color/textColor"
-                    android:textSize="22sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/ivDesk"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="70dp"
-                    android:layout_marginEnd="16dp"
-                    android:alpha=".7"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/bkg_shelf"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-                <TextView
-                    android:id="@+id/tvResult"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/_21_2"
-                    android:textColor="@color/textColorAdditional"
-                    android:textSize="130sp"
+                    android:layout_marginEnd="24dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="32dp"
+                    app:cardElevation="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
 
-                <TextView
-                    android:id="@+id/tvBmi"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="100dp"
-                    android:gravity="center"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text=""
-                    android:textColor="@color/textColorAdditional"
-                    android:textSize="22sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvResult" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="32dp">
 
-                <TextView
-                    android:id="@+id/tvBmiTextNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alpha=".3"
-                    android:gravity="center"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/normal_bmi_weight_range_for_the_height_18_5_24_9"
-                    android:textColor="@color/textColorAdditional"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBmi" />
+                        <ImageView
+                            android:id="@+id/ivDesk"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:alpha=".5"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/bkg_shelf" />
+
+                        <TextView
+                            android:id="@+id/tvResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/_21_2"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="96sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvBmi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/textColorAdditional"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvBmiTextNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:alpha=".6"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/normal_bmi_weight_range_for_the_height_18_5_24_9"
+                            android:textColor="@color/textColorAdditional"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBmiTextNormal">
+                    app:layout_constraintTop_toBottomOf="@+id/cardResult">
 
-                    <ImageView
-                        android:id="@+id/ivDeleteBtn"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:alpha=".3"
-                        android:contentDescription="@string/app_name"
-                        android:padding="16dp"
-                        android:src="@drawable/ic_delete" />
+                        app:cardBackgroundColor="#30FFFFFF"
+                        app:cardCornerRadius="32dp"
+                        app:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/ivDeleteBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha=".7"
+                            android:contentDescription="@string/app_name"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_delete"
+                            app:tint="@color/textColor" />
+                    </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvReload"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         app:cardBackgroundColor="?attr/colorPrimary"
-                        app:cardCornerRadius="100dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="36dp"
+                        app:cardElevation="8dp">
 
                         <ImageView
                             android:id="@+id/ivReload"
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_marginTop="1dp"
                             android:contentDescription="@string/app_name"
-                            android:padding="16dp"
-                            android:src="@drawable/ic_rotate" />
+                            android:padding="20dp"
+                            android:src="@drawable/ic_rotate"
+                            app:tint="@android:color/white" />
 
                     </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/ivShare"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:alpha=".3"
-                        android:contentDescription="@string/app_name"
-                        android:padding="16dp"
-                        android:src="@drawable/ic_share" />
+                        app:cardBackgroundColor="#30FFFFFF"
+                        app:cardCornerRadius="32dp"
+                        app:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/ivShare"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha=".7"
+                            android:contentDescription="@string/app_name"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_share"
+                            app:tint="@color/textColor" />
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -70,6 +70,21 @@ class MainAct : BaseActivity() {
             paddingTop = true,
             paddingBottom = true
         )
+
+        // Setup OnBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (doubleBackToExitPressedOnce) {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                } else {
+                    doubleBackToExitPressedOnce = true
+                    Toast.makeText(this@MainAct, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+                    handler.postDelayed(exitResetRunnable, 2000)
+                }
+            }
+        })
+
         animationView()
         setupViews()
     }
@@ -188,58 +203,69 @@ class MainAct : BaseActivity() {
 
     private fun animationView() {
         _binding.apply {
-
-            bodyContainer.translationY = 150f
-            footerContainer.translationY = 150f
-            heightWheelView.translationY = 150f
-            weightRecyclerBtn.translationX = 150f
-
-
+            // Enhanced glassmorphism animations
+            bodyContainer.scaleX = 0.9f
+            bodyContainer.scaleY = 0.9f
             bodyContainer.alpha = 0f
+            bodyContainer.translationY = 50f
+
+            footerContainer.scaleX = 0.9f
+            footerContainer.scaleY = 0.9f
             footerContainer.alpha = 0f
-            heightWheelView.alpha = 0f
-            weightRecyclerBtn.alpha = 0f
+            footerContainer.translationY = 30f
 
-            bodyContainer.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(300)
+            // Animate bodyContainer with bounce
+            bodyContainer.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(600)
+                .setStartDelay(200)
+                .setInterpolator(android.view.animation.OvershootInterpolator())
                 .start()
-            footerContainer.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(400)
-                .start()
-            heightWheelView.animate().translationY(0f).alpha(1f).setDuration(500).setStartDelay(450)
-                .start()
-            weightRecyclerBtn.animate().translationX(0f).alpha(1f).setDuration(500)
-                .setStartDelay(500).start()
 
+            // Animate footerContainer
+            footerContainer.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(600)
+                .setStartDelay(400)
+                .setInterpolator(android.view.animation.OvershootInterpolator())
+                .start()
         }
     }
 
     private fun animationViewUp() {
         _binding.apply {
-            textView.animate().translationY(0f).alpha(0f).setDuration(50).setStartDelay(0).start()
-            bodyContainer.animate().translationY(-250f).alpha(0f).setDuration(500).setStartDelay(0)
+            textView.animate()
+                .alpha(0f)
+                .setDuration(200)
                 .start()
-            footerContainer.animate().translationY(-250f).alpha(0f).setDuration(500)
-                .setStartDelay(50).start()
-            heightWheelView.animate().translationY(-250f).alpha(0f).setDuration(500)
-                .setStartDelay(100)
-                .start()
-            weightRecyclerBtn.animate().translationX(-250f).alpha(0f).setDuration(500)
-                .setStartDelay(150).start()
 
+            bodyContainer.animate()
+                .scaleX(0.85f)
+                .scaleY(0.85f)
+                .translationY(-100f)
+                .alpha(0f)
+                .setDuration(400)
+                .setInterpolator(android.view.animation.AccelerateInterpolator())
+                .start()
+
+            footerContainer.animate()
+                .scaleX(0.85f)
+                .scaleY(0.85f)
+                .translationY(-80f)
+                .alpha(0f)
+                .setDuration(400)
+                .setStartDelay(50)
+                .setInterpolator(android.view.animation.AccelerateInterpolator())
+                .start()
         }
     }
 
-    @SuppressLint("MissingSuperCall")
-    override fun onBackPressed() {
-//        super.onBackPressed()
-        if (doubleBackToExitPressedOnce) {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
-        this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-
-        handler.postDelayed(exitResetRunnable, 2000)
-    }
 
     private fun showMenu() {
         val pm = PopupMenu(this, _binding.ivMenu)
