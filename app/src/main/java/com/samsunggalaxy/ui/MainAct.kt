@@ -1,7 +1,10 @@
 package com.samsunggalaxy.ui
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -9,9 +12,10 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
@@ -296,44 +300,71 @@ class MainAct : BaseActivity() {
 
 
     private fun showMenu() {
-        val pm = PopupMenu(this, _binding.ivMenu)
-        pm.menuInflater.inflate(R.menu.menu_option, pm.menu)
-        pm.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.menuHistory -> {
-                    startActivity(Intent(this, HistoryActivity::class.java))
-                    true
-                }
+        val dialog = Dialog(this, android.R.style.Theme_Dialog)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_menu)
 
-                R.id.menuCalculators -> {
-                    startActivity(Intent(this, CalculatorsActivity::class.java))
-                    true
-                }
-
-                R.id.menuRateApp -> {
-                    rateApp(packageName)
-                    true
-                }
-
-                R.id.menuMoreApp -> {
-                    moreApp()
-                    true
-                }
-
-                R.id.menuShareApp -> {
-                    shareApp()
-                    true
-                }
-
-                R.id.menuPolicy -> {
-                    openBrowserPolicy()
-                    true
-                }
-
-                else -> super.onOptionsItemSelected(item)
-            }
+        // Make background transparent and dimmed
+        dialog.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setDimAmount(0.6f)
+            attributes?.width = ViewGroup.LayoutParams.MATCH_PARENT
+            attributes?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         }
-        pm.show()
+
+        val menuHistory = dialog.findViewById<LinearLayout>(R.id.menuHistory)
+        val menuCalculators = dialog.findViewById<LinearLayout>(R.id.menuCalculators)
+        val menuRateApp = dialog.findViewById<LinearLayout>(R.id.menuRateApp)
+        val menuMoreApp = dialog.findViewById<LinearLayout>(R.id.menuMoreApp)
+        val menuShareApp = dialog.findViewById<LinearLayout>(R.id.menuShareApp)
+        val menuPolicy = dialog.findViewById<LinearLayout>(R.id.menuPolicy)
+
+        menuHistory.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
+        menuCalculators.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, CalculatorsActivity::class.java))
+        }
+
+        menuRateApp.setOnClickListener {
+            dialog.dismiss()
+            rateApp(packageName)
+        }
+
+        menuMoreApp.setOnClickListener {
+            dialog.dismiss()
+            moreApp()
+        }
+
+        menuShareApp.setOnClickListener {
+            dialog.dismiss()
+            shareApp()
+        }
+
+        menuPolicy.setOnClickListener {
+            dialog.dismiss()
+            openBrowserPolicy()
+        }
+
+        dialog.show()
+
+        // Animate dialog content with scale and fade
+        val cardMenu = dialog.findViewById<View>(R.id.cardMenu)
+        cardMenu?.apply {
+            scaleX = 0.7f
+            scaleY = 0.7f
+            alpha = 0f
+            animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setDuration(300)
+                .setInterpolator(android.view.animation.OvershootInterpolator(1.2f))
+                .start()
+        }
     }
 
     override fun onDestroy() {
