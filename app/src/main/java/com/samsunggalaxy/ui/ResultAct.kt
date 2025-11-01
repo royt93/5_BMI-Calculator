@@ -111,6 +111,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
         bmiCal()
         calculateAndDisplayInsights()
+        saveToHistory()
         animationView()
 
         _binding.cvReload.setOnClickListener {
@@ -363,13 +364,13 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
                 repository.insertRecord(record)
 
-                runOnUiThread {
-                    displayToast("Saved to history!")
-                }
+//                runOnUiThread {
+//                    displayToast("Saved to history!")
+//                }
             } catch (e: Exception) {
-                runOnUiThread {
-                    displayToast("Failed to save: ${e.message}")
-                }
+//                runOnUiThread {
+//                    displayToast("Failed to save: ${e.message}")
+//                }
             }
         }
     }
