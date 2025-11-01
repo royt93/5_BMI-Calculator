@@ -96,7 +96,10 @@ android {
         jvmTarget = "1.8"
     }
     //noinspection DataBindingWithoutKapt
-    android.buildFeatures.dataBinding = true
+    buildFeatures {
+        dataBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
