@@ -62,15 +62,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         overridePendingTransition(0, 0)
     }
 
-    // handle permission dialog
-    private val requestLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) shareImage() else showErrorDialog()
-        }
-
-    private fun showErrorDialog() {
-        displayToast("Please allow External Storage Read and Write Permissions.")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +114,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         animationView()
 
         _binding.cvReload.setOnClickListener {
-            saveToHistory() // Changed to save instead of back
+            backPreviousPage(false)
         }
         _binding.ivDeleteBtn.setOnClickListener {
             backPreviousPage(true)
@@ -151,31 +142,27 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     private fun shareImage() {
-        if (!isStoragePermissionGranted()) {
-            requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            return
+        try {
+            val imageURI = _binding.llDetailView.drawToBitmap().let { bitmap ->
+                saveBitmap(this, bitmap)
+            } ?: run {
+                displayToast("Error occurred!")
+                return
+            }
+
+            val intent = ShareCompat.IntentBuilder(this)
+                .setType("image/jpeg")
+                .setStream(imageURI)
+                .intent
+                .apply {
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+
+            startActivity(Intent.createChooser(intent, null))
+        } catch (e: Exception) {
+            displayToast("Share failed: ${e.message}")
         }
-
-        // unHide the app logo and name
-        val imageURI = _binding.llDetailView.drawToBitmap().let { bitmap ->
-            saveBitmap(this, bitmap)
-        } ?: run {
-            displayToast("Error occurred!")
-            return
-        }
-
-        val intent = ShareCompat.IntentBuilder(this)
-            .setType("image/jpeg")
-            .setStream(imageURI)
-            .intent
-
-        startActivity(Intent.createChooser(intent, null))
     }
-
-    private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
-        this,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
-    ) == PackageManager.PERMISSION_GRANTED
 
     private fun backPreviousPage(isShowAd: Boolean) {
         animationViewUp()
