@@ -144,12 +144,22 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun shareImage() {
         try {
-            val imageURI = _binding.llDetailView.drawToBitmap().let { bitmap ->
+            // Hide ad banner before capturing
+            val adContainer = _binding.flAd
+            val originalVisibility = adContainer?.visibility
+            adContainer?.visibility = View.GONE
+
+            // Capture the root layout with gradient background
+            val imageURI = _binding.layoutRoot.drawToBitmap().let { bitmap ->
                 saveBitmap(this, bitmap)
             } ?: run {
                 displayToast("Error occurred!")
+                adContainer?.visibility = originalVisibility ?: View.VISIBLE
                 return
             }
+
+            // Restore ad visibility
+            adContainer?.visibility = originalVisibility ?: View.VISIBLE
 
             val intent = ShareCompat.IntentBuilder(this)
                 .setType("image/jpeg")
