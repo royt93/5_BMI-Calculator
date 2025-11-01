@@ -35,6 +35,25 @@ class GalaxyApp : Application() {
         DynamicColors.applyToActivitiesIfAvailable(this)
 //        this.setupApplovinAd()
         setupAdmob()
+        initializeDefaultProfile()
+    }
+
+    private fun initializeDefaultProfile() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val database = com.samsunggalaxy.data.AppDatabase.getDatabase(applicationContext)
+                val repository = com.samsunggalaxy.data.BmiRepository(database.bmiDao(), database.profileDao())
+
+                // Check if default profile exists
+                val currentProfile = repository.getCurrentProfile()
+                if (currentProfile == null) {
+                    // Create default profile with ID that will be auto-generated
+                    repository.createDefaultProfile()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun setupAdmob() {

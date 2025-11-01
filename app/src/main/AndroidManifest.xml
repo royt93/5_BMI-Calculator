@@ -53,6 +53,30 @@
             <!--            </intent-filter>-->
         </activity>
 
+        <activity
+            android:name=".ui.HistoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.CalculatorsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.BmrCalculatorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.TdeeCalculatorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.IdealWeightCalculatorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.BodyFatCalculatorActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.samsunggalaxy.MainActivity.provider"

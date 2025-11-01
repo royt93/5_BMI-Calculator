@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -40,8 +41,9 @@ class MainAct : BaseActivity() {
     private val _binding get() = binding
     private lateinit var weightAdapter: WeightPickerAdt
     private var gender = 'M'
-    var height = 1
+    var height = 160 // Default to 160cm
     private var weight = 50
+    private var age = 25
     private var doubleBackToExitPressedOnce = false
 
     //    private var adView: MaxAdView? = null
@@ -52,6 +54,7 @@ class MainAct : BaseActivity() {
         val intent = Intent(this, ResultAct::class.java)
         intent.putExtra("Height", height.toDouble())
         intent.putExtra("Weight", weight.toDouble())
+        intent.putExtra("Age", age)
         if (gender == 'M') {
             intent.putExtra("Gender", 0)
         } else {
@@ -161,6 +164,31 @@ class MainAct : BaseActivity() {
             }
         }
         _binding.heightWheelView.currentIndex = 159//160cm
+
+        // Prevent ScrollView from intercepting touch events for height wheel
+        _binding.heightWheelView.setOnTouchListener { v, event ->
+            v.parent.requestDisallowInterceptTouchEvent(true)
+            false
+        }
+
+        // Age setup - using programmatic approach since layout is complex
+        val ageWheelView = _binding.root.findViewById<com.cncoderx.wheelview.WheelView>(R.id.ageWheelView)
+        if (ageWheelView != null) {
+            ageWheelView.onWheelChangedListener = OnWheelChangedListener { view, _, newIndex ->
+                val text = view.getItem(newIndex)
+                age = Integer.parseInt(text.toString())
+            }
+            ageWheelView.currentIndex = 15 // Default 25 years (index 15 in age_array starting from 10)
+
+            // Prevent ScrollView from intercepting touch events
+            ageWheelView.setOnTouchListener { v, event ->
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                false
+            }
+        } else {
+            // Fallback: age = 25 already set as default
+            android.util.Log.w("MainAct", "Age wheel view not found, using default age: $age")
+        }
 
         _binding.startButton.setOnActiveListener {
             animationViewUp()
@@ -272,6 +300,16 @@ class MainAct : BaseActivity() {
         pm.menuInflater.inflate(R.menu.menu_option, pm.menu)
         pm.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.menuHistory -> {
+                    startActivity(Intent(this, HistoryActivity::class.java))
+                    true
+                }
+
+                R.id.menuCalculators -> {
+                    startActivity(Intent(this, CalculatorsActivity::class.java))
+                    true
+                }
+
                 R.id.menuRateApp -> {
                     rateApp(packageName)
                     true

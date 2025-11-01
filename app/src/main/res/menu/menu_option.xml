@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menuHistory"
+        android:icon="@drawable/ic_history"
+        android:title="History" />
+    <item
+        android:id="@+id/menuCalculators"
+        android:icon="@drawable/ic_calculator"
+        android:title="Calculators" />
+    <item
         android:id="@+id/menuRateApp"
         android:icon="@mipmap/ic_launcher_round"
         android:title="@string/rate_app" />

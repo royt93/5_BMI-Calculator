@@ -32,6 +32,13 @@ import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
 import com.samsunggalaxy.sdkadbmob.AdMobManager
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.data.AppDatabase
+import com.samsunggalaxy.data.BmiRecord
+import com.samsunggalaxy.data.BmiRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
@@ -41,6 +48,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     private var height: Double = 1.0
     private var result: Double = 0.0
     private var gender: Int = 0
+    private var age: Int = 25
+    private lateinit var repository: BmiRepository
 
     //    private var adView: MaxAdView? = null
     private var adView: AdView? = null
@@ -80,6 +89,10 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             }
         })
 
+        // Initialize repository
+        val database = AppDatabase.getDatabase(this)
+        repository = BmiRepository(database.bmiDao(), database.profileDao())
+
         AdMobManager.setCurrentActivity(this)
         AdMobManager.interstitialListener = this
         AdMobManager.loadInterstitial(this, BuildConfig.ADMOB_INTERSTITIAL_ID)
@@ -103,12 +116,14 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         weight = intent.getDoubleExtra("Weight", 50.0)
         height = intent.getDoubleExtra("Height", 1.0)
         gender = intent.getIntExtra("Gender", 0)
+        age = intent.getIntExtra("Age", 25)
 
         bmiCal()
+        calculateAndDisplayInsights()
         animationView()
 
         _binding.cvReload.setOnClickListener {
-            backPreviousPage(true)
+            saveToHistory() // Changed to save instead of back
         }
         _binding.ivDeleteBtn.setOnClickListener {
             backPreviousPage(true)
@@ -304,6 +319,72 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun bmiCalFemale() {
         result = ((weight / (height * height)) * 10000)
+    }
+
+    private fun calculateAndDisplayInsights() {
+        val isMale = gender == 0
+
+        // Calculate BMR
+        val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
+
+        // Calculate TDEE (assuming sedentary activity level = 0)
+        val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
+
+        // Calculate ideal weight range
+        val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
+
+        // Calculate water intake
+        val water = CalculatorUtils.calculateWaterIntake(weight)
+
+        // Update UI
+        _binding.root.findViewById<TextView>(R.id.tvBmrValue)?.text =
+            "${String.format("%.0f", bmr)} cal/day"
+        _binding.root.findViewById<TextView>(R.id.tvTdeeValue)?.text =
+            "${String.format("%.0f", tdee)} cal/day"
+        _binding.root.findViewById<TextView>(R.id.tvIdealWeightValue)?.text =
+            "${String.format("%.0f", idealWeight.first)}-${String.format("%.0f", idealWeight.second)} kg"
+        _binding.root.findViewById<TextView>(R.id.tvWaterValue)?.text =
+            "${String.format("%.1f", water)} L/day"
+    }
+
+    private fun saveToHistory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val isMale = gender == 0
+                val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
+                val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
+                val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
+
+                // Get current profile ID or use 1 as default (created in GalaxyApp)
+                val currentProfile = repository.getCurrentProfile()
+                val profileId = currentProfile?.id ?: 1L
+
+                val record = BmiRecord(
+                    timestamp = System.currentTimeMillis(),
+                    height = height,
+                    weight = weight,
+                    gender = gender,
+                    age = age,
+                    bmi = result,
+                    bmr = bmr,
+                    tdee = tdee,
+                    idealWeightMin = idealWeight.first,
+                    idealWeightMax = idealWeight.second,
+                    bodyFatPercentage = null,
+                    profileId = profileId
+                )
+
+                repository.insertRecord(record)
+
+                runOnUiThread {
+                    displayToast("Saved to history!")
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    displayToast("Failed to save: ${e.message}")
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
