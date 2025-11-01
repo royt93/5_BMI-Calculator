@@ -70,7 +70,7 @@
                         android:layout_height="160dp"
                         android:layout_gravity="center"
                         app:cardCornerRadius="80dp"
-                        app:cardElevation="8dp"
+                        app:cardElevation="0dp"
                         app:cardBackgroundColor="@android:color/white">
 
                         <ImageView
