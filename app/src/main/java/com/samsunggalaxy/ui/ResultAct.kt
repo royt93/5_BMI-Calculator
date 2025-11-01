@@ -43,6 +43,14 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     //    private var adView: MaxAdView? = null
     private var adView: AdView? = null
+    private val handler = Handler(Looper.getMainLooper())
+    private val backRunnable = Runnable {
+        val resultIntent = Intent()
+        resultIntent.putExtra(REQUEST_RESULT, true)
+        setResult(RESULT_OK, resultIntent)
+        finish()
+        overridePendingTransition(0, 0)
+    }
 
     // handle permission dialog
     private val requestLauncher =
@@ -148,13 +156,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun backPreviousPage(isShowAd: Boolean) {
         animationViewUp()
-        Handler(Looper.getMainLooper()).postDelayed({
-            val resultIntent = Intent()
-            resultIntent.putExtra(REQUEST_RESULT, true)
-            setResult(RESULT_OK, resultIntent)
-            finish()
-            overridePendingTransition(0, 0)
-            if (isShowAd) {
+        if (isShowAd) {
+            handler.postDelayed({
                 AdMobManager.showInterstitial(this) { success ->
                     if (success) {
                         Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
@@ -162,8 +165,11 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                         Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
                     }
                 }
-            }
-        }, 600)
+                handler.postDelayed(backRunnable, 100)
+            }, 600)
+        } else {
+            handler.postDelayed(backRunnable, 600)
+        }
     }
 
     private fun animationView() {
@@ -275,6 +281,9 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     override fun onDestroy() {
+        handler.removeCallbacksAndMessages(null)
+        AdMobManager.interstitialListener = null
+        AdMobManager.clearCurrentActivity()
 //        binding.flAd?.destroyAdBanner(adView)
         adView?.destroy()
         super.onDestroy()

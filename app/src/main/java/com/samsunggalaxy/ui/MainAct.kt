@@ -46,6 +46,20 @@ class MainAct : BaseActivity() {
 
     //    private var adView: MaxAdView? = null
     private var adView: AdView? = null
+    private val handler = Handler(Looper.getMainLooper())
+    private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
+    private val navigationRunnable = Runnable {
+        val intent = Intent(this, ResultAct::class.java)
+        intent.putExtra("Height", height.toDouble())
+        intent.putExtra("Weight", weight.toDouble())
+        if (gender == 'M') {
+            intent.putExtra("Gender", 0)
+        } else {
+            intent.putExtra("Gender", 1)
+        }
+        startActivityForResult(intent, REQUEST_CODE)
+        overridePendingTransition(0, 0)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,18 +150,7 @@ class MainAct : BaseActivity() {
         _binding.startButton.setOnActiveListener {
             animationViewUp()
             _binding.startButton.alpha = 0f
-            Handler(Looper.getMainLooper()).postDelayed({
-                val intent = Intent(this, ResultAct::class.java)
-                intent.putExtra("Height", height.toDouble())
-                intent.putExtra("Weight", weight.toDouble())
-                if (gender == 'M') {
-                    intent.putExtra("Gender", 0)
-                } else {
-                    intent.putExtra("Gender", 1)
-                }
-                startActivityForResult(intent, REQUEST_CODE)
-                overridePendingTransition(0, 0)
-            }, 500)
+            handler.postDelayed(navigationRunnable, 500)
         }
 
         _binding.ivBack.setOnClickListener {
@@ -235,7 +238,7 @@ class MainAct : BaseActivity() {
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 
-        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        handler.postDelayed(exitResetRunnable, 2000)
     }
 
     private fun showMenu() {
@@ -270,6 +273,8 @@ class MainAct : BaseActivity() {
     }
 
     override fun onDestroy() {
+        handler.removeCallbacks(exitResetRunnable)
+        handler.removeCallbacks(navigationRunnable)
 //        binding.flAd?.destroyAdBanner(adView)
         adView?.destroy()
         super.onDestroy()

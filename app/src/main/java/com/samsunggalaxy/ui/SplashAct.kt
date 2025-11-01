@@ -17,6 +17,9 @@ import kotlin.jvm.java
 @SuppressLint("CustomSplashScreen")
 class SplashAct : BaseActivity() {
 
+    private val handler = android.os.Handler(android.os.Looper.getMainLooper())
+    private val finishRunnable = Runnable { finish() }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UIUtils.setupEdgeToEdge1(window)
@@ -36,8 +39,11 @@ class SplashAct : BaseActivity() {
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         // Trì hoãn finish để đợi animation hoàn tất
-        window.decorView.postDelayed({
-            finish() // Finish sau animation
-        }, 300) // delay khoảng 300ms (hoặc đúng thời gian của animation)
+        handler.postDelayed(finishRunnable, 300)
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(finishRunnable)
+        super.onDestroy()
     }
 }

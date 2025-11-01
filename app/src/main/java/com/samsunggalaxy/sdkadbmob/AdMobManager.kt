@@ -168,6 +168,11 @@ object AdMobManager {
         this.currentActivity = WeakReference(activity)
     }
 
+    fun clearCurrentActivity() {
+        this.currentActivity?.clear()
+        this.currentActivity = null
+    }
+
     //search logcat: "to get test ads on this device"
     fun setTestDeviceIds(vararg deviceIds: String) {
         val configuration = RequestConfiguration.Builder().setTestDeviceIds(deviceIds.toList()).build()
@@ -203,7 +208,7 @@ object AdMobManager {
         Log.d(TAG, "loadBanner~~~")
         container.isVisible = true
         tvLabelAd.isVisible = false
-        val adView = AdView(context).apply {
+        val adView = AdView(context.applicationContext).apply {
             setAdSize(adSize)
             setAdUnitId(adUnitId)
             Log.d(TAG, "adListener init~~~")
@@ -287,6 +292,7 @@ object AdMobManager {
 
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "#1 Interstitial Ad Dismissed")
+                interstitialAd?.fullScreenContentCallback = null
                 interstitialAd = null
 //                currentActivity?.get()?.let {
 //                    loadInterstitial(it, BuildConfig.ADMOB_INTERSTITIAL_ID)
@@ -296,6 +302,7 @@ object AdMobManager {
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 Log.d(TAG, "#1 Interstitial Ad Failed to Show: ${adError.message}")
+                interstitialAd?.fullScreenContentCallback = null
                 interstitialAd = null
                 interstitialListener?.onAdFailedToShow(adError)
             }
@@ -449,6 +456,7 @@ object AdMobManager {
 
                 override fun onAdDismissedFullScreenContent() {
                     Log.d(TAG, "App Open Ad Dismissed")
+                    appOpenAd?.fullScreenContentCallback = null
                     appOpenAd = null
                     isAppOpenShowing = false
                     onAdDismiss.invoke(true)
@@ -456,6 +464,7 @@ object AdMobManager {
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     Log.d(TAG, "App Open Ad Failed to Show: ${adError.message}")
+                    appOpenAd?.fullScreenContentCallback = null
                     appOpenAd = null
                     isAppOpenShowing = false
                     onAdDismiss.invoke(true)
