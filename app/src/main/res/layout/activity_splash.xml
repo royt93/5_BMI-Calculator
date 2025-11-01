@@ -65,12 +65,22 @@
                     android:padding="48dp">
 
                     <!-- App Icon with Pulse Animation -->
-                    <ImageView
-                        android:id="@+id/appIcon"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/ic_launcher" />
+                        app:cardCornerRadius="80dp"
+                        app:cardElevation="8dp"
+                        app:cardBackgroundColor="@android:color/white">
+
+                        <ImageView
+                            android:id="@+id/appIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/ic_launcher" />
+
+                    </androidx.cardview.widget.CardView>
 
                 </FrameLayout>
 

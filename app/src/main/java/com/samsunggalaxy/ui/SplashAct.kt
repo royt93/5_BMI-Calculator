@@ -40,11 +40,6 @@ class SplashAct : BaseActivity() {
     }
 
     private fun startAnimations() {
-        // Pulse animation cho app icon
-        val appIcon = findViewById<View>(R.id.appIcon)
-        val pulseAnim = AnimationUtils.loadAnimation(this, R.anim.pulse_scale)
-        appIcon.startAnimation(pulseAnim)
-
         // Fade in animation cho title và subtitle
         val appTitle = findViewById<View>(R.id.appTitle)
         val appSubtitle = findViewById<View>(R.id.appSubtitle)
@@ -59,17 +54,17 @@ class SplashAct : BaseActivity() {
         handler.postDelayed({
             appTitle.startAnimation(fadeInAnim)
             appTitle.alpha = 1f
-        }, 300)
+        }, 500)
 
         handler.postDelayed({
             appSubtitle.startAnimation(fadeInAnim)
             appSubtitle.alpha = 1f
-        }, 500)
+        }, 700)
 
         handler.postDelayed({
             bottomSection.startAnimation(fadeInAnim)
             bottomSection.alpha = 1f
-        }, 700)
+        }, 900)
 
         // Floating animation cho background circles
         animateFloatingCircles()
