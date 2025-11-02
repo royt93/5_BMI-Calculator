@@ -29,7 +29,7 @@
                 android:layout_marginBottom="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="Menu"
+                android:text="@string/menu"
                 android:textColor="#1A1A1A"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="History"
+                    android:text="@string/history"
                     android:textColor="#1A1A1A"
                     android:textSize="17sp" />
             </LinearLayout>
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Calculators"
+                    android:text="@string/calculators"
                     android:textColor="#1A1A1A"
                     android:textSize="17sp" />
             </LinearLayout>
@@ -182,6 +182,35 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:text="@string/share_this_app"
+                    android:textColor="#1A1A1A"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/menuSettings"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/menu_item_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/settings"
                     android:textColor="#1A1A1A"
                     android:textSize="17sp" />
             </LinearLayout>

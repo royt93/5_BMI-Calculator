@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Máy Tính BMI</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Phạm vi cân nặng BMI bình thường: 18.5 – 24.9</string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+    <string name="rate_app">Đánh giá ứng dụng</string>
+    <string name="get_more_apps">Xem thêm ứng dụng</string>
+    <string name="share_this_app">Chia sẻ ứng dụng</string>
+    <string name="your_health">Sức khỏe của bạn</string>
+    <string name="gender">GIỚI TÍNH</string>
+    <string name="weight">CÂN NẶNG</string>
+    <string name="kg">(KG)</string>
+    <string name="height">CHIỀU CAO</string>
+    <string name="cm">(CM)</string>
+    <string name="age">TUỔI</string>
+
+    <!-- Menu -->
+    <string name="menu">Menu</string>
+    <string name="history">Lịch sử</string>
+    <string name="calculators">Máy tính</string>
+    <string name="settings">Cài đặt</string>
+
+    <!-- Settings -->
+    <string name="language">Ngôn ngữ</string>
+    <string name="select_language">Chọn ngôn ngữ</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">Máy Tính BMR</string>
+    <string name="tdee_calculator">Máy Tính TDEE</string>
+    <string name="ideal_weight_calculator">Máy Tính Cân Nặng Lý Tưởng</string>
+    <string name="body_fat_calculator">Máy Tính Mỡ Cơ Thể</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">Tính lượng calo tiêu thụ khi nghỉ ngơi</string>
+    <string name="tdee_description">Tổng năng lượng tiêu thụ hàng ngày</string>
+    <string name="ideal_weight_description">Tìm phạm vi cân nặng khỏe mạnh</string>
+    <string name="body_fat_description">Ước tính tỷ lệ mỡ cơ thể</string>
+
+    <!-- Common -->
+    <string name="calculate">Tính toán</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="activity_level">Mức độ hoạt động</string>
+</resources>

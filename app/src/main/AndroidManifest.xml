@@ -77,6 +77,10 @@
             android:name=".ui.BodyFatCalculatorActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.samsunggalaxy.MainActivity.provider"

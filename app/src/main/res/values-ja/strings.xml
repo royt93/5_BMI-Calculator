@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">正常なBMI体重範囲: 18.5 – 24.9</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="rate_app">アプリを評価</string>
+    <string name="get_more_apps">その他のアプリ</string>
+    <string name="share_this_app">アプリを共有</string>
+    <string name="your_health">あなたの健康</string>
+    <string name="gender">性別</string>
+    <string name="weight">体重</string>
+    <string name="kg">(KG)</string>
+    <string name="height">身長</string>
+    <string name="cm">(CM)</string>
+    <string name="age">年齢</string>
+
+    <!-- Menu -->
+    <string name="menu">メニュー</string>
+    <string name="history">履歴</string>
+    <string name="calculators">計算機</string>
+    <string name="settings">設定</string>
+
+    <!-- Settings -->
+    <string name="language">言語</string>
+    <string name="select_language">言語を選択</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">基礎代謝計算機</string>
+    <string name="tdee_calculator">TDEE計算機</string>
+    <string name="ideal_weight_calculator">理想体重計算機</string>
+    <string name="body_fat_calculator">体脂肪計算機</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">安静時に消費される1日のカロリーを計算</string>
+    <string name="tdee_description">1日の総エネルギー消費量</string>
+    <string name="ideal_weight_description">健康的な体重範囲を見つける</string>
+    <string name="body_fat_description">体脂肪率を推定</string>
+
+    <!-- Common -->
+    <string name="calculate">計算</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="activity_level">活動レベル</string>
+</resources>

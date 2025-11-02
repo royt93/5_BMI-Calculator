@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.samsunggalaxy.utils.LocaleHelper
 import java.util.Calendar
 import kotlin.apply
 import kotlin.collections.maxByOrNull
@@ -24,10 +25,11 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(context: Context) {
-        val override = Configuration(context.resources.configuration)
+        val newContext = LocaleHelper.onAttach(context)
+        val override = Configuration(newContext.resources.configuration)
         override.fontScale = 1.0f
         applyOverrideConfiguration(override)
-        super.attachBaseContext(context)
+        super.attachBaseContext(newContext)
     }
 
     override fun onResume() {

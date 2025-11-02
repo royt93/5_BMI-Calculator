@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">정상 BMI 체중 범위: 18.5 – 24.9</string>
+    <string name="privacy_policy">개인정보 보호정책</string>
+    <string name="rate_app">앱 평가하기</string>
+    <string name="get_more_apps">더 많은 앱</string>
+    <string name="share_this_app">앱 공유하기</string>
+    <string name="your_health">당신의 건강</string>
+    <string name="gender">성별</string>
+    <string name="weight">체중</string>
+    <string name="kg">(KG)</string>
+    <string name="height">키</string>
+    <string name="cm">(CM)</string>
+    <string name="age">나이</string>
+
+    <!-- Menu -->
+    <string name="menu">메뉴</string>
+    <string name="history">기록</string>
+    <string name="calculators">계산기</string>
+    <string name="settings">설정</string>
+
+    <!-- Settings -->
+    <string name="language">언어</string>
+    <string name="select_language">언어 선택</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">기초대사량 계산기</string>
+    <string name="tdee_calculator">TDEE 계산기</string>
+    <string name="ideal_weight_calculator">이상 체중 계산기</string>
+    <string name="body_fat_calculator">체지방 계산기</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">안정 시 소모되는 일일 칼로리 계산</string>
+    <string name="tdee_description">총 일일 에너지 소비량</string>
+    <string name="ideal_weight_description">건강한 체중 범위 찾기</string>
+    <string name="body_fat_description">체지방 비율 추정</string>
+
+    <!-- Common -->
+    <string name="calculate">계산</string>
+    <string name="male">남성</string>
+    <string name="female">여성</string>
+    <string name="activity_level">활동 수준</string>
+</resources>

@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">BMI Calculator</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normal BMI weight range for the height: 18.5 – 24.9</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="rate_app">Rate app</string>
@@ -11,6 +12,35 @@
     <string name="kg">(KG)</string>
     <string name="height">HEIGHT</string>
     <string name="cm">(CM)</string>
+    <string name="age">AGE</string>
+
+    <!-- Menu -->
+    <string name="menu">Menu</string>
+    <string name="history">History</string>
+    <string name="calculators">Calculators</string>
+    <string name="settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="language">Language</string>
+    <string name="select_language">Select Language</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">BMR Calculator</string>
+    <string name="tdee_calculator">TDEE Calculator</string>
+    <string name="ideal_weight_calculator">Ideal Weight Calculator</string>
+    <string name="body_fat_calculator">Body Fat Calculator</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">Calculate daily calories burned at rest</string>
+    <string name="tdee_description">Total daily energy expenditure</string>
+    <string name="ideal_weight_description">Find your healthy weight range</string>
+    <string name="body_fat_description">Estimate your body fat percentage</string>
+
+    <!-- Common -->
+    <string name="calculate">Calculate</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="activity_level">Activity Level</string>
 
     <string-array name="default_array">
         <item name="1">1</item>

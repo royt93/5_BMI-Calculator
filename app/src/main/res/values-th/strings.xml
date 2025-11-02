@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">ช่วงน้ำหนัก BMI ปกติ: 18.5 – 24.9</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="rate_app">ให้คะแนนแอป</string>
+    <string name="get_more_apps">แอปเพิ่มเติม</string>
+    <string name="share_this_app">แชร์แอป</string>
+    <string name="your_health">สุขภาพของคุณ</string>
+    <string name="gender">เพศ</string>
+    <string name="weight">น้ำหนัก</string>
+    <string name="kg">(กก.)</string>
+    <string name="height">ส่วนสูง</string>
+    <string name="cm">(ซม.)</string>
+    <string name="age">อายุ</string>
+
+    <!-- Menu -->
+    <string name="menu">เมนู</string>
+    <string name="history">ประวัติ</string>
+    <string name="calculators">เครื่องคำนวณ</string>
+    <string name="settings">การตั้งค่า</string>
+
+    <!-- Settings -->
+    <string name="language">ภาษา</string>
+    <string name="select_language">เลือกภาษา</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">เครื่องคำนวณ BMR</string>
+    <string name="tdee_calculator">เครื่องคำนวณ TDEE</string>
+    <string name="ideal_weight_calculator">เครื่องคำนวณน้ำหนักที่เหมาะสม</string>
+    <string name="body_fat_calculator">เครื่องคำนวณไขมันในร่างกาย</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">คำนวณแคลอรี่ที่เผาผลาญต่อวันขณะพัก</string>
+    <string name="tdee_description">การใช้พลังงานรวมต่อวัน</string>
+    <string name="ideal_weight_description">หาช่วงน้ำหนักที่ดีต่อสุขภาพของคุณ</string>
+    <string name="body_fat_description">ประเมินเปอร์เซ็นต์ไขมันในร่างกาย</string>
+
+    <!-- Common -->
+    <string name="calculate">คำนวณ</string>
+    <string name="male">ชาย</string>
+    <string name="female">หญิง</string>
+    <string name="activity_level">ระดับกิจกรรม</string>
+</resources>

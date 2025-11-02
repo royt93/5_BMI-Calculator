@@ -317,6 +317,7 @@ class MainAct : BaseActivity() {
         val menuRateApp = dialog.findViewById<LinearLayout>(R.id.menuRateApp)
         val menuMoreApp = dialog.findViewById<LinearLayout>(R.id.menuMoreApp)
         val menuShareApp = dialog.findViewById<LinearLayout>(R.id.menuShareApp)
+        val menuSettings = dialog.findViewById<LinearLayout>(R.id.menuSettings)
         val menuPolicy = dialog.findViewById<LinearLayout>(R.id.menuPolicy)
 
         menuHistory.setOnClickListener {
@@ -342,6 +343,11 @@ class MainAct : BaseActivity() {
         menuShareApp.setOnClickListener {
             dialog.dismiss()
             shareApp()
+        }
+
+        menuSettings.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
         menuPolicy.setOnClickListener {

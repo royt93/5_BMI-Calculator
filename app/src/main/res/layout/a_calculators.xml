@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Calculators"
+            android:text="@string/calculators"
             android:textColor="@color/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />

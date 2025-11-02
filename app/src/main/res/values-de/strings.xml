@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normaler BMI-Gewichtsbereich: 18.5 – 24.9</string>
+    <string name="privacy_policy">Datenschutzrichtlinie</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="get_more_apps">Weitere Apps</string>
+    <string name="share_this_app">App teilen</string>
+    <string name="your_health">Ihre Gesundheit</string>
+    <string name="gender">GESCHLECHT</string>
+    <string name="weight">GEWICHT</string>
+    <string name="kg">(KG)</string>
+    <string name="height">GRÖSSE</string>
+    <string name="cm">(CM)</string>
+    <string name="age">ALTER</string>
+
+    <!-- Menu -->
+    <string name="menu">Menü</string>
+    <string name="history">Verlauf</string>
+    <string name="calculators">Rechner</string>
+    <string name="settings">Einstellungen</string>
+
+    <!-- Settings -->
+    <string name="language">Sprache</string>
+    <string name="select_language">Sprache auswählen</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">GU-Rechner</string>
+    <string name="tdee_calculator">TDEE-Rechner</string>
+    <string name="ideal_weight_calculator">Idealgewicht-Rechner</string>
+    <string name="body_fat_calculator">Körperfett-Rechner</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">Tägliche Kalorienverbrennung im Ruhezustand berechnen</string>
+    <string name="tdee_description">Gesamter täglicher Energieverbrauch</string>
+    <string name="ideal_weight_description">Finden Sie Ihren gesunden Gewichtsbereich</string>
+    <string name="body_fat_description">Schätzen Sie Ihren Körperfettanteil</string>
+
+    <!-- Common -->
+    <string name="calculate">Berechnen</string>
+    <string name="male">Männlich</string>
+    <string name="female">Weiblich</string>
+    <string name="activity_level">Aktivitätsniveau</string>
+</resources>

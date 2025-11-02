@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Plage de poids IMC normale: 18.5 – 24.9</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="rate_app">Évaluer l\'application</string>
+    <string name="get_more_apps">Plus d\'applications</string>
+    <string name="share_this_app">Partager l\'application</string>
+    <string name="your_health">Votre santé</string>
+    <string name="gender">SEXE</string>
+    <string name="weight">POIDS</string>
+    <string name="kg">(KG)</string>
+    <string name="height">TAILLE</string>
+    <string name="cm">(CM)</string>
+    <string name="age">ÂGE</string>
+
+    <!-- Menu -->
+    <string name="menu">Menu</string>
+    <string name="history">Historique</string>
+    <string name="calculators">Calculatrices</string>
+    <string name="settings">Paramètres</string>
+
+    <!-- Settings -->
+    <string name="language">Langue</string>
+    <string name="select_language">Sélectionner la langue</string>
+
+    <!-- Calculator Names -->
+    <string name="bmr_calculator">Calculateur de MB</string>
+    <string name="tdee_calculator">Calculateur de DET</string>
+    <string name="ideal_weight_calculator">Calculateur de poids idéal</string>
+    <string name="body_fat_calculator">Calculateur de graisse corporelle</string>
+
+    <!-- Calculator Descriptions -->
+    <string name="bmr_description">Calculer les calories brûlées quotidiennement au repos</string>
+    <string name="tdee_description">Dépense énergétique totale quotidienne</string>
+    <string name="ideal_weight_description">Trouvez votre fourchette de poids santé</string>
+    <string name="body_fat_description">Estimez votre pourcentage de graisse corporelle</string>
+
+    <!-- Common -->
+    <string name="calculate">Calculer</string>
+    <string name="male">Homme</string>
+    <string name="female">Femme</string>
+    <string name="activity_level">Niveau d\'activité</string>
+</resources>

@@ -1,10 +1,12 @@
 package com.samsunggalaxy
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.color.DynamicColors
 import com.samsunggalaxy.sdkadbmob.AdMobManager
+import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,6 +38,10 @@ class GalaxyApp : Application() {
 //        this.setupApplovinAd()
         setupAdmob()
         initializeDefaultProfile()
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(base))
     }
 
     private fun initializeDefaultProfile() {
