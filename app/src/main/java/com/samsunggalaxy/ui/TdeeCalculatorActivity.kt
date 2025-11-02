@@ -3,6 +3,7 @@ package com.samsunggalaxy.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
@@ -23,7 +24,7 @@ class TdeeCalculatorActivity : BaseActivity() {
         val etHeight = findViewById<EditText>(R.id.etHeight)
         val etAge = findViewById<EditText>(R.id.etAge)
         val rgGender = findViewById<RadioGroup>(R.id.rgGender)
-        val spinnerActivity = findViewById<Spinner>(R.id.spinnerActivity)
+        val spinnerActivity = findViewById<AutoCompleteTextView>(R.id.spinnerActivity)
         val btnCalculate = findViewById<Button>(R.id.btnCalculate)
         val tvResult = findViewById<TextView>(R.id.tvResult)
 
@@ -32,14 +33,16 @@ class TdeeCalculatorActivity : BaseActivity() {
         }
 
         val activities = arrayOf("Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Super Active")
-        spinnerActivity.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, activities)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, activities)
+        spinnerActivity.setAdapter(adapter)
+        spinnerActivity.setText(activities[0], false)
 
         btnCalculate.setOnClickListener {
             val weight = etWeight.text.toString().toDoubleOrNull() ?: 0.0
             val height = etHeight.text.toString().toDoubleOrNull() ?: 0.0
             val age = etAge.text.toString().toIntOrNull() ?: 0
             val isMale = rgGender.checkedRadioButtonId == R.id.rbMale
-            val activityLevel = spinnerActivity.selectedItemPosition
+            val activityLevel = activities.indexOf(spinnerActivity.text.toString())
 
             if (weight > 0 && height > 0 && age > 0) {
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)

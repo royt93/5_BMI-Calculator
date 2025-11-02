@@ -121,11 +121,23 @@
                         android:textColor="@color/textColor" />
                 </RadioGroup>
 
-                <Spinner
-                    android:id="@+id/spinnerActivity"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilActivity"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+                    android:hint="Activity Level"
+                    app:boxStrokeColor="@color/textColor"
+                    app:hintTextColor="@color/textColorAdditional">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinnerActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/textColor" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnCalculate"
