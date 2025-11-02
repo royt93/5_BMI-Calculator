@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
 class GalaxyApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        Log.d("roy93~", "GalaxyApp.onCreate: Application started")
         DynamicColors.applyToActivitiesIfAvailable(this)
 //        this.setupApplovinAd()
         setupAdmob()

@@ -1,15 +1,16 @@
 package com.samsunggalaxy.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Process
 import android.view.View
 import android.widget.TextView
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
-import com.samsunggalaxy.adt.LanguageAdapter
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.LocaleHelper
+import kotlin.system.exitProcess
 
 class SettingsActivity : BaseActivity() {
     private lateinit var tvCurrentLanguage: TextView
@@ -62,17 +63,26 @@ class SettingsActivity : BaseActivity() {
 
     private fun showLanguageBottomSheet() {
         val bottomSheet = LanguageBottomSheet { languageCode ->
-            Log.d("roy93~", "SettingsActivity: Language selected: $languageCode")
             LocaleHelper.setLanguage(this, languageCode)
-            Log.d("roy93~", "SettingsActivity: Language saved to SharedPreferences")
-
-            // Restart the entire app to apply new language
-            Log.d("roy93~", "SettingsActivity: Restarting app to apply new language")
-            val intent = Intent(this, MainAct::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
-            finishAffinity()
+            restartApp(this)
         }
         bottomSheet.show(supportFragmentManager, "LanguageBottomSheet")
+    }
+
+    private fun restartApp(context: Context) {
+        // Give a small delay to ensure SharedPreferences are fully written to disk
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            intent?.apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            context.startActivity(intent)
+
+            // Kill the current process to ensure clean restart
+            Process.killProcess(Process.myPid())
+            exitProcess(0)
+        }, 200) // 200ms delay to ensure SharedPreferences are flushed
     }
 }

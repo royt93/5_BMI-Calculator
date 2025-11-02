@@ -21,13 +21,14 @@ import kotlin.collections.maxByOrNull
 open class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(context: Context) {
-        Log.d("roy93~", "${this.javaClass.simpleName}.attachBaseContext: called")
-        val newContext = LocaleHelper.onAttach(context)
-        val override = Configuration(newContext.resources.configuration)
-        override.fontScale = 1.0f
-        applyOverrideConfiguration(override)
-        super.attachBaseContext(newContext)
-        Log.d("roy93~", "${this.javaClass.simpleName}.attachBaseContext: completed")
+        super.attachBaseContext(LocaleHelper.onAttach(context))
+    }
+
+    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+        if (overrideConfiguration != null) {
+            overrideConfiguration.fontScale = 1.0f
+        }
+        super.applyOverrideConfiguration(overrideConfiguration)
     }
 
     override fun onResume() {
