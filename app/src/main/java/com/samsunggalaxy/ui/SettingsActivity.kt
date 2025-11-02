@@ -1,6 +1,8 @@
 package com.samsunggalaxy.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.samsunggalaxy.BaseActivity
@@ -60,8 +62,16 @@ class SettingsActivity : BaseActivity() {
 
     private fun showLanguageBottomSheet() {
         val bottomSheet = LanguageBottomSheet { languageCode ->
+            Log.d("roy93~", "SettingsActivity: Language selected: $languageCode")
             LocaleHelper.setLanguage(this, languageCode)
-            recreate() // Recreate activity to apply language change
+            Log.d("roy93~", "SettingsActivity: Language saved to SharedPreferences")
+
+            // Restart the entire app to apply new language
+            Log.d("roy93~", "SettingsActivity: Restarting app to apply new language")
+            val intent = Intent(this, MainAct::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finishAffinity()
         }
         bottomSheet.show(supportFragmentManager, "LanguageBottomSheet")
     }

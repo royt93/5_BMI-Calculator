@@ -39,6 +39,7 @@ import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
 const val REQUEST_CODE = 69
 const val REQUEST_RESULT = "REQUEST_RESULT"
+const val SETTINGS_REQUEST_CODE = 100
 
 class MainAct : BaseActivity() {
     private lateinit var binding: AMainBinding
@@ -70,6 +71,7 @@ class MainAct : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("roy93~", "MainActivity.onCreate: called")
         UIUtils.setupEdgeToEdge1(window)
         binding = DataBindingUtil.setContentView(this, R.layout.a_main)
         UIUtils.setupEdgeToEdge2(
@@ -98,6 +100,7 @@ class MainAct : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d("roy93~", "MainActivity.onResume: called")
         adView?.resume()
     }
 
@@ -347,7 +350,7 @@ class MainAct : BaseActivity() {
 
         menuSettings.setOnClickListener {
             dialog.dismiss()
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivityForResult(Intent(this, SettingsActivity::class.java), SETTINGS_REQUEST_CODE)
         }
 
         menuPolicy.setOnClickListener {
@@ -383,13 +386,18 @@ class MainAct : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("roy93~", "MainActivity.onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             val result = data?.getBooleanExtra(REQUEST_RESULT, false)
-//            Log.d("roy93~", "result $result")
+            Log.d("roy93~", "MainActivity.onActivityResult: result $result")
             if (result == true) {
                 animationView()
                 _binding.startButton.alpha = 1f
             }
+        } else if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Language was changed in Settings, recreate to apply
+            Log.d("roy93~", "MainActivity.onActivityResult: Language changed, recreating MainActivity")
+            recreate()
         }
     }
 }

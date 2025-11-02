@@ -9,13 +9,17 @@ object LocaleHelper {
     private const val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
 
     fun setLanguage(context: Context, language: String) {
+        android.util.Log.d("roy93~", "LocaleHelper.setLanguage: Setting language to $language")
         persist(context, language)
         updateResources(context, language)
+        android.util.Log.d("roy93~", "LocaleHelper.setLanguage: Language set complete")
     }
 
     fun getLanguage(context: Context): String {
         val preferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        return preferences.getString(SELECTED_LANGUAGE, "en") ?: "en"
+        val lang = preferences.getString(SELECTED_LANGUAGE, "en") ?: "en"
+        android.util.Log.d("roy93~", "LocaleHelper.getLanguage: Retrieved language = $lang")
+        return lang
     }
 
     private fun persist(context: Context, language: String) {

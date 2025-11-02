@@ -20,20 +20,19 @@ import kotlin.collections.maxByOrNull
 
 open class BaseActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-    }
-
     override fun attachBaseContext(context: Context) {
+        Log.d("roy93~", "${this.javaClass.simpleName}.attachBaseContext: called")
         val newContext = LocaleHelper.onAttach(context)
         val override = Configuration(newContext.resources.configuration)
         override.fontScale = 1.0f
         applyOverrideConfiguration(override)
         super.attachBaseContext(newContext)
+        Log.d("roy93~", "${this.javaClass.simpleName}.attachBaseContext: completed")
     }
 
     override fun onResume() {
         super.onResume()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             enableAdaptiveRefreshRate()
         }
