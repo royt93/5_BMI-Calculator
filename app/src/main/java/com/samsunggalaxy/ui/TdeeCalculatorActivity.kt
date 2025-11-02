@@ -32,7 +32,13 @@ class TdeeCalculatorActivity : BaseActivity() {
             finish()
         }
 
-        val activities = arrayOf("Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Super Active")
+        val activities = arrayOf(
+            getString(R.string.sedentary),
+            getString(R.string.lightly_active),
+            getString(R.string.moderately_active),
+            getString(R.string.very_active),
+            getString(R.string.super_active)
+        )
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, activities)
         spinnerActivity.setAdapter(adapter)
         spinnerActivity.setText(activities[0], false)
@@ -47,9 +53,9 @@ class TdeeCalculatorActivity : BaseActivity() {
             if (weight > 0 && height > 0 && age > 0) {
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
                 val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
-                tvResult.text = "Your TDEE: ${String.format("%.0f", tdee)} cal/day\n\nTotal daily energy expenditure based on your activity level."
+                tvResult.text = getString(R.string.tdee_description) + ": ${String.format("%.0f", tdee)} ${getString(R.string.cal_per_day)}"
             } else {
-                tvResult.text = "Please enter valid values"
+                tvResult.text = getString(R.string.please_enter_valid_values)
             }
         }
     }

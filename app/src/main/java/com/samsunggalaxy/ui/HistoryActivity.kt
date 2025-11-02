@@ -136,12 +136,12 @@ class HistoryActivity : BaseActivity() {
 
     private fun showDeleteConfirmDialog(record: BmiRecord) {
         MaterialAlertDialogBuilder(this)
-            .setTitle("Delete Record")
-            .setMessage("Are you sure you want to delete this BMI record?")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_record))
+            .setMessage(getString(R.string.are_you_sure_delete))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 deleteRecord(record)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
                 // Refresh adapter to restore the swiped item
                 adapter.notifyDataSetChanged()

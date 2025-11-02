@@ -37,9 +37,9 @@ class IdealWeightCalculatorActivity : BaseActivity() {
 
             if (height > 0) {
                 val range = CalculatorUtils.calculateIdealWeightRange(height, isMale)
-                tvResult.text = "Your Ideal Weight Range:\n${String.format("%.0f", range.first)} - ${String.format("%.0f", range.second)} kg\n\nBased on the Devine formula."
+                tvResult.text = "${getString(R.string.ideal_weight)}:\n${String.format("%.0f", range.first)} - ${String.format("%.0f", range.second)} kg\n\n${getString(R.string.ideal_weight_description)}"
             } else {
-                tvResult.text = "Please enter valid height"
+                tvResult.text = getString(R.string.please_enter_valid_values)
             }
         }
     }

@@ -47,13 +47,13 @@ class BodyFatCalculatorActivity : BaseActivity() {
 
             if (height > 0 && waist > 0 && neck > 0) {
                 if (!isMale && hip == null) {
-                    tvResult.text = "Please enter hip measurement for female"
+                    tvResult.text = "${getString(R.string.hip)} - ${getString(R.string.female_only)}"
                     return@setOnClickListener
                 }
                 val bodyFat = CalculatorUtils.calculateBodyFat(height, waist, neck, hip, isMale)
-                tvResult.text = "Your Body Fat: ${String.format("%.1f", bodyFat)}%\n\nBased on the US Navy method."
+                tvResult.text = "${getString(R.string.body_fat_calculator)}: ${String.format("%.1f", bodyFat)}%\n\n${getString(R.string.body_fat_description)}"
             } else {
-                tvResult.text = "Please enter valid measurements"
+                tvResult.text = getString(R.string.please_enter_valid_measurements)
             }
         }
     }

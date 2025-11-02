@@ -41,9 +41,9 @@ class BmrCalculatorActivity : BaseActivity() {
 
             if (weight > 0 && height > 0 && age > 0) {
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
-                tvResult.text = "Your BMR: ${String.format("%.0f", bmr)} cal/day\n\nThis is the amount of calories your body needs at rest."
+                tvResult.text = "${getString(R.string.bmr_calculator)}: ${String.format("%.0f", bmr)} ${getString(R.string.cal_per_day)}\n\n${getString(R.string.bmr_description)}"
             } else {
-                tvResult.text = "Please enter valid values"
+                tvResult.text = getString(R.string.please_enter_valid_values)
             }
         }
     }

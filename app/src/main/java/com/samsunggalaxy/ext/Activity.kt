@@ -190,10 +190,10 @@ fun Activity.shareApp(
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.app_name))
-        var sAux = "\nThis app is incredibly useful; we warmly invite you to download and experience it for yourself!\n\n"
+        var sAux = "\n${this.getString(R.string.this_app_is_incredibly)}\n\n"
         sAux = sAux + "https://play.google.com/store/apps/details?id=" + this.packageName
         intent.putExtra(Intent.EXTRA_TEXT, sAux)
-        this.startActivity(Intent.createChooser(intent, "Vui lòng chọn"))
+        this.startActivity(Intent.createChooser(intent, this.getString(R.string.share_this_app)))
     } catch (e: Exception) {
         e.printStackTrace()
     }

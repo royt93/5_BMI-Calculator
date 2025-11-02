@@ -40,4 +40,43 @@
     <string name="male">Homme</string>
     <string name="female">Femme</string>
     <string name="activity_level">Niveau d\'activité</string>
+    <string name="calculator">Calculatrice</string>
+    <string name="please_enter_valid_values">Veuillez saisir des valeurs valides</string>
+    <string name="please_enter_valid_measurements">Veuillez saisir des mesures valides</string>
+
+    <!-- Loading & Messages -->
+    <string name="track_your_health">Suivez votre santé</string>
+    <string name="loading">Chargement</string>
+    <string name="please_note_action">Remarque : Cette action ne peut pas être annulée</string>
+    <string name="your_are_healthy">Vous êtes en bonne santé</string>
+    <string name="health_insights">Informations sur la santé</string>
+    <string name="ideal_weight">Poids idéal</string>
+    <string name="water_intake">Consommation d\'eau</string>
+    <string name="cal_per_day">cal/jour</string>
+    <string name="l_per_day">L/jour</string>
+
+    <!-- Sharing -->
+    <string name="sharing_image">Partage d\'image</string>
+    <string name="this_app_is_incredibly">Cette application est incroyablement utile pour suivre mon IMC et ma santé globale ! Je la recommande vivement.</string>
+
+    <!-- History -->
+    <string name="progress">Progrès</string>
+    <string name="recent_records">Enregistrements récents</string>
+    <string name="delete_record">Supprimer l\'enregistrement</string>
+    <string name="are_you_sure_delete">Êtes-vous sûr de vouloir supprimer cet enregistrement ?</string>
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
+
+    <!-- Activity Levels -->
+    <string name="sedentary">Sédentaire (peu ou pas d\'exercice)</string>
+    <string name="lightly_active">Légèrement actif (exercice 1-3 jours/semaine)</string>
+    <string name="moderately_active">Modérément actif (exercice 3-5 jours/semaine)</string>
+    <string name="very_active">Très actif (exercice 6-7 jours/semaine)</string>
+    <string name="super_active">Super actif (exercice très intense/travail physique)</string>
+
+    <!-- Body Measurements -->
+    <string name="neck">Cou</string>
+    <string name="hip">Hanche</string>
+    <string name="waist">Taille</string>
+    <string name="female_only">Femme uniquement</string>
 </resources>

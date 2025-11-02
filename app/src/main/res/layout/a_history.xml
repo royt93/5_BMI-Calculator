@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="History"
+            android:text="@string/history"
             android:textColor="@color/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -82,7 +82,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📊 BMI Progress"
+                        android:text="@string/progress"
                         android:textColor="@color/textColor"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="📅 Recent Records"
+                android:text="@string/recent_records"
                 android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />

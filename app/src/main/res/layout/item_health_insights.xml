@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📊 Health Insights"
+            android:text="@string/health_insights"
             android:textColor="@color/textColor"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -93,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="⚖️ Ideal Weight:"
+                android:text="@string/ideal_weight"
                 android:textColor="@color/textColor"
                 android:textSize="14sp" />
 
@@ -118,7 +118,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="💧 Water Intake:"
+                android:text="@string/water_intake"
                 android:textColor="@color/textColor"
                 android:textSize="14sp" />
 

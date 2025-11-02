@@ -40,4 +40,43 @@
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="activity_level">Mức độ hoạt động</string>
+    <string name="calculator">Máy tính</string>
+    <string name="please_enter_valid_values">Vui lòng nhập giá trị hợp lệ</string>
+    <string name="please_enter_valid_measurements">Vui lòng nhập số đo hợp lệ</string>
+
+    <!-- Loading & Messages -->
+    <string name="track_your_health">Theo dõi sức khỏe của bạn</string>
+    <string name="loading">Đang tải</string>
+    <string name="please_note_action">Lưu ý: Hành động này có thể hiển thị quảng cáo</string>
+    <string name="your_are_healthy">Bạn khỏe mạnh</string>
+    <string name="health_insights">Thông tin sức khỏe</string>
+    <string name="ideal_weight">Cân nặng lý tưởng</string>
+    <string name="water_intake">Lượng nước cần uống</string>
+    <string name="cal_per_day">cal/ngày</string>
+    <string name="l_per_day">L/ngày</string>
+
+    <!-- Sharing -->
+    <string name="sharing_image">Chia sẻ hình ảnh</string>
+    <string name="this_app_is_incredibly">Ứng dụng này cực kỳ hữu ích để theo dõi BMI và sức khỏe tổng thể của tôi! Rất khuyến khích sử dụng.</string>
+
+    <!-- History -->
+    <string name="progress">Tiến trình</string>
+    <string name="recent_records">Hồ sơ gần đây</string>
+    <string name="delete_record">Xóa hồ sơ</string>
+    <string name="are_you_sure_delete">Bạn có chắc chắn muốn xóa hồ sơ này?</string>
+    <string name="cancel">Hủy</string>
+    <string name="delete">Xóa</string>
+
+    <!-- Activity Levels -->
+    <string name="sedentary">Ít vận động (ít hoặc không tập luyện)</string>
+    <string name="lightly_active">Hoạt động nhẹ (tập 1-3 ngày/tuần)</string>
+    <string name="moderately_active">Hoạt động vừa phải (tập 3-5 ngày/tuần)</string>
+    <string name="very_active">Rất năng động (tập 6-7 ngày/tuần)</string>
+    <string name="super_active">Cực kỳ năng động (tập rất nặng/công việc chân tay)</string>
+
+    <!-- Body Measurements -->
+    <string name="neck">Cổ</string>
+    <string name="hip">Hông</string>
+    <string name="waist">Eo</string>
+    <string name="female_only">Chỉ dành cho nữ</string>
 </resources>

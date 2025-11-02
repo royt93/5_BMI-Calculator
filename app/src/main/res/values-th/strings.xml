@@ -40,4 +40,43 @@
     <string name="male">ชาย</string>
     <string name="female">หญิง</string>
     <string name="activity_level">ระดับกิจกรรม</string>
+    <string name="calculator">เครื่องคำนวณ</string>
+    <string name="please_enter_valid_values">กรุณากรอกค่าที่ถูกต้อง</string>
+    <string name="please_enter_valid_measurements">กรุณากรอกค่าวัดที่ถูกต้อง</string>
+
+    <!-- Loading & Messages -->
+    <string name="track_your_health">ติดตามสุขภาพของคุณ</string>
+    <string name="loading">กำลังโหลด</string>
+    <string name="please_note_action">โปรดทราบ: การดำเนินการนี้ไม่สามารถยกเลิกได้</string>
+    <string name="your_are_healthy">คุณมีสุขภาพดี</string>
+    <string name="health_insights">ข้อมูลเชิงลึกด้านสุขภาพ</string>
+    <string name="ideal_weight">น้ำหนักที่เหมาะสม</string>
+    <string name="water_intake">ปริมาณน้ำที่ควรดื่ม</string>
+    <string name="cal_per_day">แคลอรี่/วัน</string>
+    <string name="l_per_day">ลิตร/วัน</string>
+
+    <!-- Sharing -->
+    <string name="sharing_image">แชร์รูปภาพ</string>
+    <string name="this_app_is_incredibly">แอปนี้มีประโยชน์อย่างยิ่งในการติดตาม BMI และสุขภาพโดยรวมของฉัน! แนะนำเป็นอย่างยิ่ง</string>
+
+    <!-- History -->
+    <string name="progress">ความคืบหน้า</string>
+    <string name="recent_records">บันทึกล่าสุด</string>
+    <string name="delete_record">ลบบันทึก</string>
+    <string name="are_you_sure_delete">คุณแน่ใจหรือไม่ว่าต้องการลบบันทึกนี้?</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="delete">ลบ</string>
+
+    <!-- Activity Levels -->
+    <string name="sedentary">ไม่ค่อยเคลื่อนไหว (ไม่ออกกำลังกาย)</string>
+    <string name="lightly_active">เคลื่อนไหวเล็กน้อย (ออกกำลังกาย 1-3 วัน/สัปดาห์)</string>
+    <string name="moderately_active">เคลื่อนไหวปานกลาง (ออกกำลังกาย 3-5 วัน/สัปดาห์)</string>
+    <string name="very_active">เคลื่อนไหวมาก (ออกกำลังกาย 6-7 วัน/สัปดาห์)</string>
+    <string name="super_active">เคลื่อนไหวมากที่สุด (ออกกำลังกายหนัก/งานหนัก)</string>
+
+    <!-- Body Measurements -->
+    <string name="neck">คอ</string>
+    <string name="hip">สะโพก</string>
+    <string name="waist">เอว</string>
+    <string name="female_only">เฉพาะผู้หญิง</string>
 </resources>

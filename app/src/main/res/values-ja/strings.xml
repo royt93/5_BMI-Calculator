@@ -40,4 +40,43 @@
     <string name="male">男性</string>
     <string name="female">女性</string>
     <string name="activity_level">活動レベル</string>
+    <string name="calculator">計算機</string>
+    <string name="please_enter_valid_values">有効な値を入力してください</string>
+    <string name="please_enter_valid_measurements">有効な測定値を入力してください</string>
+
+    <!-- Loading & Messages -->
+    <string name="track_your_health">健康を追跡</string>
+    <string name="loading">読み込み中</string>
+    <string name="please_note_action">注意: この操作は元に戻せません</string>
+    <string name="your_are_healthy">あなたは健康です</string>
+    <string name="health_insights">健康情報</string>
+    <string name="ideal_weight">理想体重</string>
+    <string name="water_intake">水分摂取量</string>
+    <string name="cal_per_day">カロリー/日</string>
+    <string name="l_per_day">L/日</string>
+
+    <!-- Sharing -->
+    <string name="sharing_image">画像を共有</string>
+    <string name="this_app_is_incredibly">このアプリは、BMIと全体的な健康状態を追跡するのに非常に便利です！強くお勧めします。</string>
+
+    <!-- History -->
+    <string name="progress">進捗</string>
+    <string name="recent_records">最近の記録</string>
+    <string name="delete_record">記録を削除</string>
+    <string name="are_you_sure_delete">この記録を削除してもよろしいですか？</string>
+    <string name="cancel">キャンセル</string>
+    <string name="delete">削除</string>
+
+    <!-- Activity Levels -->
+    <string name="sedentary">座りがち（ほとんど運動しない）</string>
+    <string name="lightly_active">軽い活動（週1〜3日の運動）</string>
+    <string name="moderately_active">中程度の活動（週3〜5日の運動）</string>
+    <string name="very_active">非常に活発（週6〜7日の運動）</string>
+    <string name="super_active">超活発（非常にハードな運動/肉体労働）</string>
+
+    <!-- Body Measurements -->
+    <string name="neck">首</string>
+    <string name="hip">腰</string>
+    <string name="waist">ウエスト</string>
+    <string name="female_only">女性のみ</string>
 </resources>

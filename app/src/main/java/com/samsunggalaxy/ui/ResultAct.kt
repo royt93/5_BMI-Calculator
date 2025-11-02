@@ -336,13 +336,13 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
         // Update UI
         _binding.root.findViewById<TextView>(R.id.tvBmrValue)?.text =
-            "${String.format("%.0f", bmr)} cal/day"
+            "${String.format("%.0f", bmr)} ${getString(R.string.cal_per_day)}"
         _binding.root.findViewById<TextView>(R.id.tvTdeeValue)?.text =
-            "${String.format("%.0f", tdee)} cal/day"
+            "${String.format("%.0f", tdee)} ${getString(R.string.cal_per_day)}"
         _binding.root.findViewById<TextView>(R.id.tvIdealWeightValue)?.text =
             "${String.format("%.0f", idealWeight.first)}-${String.format("%.0f", idealWeight.second)} kg"
         _binding.root.findViewById<TextView>(R.id.tvWaterValue)?.text =
-            "${String.format("%.1f", water)} L/day"
+            "${String.format("%.1f", water)} ${getString(R.string.l_per_day)}"
     }
 
     private fun saveToHistory() {

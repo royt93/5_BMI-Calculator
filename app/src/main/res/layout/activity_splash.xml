@@ -105,7 +105,7 @@
                 android:layout_marginTop="8dp"
                 android:alpha="0.9"
                 android:fontFamily="sans-serif-light"
-                android:text="Track Your Health"
+                android:text="@string/track_your_health"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Loading..."
+                        android:text="@string/loading"
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
@@ -163,7 +163,7 @@
                 android:alpha="0.7"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
-                android:text="Please note: this action may show ads"
+                android:text="@string/please_note_action"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 

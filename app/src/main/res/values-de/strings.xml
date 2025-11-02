@@ -40,4 +40,43 @@
     <string name="male">Männlich</string>
     <string name="female">Weiblich</string>
     <string name="activity_level">Aktivitätsniveau</string>
+    <string name="calculator">Rechner</string>
+    <string name="please_enter_valid_values">Bitte geben Sie gültige Werte ein</string>
+    <string name="please_enter_valid_measurements">Bitte geben Sie gültige Messungen ein</string>
+
+    <!-- Loading & Messages -->
+    <string name="track_your_health">Verfolgen Sie Ihre Gesundheit</string>
+    <string name="loading">Laden</string>
+    <string name="please_note_action">Hinweis: Diese Aktion kann nicht rückgängig gemacht werden</string>
+    <string name="your_are_healthy">Sie sind gesund</string>
+    <string name="health_insights">Gesundheitseinblicke</string>
+    <string name="ideal_weight">Idealgewicht</string>
+    <string name="water_intake">Wasseraufnahme</string>
+    <string name="cal_per_day">kcal/Tag</string>
+    <string name="l_per_day">L/Tag</string>
+
+    <!-- Sharing -->
+    <string name="sharing_image">Bild teilen</string>
+    <string name="this_app_is_incredibly">Diese App ist unglaublich nützlich, um meinen BMI und meine allgemeine Gesundheit zu verfolgen! Sehr empfehlenswert.</string>
+
+    <!-- History -->
+    <string name="progress">Fortschritt</string>
+    <string name="recent_records">Aktuelle Aufzeichnungen</string>
+    <string name="delete_record">Aufzeichnung löschen</string>
+    <string name="are_you_sure_delete">Sind Sie sicher, dass Sie diese Aufzeichnung löschen möchten?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="delete">Löschen</string>
+
+    <!-- Activity Levels -->
+    <string name="sedentary">Sitzend (wenig oder keine Bewegung)</string>
+    <string name="lightly_active">Leicht aktiv (Bewegung 1-3 Tage/Woche)</string>
+    <string name="moderately_active">Mäßig aktiv (Bewegung 3-5 Tage/Woche)</string>
+    <string name="very_active">Sehr aktiv (Bewegung 6-7 Tage/Woche)</string>
+    <string name="super_active">Super aktiv (sehr hartes Training/körperliche Arbeit)</string>
+
+    <!-- Body Measurements -->
+    <string name="neck">Hals</string>
+    <string name="hip">Hüfte</string>
+    <string name="waist">Taille</string>
+    <string name="female_only">Nur für Frauen</string>
 </resources>
