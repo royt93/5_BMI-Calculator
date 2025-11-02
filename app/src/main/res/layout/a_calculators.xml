@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="BMR\nCalculator"
+                    android:text="@string/bmr_calculator"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Calculate daily calories burned at rest"
+                    android:text="@string/bmr_description"
                     android:textColor="@color/textColorAdditional"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="TDEE\nCalculator"
+                    android:text="@string/tdee_calculator"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Total daily energy expenditure"
+                    android:text="@string/tdee_description"
                     android:textColor="@color/textColorAdditional"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Ideal Weight\nCalculator"
+                    android:text="@string/ideal_weight_calculator"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Find your healthy weight range"
+                    android:text="@string/ideal_weight_description"
                     android:textColor="@color/textColorAdditional"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Body Fat\nCalculator"
+                    android:text="@string/body_fat_calculator"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Estimate your body fat percentage"
+                    android:text="@string/body_fat_description"
                     android:textColor="@color/textColorAdditional"
                     android:textSize="11sp" />
             </LinearLayout>

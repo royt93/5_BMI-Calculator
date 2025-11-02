@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="Ideal Weight Calculator"
+                android:text="@string/ideal_weight_calculator"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -71,7 +71,7 @@
                     android:id="@+id/etHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Height (cm)"
+                    android:hint="@string/height"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="Male"
+                        android:text="@string/male"
                         android:textColor="@color/textColor" />
 
                     <RadioButton
@@ -97,7 +97,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Female"
+                        android:text="@string/female"
                         android:textColor="@color/textColor" />
                 </RadioGroup>
 
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_glass_button"
-                    android:text="Calculate"
+                    android:text="@string/calculate"
                     android:textColor="@color/textColor" />
 
                 <TextView

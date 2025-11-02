@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="TDEE Calculator"
+                android:text="@string/tdee_calculator"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -71,7 +71,7 @@
                     android:id="@+id/etWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Weight (kg)"
+                    android:hint="@string/weight"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Height (cm)"
+                    android:hint="@string/height"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Age"
+                    android:hint="@string/age"
                     android:inputType="number"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="Male"
+                        android:text="@string/male"
                         android:textColor="@color/textColor" />
 
                     <RadioButton
@@ -117,7 +117,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Female"
+                        android:text="@string/female"
                         android:textColor="@color/textColor" />
                 </RadioGroup>
 
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Activity Level"
+                    android:hint="@string/activity_level"
                     app:boxStrokeColor="@color/textColor"
                     app:hintTextColor="@color/textColorAdditional">
 
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_glass_button"
-                    android:text="Calculate"
+                    android:text="@string/calculate"
                     android:textColor="@color/textColor" />
 
                 <TextView

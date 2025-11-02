@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="Body Fat Calculator"
+                android:text="@string/body_fat_calculator"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -71,7 +71,7 @@
                     android:id="@+id/etHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Height (cm)"
+                    android:hint="@string/height"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Waist (cm)"
+                    android:hint="@string/waist"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Neck (cm)"
+                    android:hint="@string/neck"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Hip (cm) - Female only"
+                    android:hint="@string/hip"
                     android:inputType="numberDecimal"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorAdditional" />
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="Male"
+                        android:text="@string/male"
                         android:textColor="@color/textColor" />
 
                     <RadioButton
@@ -127,7 +127,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Female"
+                        android:text="@string/female"
                         android:textColor="@color/textColor" />
                 </RadioGroup>
 
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_glass_button"
-                    android:text="Calculate"
+                    android:text="@string/calculate"
                     android:textColor="@color/textColor" />
 
                 <TextView
