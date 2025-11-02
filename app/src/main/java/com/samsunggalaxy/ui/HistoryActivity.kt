@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -55,7 +56,7 @@ class HistoryActivity : BaseActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = HistoryAdapter { record ->
-            deleteRecord(record)
+            showDeleteConfirmDialog(record)
         }
         recyclerView.adapter = adapter
 
@@ -133,6 +134,25 @@ class HistoryActivity : BaseActivity() {
         lineChart.invalidate()
     }
 
+    private fun showDeleteConfirmDialog(record: BmiRecord) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Delete Record")
+            .setMessage("Are you sure you want to delete this BMI record?")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteRecord(record)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+                // Refresh adapter to restore the swiped item
+                adapter.notifyDataSetChanged()
+            }
+            .setOnCancelListener {
+                // Refresh adapter to restore the swiped item when dismissed
+                adapter.notifyDataSetChanged()
+            }
+            .show()
+    }
+
     private fun deleteRecord(record: BmiRecord) {
         lifecycleScope.launch {
             repository.deleteRecord(record)
@@ -149,7 +169,7 @@ class HistoryActivity : BaseActivity() {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
             val record = adapter.getRecordAt(position)
-            deleteRecord(record)
+            showDeleteConfirmDialog(record)
         }
     }
 }
