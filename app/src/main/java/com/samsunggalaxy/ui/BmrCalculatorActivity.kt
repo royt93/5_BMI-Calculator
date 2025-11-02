@@ -1,6 +1,7 @@
 package com.samsunggalaxy.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
@@ -28,7 +29,7 @@ class BmrCalculatorActivity : BaseActivity() {
         val btnCalculate = findViewById<Button>(R.id.btnCalculate)
         val tvResult = findViewById<TextView>(R.id.tvResult)
 
-        findViewById<TextView>(R.id.ivBack)?.setOnClickListener {
+        findViewById<View>(R.id.ivBack)?.setOnClickListener {
             finish()
         }
 

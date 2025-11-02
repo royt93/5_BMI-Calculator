@@ -1,6 +1,7 @@
 package com.samsunggalaxy.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
@@ -26,7 +27,7 @@ class TdeeCalculatorActivity : BaseActivity() {
         val btnCalculate = findViewById<Button>(R.id.btnCalculate)
         val tvResult = findViewById<TextView>(R.id.tvResult)
 
-        findViewById<TextView>(R.id.ivBack)?.setOnClickListener {
+        findViewById<View>(R.id.ivBack)?.setOnClickListener {
             finish()
         }
 
