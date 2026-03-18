@@ -59,7 +59,7 @@ android {
             dimension = "type"
             //            buildConfigField("String", "FLAVOR_buildEnv", "dev")
 
-            resValue("string", "app_name", "BMI Calculator 2025 DEV")
+            resValue("string", "app_name", "BMI Calculator 2026 DEV")
 
 //            resValue(
 //                "string",
@@ -75,7 +75,7 @@ android {
             dimension = "type"
             //            buildConfigField("String", "FLAVOR_buildEnv", "prod")
 
-            resValue("string", "app_name", "BMI Calculator 2025")
+            resValue("string", "app_name", "BMI Calculator 2026")
 
 //            resValue(
 //                "string",
