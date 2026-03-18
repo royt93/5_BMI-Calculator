@@ -11,6 +11,15 @@
     <color name="dash_start">#00ADC6FF</color>
     <color name="dash_center">#E61B1B1F</color>
     <color name="dash_end">#991B1B1F</color>
+
+    <!-- BMI Category Colors (night mode - brighter for dark bg) -->
+    <color name="bmi_underweight">#64B5F6</color>
+    <color name="bmi_healthy">#81C784</color>
+    <color name="bmi_overweight">#FFB74D</color>
+    <color name="bmi_obese">#EF9A9A</color>
+    <color name="goal_progress_start">#7C4DFF</color>
+    <color name="goal_progress_end">#B388FF</color>
+    <color name="goal_progress_track">#33FFFFFF</color>
     <color name="launcher_background_color" tools:targetApi="s">@android:color/system_neutral1_800
     </color>
     <color name="launcher_foreground_android_color" tools:targetApi="s">

@@ -38,7 +38,11 @@ import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import androidx.lifecycle.lifecycleScope
+import android.widget.EditText
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
@@ -113,6 +117,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         calculateAndDisplayInsights()
         saveToHistory()
         animationView()
+        loadGoalCard()
 
         _binding.cvReload.setOnClickListener {
             backPreviousPage(false)
@@ -143,7 +148,101 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         }
     }
 
+    // ---- Goal Weight Feature ----
+    // Uses binding directly to goalCard in XML — no dynamic addView
+    private fun loadGoalCard() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val profile = repository.getCurrentProfile()
+            val goalWeight = profile?.goalWeight
+            val profileId = profile?.id ?: 1L
+            withContext(Dispatchers.Main) {
+                setupGoalCard(goalWeight, profileId)
+            }
+        }
+    }
+
+    private fun setupGoalCard(goalWeight: Double?, profileId: Long) {
+        val goalCardView = _binding.root.findViewById<View>(R.id.goalCard) ?: return
+        val tvCurrent = goalCardView.findViewById<TextView>(R.id.tvGoalCurrent)
+        val tvTarget = goalCardView.findViewById<TextView>(R.id.tvGoalTarget)
+        val progressBar = goalCardView.findViewById<ProgressBar>(R.id.progressGoal)
+        val tvRemaining = goalCardView.findViewById<TextView>(R.id.tvGoalRemaining)
+        val ivEdit = goalCardView.findViewById<View>(R.id.ivEditGoal)
+
+        // Show the card with fade-in
+        goalCardView.visibility = View.VISIBLE
+        goalCardView.alpha = 0f
+        goalCardView.animate().alpha(1f).setDuration(400).start()
+
+        updateGoalUI(goalWeight, tvCurrent, tvTarget, progressBar, tvRemaining)
+
+        val editClickListener = View.OnClickListener {
+            showGoalDialog(profileId, tvCurrent, tvTarget, progressBar, tvRemaining)
+        }
+        ivEdit.setOnClickListener(editClickListener)
+        if (goalWeight == null) goalCardView.setOnClickListener(editClickListener)
+    }
+
+    private fun updateGoalUI(
+        goalWeight: Double?,
+        tvCurrent: TextView,
+        tvTarget: TextView,
+        progressBar: ProgressBar,
+        tvRemaining: TextView
+    ) {
+        tvCurrent.text = getString(R.string.goal_weight_current, weight)
+        if (goalWeight == null || goalWeight <= 0) {
+            tvTarget.text = getString(R.string.goal_weight_no_goal)
+            progressBar.isVisible = false
+            tvRemaining.isVisible = false
+            return
+        }
+        tvTarget.text = getString(R.string.goal_weight_target, goalWeight)
+        progressBar.isVisible = true
+        tvRemaining.isVisible = true
+        val diff = weight - goalWeight
+        if (diff <= 0) {
+            progressBar.progress = 100
+            tvRemaining.text = getString(R.string.goal_weight_achieved)
+            tvRemaining.setTextColor(ContextCompat.getColor(this, R.color.bmi_healthy))
+        } else {
+            val progress = ((goalWeight / weight) * 100).toInt().coerceIn(0, 99)
+            progressBar.progress = progress
+            tvRemaining.text = getString(R.string.goal_weight_remaining, diff)
+            tvRemaining.setTextColor(ContextCompat.getColor(this, R.color.textColorAdditional))
+        }
+    }
+
+    private fun showGoalDialog(
+        profileId: Long,
+        tvCurrent: TextView,
+        tvTarget: TextView,
+        progressBar: ProgressBar,
+        tvRemaining: TextView
+    ) {
+        val editText = EditText(this).apply {
+            hint = getString(R.string.goal_weight_set_hint)
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setPadding(64, 48, 64, 24)
+        }
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.goal_weight_label))
+            .setView(editText)
+            .setPositiveButton(getString(R.string.goal_weight_save)) { _, _ ->
+                val input = editText.text.toString().toDoubleOrNull()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    repository.updateGoalWeight(profileId, input)
+                    withContext(Dispatchers.Main) {
+                        updateGoalUI(input, tvCurrent, tvTarget, progressBar, tvRemaining)
+                    }
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
+    }
+
     private fun shareImage() {
+
         try {
             // Hide ad banner before capturing
             val adContainer = _binding.flAd

@@ -47,7 +47,7 @@
     <!-- Loading & Messages -->
     <string name="track_your_health">건강 추적</string>
     <string name="loading">로딩 중</string>
-    <string name="please_note_action">참고: 이 작업은 되돌릴 수 없습니다</string>
+    <string name="please_note_action">참고: 이 작업은 광고를 표시할 수 있습니다</string>
     <string name="your_are_healthy">당신은 건강합니다</string>
     <string name="health_insights">건강 정보</string>
     <string name="ideal_weight">이상 체중</string>
@@ -79,4 +79,23 @@
     <string name="hip">엉덩이</string>
     <string name="waist">허리</string>
     <string name="female_only">여성 전용</string>
+
+    <!-- Goal Weight Feature -->
+    <string name="goal_weight_title">🎯 나의 목표</string>
+    <string name="goal_weight_current">현재: %1$.1f kg</string>
+    <string name="goal_weight_target">목표: %1$.1f kg</string>
+    <string name="goal_weight_remaining">목표까지 %1$.1f kg 남았습니다</string>
+    <string name="goal_weight_achieved">🎉 목표를 달성했습니다!</string>
+    <string name="goal_weight_set_hint">목표 체중 입력 (kg)</string>
+    <string name="goal_weight_save">목표 저장</string>
+    <string name="goal_weight_no_goal">목표 미설정. 탭하여 설정하세요.</string>
+    <string name="goal_weight_label">목표 체중</string>
+    <string name="bmi_trend_stable">안정</string>
+    <string name="bmi_trend_improved">개선</string>
+    <string name="bmi_trend_worsened">악화</string>
+    <string name="bmi_category_underweight">저체중</string>
+    <string name="bmi_category_healthy">정상</string>
+    <string name="bmi_category_overweight">과체중</string>
+    <string name="bmi_category_obese">비만</string>
+    <string name="goal_bmi_target_label">BMI 목표</string>
 </resources>

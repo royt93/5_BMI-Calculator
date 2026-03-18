@@ -9,5 +9,6 @@ data class Profile(
     val id: Long = 0,
     val name: String,
     val isCurrent: Boolean = false,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val goalWeight: Double? = null,  // Goal Weight feature: target weight in kg
 )

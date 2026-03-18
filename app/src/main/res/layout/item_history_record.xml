@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardHistoryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -8,13 +9,25 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp">
 
+    <!-- bg_glass_card_small tinted via cardHistoryItem background set in code -->
     <LinearLayout
+        android:id="@+id/llHistoryItemBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_glass_card_small"
         android:orientation="horizontal"
         android:padding="16dp">
 
+        <!-- Left: color dot indicator -->
+        <View
+            android:id="@+id/viewCategoryDot"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:background="#4CAF50"
+            android:minHeight="40dp" />
+
+        <!-- Center: date, BMI, details -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,36 +40,63 @@
                 android:layout_height="wrap_content"
                 android:text="Jan 15, 2026"
                 android:textColor="@color/textColor"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvBmi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:text="BMI: 22.5"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="14sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:text="70kg • 170cm"
                 android:textColor="@color/textColorAdditional"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btnDelete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <!-- Right: trend arrow + delete -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:src="@drawable/ic_delete"
-            app:tint="@color/textColorAdditional" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTrend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="→"
+                android:textColor="#4CAF50"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnDelete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="4dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/textColorAdditional" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

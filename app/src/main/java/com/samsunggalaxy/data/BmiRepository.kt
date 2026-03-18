@@ -57,4 +57,9 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
         val defaultProfile = Profile(name = "Default", isCurrent = true)
         return profileDao.insert(defaultProfile)
     }
+
+    // Goal Weight Feature
+    suspend fun updateGoalWeight(profileId: Long, goalWeight: Double?) {
+        profileDao.updateGoalWeight(profileId, goalWeight)
+    }
 }

@@ -47,7 +47,7 @@
     <!-- Loading & Messages -->
     <string name="track_your_health">Suivez votre santé</string>
     <string name="loading">Chargement</string>
-    <string name="please_note_action">Remarque : Cette action ne peut pas être annulée</string>
+    <string name="please_note_action">Remarque : Cette action peut afficher des publicités</string>
     <string name="your_are_healthy">Vous êtes en bonne santé</string>
     <string name="health_insights">Informations sur la santé</string>
     <string name="ideal_weight">Poids idéal</string>
@@ -79,4 +79,23 @@
     <string name="hip">Hanche</string>
     <string name="waist">Taille</string>
     <string name="female_only">Femme uniquement</string>
+
+    <!-- Goal Weight Feature -->
+    <string name="goal_weight_title">🎯 Mon objectif</string>
+    <string name="goal_weight_current">Actuel : %1$.1f kg</string>
+    <string name="goal_weight_target">Objectif : %1$.1f kg</string>
+    <string name="goal_weight_remaining">Encore %1$.1f kg pour atteindre votre objectif</string>
+    <string name="goal_weight_achieved">🎉 Vous avez atteint votre objectif!</string>
+    <string name="goal_weight_set_hint">Définir le poids cible (kg)</string>
+    <string name="goal_weight_save">Enregistrer l\'objectif</string>
+    <string name="goal_weight_no_goal">Aucun objectif. Appuyez pour en définir un.</string>
+    <string name="goal_weight_label">Poids cible</string>
+    <string name="bmi_trend_stable">Stable</string>
+    <string name="bmi_trend_improved">Amélioré</string>
+    <string name="bmi_trend_worsened">Aggravé</string>
+    <string name="bmi_category_underweight">Insuffisance pondérale</string>
+    <string name="bmi_category_healthy">Normal</string>
+    <string name="bmi_category_overweight">Surpoids</string>
+    <string name="bmi_category_obese">Obèse</string>
+    <string name="goal_bmi_target_label">Objectif IMC</string>
 </resources>

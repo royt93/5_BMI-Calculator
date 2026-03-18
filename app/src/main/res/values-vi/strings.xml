@@ -67,6 +67,25 @@
     <string name="cancel">Hủy</string>
     <string name="delete">Xóa</string>
 
+    <!-- Goal Weight Feature -->
+    <string name="goal_weight_title">🎯 Mục tiêu của tôi</string>
+    <string name="goal_weight_current">Hiện tại: %1$.1f kg</string>
+    <string name="goal_weight_target">Mục tiêu: %1$.1f kg</string>
+    <string name="goal_weight_remaining">Còn %1$.1f kg nữa để đạt mục tiêu</string>
+    <string name="goal_weight_achieved">🎉 Bạn đã đạt được mục tiêu!</string>
+    <string name="goal_weight_set_hint">Nhập cân nặng mục tiêu (kg)</string>
+    <string name="goal_weight_save">Lưu mục tiêu</string>
+    <string name="goal_weight_no_goal">Chưa đặt mục tiêu. Nhấn để đặt.</string>
+    <string name="goal_weight_label">Cân nặng mục tiêu</string>
+    <string name="bmi_trend_stable">Ổn định</string>
+    <string name="bmi_trend_improved">Cải thiện</string>
+    <string name="bmi_trend_worsened">Tăng xấu</string>
+    <string name="bmi_category_underweight">Thiếu cân</string>
+    <string name="bmi_category_healthy">Bình thường</string>
+    <string name="bmi_category_overweight">Thừa cân</string>
+    <string name="bmi_category_obese">Béo phì</string>
+    <string name="goal_bmi_target_label">BMI mục tiêu</string>
+
     <!-- Activity Levels -->
     <string name="sedentary">Ít vận động (ít hoặc không tập luyện)</string>
     <string name="lightly_active">Hoạt động nhẹ (tập 1-3 ngày/tuần)</string>

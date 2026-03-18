@@ -47,7 +47,7 @@
     <!-- Loading & Messages -->
     <string name="track_your_health">ติดตามสุขภาพของคุณ</string>
     <string name="loading">กำลังโหลด</string>
-    <string name="please_note_action">โปรดทราบ: การดำเนินการนี้ไม่สามารถยกเลิกได้</string>
+    <string name="please_note_action">โปรดทราบ: การดำเนินการนี้อาจแสดงโฆษณา</string>
     <string name="your_are_healthy">คุณมีสุขภาพดี</string>
     <string name="health_insights">ข้อมูลเชิงลึกด้านสุขภาพ</string>
     <string name="ideal_weight">น้ำหนักที่เหมาะสม</string>
@@ -79,4 +79,23 @@
     <string name="hip">สะโพก</string>
     <string name="waist">เอว</string>
     <string name="female_only">เฉพาะผู้หญิง</string>
+
+    <!-- Goal Weight Feature -->
+    <string name="goal_weight_title">🎯 เป้าหมายของฉัน</string>
+    <string name="goal_weight_current">ปัจจุบัน: %1$.1f กก.</string>
+    <string name="goal_weight_target">เป้าหมาย: %1$.1f กก.</string>
+    <string name="goal_weight_remaining">อีก %1$.1f กก. เพื่อบรรลุเป้าหมาย</string>
+    <string name="goal_weight_achieved">🎉 คุณบรรลุเป้าหมายแล้ว!</string>
+    <string name="goal_weight_set_hint">ตั้งน้ำหนักเป้าหมาย (กก.)</string>
+    <string name="goal_weight_save">บันทึกเป้าหมาย</string>
+    <string name="goal_weight_no_goal">ยังไม่มีเป้าหมาย แตะเพื่อตั้ง</string>
+    <string name="goal_weight_label">น้ำหนักเป้าหมาย</string>
+    <string name="bmi_trend_stable">คงที่</string>
+    <string name="bmi_trend_improved">ดีขึ้น</string>
+    <string name="bmi_trend_worsened">แย่ลง</string>
+    <string name="bmi_category_underweight">น้ำหนักน้อย</string>
+    <string name="bmi_category_healthy">ปกติ</string>
+    <string name="bmi_category_overweight">น้ำหนักเกิน</string>
+    <string name="bmi_category_obese">อ้วน</string>
+    <string name="goal_bmi_target_label">เป้าหมาย BMI</string>
 </resources>

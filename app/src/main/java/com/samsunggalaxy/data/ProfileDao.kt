@@ -34,4 +34,7 @@ interface ProfileDao {
 
     @Query("DELETE FROM profiles WHERE id = :id")
     suspend fun deleteById(id: Long)
+
+    @Query("UPDATE profiles SET goalWeight = :goalWeight WHERE id = :profileId")
+    suspend fun updateGoalWeight(profileId: Long, goalWeight: Double?)
 }
