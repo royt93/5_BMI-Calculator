@@ -9,6 +9,7 @@ import com.samsunggalaxy.sdkadbmob.AdMobManager
 import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 //TODO firebase
@@ -32,6 +33,10 @@ import kotlinx.coroutines.launch
 //120hz
 
 class GalaxyApp : Application() {
+
+    // ML-02: Application-scoped coroutine scope with SupervisorJob for lifecycle control
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
     override fun onCreate() {
         super.onCreate()
         Log.d("roy93~", "GalaxyApp.onCreate: Application started")
@@ -46,7 +51,7 @@ class GalaxyApp : Application() {
     }
 
     private fun initializeDefaultProfile() {
-        CoroutineScope(Dispatchers.IO).launch {
+        applicationScope.launch {
             try {
                 val database = com.samsunggalaxy.data.AppDatabase.getDatabase(applicationContext)
                 val repository = com.samsunggalaxy.data.BmiRepository(database.bmiDao(), database.profileDao())
@@ -58,13 +63,13 @@ class GalaxyApp : Application() {
                     repository.createDefaultProfile()
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("roy93~", "initializeDefaultProfile error", e)
             }
         }
     }
 
     private fun setupAdmob() {
-        CoroutineScope(Dispatchers.IO).launch {
+        applicationScope.launch {
             MobileAds.initialize(this@GalaxyApp) {}
             AdMobManager.init(this@GalaxyApp) { success, gaidCurrent ->
                 Log.d("roy93~", "AdMobManager init success $success, gaidCurrent $gaidCurrent")

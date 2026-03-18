@@ -12,7 +12,6 @@ import com.samsunggalaxy.R
 class WeightPickerAdt(
     private val context: Context,
     private var dataList: List<String>,
-    private val recyclerView: RecyclerView,
 ) :
     RecyclerView.Adapter<WeightPickerAdt.TextVH>() {
 
@@ -25,8 +24,9 @@ class WeightPickerAdt(
 
     override fun onBindViewHolder(holder: TextVH, position: Int) {
         holder.pickerTxt.text = dataList[position]
+        // ML-04: Resolve RecyclerView from parent to avoid holding direct reference
         holder.pickerTxt.setOnClickListener {
-            recyclerView.smoothScrollToPosition(position)
+            (holder.itemView.parent as? RecyclerView)?.smoothScrollToPosition(position)
         }
     }
 

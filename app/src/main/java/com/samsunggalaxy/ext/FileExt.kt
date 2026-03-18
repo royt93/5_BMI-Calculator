@@ -8,13 +8,12 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 
-@JvmField
-val DEFAULT_FILENAME = "BMI Calculator " + System.currentTimeMillis()
-
+// BUG-09: Removed top-level DEFAULT_FILENAME — timestamp was evaluated once at class load.
+// Now computed per call via default parameter.
 fun saveBitmap(
     activity: Activity,
     bitmap: Bitmap,
-    filename: String = DEFAULT_FILENAME,
+    filename: String = "BMI Calculator ${System.currentTimeMillis()}",
 ): Uri? {
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, filename)

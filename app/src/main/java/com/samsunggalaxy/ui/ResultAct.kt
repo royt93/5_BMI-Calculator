@@ -36,9 +36,9 @@ import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
@@ -118,6 +118,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             backPreviousPage(false)
         }
         _binding.ivDeleteBtn.setOnClickListener {
+            // BUG-01: use onBackPressedDispatcher instead of deprecated back flow
             backPreviousPage(true)
         }
         _binding.ivShare.setOnClickListener {
@@ -283,14 +284,11 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun bmiCal() {
         if (height > 0 && weight > 0) {
-            if (gender == 0) {
-                bmiCalMale()
-            } else if (gender == 1) {
-                bmiCalFemale()
-            }
+            // BUG-04: Convert height from cm to meters for standard BMI formula
+            val heightInMeters = height / 100.0
+            result = weight / (heightInMeters * heightInMeters)
             showResult()
         }
-
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
@@ -311,13 +309,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     }
 
-    private fun bmiCalMale() {
-        result = ((weight / (height * height)) * 10000)
-    }
-
-    private fun bmiCalFemale() {
-        result = ((weight / (height * height)) * 10000)
-    }
+    // BUG-03: Removed duplicate bmiCalMale/bmiCalFemale — BMI formula is gender-neutral.
+    // Gender is used for BMR, TDEE, ideal weight in calculateAndDisplayInsights().
 
     private fun calculateAndDisplayInsights() {
         val isMale = gender == 0
@@ -346,7 +339,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     private fun saveToHistory() {
-        CoroutineScope(Dispatchers.IO).launch {
+        // ML-03: Use lifecycleScope instead of raw CoroutineScope to tie to Activity lifecycle
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val isMale = gender == 0
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
@@ -373,14 +367,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 )
 
                 repository.insertRecord(record)
-
-//                runOnUiThread {
-//                    displayToast("Saved to history!")
-//                }
             } catch (e: Exception) {
-//                runOnUiThread {
-//                    displayToast("Failed to save: ${e.message}")
-//                }
+                Log.e("roy93~", "saveToHistory error", e)
             }
         }
     }

@@ -70,51 +70,61 @@ class SplashAct : BaseActivity() {
         animateFloatingCircles()
     }
 
+    private var circle1: View? = null
+    private var circle2: View? = null
+    private var circle3: View? = null
+
     private fun animateFloatingCircles() {
-        val circle1 = findViewById<View>(R.id.circle1)
-        val circle2 = findViewById<View>(R.id.circle2)
-        val circle3 = findViewById<View>(R.id.circle3)
+        circle1 = circle1 ?: findViewById(R.id.circle1)
+        circle2 = circle2 ?: findViewById(R.id.circle2)
+        circle3 = circle3 ?: findViewById(R.id.circle3)
 
         // Circle 1 - Move diagonally
-        circle1.animate()
-            .translationX(50f)
-            .translationY(50f)
-            .setDuration(3000)
-            .withEndAction {
-                circle1.animate()
-                    .translationX(0f)
-                    .translationY(0f)
-                    .setDuration(3000)
-                    .withEndAction { animateFloatingCircles() }
-                    .start()
+        circle1?.animate()
+            ?.translationX(50f)
+            ?.translationY(50f)
+            ?.setDuration(3000)
+            ?.withEndAction {
+                if (!isDestroyed) {
+                    circle1?.animate()
+                        ?.translationX(0f)
+                        ?.translationY(0f)
+                        ?.setDuration(3000)
+                        ?.withEndAction { if (!isDestroyed) animateFloatingCircles() }
+                        ?.start()
+                }
             }
-            .start()
+            ?.start()
 
         // Circle 2 - Move vertically
-        circle2.animate()
-            .translationY(-100f)
-            .setDuration(2500)
-            .withEndAction {
-                circle2.animate()
-                    .translationY(0f)
-                    .setDuration(2500)
-                    .start()
+        circle2?.animate()
+            ?.translationY(-100f)
+            ?.setDuration(2500)
+            ?.withEndAction {
+                if (!isDestroyed) {
+                    circle2?.animate()
+                        ?.translationY(0f)
+                        ?.setDuration(2500)
+                        ?.start()
+                }
             }
-            .start()
+            ?.start()
 
         // Circle 3 - Move horizontally
-        circle3.animate()
-            .translationX(30f)
-            .translationY(-30f)
-            .setDuration(2000)
-            .withEndAction {
-                circle3.animate()
-                    .translationX(0f)
-                    .translationY(0f)
-                    .setDuration(2000)
-                    .start()
+        circle3?.animate()
+            ?.translationX(30f)
+            ?.translationY(-30f)
+            ?.setDuration(2000)
+            ?.withEndAction {
+                if (!isDestroyed) {
+                    circle3?.animate()
+                        ?.translationX(0f)
+                        ?.translationY(0f)
+                        ?.setDuration(2000)
+                        ?.start()
+                }
             }
-            .start()
+            ?.start()
     }
 
     private fun goToMain() {
@@ -126,6 +136,13 @@ class SplashAct : BaseActivity() {
     }
 
     override fun onDestroy() {
+        // ML-01: Cancel all animations to prevent recursive loop holding Activity reference
+        circle1?.animate()?.cancel()
+        circle2?.animate()?.cancel()
+        circle3?.animate()?.cancel()
+        circle1 = null
+        circle2 = null
+        circle3 = null
         handler.removeCallbacksAndMessages(null)
         super.onDestroy()
     }

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.Display
 import android.view.WindowManager
@@ -31,12 +30,16 @@ open class BaseActivity : AppCompatActivity() {
         super.applyOverrideConfiguration(overrideConfiguration)
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // CS-02: Set adaptive refresh rate once on create, not on every resume
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             enableAdaptiveRefreshRate()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun enableAdaptiveRefreshRate() {
@@ -56,7 +59,7 @@ open class BaseActivity : AppCompatActivity() {
                     window.attributes = window.attributes.apply {
                         preferredDisplayModeId = highestRefreshRateMode.modeId
                     }
-                    println("Adaptive refresh rate applied: ${highestRefreshRateMode.refreshRate} Hz")
+                    Log.d("BaseActivity", "Adaptive refresh rate applied: ${highestRefreshRateMode.refreshRate} Hz")
                 }
             }
         }

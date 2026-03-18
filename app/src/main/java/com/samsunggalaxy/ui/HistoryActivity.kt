@@ -95,6 +95,7 @@ class HistoryActivity : BaseActivity() {
 
             // Observe LiveData on main thread
             repository.getAllRecordsAscending(profileId).observe(this@HistoryActivity) { records ->
+                // BUG-05: submitList triggers DiffUtil diff, not notifyDataSetChanged
                 adapter.submitList(records.reversed())
                 updateChart(records)
             }
@@ -167,25 +168,32 @@ class HistoryActivity : BaseActivity() {
         ): Boolean = false
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            // BUG-06: Guard against NO_POSITION to prevent IndexOutOfBoundsException on fast swipe
             val position = viewHolder.adapterPosition
+            if (position == RecyclerView.NO_POSITION) {
+                adapter.notifyDataSetChanged()
+                return
+            }
             val record = adapter.getRecordAt(position)
             showDeleteConfirmDialog(record)
         }
     }
 }
 
+// BUG-05: Replaced HistoryAdapter with ListAdapter + DiffUtil for efficient updates
 class HistoryAdapter(
     private val onDelete: (BmiRecord) -> Unit
-) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+) : androidx.recyclerview.widget.ListAdapter<BmiRecord, HistoryAdapter.ViewHolder>(
+    object : androidx.recyclerview.widget.DiffUtil.ItemCallback<BmiRecord>() {
+        override fun areItemsTheSame(oldItem: BmiRecord, newItem: BmiRecord): Boolean =
+            oldItem.id == newItem.id
 
-    private var records = listOf<BmiRecord>()
-
-    fun submitList(newRecords: List<BmiRecord>) {
-        records = newRecords
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: BmiRecord, newItem: BmiRecord): Boolean =
+            oldItem == newItem
     }
+) {
 
-    fun getRecordAt(position: Int): BmiRecord = records[position]
+    fun getRecordAt(position: Int): BmiRecord = getItem(position)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -194,10 +202,8 @@ class HistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(records[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount() = records.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvDate: TextView = itemView.findViewById(R.id.tvDate)

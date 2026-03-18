@@ -16,7 +16,7 @@ import android.view.Window
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -54,6 +54,20 @@ class MainAct : BaseActivity() {
     private var adView: AdView? = null
     private val handler = Handler(Looper.getMainLooper())
     private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
+
+    // BUG-11: Use ActivityResultLauncher instead of deprecated startActivityForResult
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val shouldReset = result.data?.getBooleanExtra(REQUEST_RESULT, false)
+            if (shouldReset == true) {
+                animationView()
+                _binding.startButton.alpha = 1f
+            }
+        }
+    }
+
     private val navigationRunnable = Runnable {
         val intent = Intent(this, ResultAct::class.java)
         intent.putExtra("Height", height.toDouble())
@@ -64,7 +78,8 @@ class MainAct : BaseActivity() {
         } else {
             intent.putExtra("Gender", 1)
         }
-        startActivityForResult(intent, REQUEST_CODE)
+        // BUG-11: use resultLauncher instead of deprecated startActivityForResult
+        resultLauncher.launch(intent)
         overridePendingTransition(0, 0)
     }
 
@@ -137,7 +152,8 @@ class MainAct : BaseActivity() {
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(_binding.weightRecyclerBtn)
 
-        weightAdapter = WeightPickerAdt(this, getData(151), _binding.weightRecyclerBtn)
+        // ML-04: Removed recyclerView reference from adapter constructor
+        weightAdapter = WeightPickerAdt(this, getData(151))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _binding.weightRecyclerBtn.defaultFocusHighlightEnabled = true
@@ -201,7 +217,8 @@ class MainAct : BaseActivity() {
         }
 
         _binding.ivBack.setOnClickListener {
-            onBackPressed()
+            // BUG-01: Use onBackPressedDispatcher instead of deprecated onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         _binding.ivMenu.setOnClickListener {
             showMenu()
@@ -226,8 +243,9 @@ class MainAct : BaseActivity() {
     }
 
     private fun getData(count: Int): List<String> {
+        // BUG-02: Start from 1 instead of 0 — 0 kg is not a valid weight
         val data: MutableList<String> = ArrayList()
-        for (i in 0 until count) {
+        for (i in 1..count) {
             data.add(i.toString())
         }
         return data
@@ -376,19 +394,7 @@ class MainAct : BaseActivity() {
     override fun onDestroy() {
         handler.removeCallbacks(exitResetRunnable)
         handler.removeCallbacks(navigationRunnable)
-//        binding.flAd?.destroyAdBanner(adView)
         adView?.destroy()
         super.onDestroy()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            val result = data?.getBooleanExtra(REQUEST_RESULT, false)
-            if (result == true) {
-                animationView()
-                _binding.startButton.alpha = 1f
-            }
-        }
     }
 }

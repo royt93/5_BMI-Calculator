@@ -37,11 +37,14 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.samsunggalaxy.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
+import java.util.concurrent.atomic.AtomicInteger
 
 //version 20250803
 //check gradle
@@ -76,7 +79,13 @@ object AdMobManager {
     private var appPreferences: AppPreferences? = null
     private var currentActivity: WeakReference<Activity>? = null
 
-    var interstitialListener: InterstitialAdListener? = null
+    // ML-05: Use WeakReference to avoid holding Activity reference in singleton
+    private var _interstitialListenerRef: WeakReference<InterstitialAdListener>? = null
+    var interstitialListener: InterstitialAdListener?
+        get() = _interstitialListenerRef?.get()
+        set(value) {
+            _interstitialListenerRef = if (value != null) WeakReference(value) else null
+        }
 
     private var lastInterstitialErrorTime: Long = 0
     private var lastAppOpenErrorTime: Long = 0
@@ -152,7 +161,8 @@ object AdMobManager {
     }
 
     fun getGAID(context: Context, callback: (String) -> Unit) {
-        Thread {
+        // BUG-08: Use coroutine instead of raw Thread for proper lifecycle management
+        CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
             try {
                 val info = AdvertisingIdClient.getAdvertisingIdInfo(context)
                 val id = info.id ?: ""
@@ -161,7 +171,7 @@ object AdMobManager {
                 callback("")
                 Log.d("AdMobManager", "getGAID error $e")
             }
-        }.start()
+        }
     }
 
     fun setCurrentActivity(activity: Activity) {
@@ -503,34 +513,37 @@ object AdMobManager {
         Log.d(TAG, "deleteVIPMember listGaidDevice $listGaidDevice => isVIPMember $isVIPMember")
     }
 
-    var countInitSplashScreen = 0
+    // BUG-07: Use AtomicInteger for thread-safe counter
+    private val countInitSplashScreen = AtomicInteger(0)
+    private var splashCoroutineJob: Job? = null
 
     fun initSplashScreen(activity: Activity, onAdLoaded: () -> Unit) {
-        countInitSplashScreen++
-        Log.d(TAG, "~~~initSplashScreen countInitSplashScreen $countInitSplashScreen")
-        if (countInitSplashScreen > 1) {
+        val count = countInitSplashScreen.incrementAndGet()
+        Log.d(TAG, "~~~initSplashScreen countInitSplashScreen $count")
+        if (count > 1) {
             onAdLoaded.invoke()
         } else {
-            CoroutineScope(Dispatchers.Default).launch {
+            // ML-06: Cancel previous job and use .first() to consume only one event, avoiding coroutine leak
+            splashCoroutineJob?.cancel()
+            splashCoroutineJob = CoroutineScope(Dispatchers.Default + SupervisorJob()).launch {
                 Log.d(TAG, "~~~initSplashScreen launch")
-                EventBus.eventFlow.collectLatest { value ->
-                    Log.d(TAG, "initSplashScreen collectLatest: $value")
-                    CoroutineScope(Dispatchers.Main).launch {
-                        loadAppOpenAd(
-                            context = activity,
-                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-                            onAdLoaded = { result ->
-                                Log.d(TAG, "onAdLoaded result $result")
-                                if (result) {
-                                    showAppOpenAd(activity) {
-                                        onAdLoaded.invoke()
-                                    }
-                                } else {
+                val value = EventBus.eventFlow.first() // collect single event then auto-cancel
+                Log.d(TAG, "initSplashScreen got event: $value")
+                CoroutineScope(Dispatchers.Main).launch {
+                    loadAppOpenAd(
+                        context = activity,
+                        adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+                        onAdLoaded = { result ->
+                            Log.d(TAG, "onAdLoaded result $result")
+                            if (result) {
+                                showAppOpenAd(activity) {
                                     onAdLoaded.invoke()
                                 }
-                            },
-                        )
-                    }
+                            } else {
+                                onAdLoaded.invoke()
+                            }
+                        },
+                    )
                 }
             }
         }
