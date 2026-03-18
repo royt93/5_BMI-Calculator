@@ -492,6 +492,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 // Get current profile ID or use 1 as default (created in GalaxyApp)
                 val currentProfile = repository.getCurrentProfile()
                 val profileId = currentProfile?.id ?: 1L
+                Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result")
 
                 val record = BmiRecord(
                     timestamp = System.currentTimeMillis(),
@@ -508,7 +509,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                     profileId = profileId
                 )
 
-                repository.insertRecord(record)
+                val insertedId = repository.insertRecord(record)
+                Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
             } catch (e: Exception) {
                 Log.e("roy93~", "saveToHistory error", e)
             }

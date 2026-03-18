@@ -2,6 +2,7 @@ package com.samsunggalaxy.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,9 +96,13 @@ class HistoryActivity : BaseActivity() {
             val currentProfile = repository.getCurrentProfile()
             val profileId = currentProfile?.id ?: 1L
             val goalWeight = currentProfile?.goalWeight
+            Log.d("roy93~", "HistoryActivity loadData: profileId=$profileId, goalWeight=$goalWeight")
 
             repository.getAllRecordsAscending(profileId).observe(this@HistoryActivity) { records ->
-                // BUG-05: submitList triggers DiffUtil diff
+                Log.d("roy93~", "HistoryActivity records received: count=${records.size}")
+                records.forEachIndexed { i, r ->
+                    Log.d("roy93~", "  record[$i]: id=${r.id}, bmi=${r.bmi}, weight=${r.weight}, profileId=${r.profileId}, ts=${r.timestamp}")
+                }
                 adapter.submitList(records.reversed())
                 updateChart(records, goalWeight)
             }
