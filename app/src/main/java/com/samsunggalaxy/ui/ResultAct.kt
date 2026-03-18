@@ -220,16 +220,59 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         progressBar: ProgressBar,
         tvRemaining: TextView
     ) {
-        val editText = EditText(this).apply {
-            hint = getString(R.string.goal_weight_set_hint)
-            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
-            setPadding(64, 48, 64, 24)
+        val dialogView = android.view.LayoutInflater.from(this)
+            .inflate(R.layout.dialog_goal_weight, null)
+
+        // Current BMI info
+        val currentBmi = weight / ((height / 100.0) * (height / 100.0))
+        dialogView.findViewById<TextView>(R.id.tvDialogCurrentBmi).text =
+            String.format("%.1f", currentBmi)
+        dialogView.findViewById<TextView>(R.id.tvDialogCurrentWeight).text =
+            getString(R.string.goal_weight_current, weight)
+
+        // Category color
+        val tvCategory = dialogView.findViewById<TextView>(R.id.tvDialogBmiCategory)
+        val (catColorRes, catStringRes) = when {
+            currentBmi < 18.5 -> Pair(R.color.bmi_underweight, R.string.bmi_category_underweight)
+            currentBmi < 25.0 -> Pair(R.color.bmi_healthy, R.string.bmi_category_healthy)
+            currentBmi < 30.0 -> Pair(R.color.bmi_overweight, R.string.bmi_category_overweight)
+            else -> Pair(R.color.bmi_obese, R.string.bmi_category_obese)
         }
+        tvCategory.text = getString(catStringRes)
+        tvCategory.setTextColor(ContextCompat.getColor(this, catColorRes))
+
+        // Goal BMI preview (live update as user types)
+        val etGoal = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etGoalWeight)
+        val tvPreview = dialogView.findViewById<TextView>(R.id.tvDialogGoalBmiPreview)
+        val heightM = height / 100.0
+
+        etGoal.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                val goalW = s.toString().toDoubleOrNull()
+                if (goalW != null && goalW > 0 && heightM > 0) {
+                    val goalBmi = goalW / (heightM * heightM)
+                    tvPreview.visibility = View.VISIBLE
+                    tvPreview.text = "${getString(R.string.goal_bmi_target_label)}: ${String.format("%.1f", goalBmi)}"
+                    val previewColor = when {
+                        goalBmi < 18.5 -> R.color.bmi_underweight
+                        goalBmi < 25.0 -> R.color.bmi_healthy
+                        goalBmi < 30.0 -> R.color.bmi_overweight
+                        else -> R.color.bmi_obese
+                    }
+                    tvPreview.setTextColor(ContextCompat.getColor(this@ResultAct, previewColor))
+                } else {
+                    tvPreview.visibility = View.GONE
+                }
+            }
+        })
+
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.goal_weight_label))
-            .setView(editText)
+            .setView(dialogView)
             .setPositiveButton(getString(R.string.goal_weight_save)) { _, _ ->
-                val input = editText.text.toString().toDoubleOrNull()
+                val input = etGoal.text.toString().toDoubleOrNull()
                 lifecycleScope.launch(Dispatchers.IO) {
                     repository.updateGoalWeight(profileId, input)
                     withContext(Dispatchers.Main) {
