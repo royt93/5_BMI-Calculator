@@ -343,6 +343,12 @@ class MainAct : BaseActivity() {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
 
+        val menuTracker = dialog.findViewById<LinearLayout>(R.id.menuTracker)
+        menuTracker?.setOnClickListener {
+            dialog.dismiss()
+            TrackerBottomSheet().show(supportFragmentManager, TrackerBottomSheet.TAG)
+        }
+
         menuCalculators.setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(this, CalculatorsActivity::class.java))

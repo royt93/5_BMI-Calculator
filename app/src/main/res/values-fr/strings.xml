@@ -97,5 +97,17 @@
     <string name="bmi_category_healthy">Normal</string>
     <string name="bmi_category_overweight">Surpoids</string>
     <string name="bmi_category_obese">Obèse</string>
-    <string name="goal_bmi_target_label">Objectif IMC</string>
+    <string name="goal_bmi_target_label">IMC Cible</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">Suivi Poids &amp; Taille</string>
+    <string name="tracker_tab_weight">Poids (kg)</string>
+    <string name="tracker_tab_height">Taille (cm)</string>
+    <string name="tracker_latest">Dernier</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Max</string>
+    <string name="tracker_trend">Tendance</string>
+    <string name="tracker_increased">augmenté</string>
+    <string name="tracker_decreased">diminué</string>
+    <string name="tracker_summary_30d">Votre %1$s a %2$s de %3$s %4$s au cours des 30 derniers jours</string>
 </resources>

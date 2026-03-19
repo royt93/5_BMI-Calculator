@@ -98,4 +98,16 @@
     <string name="bmi_category_overweight">Übergewicht</string>
     <string name="bmi_category_obese">Adipositas</string>
     <string name="goal_bmi_target_label">BMI-Ziel</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">Gewicht- &amp; Größen-Tracker</string>
+    <string name="tracker_tab_weight">Gewicht (kg)</string>
+    <string name="tracker_tab_height">Größe (cm)</string>
+    <string name="tracker_latest">Aktuell</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Max</string>
+    <string name="tracker_trend">Trend</string>
+    <string name="tracker_increased">gestiegen</string>
+    <string name="tracker_decreased">gesunken</string>
+    <string name="tracker_summary_30d">Ihr %1$s ist in den letzten 30 Tagen um %3$s %4$s %2$s</string>
 </resources>

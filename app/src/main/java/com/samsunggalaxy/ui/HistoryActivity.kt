@@ -26,7 +26,9 @@ import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -92,19 +94,18 @@ class HistoryActivity : BaseActivity() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val currentProfile = repository.getCurrentProfile()
             val profileId = currentProfile?.id ?: 1L
             val goalWeight = currentProfile?.goalWeight
             Log.d("roy93~", "HistoryActivity loadData: profileId=$profileId, goalWeight=$goalWeight")
 
-            repository.getAllRecordsAscending(profileId).observe(this@HistoryActivity) { records ->
-                Log.d("roy93~", "HistoryActivity records received: count=${records.size}")
-                records.forEachIndexed { i, r ->
-                    Log.d("roy93~", "  record[$i]: id=${r.id}, bmi=${r.bmi}, weight=${r.weight}, profileId=${r.profileId}, ts=${r.timestamp}")
+            withContext(Dispatchers.Main) {
+                repository.getAllRecordsAscending(profileId).observe(this@HistoryActivity) { records ->
+                    Log.d("roy93~", "HistoryActivity records received: count=${records.size}")
+                    adapter.submitList(records.reversed())
+                    updateChart(records, goalWeight)
                 }
-                adapter.submitList(records.reversed())
-                updateChart(records, goalWeight)
             }
         }
     }

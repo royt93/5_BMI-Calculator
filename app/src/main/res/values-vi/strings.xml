@@ -84,7 +84,19 @@
     <string name="bmi_category_healthy">Bình thường</string>
     <string name="bmi_category_overweight">Thừa cân</string>
     <string name="bmi_category_obese">Béo phì</string>
-    <string name="goal_bmi_target_label">BMI mục tiêu</string>
+    <string name="goal_bmi_target_label">BMI Mục tiêu</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">Theo dõi Cân nặng &amp; Chiều cao</string>
+    <string name="tracker_tab_weight">Cân nặng (kg)</string>
+    <string name="tracker_tab_height">Chiều cao (cm)</string>
+    <string name="tracker_latest">Mới nhất</string>
+    <string name="tracker_min">Thấp nhất</string>
+    <string name="tracker_max">Cao nhất</string>
+    <string name="tracker_trend">Xu hướng</string>
+    <string name="tracker_increased">tăng</string>
+    <string name="tracker_decreased">giảm</string>
+    <string name="tracker_summary_30d">%1$s của bạn đã %2$s %3$s %4$s trong 30 ngày qua</string>
 
     <!-- Activity Levels -->
     <string name="sedentary">Ít vận động (ít hoặc không tập luyện)</string>

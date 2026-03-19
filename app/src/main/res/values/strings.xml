@@ -87,6 +87,18 @@
     <string name="bmi_category_obese">Obese</string>
     <string name="goal_bmi_target_label">BMI Target</string>
 
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">Weight &amp; Height Tracker</string>
+    <string name="tracker_tab_weight">Weight (kg)</string>
+    <string name="tracker_tab_height">Height (cm)</string>
+    <string name="tracker_latest">Latest</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Max</string>
+    <string name="tracker_trend">Trend</string>
+    <string name="tracker_increased">increased</string>
+    <string name="tracker_decreased">decreased</string>
+    <string name="tracker_summary_30d">Your %1$s %2$s %3$s %4$s in the last 30 days</string>
+
     <!-- Activity Levels -->
     <string name="sedentary">Sedentary (little or no exercise)</string>
     <string name="lightly_active">Lightly active (exercise 1-3 days/week)</string>

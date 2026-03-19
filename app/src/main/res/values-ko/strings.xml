@@ -98,4 +98,16 @@
     <string name="bmi_category_overweight">과체중</string>
     <string name="bmi_category_obese">비만</string>
     <string name="goal_bmi_target_label">BMI 목표</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">체중 &amp; 키 추적기</string>
+    <string name="tracker_tab_weight">체중 (kg)</string>
+    <string name="tracker_tab_height">키 (cm)</string>
+    <string name="tracker_latest">최근</string>
+    <string name="tracker_min">최소</string>
+    <string name="tracker_max">최대</string>
+    <string name="tracker_trend">추세</string>
+    <string name="tracker_increased">증가</string>
+    <string name="tracker_decreased">감소</string>
+    <string name="tracker_summary_30d">최근 30일 동안 %1$s이(가) %3$s %4$s %2$s했습니다</string>
 </resources>

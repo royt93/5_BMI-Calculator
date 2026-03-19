@@ -98,4 +98,16 @@
     <string name="bmi_category_overweight">過体重</string>
     <string name="bmi_category_obese">肥満</string>
     <string name="goal_bmi_target_label">BMI目標</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">体重・身長トラッカー</string>
+    <string name="tracker_tab_weight">体重 (kg)</string>
+    <string name="tracker_tab_height">身長 (cm)</string>
+    <string name="tracker_latest">最新</string>
+    <string name="tracker_min">最小</string>
+    <string name="tracker_max">最大</string>
+    <string name="tracker_trend">傾向</string>
+    <string name="tracker_increased">増加</string>
+    <string name="tracker_decreased">減少</string>
+    <string name="tracker_summary_30d">過去30日間で%1$sが%3$s %4$s %2$sしました</string>
 </resources>

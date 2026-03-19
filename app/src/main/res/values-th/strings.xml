@@ -98,4 +98,16 @@
     <string name="bmi_category_overweight">น้ำหนักเกิน</string>
     <string name="bmi_category_obese">อ้วน</string>
     <string name="goal_bmi_target_label">เป้าหมาย BMI</string>
+
+    <!-- Tracker BottomSheet -->
+    <string name="tracker_title">ติดตามน้ำหนัก &amp; ส่วนสูง</string>
+    <string name="tracker_tab_weight">น้ำหนัก (kg)</string>
+    <string name="tracker_tab_height">ส่วนสูง (cm)</string>
+    <string name="tracker_latest">ล่าสุด</string>
+    <string name="tracker_min">ต่ำสุด</string>
+    <string name="tracker_max">สูงสุด</string>
+    <string name="tracker_trend">แนวโน้ม</string>
+    <string name="tracker_increased">เพิ่มขึ้น</string>
+    <string name="tracker_decreased">ลดลง</string>
+    <string name="tracker_summary_30d">%1$s ของคุณ%2$s %3$s %4$s ในช่วง 30 วันที่ผ่านมา</string>
 </resources>
