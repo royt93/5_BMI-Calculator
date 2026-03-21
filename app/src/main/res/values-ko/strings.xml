@@ -110,4 +110,93 @@
     <string name="tracker_increased">증가</string>
     <string name="tracker_decreased">감소</string>
     <string name="tracker_summary_30d">최근 30일 동안 %1$s이(가) %3$s %4$s %2$s했습니다</string>
+
+    <!-- Streak Counter -->
+    <string name="streak_title">%d일 연속!</string>
+    <string name="streak_best">최고 기록: %d</string>
+    <string name="streak_motivation">계속하세요! 매일 BMI를 기록하세요</string>
+    <string name="streak_start">오늘부터 연속 기록을 시작하세요!</string>
+
+    <!-- Achievement Badges -->
+    <string name="achievements_menu">업적</string>
+    <string name="achievements_title">업적 (%1$d/%2$d)</string>
+    <string name="badge_first_step">첫 걸음</string>
+    <string name="badge_first_step_desc">첫 BMI 기록하기</string>
+    <string name="badge_week_warrior">주간 전사</string>
+    <string name="badge_week_warrior_desc">7일 연속 달성</string>
+    <string name="badge_monthly_master">월간 마스터</string>
+    <string name="badge_monthly_master_desc">30일 연속 달성</string>
+    <string name="badge_goal_crusher">목표 달성자</string>
+    <string name="badge_goal_crusher_desc">목표 체중 달성</string>
+    <string name="badge_healthy_zone">건강 구역</string>
+    <string name="badge_healthy_zone_desc">7회 연속 건강 BMI 유지</string>
+    <string name="badge_data_lover">데이터 애호가</string>
+    <string name="badge_data_lover_desc">BMI 50회 기록</string>
+    <string name="badge_unlocked">업적 해제!</string>
+
+    <!-- Health Tips -->
+    <string name="daily_tip_label">💡 오늘의 팁</string>
+    <string name="daily_tip_for">대상</string>
+
+    <string-array name="tips_underweight">
+        <item>견과류, 아보카도, 통곡물 같은 고칼로리 음식을 드세요</item>
+        <item>하루 3끼 대신 5-6끼의 소량 식사를 시도해보세요</item>
+        <item>계란, 생선, 콩류 같은 단백질이 풍부한 음식을 매끼 포함하세요</item>
+        <item>근력 운동은 건강한 근육량 증가에 도움이 됩니다</item>
+        <item>충분히 먹고 있는지 확인하기 위해 일일 칼로리 섭취량을 추적하세요</item>
+        <item>올리브 오일, 치즈, 견과류 버터 같은 건강한 지방을 추가하세요</item>
+        <item>식사 사이에 고칼로리 간식으로 스무디와 셰이크를 마시세요</item>
+        <item>식전에 물을 마시면 식욕이 줄어들 수 있으니 피하세요</item>
+        <item>트레일 믹스, 요거트, 건과일 같은 영양가 높은 간식을 선택하세요</item>
+        <item>충분한 수면을 취하세요. 수면 부족은 식욕과 신진대사에 영향을 줍니다</item>
+    </string-array>
+
+    <string-array name="tips_healthy">
+        <item>과일과 채소가 풍부한 균형 잡힌 식단을 유지하세요</item>
+        <item>주당 최소 150분의 적당한 운동으로 활동적으로 지내세요</item>
+        <item>하루에 최소 8잔의 물을 마시세요</item>
+        <item>매일 밤 7-9시간의 양질의 수면을 취하세요</item>
+        <item>정기 건강 검진으로 문제를 조기에 발견하세요</item>
+        <item>마음 챙김 식사를 실천하고 배고픔과 포만감 신호에 주의하세요</item>
+        <item>가공식품을 제한하고 자연 식품을 선택하세요</item>
+        <item>명상, 요가 또는 심호흡 운동으로 스트레스를 관리하세요</item>
+        <item>균형 잡힌 영양을 위해 매끼 다양한 식품군을 포함하세요</item>
+        <item>오래 앉아 있다면 짧은 산책 휴식을 취하세요</item>
+        <item>첨가당 섭취를 하루 25g 미만으로 제한하세요</item>
+        <item>귀리, 콩, 통밀빵 같은 식이섬유가 풍부한 음식을 더 드세요</item>
+        <item>재료와 분량을 조절하기 위해 집에서 더 많이 요리하세요</item>
+        <item>사회적으로 활동적으로 지내세요. 강한 사회적 유대는 건강을 개선합니다</item>
+        <item>자외선 차단제로 피부를 보호하세요</item>
+    </string-array>
+
+    <string-array name="tips_overweight">
+        <item>작은 접시를 사용하여 점진적으로 식사량을 줄이세요</item>
+        <item>포만감을 오래 유지하기 위해 식이섬유가 풍부한 음식을 더 드세요</item>
+        <item>하루 30분 걷기부터 시작하여 점차 늘려가세요</item>
+        <item>설탕이 든 음료를 물, 허브차 또는 과일 우린 물로 대체하세요</item>
+        <item>식습관을 파악하기 위해 식단 일기를 쓰세요</item>
+        <item>천천히 먹고 꼼꼼히 씹으세요. 포만감을 느끼는 데 20분이 걸립니다</item>
+        <item>충동적인 선택을 피하기 위해 미리 식사를 계획하세요</item>
+        <item>닭가슴살, 생선, 두부 같은 저지방 단백질을 선택하세요</item>
+        <item>야식을 피하고 취침 3시간 전에 저녁 식사를 마치세요</item>
+        <item>댄스, 수영, 자전거 타기 등 즐기는 운동을 찾으세요</item>
+        <item>흰빵, 파스타, 과자 같은 정제 탄수화물을 줄이세요</item>
+        <item>운동 파트너를 찾으세요. 사회적 지지가 동기를 높입니다</item>
+        <item>영양 성분표를 읽고 현명한 식품 선택을 하세요</item>
+        <item>가능하면 엘리베이터 대신 계단을 이용하세요</item>
+        <item>작은 성과를 축하하세요. 0.5kg 감량도 훌륭한 진전입니다</item>
+    </string-array>
+
+    <string-array name="tips_obese">
+        <item>맞춤형 안내를 위해 의료 전문가와 상담하세요</item>
+        <item>걷기나 수중 에어로빅 같은 부드러운 운동부터 시작하세요</item>
+        <item>자연 식품에 집중하고 과도하게 가공된 식품을 피하세요</item>
+        <item>현실적인 목표를 설정하세요: 주당 0.5~1kg</item>
+        <item>공인 영양사와 함께 일하는 것을 고려하세요</item>
+        <item>정기적으로 진행 상황을 추적하세요. 작은 변화가 쌓입니다</item>
+        <item>가족과 친구들의 지원 시스템을 구축하세요</item>
+        <item>수면을 우선시하세요. 수면 부족은 배고픔 호르몬을 증가시킵니다</item>
+        <item>접시 조절법: 반은 채소, 4분의 1은 단백질, 4분의 1은 곡물</item>
+        <item>빠른 다이어트보다 건강한 습관 만들기에 집중하세요</item>
+    </string-array>
 </resources>

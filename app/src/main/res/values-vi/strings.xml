@@ -98,6 +98,95 @@
     <string name="tracker_decreased">giảm</string>
     <string name="tracker_summary_30d">%1$s của bạn đã %2$s %3$s %4$s trong 30 ngày qua</string>
 
+    <!-- Streak Counter -->
+    <string name="streak_title">%d Ngày Liên Tiếp!</string>
+    <string name="streak_best">Kỷ lục: %d</string>
+    <string name="streak_motivation">Tiếp tục nào! Theo dõi BMI mỗi ngày</string>
+    <string name="streak_start">Bắt đầu chuỗi ngày hôm nay!</string>
+
+    <!-- Achievement Badges -->
+    <string name="achievements_menu">Thành tựu</string>
+    <string name="achievements_title">Thành tựu (%1$d/%2$d)</string>
+    <string name="badge_first_step">Bước Đầu Tiên</string>
+    <string name="badge_first_step_desc">Ghi lại BMI đầu tiên</string>
+    <string name="badge_week_warrior">Chiến Binh Tuần</string>
+    <string name="badge_week_warrior_desc">Duy trì chuỗi 7 ngày</string>
+    <string name="badge_monthly_master">Bậc Thầy Tháng</string>
+    <string name="badge_monthly_master_desc">Duy trì chuỗi 30 ngày</string>
+    <string name="badge_goal_crusher">Chinh Phục Mục Tiêu</string>
+    <string name="badge_goal_crusher_desc">Đạt cân nặng mục tiêu</string>
+    <string name="badge_healthy_zone">Vùng Khoẻ Mạnh</string>
+    <string name="badge_healthy_zone_desc">BMI khoẻ mạnh 7 lần liên tiếp</string>
+    <string name="badge_data_lover">Người Yêu Dữ Liệu</string>
+    <string name="badge_data_lover_desc">Ghi lại 50 lần BMI</string>
+    <string name="badge_unlocked">Mở khóa thành tựu!</string>
+
+    <!-- Health Tips -->
+    <string name="daily_tip_label">💡 Mẹo Hàng Ngày</string>
+    <string name="daily_tip_for">Dành cho</string>
+
+    <string-array name="tips_underweight">
+        <item>Ăn thực phẩm giàu calo như hạt, bơ và ngũ cốc nguyên hạt</item>
+        <item>Thử ăn 5-6 bữa nhỏ trong ngày thay vì 3 bữa lớn</item>
+        <item>Bổ sung thực phẩm giàu protein như trứng, cá và đậu trong mỗi bữa ăn</item>
+        <item>Tập luyện sức mạnh giúp xây dựng cơ bắp khỏe mạnh</item>
+        <item>Theo dõi lượng calo hàng ngày để đảm bảo bạn ăn đủ</item>
+        <item>Thêm chất béo lành mạnh như dầu ô liu, phô mai và bơ hạt vào bữa ăn</item>
+        <item>Uống sinh tố và sữa lắc giàu calo giữa các bữa ăn</item>
+        <item>Tránh uống nước trước bữa ăn vì có thể giảm cảm giác thèm ăn</item>
+        <item>Chọn đồ ăn nhẹ giàu dinh dưỡng như hạt hỗn hợp, sữa chua và trái cây sấy</item>
+        <item>Ngủ đủ giấc vì thiếu ngủ ảnh hưởng đến cảm giác thèm ăn và trao đổi chất</item>
+    </string-array>
+
+    <string-array name="tips_healthy">
+        <item>Duy trì chế độ ăn cân bằng với nhiều trái cây và rau xanh</item>
+        <item>Vận động ít nhất 150 phút tập luyện vừa phải mỗi tuần</item>
+        <item>Uống ít nhất 8 ly nước mỗi ngày để giữ đủ nước</item>
+        <item>Ngủ 7-9 tiếng chất lượng mỗi đêm</item>
+        <item>Khám sức khỏe định kỳ giúp phát hiện sớm vấn đề</item>
+        <item>Ăn uống có ý thức và chú ý đến cảm giác đói no</item>
+        <item>Hạn chế thực phẩm chế biến và chọn thực phẩm tự nhiên</item>
+        <item>Quản lý căng thẳng thông qua thiền, yoga hoặc bài tập hít thở</item>
+        <item>Đa dạng nhóm thực phẩm trong mỗi bữa ăn để dinh dưỡng cân bằng</item>
+        <item>Đi bộ ngắn nếu bạn ngồi lâu trong ngày</item>
+        <item>Hạn chế đường bổ sung dưới 25g mỗi ngày</item>
+        <item>Ăn nhiều thực phẩm giàu chất xơ như yến mạch, đậu và bánh mì nguyên cám</item>
+        <item>Nấu ăn tại nhà nhiều hơn để kiểm soát nguyên liệu và khẩu phần</item>
+        <item>Duy trì hoạt động xã hội vì mối quan hệ tốt cải thiện sức khỏe</item>
+        <item>Bảo vệ da bằng kem chống nắng khi ra ngoài</item>
+    </string-array>
+
+    <string-array name="tips_overweight">
+        <item>Giảm khẩu phần ăn dần dần và dùng đĩa nhỏ hơn</item>
+        <item>Ăn nhiều thực phẩm giàu chất xơ để no lâu hơn</item>
+        <item>Bắt đầu đi bộ 30 phút mỗi ngày và tăng dần</item>
+        <item>Thay đồ uống có đường bằng nước, trà thảo mộc hoặc nước pha trái cây</item>
+        <item>Viết nhật ký ăn uống để nhận biết thói quen ăn</item>
+        <item>Ăn chậm và nhai kỹ vì cần 20 phút để cảm thấy no</item>
+        <item>Lên kế hoạch bữa ăn trước để tránh lựa chọn thiếu lành mạnh</item>
+        <item>Chọn protein nạc như ức gà, cá và đậu phụ</item>
+        <item>Tránh ăn khuya và kết thúc bữa tối 3 tiếng trước khi ngủ</item>
+        <item>Tìm hoạt động thể chất bạn thích như nhảy, bơi hoặc đạp xe</item>
+        <item>Giảm tinh bột tinh chế như bánh mì trắng, mì ống và bánh ngọt</item>
+        <item>Tìm bạn tập cùng vì hỗ trợ xã hội tăng động lực</item>
+        <item>Đọc nhãn dinh dưỡng để lựa chọn thực phẩm thông minh</item>
+        <item>Đi cầu thang bộ thay vì thang máy khi có thể</item>
+        <item>Ăn mừng thành tích nhỏ vì mỗi 0.5 kg giảm đều là tiến bộ</item>
+    </string-array>
+
+    <string-array name="tips_obese">
+        <item>Tham khảo ý kiến chuyên gia y tế để được hướng dẫn cá nhân</item>
+        <item>Bắt đầu với bài tập nhẹ nhàng như đi bộ hoặc bơi lội</item>
+        <item>Tập trung vào thực phẩm tự nhiên và tránh đồ chế biến sẵn</item>
+        <item>Đặt mục tiêu thực tế: giảm 0.5 đến 1 kg mỗi tuần</item>
+        <item>Cân nhắc làm việc với chuyên gia dinh dưỡng</item>
+        <item>Theo dõi tiến trình thường xuyên vì thay đổi nhỏ tích lũy theo thời gian</item>
+        <item>Xây dựng hệ thống hỗ trợ từ gia đình và bạn bè</item>
+        <item>Ưu tiên giấc ngủ vì thiếu ngủ tăng hormone gây đói</item>
+        <item>Kiểm soát khẩu phần: nửa rau, một phần tư protein, một phần tư ngũ cốc</item>
+        <item>Tập trung xây dựng thói quen lành mạnh thay vì các chế độ ăn kiêng nhanh</item>
+    </string-array>
+
     <!-- Activity Levels -->
     <string name="sedentary">Ít vận động (ít hoặc không tập luyện)</string>
     <string name="lightly_active">Hoạt động nhẹ (tập 1-3 ngày/tuần)</string>

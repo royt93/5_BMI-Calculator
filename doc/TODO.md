@@ -384,29 +384,60 @@ Phase 2: Health Tips 50 tips × 7 langs      (~10 files, độc lập)
 Phase 3: BadgeManager + Achievements        (~20 files, phụ thuộc Phase 1)
 ```
 
-## ✅ Verification
+## ✅ Implementation Status: COMPLETE
 
-### Build
-```bash
-./gradlew compileDevDebugKotlin    # 0 errors
-```
-
-### Manual Testing
-1. **Streak**: BMI lần 1 → "🔥 1 Day Streak!" → lần 2 cùng ngày → vẫn "1" → hôm sau → "2"
-2. **Tips**: Result screen → tip card theo BMI → swipe → auto-rotate 5s
-3. **Badges**: Menu → Achievements → grid 6 badges, "First Step" earned
-4. **Celebration**: BMI lần đầu → Snackbar "🎉 First Step!"
-5. **Dark/Light**: Toggle → đúng colors
-6. **7 ngôn ngữ**: Đổi locale → strings dịch đúng
+Build: `./gradlew compileDevDebugKotlin` → **0 errors** ✅
 
 ---
 
-## ⚠️ Code Rules
+## 🧪 Hướng Dẫn Test Chi Tiết
 
-- ❌ `lateinit var` → ✅ `var xxx: Type? = null`
-- ❌ Observe LiveData on IO → ✅ `launch(IO) { withContext(Main) { observe } }`
-- ❌ Hardcoded colors → ✅ `@color/textColor`, `?attr/colorPrimary`
+### Test 1: 🔥 Streak Counter
+
+| Bước | Hành động | Kết quả mong đợi |
+|------|-----------|-------------------|
+| 1 | Mở app lần đầu (chưa tính BMI) | Streak card: "Start your streak today!" |
+| 2 | Tính BMI → Back về Main | "🔥 1 Day Streak!", Best: 1 |
+| 3 | Tính BMI lại cùng ngày | Vẫn "1 Day Streak!" (KHÔNG +1) |
+| 4 | Tính BMI ngày hôm sau | "🔥 2 Day Streak!" |
+| 5 | Miss 1 ngày → tính BMI | "🔥 1 Day Streak!", Best giữ kỷ lục cũ |
+
+### Test 2: 💡 Health Tips
+
+| Bước | Hành động | Kết quả mong đợi |
+|------|-----------|-------------------|
+| 1 | Tính BMI → Result screen | Tip card "💡 Daily Tip" dưới BMI result |
+| 2 | Swipe tip card | 3 tips, dot indicator di chuyển |
+| 3 | Đợi 5 giây | Tip auto-scroll |
+| 4 | BMI < 18.5 | Tips underweight |
+| 5 | BMI 18.5-25 | Tips healthy |
+| 6 | BMI 25-30 | Tips overweight |
+| 7 | BMI ≥ 30 | Tips obese |
+
+### Test 3: 🏆 Achievement Badges
+
+| Bước | Hành động | Kết quả mong đợi |
+|------|-----------|-------------------|
+| 1 | Tính BMI lần đầu | Snackbar "🎉 First Step!" |
+| 2 | Menu → Achievements | Grid 6 badges, "First Step" ✅, 5 mờ 🔒 |
+| 3 | Header | "Achievements (1/6)" |
+| 4 | 7 ngày streak | Unlock "Week Warrior" |
+| 5 | 30 ngày streak | Unlock "Monthly Master" |
+| 6 | weight ≤ goal weight | Unlock "Goal Crusher" |
+| 7 | 7 BMI liên tiếp 18.5-25 | Unlock "Healthy Zone" |
+| 8 | 50 lần tính BMI | Unlock "Data Lover" |
+
+### Test 4: 🌙/☀️ Dark/Light + 🌐 7 ngôn ngữ
+
+- Toggle Dark/Light → cards render correct
+- Đổi locale: EN → VI → DE → FR → JA → KO → TH → kiểm tra strings
+
+---
+
+## ⚠️ Code Rules (Đã tuân thủ)
+
+- ❌ `lateinit` → ✅ nullable types
 - ✅ Null-safe: `?.`, `?: return`
-- ✅ Memory safe: `viewLifecycleOwner`, `isAdded`, cancel handler in `onPause()`
-- ✅ Layout-night variants cho tất cả layouts mới
-- ✅ `menuXxx?.setOnClickListener` (null-safe)
+- ✅ Memory safe: cancel handler in `onDestroy()`
+- ✅ Layout-night variants
+- ✅ `menuXxx?.setOnClickListener`

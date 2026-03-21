@@ -114,6 +114,60 @@ class MainAct : BaseActivity() {
     override fun onResume() {
         super.onResume()
         adView?.resume()
+        updateStreakUI()
+    }
+
+    private fun updateStreakUI() {
+        Log.d("roy93~", "updateStreakUI() called")
+        try {
+            val streakCard = _binding.root.findViewById<View>(R.id.streakCard)
+            Log.d("roy93~", "updateStreakUI: streakCard=${streakCard != null}")
+            if (streakCard == null) return
+
+            val tvTitle = streakCard.findViewById<TextView>(R.id.tvStreakTitle)
+            val tvBest = streakCard.findViewById<TextView>(R.id.tvStreakBest)
+            val tvMotivation = streakCard.findViewById<TextView>(R.id.tvStreakMotivation)
+            Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
+            if (tvTitle == null || tvBest == null || tvMotivation == null) return
+
+            val data = StreakManager.getStreakData(this)
+            Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
+
+            if (data.current > 0) {
+                tvTitle.text = getString(R.string.streak_title, data.current)
+                tvMotivation.text = getString(R.string.streak_motivation)
+            } else {
+                tvTitle.text = getString(R.string.streak_start)
+                tvMotivation.text = getString(R.string.streak_motivation)
+            }
+            tvBest.text = if (data.best > 0) getString(R.string.streak_best, data.best) else ""
+            tvBest.visibility = if (data.best > 0) View.VISIBLE else View.GONE
+
+            // Update day circles — show checked days based on actual streak count
+            val dayIds = intArrayOf(R.id.tvDay0, R.id.tvDay1, R.id.tvDay2, R.id.tvDay3, R.id.tvDay4, R.id.tvDay5, R.id.tvDay6)
+            val dayLabels = arrayOf("M", "T", "W", "T", "F", "S", "S")
+            val todayIndex = (java.time.LocalDate.now().dayOfWeek.value - 1) // 0=Mon
+            val todayChecked = StreakManager.isTodayChecked(this)
+            Log.d("roy93~", "updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
+
+            // How many past days in this week are part of the streak?
+            val streakDays = data.current
+            val checkedToday = if (todayChecked) 1 else 0
+            val pastDaysCovered = minOf(streakDays - checkedToday, todayIndex)
+            Log.d("roy93~", "updateStreakUI: streakDays=$streakDays, pastDaysCovered=$pastDaysCovered")
+
+            for (i in 0..6) {
+                val tv = streakCard.findViewById<TextView>(dayIds[i]) ?: continue
+                when {
+                    i == todayIndex -> tv.text = if (todayChecked) "✓" else "◉"
+                    i < todayIndex && i >= (todayIndex - pastDaysCovered) -> tv.text = "✓"
+                    else -> tv.text = dayLabels[i]
+                }
+            }
+            Log.d("roy93~", "updateStreakUI: DONE, title=${tvTitle.text}")
+        } catch (e: Exception) {
+            Log.e("roy93~", "updateStreakUI error", e)
+        }
     }
 
     override fun onPause() {
@@ -347,6 +401,12 @@ class MainAct : BaseActivity() {
         menuTracker?.setOnClickListener {
             dialog.dismiss()
             TrackerBottomSheet().show(supportFragmentManager, TrackerBottomSheet.TAG)
+        }
+
+        val menuAchievements = dialog.findViewById<LinearLayout>(R.id.menuAchievements)
+        menuAchievements?.setOnClickListener {
+            dialog.dismiss()
+            AchievementsBottomSheet().show(supportFragmentManager, AchievementsBottomSheet.TAG)
         }
 
         menuCalculators.setOnClickListener {

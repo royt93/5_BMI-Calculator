@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardStreak"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_glass_card_main"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Row 1: Fire icon + streak text + best badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔥"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvStreakTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/streak_start"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvStreakBest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_glass_card_small"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Row 2: 7 day circles -->
+        <LinearLayout
+            android:id="@+id/llDayCircles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDay0"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay1"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay2"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay3"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay4"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay5"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tvDay6"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/textColorAdditional"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Row 3: Motivation text -->
+        <TextView
+            android:id="@+id/tvStreakMotivation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/streak_motivation"
+            android:textColor="@color/textColorAdditional"
+            android:textSize="12sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -66,6 +66,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         overridePendingTransition(0, 0)
     }
 
+    private var tipAutoScrollRunnable: Runnable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +120,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         saveToHistory()
         animationView()
         loadGoalCard()
+        setupHealthTips()
 
         _binding.cvReload.setOnClickListener {
             backPreviousPage(false)
@@ -145,6 +148,72 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 tvLabelAd = tvLabelAd,
                 adSize = AdSize.BANNER,
             )
+        }
+    }
+    // ---- Health Tips Feature ----
+    private fun setupHealthTips() {
+        try {
+            val vpTips = _binding.root.findViewById<androidx.viewpager2.widget.ViewPager2>(R.id.vpHealthTips) ?: return
+            val dotsContainer = _binding.root.findViewById<android.widget.LinearLayout>(R.id.dotsIndicator) ?: return
+
+            // Select tips array + color based on BMI category
+            val (tipsArrayRes, catNameRes, catColorRes) = when {
+                result < 18.5 -> Triple(R.array.tips_underweight, R.string.bmi_category_underweight, R.color.bmi_underweight)
+                result < 25.0 -> Triple(R.array.tips_healthy, R.string.bmi_category_healthy, R.color.bmi_healthy)
+                result < 30.0 -> Triple(R.array.tips_overweight, R.string.bmi_category_overweight, R.color.bmi_overweight)
+                else -> Triple(R.array.tips_obese, R.string.bmi_category_obese, R.color.bmi_obese)
+            }
+
+            val allTips = resources.getStringArray(tipsArrayRes)
+            if (allTips.isEmpty()) return
+
+            // Pick 3 tips based on dayOfYear
+            val dayOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
+            val startIdx = dayOfYear % allTips.size
+            val selectedTips = (0 until 3).map { i ->
+                allTips[(startIdx + i) % allTips.size]
+            }
+
+            val categoryLabel = "${getString(R.string.daily_tip_for)}: ${getString(catNameRes)}"
+            val adapter = HealthTipAdapter(selectedTips, categoryLabel, catColorRes)
+            vpTips.adapter = adapter
+
+            // Dot indicators
+            dotsContainer.removeAllViews()
+            val dots = Array(selectedTips.size) { i ->
+                val dot = TextView(this).apply {
+                    text = "●"
+                    textSize = 10f
+                    setPadding(8, 0, 8, 0)
+                    setTextColor(ContextCompat.getColor(this@ResultAct,
+                        if (i == 0) R.color.textColor else R.color.textColorAdditional))
+                }
+                dotsContainer.addView(dot)
+                dot
+            }
+
+            vpTips.registerOnPageChangeCallback(object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    dots.forEachIndexed { idx, dot ->
+                        dot.setTextColor(ContextCompat.getColor(this@ResultAct,
+                            if (idx == position) R.color.textColor else R.color.textColorAdditional))
+                    }
+                }
+            })
+
+            // Auto-scroll every 5s
+            tipAutoScrollRunnable = object : Runnable {
+                override fun run() {
+                    if (!isFinishing && !isDestroyed) {
+                        val next = ((vpTips.currentItem + 1) % selectedTips.size)
+                        vpTips.setCurrentItem(next, true)
+                        handler.postDelayed(this, 5000)
+                    }
+                }
+            }
+            handler.postDelayed(tipAutoScrollRunnable!!, 5000)
+        } catch (e: Exception) {
+            Log.e("roy93~", "setupHealthTips error", e)
         }
     }
 
@@ -511,6 +580,40 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
                 val insertedId = repository.insertRecord(record)
                 Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
+
+                // Update streak (SharedPrefs is thread-safe, commit() is sync)
+                StreakManager.recordCheck(this@ResultAct)
+
+                // Check badges
+                try {
+                    val recordCount = repository.getRecordCount(profileId)
+                    val recentBmiValues = repository.getRecentBmiValues(profileId, 7)
+                    val goalWeight = currentProfile?.goalWeight
+
+                    val newlyEarned = BadgeManager.checkAll(
+                        context = this@ResultAct,
+                        recordCount = recordCount,
+                        currentBmi = result,
+                        currentWeight = weight,
+                        goalWeight = goalWeight,
+                        recentBmiList = recentBmiValues
+                    )
+
+                    if (newlyEarned.isNotEmpty()) {
+                        // Show only the first badge to avoid overlapping Snackbars
+                        val badge = newlyEarned.first()
+                        withContext(Dispatchers.Main) {
+                            if (!isFinishing && !isDestroyed) {
+                                com.google.android.material.snackbar.Snackbar
+                                    .make(_binding.root, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                                    .setBackgroundTint(androidx.core.content.ContextCompat.getColor(this@ResultAct, R.color.bmi_healthy))
+                                    .show()
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("roy93~", "Badge check error", e)
+                }
             } catch (e: Exception) {
                 Log.e("roy93~", "saveToHistory error", e)
             }

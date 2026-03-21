@@ -110,4 +110,93 @@
     <string name="tracker_increased">gestiegen</string>
     <string name="tracker_decreased">gesunken</string>
     <string name="tracker_summary_30d">Ihr %1$s ist in den letzten 30 Tagen um %3$s %4$s %2$s</string>
+
+    <!-- Streak Counter -->
+    <string name="streak_title">%d Tage Streak!</string>
+    <string name="streak_best">Rekord: %d</string>
+    <string name="streak_motivation">Weiter so! Verfolgen Sie täglich Ihren BMI</string>
+    <string name="streak_start">Starten Sie heute Ihren Streak!</string>
+
+    <!-- Achievement Badges -->
+    <string name="achievements_menu">Erfolge</string>
+    <string name="achievements_title">Erfolge (%1$d/%2$d)</string>
+    <string name="badge_first_step">Erster Schritt</string>
+    <string name="badge_first_step_desc">Ersten BMI aufzeichnen</string>
+    <string name="badge_week_warrior">Wochen-Krieger</string>
+    <string name="badge_week_warrior_desc">7-Tage-Streak halten</string>
+    <string name="badge_monthly_master">Monats-Meister</string>
+    <string name="badge_monthly_master_desc">30-Tage-Streak halten</string>
+    <string name="badge_goal_crusher">Ziel-Brecher</string>
+    <string name="badge_goal_crusher_desc">Zielgewicht erreichen</string>
+    <string name="badge_healthy_zone">Gesunde Zone</string>
+    <string name="badge_healthy_zone_desc">7 Einträge im gesunden BMI</string>
+    <string name="badge_data_lover">Daten-Liebhaber</string>
+    <string name="badge_data_lover_desc">50 BMI-Einträge aufzeichnen</string>
+    <string name="badge_unlocked">Erfolg freigeschaltet!</string>
+
+    <!-- Health Tips -->
+    <string name="daily_tip_label">💡 Täglicher Tipp</string>
+    <string name="daily_tip_for">Für</string>
+
+    <string-array name="tips_underweight">
+        <item>Essen Sie kalorienreiche Lebensmittel wie Nüsse, Avocados und Vollkorn</item>
+        <item>Versuchen Sie 5-6 kleinere Mahlzeiten über den Tag verteilt</item>
+        <item>Nehmen Sie proteinreiche Lebensmittel wie Eier, Fisch und Hülsenfrüchte zu sich</item>
+        <item>Krafttraining kann helfen, gesunde Muskelmasse aufzubauen</item>
+        <item>Verfolgen Sie Ihre tägliche Kalorienzufuhr</item>
+        <item>Fügen Sie gesunde Fette wie Olivenöl, Käse und Nussbutter hinzu</item>
+        <item>Trinken Sie Smoothies als kalorienreiche Snacks zwischen den Mahlzeiten</item>
+        <item>Vermeiden Sie es, vor den Mahlzeiten Wasser zu trinken</item>
+        <item>Wählen Sie nährstoffreiche Snacks wie Studentenfutter, Joghurt und Trockenfrüchte</item>
+        <item>Schlafen Sie ausreichend, da schlechter Schlaf den Appetit beeinflusst</item>
+    </string-array>
+
+    <string-array name="tips_healthy">
+        <item>Halten Sie eine ausgewogene Ernährung mit viel Obst und Gemüse</item>
+        <item>Bleiben Sie aktiv mit mindestens 150 Minuten moderater Bewegung pro Woche</item>
+        <item>Trinken Sie täglich mindestens 8 Gläser Wasser</item>
+        <item>Schlafen Sie jede Nacht 7-9 Stunden</item>
+        <item>Regelmäßige Vorsorgeuntersuchungen helfen, Probleme früh zu erkennen</item>
+        <item>Praktizieren Sie achtsames Essen und achten Sie auf Hunger- und Sättigungsgefühle</item>
+        <item>Begrenzen Sie verarbeitete Lebensmittel und wählen Sie natürliche Alternativen</item>
+        <item>Bewältigen Sie Stress durch Meditation, Yoga oder Atemübungen</item>
+        <item>Nehmen Sie verschiedene Lebensmittelgruppen in jede Mahlzeit auf</item>
+        <item>Machen Sie kurze Spaziergänge, wenn Sie lange sitzen</item>
+        <item>Begrenzen Sie zugesetzten Zucker auf weniger als 25g pro Tag</item>
+        <item>Essen Sie mehr ballaststoffreiche Lebensmittel wie Haferflocken und Bohnen</item>
+        <item>Kochen Sie mehr zu Hause, um Zutaten und Portionen zu kontrollieren</item>
+        <item>Bleiben Sie sozial aktiv, denn starke soziale Bindungen verbessern die Gesundheit</item>
+        <item>Schützen Sie Ihre Haut mit Sonnencreme</item>
+    </string-array>
+
+    <string-array name="tips_overweight">
+        <item>Reduzieren Sie Portionsgrößen schrittweise und verwenden Sie kleinere Teller</item>
+        <item>Essen Sie mehr ballaststoffreiche Lebensmittel für ein längeres Sättigungsgefühl</item>
+        <item>Beginnen Sie mit 30 Minuten Gehen täglich</item>
+        <item>Ersetzen Sie zuckerhaltige Getränke durch Wasser oder Kräutertee</item>
+        <item>Führen Sie ein Ernährungstagebuch</item>
+        <item>Essen Sie langsam und kauen Sie gründlich</item>
+        <item>Planen Sie Ihre Mahlzeiten im Voraus</item>
+        <item>Wählen Sie magere Proteine wie Hähnchenbrust, Fisch und Tofu</item>
+        <item>Vermeiden Sie spätes Essen und beenden Sie das Abendessen 3 Stunden vor dem Schlafen</item>
+        <item>Finden Sie körperliche Aktivitäten, die Ihnen Spaß machen</item>
+        <item>Reduzieren Sie raffinierte Kohlenhydrate wie Weißbrot und Gebäck</item>
+        <item>Finden Sie einen Trainingspartner für mehr Motivation</item>
+        <item>Lesen Sie Nährwertangaben für informierte Lebensmittelauswahl</item>
+        <item>Nehmen Sie die Treppe statt den Aufzug</item>
+        <item>Feiern Sie kleine Erfolge, denn jedes verlorene halbe Kilo ist Fortschritt</item>
+    </string-array>
+
+    <string-array name="tips_obese">
+        <item>Konsultieren Sie einen Arzt für individuelle Beratung</item>
+        <item>Beginnen Sie mit sanften Übungen wie Gehen oder Wassergymnastik</item>
+        <item>Konzentrieren Sie sich auf Vollwertkost und vermeiden Sie stark verarbeitete Lebensmittel</item>
+        <item>Setzen Sie realistische Ziele: 0,5 bis 1 kg pro Woche</item>
+        <item>Erwägen Sie die Zusammenarbeit mit einem Ernährungsberater</item>
+        <item>Verfolgen Sie Ihren Fortschritt regelmäßig</item>
+        <item>Bauen Sie ein Unterstützungssystem aus Familie und Freunden auf</item>
+        <item>Priorisieren Sie Schlaf, da Schlafmangel Hungerhormone erhöht</item>
+        <item>Portionskontrolle: Hälfte Gemüse, Viertel Protein, Viertel Getreide</item>
+        <item>Konzentrieren Sie sich auf gesunde Gewohnheiten statt Crash-Diäten</item>
+    </string-array>
 </resources>

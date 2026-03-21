@@ -129,9 +129,38 @@
                         layout="@layout/item_health_insights"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cardResult" />
+
+                    <!-- Health Tips ViewPager2 -->
+                    <LinearLayout
+                        android:id="@+id/healthTipsContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/healthInsights">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vpHealthTips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:id="@+id/dotsIndicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
 
                     <include
                         android:id="@+id/goalCard"
@@ -141,7 +170,7 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/healthInsights" />
+                        app:layout_constraintTop_toBottomOf="@+id/healthTipsContainer" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

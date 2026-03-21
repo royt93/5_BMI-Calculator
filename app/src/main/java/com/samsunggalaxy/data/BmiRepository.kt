@@ -62,4 +62,13 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     suspend fun updateGoalWeight(profileId: Long, goalWeight: Double?) {
         profileDao.updateGoalWeight(profileId, goalWeight)
     }
+
+    // Badge Feature
+    suspend fun getRecordCount(profileId: Long): Int {
+        return bmiDao.getRecordCount(profileId)
+    }
+
+    suspend fun getRecentBmiValues(profileId: Long, limit: Int): List<Double> {
+        return bmiDao.getRecentBmiValues(profileId, limit)
+    }
 }

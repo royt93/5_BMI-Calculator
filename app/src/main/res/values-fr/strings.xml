@@ -110,4 +110,93 @@
     <string name="tracker_increased">augmenté</string>
     <string name="tracker_decreased">diminué</string>
     <string name="tracker_summary_30d">Votre %1$s a %2$s de %3$s %4$s au cours des 30 derniers jours</string>
+
+    <!-- Streak Counter -->
+    <string name="streak_title">%d Jours consécutifs !</string>
+    <string name="streak_best">Record : %d</string>
+    <string name="streak_motivation">Continuez ! Suivez votre IMC chaque jour</string>
+    <string name="streak_start">Commencez votre série aujourdx27hui !</string>
+
+    <!-- Achievement Badges -->
+    <string name="achievements_menu">Succès</string>
+    <string name="achievements_title">Succès (%1$d/%2$d)</string>
+    <string name="badge_first_step">Premier Pas</string>
+    <string name="badge_first_step_desc">Enregistrer votre premier IMC</string>
+    <string name="badge_week_warrior">Guerrier de la Semaine</string>
+    <string name="badge_week_warrior_desc">Maintenir une série de 7 jours</string>
+    <string name="badge_monthly_master">Maître du Mois</string>
+    <string name="badge_monthly_master_desc">Maintenir une série de 30 jours</string>
+    <string name="badge_goal_crusher">Briseur d\'Objectifs</string>
+    <string name="badge_goal_crusher_desc">Atteindre votre poids cible</string>
+    <string name="badge_healthy_zone">Zone Saine</string>
+    <string name="badge_healthy_zone_desc">IMC sain pendant 7 entrées</string>
+    <string name="badge_data_lover">Amateur de Données</string>
+    <string name="badge_data_lover_desc">Enregistrer 50 entrées IMC</string>
+    <string name="badge_unlocked">Succès débloqué !</string>
+
+    <!-- Health Tips -->
+    <string name="daily_tip_label">💡 Conseil du Jour</string>
+    <string name="daily_tip_for">Pour</string>
+
+    <string-array name="tips_underweight">
+        <item>Mangez des aliments riches en calories comme les noix, les avocats et les céréales complètes</item>
+        <item>Essayez de prendre 5-6 petits repas dans la journée au lieu de 3 grands</item>
+        <item>Incluez des aliments riches en protéines comme les œufs, le poisson et les légumineuses</item>
+        <item>La musculation peut aider à développer une masse musculaire saine</item>
+        <item>Suivez votre apport calorique quotidien pour vous assurer de manger suffisamment</item>
+        <item>Ajoutez des graisses saines comme l\x27huile d\x27olive, le fromage et les beurres de noix</item>
+        <item>Buvez des smoothies comme collations riches en calories entre les repas</item>
+        <item>Évitez de boire de l\x27eau avant les repas car cela peut réduire l\x27appétit</item>
+        <item>Choisissez des collations nutritives comme les fruits secs et le yaourt</item>
+        <item>Dormez suffisamment car un mauvais sommeil affecte l\x27appétit et le métabolisme</item>
+    </string-array>
+
+    <string-array name="tips_healthy">
+        <item>Maintenez une alimentation équilibrée riche en fruits et légumes</item>
+        <item>Restez actif avec au moins 150 minutes d\x27exercice modéré par semaine</item>
+        <item>Buvez au moins 8 verres d\x27eau par jour</item>
+        <item>Dormez 7 à 9 heures de sommeil de qualité chaque nuit</item>
+        <item>Les bilans de santé réguliers aident à détecter les problèmes tôt</item>
+        <item>Pratiquez l\x27alimentation consciente et écoutez vos signaux de faim</item>
+        <item>Limitez les aliments transformés et choisissez des alternatives naturelles</item>
+        <item>Gérez le stress par la méditation, le yoga ou des exercices de respiration</item>
+        <item>Incluez une variété de groupes alimentaires dans chaque repas</item>
+        <item>Faites de courtes marches si vous êtes assis longtemps</item>
+        <item>Limitez le sucre ajouté à moins de 25g par jour</item>
+        <item>Mangez plus d\x27aliments riches en fibres comme l\x27avoine et les haricots</item>
+        <item>Cuisinez plus à la maison pour contrôler les ingrédients et les portions</item>
+        <item>Restez socialement actif car les liens sociaux forts améliorent la santé</item>
+        <item>Protégez votre peau avec de la crème solaire</item>
+    </string-array>
+
+    <string-array name="tips_overweight">
+        <item>Réduisez progressivement la taille des portions et utilisez des assiettes plus petites</item>
+        <item>Incluez plus d\x27aliments riches en fibres pour rester rassasié plus longtemps</item>
+        <item>Commencez par 30 minutes de marche par jour</item>
+        <item>Remplacez les boissons sucrées par de l\x27eau ou du thé aux herbes</item>
+        <item>Tenez un journal alimentaire pour prendre conscience de vos habitudes</item>
+        <item>Mangez lentement et mâchez bien car il faut 20 minutes pour se sentir rassasié</item>
+        <item>Planifiez vos repas à l\x27avance pour éviter les choix impulsifs</item>
+        <item>Choisissez des protéines maigres comme le poulet, le poisson et le tofu</item>
+        <item>Évitez de manger tard le soir et finissez de dîner 3 heures avant de dormir</item>
+        <item>Trouvez des activités physiques que vous aimez comme la danse ou la natation</item>
+        <item>Réduisez les glucides raffinés comme le pain blanc et les pâtisseries</item>
+        <item>Trouvez un partenaire d\x27entraînement pour plus de motivation</item>
+        <item>Lisez les étiquettes nutritionnelles pour faire des choix éclairés</item>
+        <item>Prenez les escaliers au lieu de l\x27ascenseur quand c\x27est possible</item>
+        <item>Célébrez les petites victoires car chaque 0,5 kg perdu est un progrès</item>
+    </string-array>
+
+    <string-array name="tips_obese">
+        <item>Consultez un professionnel de santé pour des conseils personnalisés</item>
+        <item>Commencez par des exercices doux comme la marche ou l\x27aquagym</item>
+        <item>Privilégiez les aliments complets et évitez les aliments ultra-transformés</item>
+        <item>Fixez des objectifs réalistes : 0,5 à 1 kg par semaine</item>
+        <item>Envisagez de travailler avec un nutritionniste</item>
+        <item>Suivez vos progrès régulièrement car les petits changements s\x27accumulent</item>
+        <item>Construisez un réseau de soutien avec famille et amis</item>
+        <item>Priorisez le sommeil car le manque de sommeil augmente les hormones de la faim</item>
+        <item>Contrôle des portions : moitié légumes, quart protéines, quart céréales</item>
+        <item>Concentrez-vous sur des habitudes saines plutôt que des régimes express</item>
+    </string-array>
 </resources>

@@ -110,4 +110,93 @@
     <string name="tracker_increased">増加</string>
     <string name="tracker_decreased">減少</string>
     <string name="tracker_summary_30d">過去30日間で%1$sが%3$s %4$s %2$sしました</string>
+
+    <!-- Streak Counter -->
+    <string name="streak_title">%d日連続！</string>
+    <string name="streak_best">最高記録: %d</string>
+    <string name="streak_motivation">続けましょう！毎日BMIを記録しよう</string>
+    <string name="streak_start">今日からストリークを始めよう！</string>
+
+    <!-- Achievement Badges -->
+    <string name="achievements_menu">実績</string>
+    <string name="achievements_title">実績 (%1$d/%2$d)</string>
+    <string name="badge_first_step">最初の一歩</string>
+    <string name="badge_first_step_desc">初めてのBMIを記録</string>
+    <string name="badge_week_warrior">ウィークウォリアー</string>
+    <string name="badge_week_warrior_desc">7日間連続を達成</string>
+    <string name="badge_monthly_master">マンスリーマスター</string>
+    <string name="badge_monthly_master_desc">30日間連続を達成</string>
+    <string name="badge_goal_crusher">ゴールクラッシャー</string>
+    <string name="badge_goal_crusher_desc">目標体重に到達</string>
+    <string name="badge_healthy_zone">ヘルシーゾーン</string>
+    <string name="badge_healthy_zone_desc">7回連続で健康的なBMI</string>
+    <string name="badge_data_lover">データラバー</string>
+    <string name="badge_data_lover_desc">BMIを50回記録</string>
+    <string name="badge_unlocked">実績解除！</string>
+
+    <!-- Health Tips -->
+    <string name="daily_tip_label">💡 今日のヒント</string>
+    <string name="daily_tip_for">対象</string>
+
+    <string-array name="tips_underweight">
+        <item>ナッツ、アボカド、全粒穀物など高カロリー食品を食べましょう</item>
+        <item>1日3食の代わりに5-6回の少量の食事を試しましょう</item>
+        <item>卵、魚、豆類などタンパク質豊富な食品を毎食取り入れましょう</item>
+        <item>筋力トレーニングは健康的な筋肉量の増加に役立ちます</item>
+        <item>十分な食事量を確保するために毎日のカロリー摂取量を記録しましょう</item>
+        <item>オリーブオイル、チーズ、ナッツバターなどの健康的な脂肪を追加しましょう</item>
+        <item>食事の間にスムージーやシェイクを飲みましょう</item>
+        <item>食前の水分摂取は食欲を減らす可能性があるので避けましょう</item>
+        <item>トレイルミックス、ヨーグルト、ドライフルーツなど栄養豊富なおやつを選びましょう</item>
+        <item>十分な睡眠を取りましょう。睡眠不足は食欲と代謝に影響します</item>
+    </string-array>
+
+    <string-array name="tips_healthy">
+        <item>果物と野菜をたっぷり含むバランスの取れた食事を維持しましょう</item>
+        <item>週に少なくとも150分の適度な運動を心がけましょう</item>
+        <item>毎日少なくとも8杯の水を飲みましょう</item>
+        <item>毎晩7-9時間の質の高い睡眠を取りましょう</item>
+        <item>定期的な健康診断で問題を早期に発見しましょう</item>
+        <item>マインドフルな食事を実践し、空腹感と満腹感に注意を払いましょう</item>
+        <item>加工食品を制限し、自然な食品を選びましょう</item>
+        <item>瞑想、ヨガ、深呼吸でストレスを管理しましょう</item>
+        <item>栄養バランスのために毎食さまざまな食品群を含めましょう</item>
+        <item>長時間座っている場合は短い散歩休憩を取りましょう</item>
+        <item>添加糖の摂取量を1日25g未満に制限しましょう</item>
+        <item>オートミール、豆類、全粒粉パンなど食物繊維の豊富な食品を食べましょう</item>
+        <item>食材と量をコントロールするために自炊を増やしましょう</item>
+        <item>社会的に活発でいましょう。強い社会的つながりは健康を改善します</item>
+        <item>日焼け止めで肌を守りましょう</item>
+    </string-array>
+
+    <string-array name="tips_overweight">
+        <item>少しずつ食事量を減らし、小さいお皿を使いましょう</item>
+        <item>食物繊維の豊富な食品を多く摂取して満腹感を長持ちさせましょう</item>
+        <item>毎日30分のウォーキングから始めましょう</item>
+        <item>甘い飲み物を水やハーブティーに置き換えましょう</item>
+        <item>食事日記をつけて食習慣を把握しましょう</item>
+        <item>ゆっくり食べてよく噛みましょう。満腹感を感じるまで20分かかります</item>
+        <item>食事を事前に計画して衝動的な不健康な選択を避けましょう</item>
+        <item>鶏胸肉、魚、豆腐などの脂肪の少ないタンパク質を選びましょう</item>
+        <item>夜遅くの食事を避け、就寝3時間前に夕食を終えましょう</item>
+        <item>ダンス、水泳、サイクリングなど楽しめる運動を見つけましょう</item>
+        <item>白パンやパスタなどの精製炭水化物を減らしましょう</item>
+        <item>トレーニング仲間を見つけてモチベーションを上げましょう</item>
+        <item>栄養成分表示を読んで賢い食品選択をしましょう</item>
+        <item>エレベーターの代わりに階段を使いましょう</item>
+        <item>小さな成功を祝いましょう。0.5kgの減少も立派な進歩です</item>
+    </string-array>
+
+    <string-array name="tips_obese">
+        <item>個別のアドバイスのために医療専門家に相談しましょう</item>
+        <item>ウォーキングや水中運動など穏やかな運動から始めましょう</item>
+        <item>自然食品に集中し、高度に加工された食品を避けましょう</item>
+        <item>現実的な目標を設定しましょう：週に0.5〜1kg</item>
+        <item>管理栄養士との協力を検討しましょう</item>
+        <item>定期的に進捗を追跡しましょう。小さな変化が積み重なります</item>
+        <item>家族や友人のサポートシステムを構築しましょう</item>
+        <item>睡眠を優先しましょう。睡眠不足は空腹ホルモンを増加させます</item>
+        <item>ポーションコントロール：半分は野菜、4分の1はタンパク質、4分の1は穀物</item>
+        <item>即効性のダイエットよりも健康的な習慣づくりに集中しましょう</item>
+    </string-array>
 </resources>
