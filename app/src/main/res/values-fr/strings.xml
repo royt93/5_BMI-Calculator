@@ -199,4 +199,7 @@
         <item>Contrôle des portions : moitié légumes, quart protéines, quart céréales</item>
         <item>Concentrez-vous sur des habitudes saines plutôt que des régimes express</item>
     </string-array>
+    <!-- Reward Ad -->
+    <string name="reward_ad_skipped">Regardez la pub en entier pour débloquer votre plan de santé détaillé 🎯</string>
+    <string name="btn_detailed_plan">🎁 Obtenir un plan de santé détaillé</string>
 </resources>

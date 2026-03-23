@@ -1,134 +1,72 @@
 # 📊 KẾ HOẠCH TÍCH HỢP QUẢNG CÁO — BMI Calculator 2026
 
-> **SDK Target:** `AdmobWrapper v1.1.1` (JitPack: `com.github.royt93:AdmobWrapper:1.1.1`)
-> **Cập nhật:** 2026-03-23 | **Trạng thái:** Planning 📝
+> **SDK:** `AdmobWrapper v1.1.1` | **Provider:** AppLovin MAX | **Cập nhật:** 2026-03-23 ✅
 
 ---
 
 ## MỤC LỤC
 
 1. [Phân tích hiện trạng](#1-phân-tích-hiện-trạng)
-2. [Kiến trúc mới sau khi migrate](#2-kiến-trúc-mới-sau-khi-migrate)
-3. [Thông tin cần bổ sung (Keys & IDs)](#3-thông-tin-cần-bổ-sung-keys--ids)
-4. [Kế hoạch triển khai — Step by Step](#4-kế-hoạch-triển-khai--step-by-step)
-5. [Touchpoints quảng cáo](#5-touchpoints-quảng-cáo)
+2. [Thông tin Keys & IDs](#2-thông-tin-keys--ids)
+3. [Kế hoạch triển khai — Step by Step](#3-kế-hoạch-triển-khai--step-by-step)
+4. [Touchpoints quảng cáo](#4-touchpoints-quảng-cáo)
 
 ---
 
 ## 1. PHÂN TÍCH HIỆN TRẠNG
 
-### Tình trạng tích hợp quảng cáo hiện tại
+### Trước khi migrate
 
-Dự án **đã tích hợp AdMob** thủ công thông qua class `AdMobManager.kt` tự viết (697 dòng), **chưa dùng AdmobWrapper SDK**.
+| File | Vai trò cũ |
+|------|-----------|
+| `sdkadbmob/AdMobManager.kt` | Singleton tự viết 697 dòng — **SẼ BỊ XOÁ** |
+| `GalaxyApp.kt` | Init AdMob trong IO coroutine (sai thread) — **SẼ REFACTOR** |
+| `SplashAct.kt` | App Open Ad via `AdMobManager.initSplashScreen()` — **SẼ REFACTOR** |
+| `MainAct.kt` | Banner via `AdMobManager.loadBanner()` — **SẼ REFACTOR** |
+| `ResultAct.kt` | Banner + Interstitial — `implements InterstitialAdListener` — **SẼ REFACTOR** |
 
-#### Thành phần hiện có
+### Vấn đề với setup cũ
 
-| File | Vai trò hiện tại |
-|------|-----------------|
-| `sdkadbmob/AdMobManager.kt` | Singleton tự viết, xử lý Banner / Interstitial / App Open Ad cho AdMob. Có VIP whitelist, error cooldown. |
-| `GalaxyApp.kt` | Khởi tạo `MobileAds.initialize()` + `AdMobManager.init()` trong coroutine IO. |
-| `SplashAct.kt` | Gọi `AdMobManager.initSplashScreen()` → load + show App Open Ad. |
-| `MainAct.kt` | Gọi `AdMobManager.loadBanner()` → Banner ở bottom. Lifecycle: `onResume/onPause/onDestroy`. |
-| `ResultAct.kt` | Banner + Interstitial — load inter tại `onCreate`, show inter khi user bấm nút xoá kết quả. |
+- `AdMobManager.kt` tự viết: **thiếu 7 lớp AdSafety** (throttle, daily cap, CTR anomaly…)
+- Chỉ hỗ trợ AdMob, **không support AppLovin MAX**
+- Init MobileAds trong IO thread — **vi phạm yêu cầu Google**
+- Thiếu `earlyInit()` → session clock bắt đầu muộn
 
-#### Dependencies hiện tại
+---
 
-```kotlin
-// app/build.gradle.kts
-implementation("com.google.android.gms:play-services-ads:24.3.0")  // AdMob
-implementation("com.google.ads.mediation:applovin:13.2.0.1")        // AppLovin mediation (chưa dùng chủ động)
-// applovin-sdk đang bị comment out
-```
+## 2. THÔNG TIN KEYS & IDS
 
-#### Ad IDs đang dùng
+### AppLovin MAX (Provider chính)
 
-| Loại | Debug (Google Test) | Release (Production) |
-|------|--------------------|--------------------|
-| **AdMob App ID** | *(trong Manifest)* | `ca-app-pub-3612191981543807~1273576268` |
+| Config | Value |
+|--------|-------|
+| **SDK Key** | `e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt` |
+| **Banner ID** | `935687e95c2be5f5` |
+| **Interstitial ID** | `e080595a143cf78e` |
+| **Reward ID** | `584b6f127bd8534f` |
+| **App Open ID** | `e349570297a4e092` |
+
+### AdMob (Fallback / Debug test IDs)
+
+| Config | Debug | Release |
+|--------|-------|---------|
+| **App ID** | *(Manifest)* | `ca-app-pub-3612191981543807~1273576268` |
 | **Banner** | `ca-app-pub-3940256099942544/6300978111` | `ca-app-pub-3612191981543807/9117482667` |
 | **Interstitial** | `ca-app-pub-3940256099942544/1033173712` | `ca-app-pub-3612191981543807/4216509777` |
 | **App Open** | `ca-app-pub-3940256099942544/9257395921` | `ca-app-pub-3612191981543807/5066557013` |
 
-#### Vấn đề với setup hiện tại
-
-- `AdMobManager.kt` là class tự viết, **thiếu 7 lớp AdSafety** (Session Cap, Hourly Cap, Daily Cap, Throttle, CTR Anomaly…)
-- Chỉ hỗ trợ **AdMob**, không support AppLovin MAX dual-provider
-- Không có auto-preload, không có duplicate guard
-- Init AdMob trong **IO coroutine** — không đúng yêu cầu của Google (phải Main Thread)
-- `GalaxyApp` thiếu `earlyInit()` → session clock bắt đầu muộn
+> **IS_ENABLE_ADMOB = false** → AppLovin MAX được sử dụng (cả debug lẫn release)
 
 ---
 
-## 2. KIẾN TRÚC MỚI SAU KHI MIGRATE
-
-### Thay thế hoàn toàn
-
-```
-[TRƯỚC]                              [SAU]
-AdMobManager.kt (tự viết)   →   AdmobWrapper SDK (JitPack)
-   ↓                                  ↓
-GalaxyApp → SplashAct            GalaxyApp → SplashAct
-MainAct → Banner                 MainAct → Banner
-ResultAct → Banner + Inter       ResultAct → Banner + Inter
-(không có AdSafety)              +7 lớp AdSafety tự động
-```
-
-### Lựa chọn Provider
-
-| Provider | Khi nào dùng |
-|---------|-------------|
-| **AdMob** (`IS_ENABLE_ADMOB = true`) | Mặc định, nếu không có AppLovin key |
-| **AppLovin MAX** (`IS_ENABLE_ADMOB = false`) | Hiệu quả hơn nếu có AppLovin account |
-
-> **Khuyến nghị ban đầu:** Dùng `IS_ENABLE_ADMOB = true` (AdMob) vì đã có đủ Ad IDs. Sau đó bổ sung AppLovin nếu muốn tối ưu fill rate.
-
----
-
-## 3. THÔNG TIN CẦN BỔ SUNG (KEYS & IDS)
-
-### ✅ Đã có (AdMob)
-
-Tất cả AdMob IDs đã có sẵn trong `app/build.gradle.kts`:
-- AdMob App ID: `ca-app-pub-3612191981543807~1273576268`
-- Banner ID (release): `ca-app-pub-3612191981543807/9117482667`
-- Interstitial ID (release): `ca-app-pub-3612191981543807/4216509777`
-- App Open ID (release): `ca-app-pub-3612191981543807/5066557013`
-
-**Reward Ad** — Dự án chưa có Reward Ad. Nếu muốn bổ sung:
-- Cần tạo Reward Ad Unit mới trong [AdMob Console](https://admob.google.com)
-- Điền vào placeholder `ADMOB_REWARD_ID` bên dưới
-
-### ❓ Cần bổ sung (nếu muốn dùng AppLovin)
-
-Điền các thông tin sau nếu chọn AppLovin MAX làm provider:
-
-```
-APPLOVIN_SDK_KEY       = ______________________________
-APPLOVIN_BANNER_ID     = ______________________________
-APPLOVIN_INTERSTITIAL_ID = ____________________________
-APPLOVIN_APP_OPEN_ID   = ______________________________
-APPLOVIN_REWARD_ID     = ______________________________ (nếu có)
-```
-
-> 💡 Nếu **chỉ dùng AdMob** (IS_ENABLE_ADMOB = true), không cần AppLovin keys. Gán giá trị `""` cho các AppLovin fields.
-
-### Reward Ad ID (tùy chọn)
-
-| Loại | Debug | Release |
-|------|-------|---------|
-| **Reward (AdMob)** | `ca-app-pub-3940256099942544/5224354917` *(Google test)* | *(cần tạo mới)* |
-
----
-
-## 4. KẾ HOẠCH TRIỂN KHAI — STEP BY STEP
+## 3. KẾ HOẠCH TRIỂN KHAI — STEP BY STEP
 
 > ⚠️ Làm đúng thứ tự, không nhảy bước!
 
 ---
 
-### BƯỚC 1: Thêm JitPack và dependency AdmobWrapper
+### BƯỚC 1: settings.gradle.kts — Thêm JitPack
 
-**`settings.gradle.kts` (root):**
 ```kotlin
 dependencyResolutionManagement {
     repositories {
@@ -139,83 +77,73 @@ dependencyResolutionManagement {
 }
 ```
 
-**`app/build.gradle.kts`** — Thay thế phần dependencies và buildConfigField:
+---
+
+### BƯỚC 2: app/build.gradle.kts — Đổi dependency + BuildConfig
 
 ```kotlin
 android {
-    buildFeatures {
-        dataBinding = true
-        buildConfig = true // ← đã có, giữ nguyên
-    }
-
     defaultConfig {
-        // ... các config hiện tại giữ nguyên ...
-
-        // AppLovin (điền key thực hoặc để "" nếu dùng AdMob)
-        buildConfigField("String", "APPLOVIN_SDK_KEY",         "\"\"")
-        buildConfigField("String", "APPLOVIN_BANNER_ID",       "\"\"")
-        buildConfigField("String", "APPLOVIN_INTERSTITIAL_ID", "\"\"")
-        buildConfigField("String", "APPLOVIN_APP_OPEN_ID",     "\"\"")
-        buildConfigField("String", "APPLOVIN_REWARD_ID",       "\"\"")
+        // AppLovin
+        buildConfigField("String", "APPLOVIN_SDK_KEY",
+            "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\"")
+        buildConfigField("String", "APPLOVIN_BANNER_ID",       "\"935687e95c2be5f5\"")
+        buildConfigField("String", "APPLOVIN_INTERSTITIAL_ID", "\"e080595a143cf78e\"")
+        buildConfigField("String", "APPLOVIN_APP_OPEN_ID",     "\"e349570297a4e092\"")
+        buildConfigField("String", "APPLOVIN_REWARD_ID",       "\"584b6f127bd8534f\"")
     }
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "true")
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false")
+            // Giữ AdMob debug IDs làm fallback reference
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3940256099942544/6300978111\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3940256099942544/9257395921\"")
-            buildConfigField("String", "ADMOB_REWARD_ID",       "\"ca-app-pub-3940256099942544/5224354917\"")
         }
         getByName("release") {
-            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "true")
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false")
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3612191981543807/9117482667\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3612191981543807/5066557013\"")
-            buildConfigField("String", "ADMOB_REWARD_ID",       "\"\"") // ← Điền ID khi có
-            // ... các config release hiện tại ...
         }
     }
 }
 
 dependencies {
-    // ✅ Xoá dòng cũ:
+    // XOÁ dòng cũ:
     // implementation("com.google.android.gms:play-services-ads:24.3.0")
     // implementation("com.google.ads.mediation:applovin:13.2.0.1")
 
-    // ✅ Thêm dòng mới — 1 dòng kéo toàn bộ!
+    // THÊM 1 dòng mới:
     implementation("com.github.royt93:AdmobWrapper:1.1.1")
-
-    // ... các dependencies khác giữ nguyên ...
 }
 ```
 
 ---
 
-### BƯỚC 2: Cập nhật AndroidManifest.xml
+### BƯỚC 3: AndroidManifest.xml — Thêm AppLovin SDK Key
 
-Trong `AndroidManifest.xml`, **giữ nguyên** meta-data AdMob hiện có:
 ```xml
-<!-- Đã có — giữ nguyên -->
-<meta-data
-    android:name="com.google.android.gms.ads.APPLICATION_ID"
-    android:value="ca-app-pub-3612191981543807~1273576268" />
+<application ...>
+    <!-- Giữ nguyên AdMob App ID -->
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3612191981543807~1273576268" />
 
-<!-- Thêm nếu dùng AppLovin -->
-<!-- <meta-data
-    android:name="applovin.sdk.key"
-    android:value="YOUR_APPLOVIN_SDK_KEY" /> -->
+    <!-- THÊM AppLovin SDK Key -->
+    <meta-data
+        android:name="applovin.sdk.key"
+        android:value="e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt" />
+</application>
 ```
 
 ---
 
-### BƯỚC 3: Refactor GalaxyApp.kt
-
-**Xoá** class `AdMobManager` tự viết khỏi `sdkadbmob/` (hoặc giữ backup). Sửa `GalaxyApp.kt`:
+### BƯỚC 4: GalaxyApp.kt — Refactor khởi tạo SDK
 
 ```kotlin
 class GalaxyApp : Application() {
-
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
@@ -225,7 +153,7 @@ class GalaxyApp : Application() {
 
     private fun setupAdWrapper() {
         val adConfig = AdSdkConfig(
-            isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
+            isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,    // false → AppLovin
             admobBannerId          = BuildConfig.ADMOB_BANNER_ID,
             admobInterId           = BuildConfig.ADMOB_INTERSTITIAL_ID,
             admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
@@ -233,26 +161,18 @@ class GalaxyApp : Application() {
             applovinInterId        = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
             applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
             applovinSdkKey         = BuildConfig.APPLOVIN_SDK_KEY,
-            setGAIDVipMember       = emptySet(), // Thêm GAID thiết bị dev/test tại đây
+            setGAIDVipMember       = emptySet(),
         )
 
-        // QUAN TRỌNG: Thứ tự 3 dòng này không được đổi!
-        AdManager.setConfig(adConfig)   // 1. Gắn config (Main Thread)
-        AdManager.earlyInit(this)       // 2. Khởi động session clock sớm nhất
+        AdManager.setConfig(adConfig)   // 1. Config (Main Thread)
+        AdManager.earlyInit(this)       // 2. Session clock sớm nhất
 
-        if (BuildConfig.IS_ENABLE_ADMOB) {
-            MobileAds.initialize(this) { _ ->
-                AdManager.init(this, adConfig) { success, gaid ->
-                    Log.d("GalaxyApp", "AdManager init: success=$success, gaid=$gaid")
-                }
-            }
-        } else {
-            val sdk = AppLovinSdk.getInstance(this)
-            sdk.mediationProvider = "max"
-            sdk.initializeSdk {
-                AdManager.init(this, adConfig) { success, gaid ->
-                    Log.d("GalaxyApp", "AdManager init: success=$success, gaid=$gaid")
-                }
+        // AppLovin: init SDK trước, rồi mới gọi AdManager.init
+        val sdk = AppLovinSdk.getInstance(this)
+        sdk.mediationProvider = "max"
+        sdk.initializeSdk {
+            AdManager.init(this, adConfig) { success, gaid ->
+                Log.d("GalaxyApp", "AdManager init: success=$success, gaid=$gaid")
             }
         }
     }
@@ -261,44 +181,32 @@ class GalaxyApp : Application() {
 
 ---
 
-### BƯỚC 4: Refactor SplashAct.kt (App Open Ad)
-
-Chỉ cần đổi 1 file — **SDK lo toàn bộ**:
+### BƯỚC 5: SplashAct.kt — App Open Ad
 
 ```kotlin
-class SplashAct : AppCompatActivity() {        // hoặc BaseActivity
+class SplashAct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-        startAnimations() // giữ nguyên animation hiện tại
+        startAnimations() // giữ nguyên
 
         AdManager.initSplashScreen(this) {
-            goToMain() // callback này kích hoạt khi App Open Ad xong hoặc timeout 8s
+            goToMain() // SDK tự lo: show ad → callback / timeout 8s → callback
         }
-    }
-
-    private fun goToMain() {
-        startActivity(Intent(this, MainAct::class.java))
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish()
     }
 }
 ```
 
 ---
 
-### BƯỚC 5: Refactor MainAct.kt (Banner Ad)
+### BƯỚC 6: MainAct.kt — Banner Ad
 
 ```kotlin
 class MainAct : BaseActivity() {
-    private var adView: View? = null  // ← Đổi từ AdView? sang View?
+    private var adView: View? = null  // Đổi từ AdView? → View?
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // ...setup views như cũ...
-
-        // Load banner
+    override fun onCreate(...) {
+        // ...
         adView = AdManager.loadBanner(
             context   = this,
             container = binding.flAd.bannerContainer,
@@ -306,7 +214,6 @@ class MainAct : BaseActivity() {
         )
     }
 
-    // BẮT BUỘC copy đủ 3 override này
     override fun onResume()  { super.onResume();  AdManager.bannerResume(adView) }
     override fun onPause()   { super.onPause();   AdManager.bannerPause(adView) }
     override fun onDestroy() { super.onDestroy(); AdManager.bannerDestroy(adView) }
@@ -315,18 +222,14 @@ class MainAct : BaseActivity() {
 
 ---
 
-### BƯỚC 6: Refactor ResultAct.kt (Banner + Interstitial Ad)
+### BƯỚC 7: ResultAct.kt — Banner + Interstitial + Reward Ad
 
 ```kotlin
 class ResultAct : BaseActivity() {
-    private var adView: View? = null  // ← Đổi từ AdView? sang View?
+    private var adView: View? = null
+    private var detailedPlanUnlocked = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // ...setup views như cũ...
-
-        // Xoá: AdMobManager.setCurrentActivity / interstitialListener / loadInterstitial
-        // Thay bằng:
+    override fun onCreate(...) {
         AdManager.loadInterstitial(this)
 
         adView = AdManager.loadBanner(
@@ -334,111 +237,94 @@ class ResultAct : BaseActivity() {
             container = binding.flAd.bannerContainer,
             tvLabelAd = binding.flAd.tvLabelAd,
         )
+
+        // Reward Ad — nút "🎁 Get Detailed Plan"
+        binding.btnDetailedPlan.setOnClickListener {
+            AdManager.showRewardedAd(this) { rewarded ->
+                if (rewarded) {
+                    unlockDetailedPlan()
+                }
+            }
+        }
     }
 
-    // BẮT BUỘC copy đủ 3 override này
-    override fun onResume()  { super.onResume();  AdManager.bannerResume(adView) }
-    override fun onPause()   { super.onPause();   AdManager.bannerPause(adView) }
-    override fun onDestroy() { super.onDestroy(); AdManager.bannerDestroy(adView) }
-
-    // Khi user bấm nút xoá kết quả → show Interstitial trước khi finish
     private fun backPreviousPage(isShowAd: Boolean) {
         animationViewUp()
         if (isShowAd) {
-            AdManager.showInterstitial(this) { adShown ->
-                Log.d("ResultAct", "Ad shown: $adShown")
+            AdManager.showInterstitial(this) { _ ->
                 handler.postDelayed(backRunnable, 100)
             }
         } else {
             handler.postDelayed(backRunnable, 600)
         }
     }
-}
-```
 
-> ⚠️ **Xoá** `implements AdMobManager.InterstitialAdListener` và toàn bộ override methods `onAdLoaded/onAdDismissed/...` vì SDK mới không cần nữa.
-
----
-
-### BƯỚC 7: Xoá file cũ
-
-- **Xoá** `sdkadbmob/AdMobManager.kt` (hoặc rename thành `AdMobManager.kt.bak` để backup)
-- Xoá tất cả import `com.samsunggalaxy.sdkadbmob.AdMobManager` khỏi các file
-
----
-
-### BƯỚC 8: (Tùy chọn) Thêm Reward Ad
-
-Nếu muốn, có thể gắn Reward Ad tại một trong các điểm:
-- **CalculatorsActivity** → trước khi mở từng máy tính (BMR, TDEE, Ideal Weight…)
-- **HistoryActivity** → trước khi export/chia sẻ lịch sử
-
-```kotlin
-// Ví dụ trong CalculatorsActivity
-private fun openCalculatorWithAd(intent: Intent) {
-    AdManager.showRewardedAd(this) { rewarded ->
-        startActivity(intent)
-    }
+    // Xoá: implements InterstitialAdListener, clearCurrentActivity, setCurrentActivity
+    override fun onResume()  { super.onResume();  AdManager.bannerResume(adView) }
+    override fun onPause()   { super.onPause();   AdManager.bannerPause(adView) }
+    override fun onDestroy() { super.onDestroy(); AdManager.bannerDestroy(adView) }
 }
 ```
 
 ---
 
-## 5. TOUCHPOINTS QUẢNG CÁO
+### BƯỚC 8: Xoá file cũ
 
-### Sơ đồ flow quảng cáo
+```
+XOÁ: app/src/main/java/com/samsunggalaxy/sdkadbmob/AdMobManager.kt
+XOÁ: import com.samsunggalaxy.sdkadbmob.AdMobManager (khắp nơi)
+XOÁ: import com.samsunggalaxy.sdkadbmob.UIUtils (nếu đã merge vào wrapper)
+```
+
+---
+
+## 4. TOUCHPOINTS QUẢNG CÁO
+
+### Sơ đồ flow
 
 ```
 [App Launch]
      ↓
-[SplashAct] ──── APP OPEN AD ────→ (sau dismiss hoặc timeout 8s)
+[SplashAct] ──── APP OPEN AD ───→ (dismiss hoặc timeout 8s)
      ↓
-[MainAct]   ──── BANNER (bottom) ─ hiển thị suốt khi ở màn hình chính
-     ↓ (user nhấn Start)
-[ResultAct] ──── BANNER (bottom) ─ hiển thị kết quả BMI
+[MainAct]   ──── BANNER (bottom) ── hiển thị liên tục
+     ↓ (user nhấn nút tính BMI)
+[ResultAct] ──── BANNER (bottom) ── hiển thị liên tục
      │
-     ├─ [Nút Reload] → back về MainAct (KHÔNG show Inter)
-     └─ [Nút Delete] → INTERSTITIAL → back về MainAct
-
-[MainAct → Menu → HistoryActivity] ─ (hiện chưa có ad, có thể thêm Banner tùy chọn)
-[MainAct → Menu → CalculatorsActivity] ─ (hiện chưa có ad, có thể thêm Inter tùy chọn)
+     ├─ [Nút Reload] ──────────────→ back MainAct (không show Inter)
+     ├─ [Nút Delete] ──── INTER ──→ back MainAct
+     └─ [Nút "Get Detailed Plan"] ── REWARD AD ──→ unlock detailed health card
 ```
 
-### Bảng touchpoints chi tiết
+### Bảng touchpoints
 
-| Màn hình | Loại Ad | Thời điểm hiển thị | Ghi chú |
-|----------|---------|-------------------|---------|
-| `SplashAct` | **App Open Ad** | Ngay khi app khởi động | SDK tự lo timeout 8s |
-| `MainAct` | **Banner** | Luôn hiển thị bottom | Resume/Pause/Destroy lifecycle |
-| `ResultAct` | **Banner** | Luôn hiển thị bottom | Resume/Pause/Destroy lifecycle |
-| `ResultAct` | **Interstitial** | Khi user bấm nút "Delete/Back" | Chỉ show khi `isShowAd=true` |
-| `HistoryActivity` | *(tùy chọn)* Banner | Có thể thêm ở bottom | Hiện chưa có |
-| `CalculatorsActivity` | *(tùy chọn)* Interstitial | Trước khi mở sub-calculator | Có thể thêm |
-| `BmrCalculatorActivity` | *(tùy chọn)* Banner | Bottom | Hiện chưa có |
-| `TdeeCalculatorActivity` | *(tùy chọn)* Banner | Bottom | Hiện chưa có |
-| `IdealWeightCalculatorActivity` | *(tùy chọn)* Banner | Bottom | Hiện chưa có |
-| `BodyFatCalculatorActivity` | *(tùy chọn)* Banner | Bottom | Hiện chưa có |
+| Màn hình | Ad Type | Trigger | Ghi chú |
+|----------|---------|---------|---------|
+| `SplashAct` | **App Open** | Cold start | SDK tự lo timeout 8s |
+| `MainAct` | **Banner** | Luôn hiển thị | Bottom |
+| `ResultAct` | **Banner** | Luôn hiển thị | Bottom |
+| `ResultAct` | **Interstitial** | Nút Delete/Back (isShowAd=true) | AdSafety tự throttle |
+| `ResultAct` | **Reward** | Nút "🎁 Get Detailed Plan" | Unlock bảng phân tích chi tiết |
 
-> **Reward Ad** — Hiện dự án **không có** tính năng phù hợp để gắn Reward Ad (không có "unlock premium content / xem thêm tính năng"). Có thể bổ sung sau nếu cần.
+### Reward Ad — Chi tiết luồng
 
----
+```
+User xem kết quả BMI
+   ↓
+Bấm nút "🎁 Nhận lời khuyên chi tiết"
+   ↓
+AdManager.showRewardedAd() → User xem ad 30s
+   ↓ (rewarded = true)
+Unlock card "Personalized Health Plan":
+   • Phân tích chi tiết theo từng chỉ số (BMR, TDEE, Body Fat ước tính)
+   • Gợi ý chế độ ăn uống theo BMI category
+   • Kế hoạch tập luyện tuần (Underweight/Healthy/Overweight/Obese)
+   ↓ (rewarded = false — user skip ad)
+Card ẩn, không unlock
+```
 
-## THÔNG TIN CẦN BỔ SUNG TỪ BẠN
-
-Để tôi có thể bắt đầu viết code, bạn cần xác nhận:
-
-| # | Thông tin | Giá trị |
-|---|-----------|---------|
-| 1 | **Provider ưu tiên** | AdMob (true) hay AppLovin MAX (false)? |
-| 2 | **AppLovin SDK Key** | *(nếu dùng AppLovin)* |
-| 3 | **AppLovin Banner ID** | *(nếu dùng AppLovin)* |
-| 4 | **AppLovin Interstitial ID** | *(nếu dùng AppLovin)* |
-| 5 | **AppLovin App Open ID** | *(nếu dùng AppLovin)* |
-| 6 | **AdMob Reward ID** | *(nếu muốn thêm Reward Ad)* |
-| 7 | **Có muốn thêm Banner vào HistoryActivity không?** | Có / Không |
-| 8 | **Có muốn thêm Interstitial vào CalculatorsActivity không?** | Có / Không |
-| 9 | **Có muốn thêm Banner vào các sub-calculator (BMR, TDEE…) không?** | Có / Không |
-
----
-
-> 🎯 **Tóm tắt:** Chỉ cần xác nhận 9 điểm trên là tôi có thể triển khai ngay. Không cần hiểu sâu SDK — `AdmobWrapper v1.1.1` lo toàn bộ AdSafety, preload, lifecycle tự động.
+> 💡 **Tại sao đây là touchpoint tốt nhất?**
+> - User vừa tính BMI xong → **engagement cao nhất** trong toàn bộ app
+> - Reward rõ ràng, có giá trị thực (không phải chỉ "bỏ ads")
+> - Không ép buộc — nút bấm tùy chọn, không chặn flow chính
+> - Phù hợp với Google Play policy (reward phải có giá trị thực cho user)

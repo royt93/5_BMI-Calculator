@@ -199,4 +199,8 @@
     <string name="hip">Hông</string>
     <string name="waist">Eo</string>
     <string name="female_only">Chỉ dành cho nữ</string>
+    <!-- Reward Ad — ResultAct Detailed Plan -->
+    <string name="reward_ad_skipped">Xem hết quảng cáo để mở khóa kế hoạch sức khỏe chi tiết 🎯</string>
+    <string name="btn_detailed_plan">🎁 Nhận Kế Hoạch Sức Khỏe Chi Tiết</string>
+
 </resources>

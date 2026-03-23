@@ -22,10 +22,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.cncoderx.wheelview.OnWheelChangedListener
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
+import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.adt.WeightPickerAdt
 import com.samsunggalaxy.databinding.AMainBinding
@@ -33,7 +31,6 @@ import com.samsunggalaxy.ext.moreApp
 import com.samsunggalaxy.ext.openBrowserPolicy
 import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
-import com.samsunggalaxy.sdkadbmob.AdMobManager
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
@@ -50,8 +47,7 @@ class MainAct : BaseActivity() {
     private var age = 25
     private var doubleBackToExitPressedOnce = false
 
-    //    private var adView: MaxAdView? = null
-    private var adView: AdView? = null
+    private var adView: View? = null // AdmobWrapper banner view
     private val handler = Handler(Looper.getMainLooper())
     private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
 
@@ -113,7 +109,7 @@ class MainAct : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        adView?.resume()
+        AdManager.bannerResume(adView)
         updateStreakUI()
     }
 
@@ -171,7 +167,7 @@ class MainAct : BaseActivity() {
     }
 
     override fun onPause() {
-        adView?.pause()
+        AdManager.bannerPause(adView)
         super.onPause()
     }
 
@@ -278,22 +274,11 @@ class MainAct : BaseActivity() {
             showMenu()
         }
 
-//        adView = this.createAdBanner(
-//            logTag = MainAct::class.simpleName,
-//            viewGroup = binding.flAd,
-//            isAdaptiveBanner = true,
-//        )
-        adView = binding.flAd.let {
-            val bannerContainer = it.findViewById<ViewGroup>(R.id.bannerContainer)
-            val tvLabelAd = it.findViewById<TextView>(R.id.tvLabelAd)
-            AdMobManager.loadBanner(
-                context = this,
-                adUnitId = BuildConfig.ADMOB_BANNER_ID,
-                container = bannerContainer,
-                tvLabelAd = tvLabelAd,
-                adSize = AdSize.BANNER,
-            )
-        }
+        adView = AdManager.loadBanner(
+            context   = this,
+            container = binding.flAd.findViewById(R.id.bannerContainer),
+            tvLabelAd = binding.flAd.findViewById(R.id.tvLabelAd),
+        )
     }
 
     private fun getData(count: Int): List<String> {
@@ -460,7 +445,7 @@ class MainAct : BaseActivity() {
     override fun onDestroy() {
         handler.removeCallbacks(exitResetRunnable)
         handler.removeCallbacks(navigationRunnable)
-        adView?.destroy()
+        AdManager.bannerDestroy(adView)
         super.onDestroy()
     }
 }

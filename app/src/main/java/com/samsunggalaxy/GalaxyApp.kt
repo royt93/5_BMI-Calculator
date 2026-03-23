@@ -3,46 +3,55 @@ package com.samsunggalaxy
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.google.android.gms.ads.MobileAds
+import com.applovin.sdk.AppLovinSdk
 import com.google.android.material.color.DynamicColors
-import com.samsunggalaxy.sdkadbmob.AdMobManager
+import com.roy.sdkadbmob.AdManager
+import com.roy.sdkadbmob.AdSdkConfig
 import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-//TODO firebase
-//TODO keep value cuoi cung de hien thi len wheel view
-
-//admob
-//done mckimquyen
-//applovin ad
-//splash screen
-//review in app bingo
-//keystore
-//leak canary
-//policy
-//share app
-//rate app
-//more app
-//ic launcher
-//change color
-//ad id manifest
-//scale 1.0
-//120hz
-
 class GalaxyApp : Application() {
 
-    // ML-02: Application-scoped coroutine scope with SupervisorJob for lifecycle control
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("roy93~", "GalaxyApp.onCreate: Application started")
+        Log.d("roy93~", "GalaxyApp.onCreate")
+
+        // ⚡ FIX: Start AppLovin SDK init AS THE VERY FIRST ACTION
+        // AppLovin network handshake (~5s) now starts before DynamicColors, setConfig, earlyInit
+        // → gives initSplashScreen max time to load App Open Ad before 8s timeout
+        val applovinSdk = AppLovinSdk.getInstance(this).also { sdk ->
+            sdk.mediationProvider = "max"
+        }
+
+        // These are synchronous & fast (<2ms) — run right after init kickoff
         DynamicColors.applyToActivitiesIfAvailable(this)
-//        this.setupApplovinAd()
-        setupAdmob()
+
+        val adConfig = AdSdkConfig(
+            isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
+            isDebug                = BuildConfig.DEBUG,
+            admobBannerId          = BuildConfig.ADMOB_BANNER_ID,
+            admobInterstitialId    = BuildConfig.ADMOB_INTERSTITIAL_ID,
+            admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
+            applovinBannerId       = BuildConfig.APPLOVIN_BANNER_ID,
+            applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
+            applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
+        )
+        AdManager.setConfig(adConfig)
+        AdManager.earlyInit(this)
+
+        // Start SDK init callback — by the time this fires (~5s later),
+        // setConfig + earlyInit are already done
+        applovinSdk.initializeSdk {
+            AdManager.init(this, adConfig) { success, gaid ->
+                Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
+            }
+        }
+
         initializeDefaultProfile()
     }
 
@@ -55,57 +64,12 @@ class GalaxyApp : Application() {
             try {
                 val database = com.samsunggalaxy.data.AppDatabase.getDatabase(applicationContext)
                 val repository = com.samsunggalaxy.data.BmiRepository(database.bmiDao(), database.profileDao())
-
-                // Check if default profile exists
-                val currentProfile = repository.getCurrentProfile()
-                if (currentProfile == null) {
-                    // Create default profile with ID that will be auto-generated
+                if (repository.getCurrentProfile() == null) {
                     repository.createDefaultProfile()
                 }
             } catch (e: Exception) {
                 Log.e("roy93~", "initializeDefaultProfile error", e)
             }
         }
-    }
-
-    private fun setupAdmob() {
-        applicationScope.launch {
-            MobileAds.initialize(this@GalaxyApp) {}
-            AdMobManager.init(this@GalaxyApp) { success, gaidCurrent ->
-                Log.d("roy93~", "AdMobManager init success $success, gaidCurrent $gaidCurrent")
-            }
-        }
-//        registerActivityLifecycleCallbacks(
-//            AppLifecycleListener(
-//                { isForeground, activity ->
-//                    if (isForeground) {
-//                        Log.d("roy93~", "App moved to Foreground")
-//                        Log.d("roy93~", "activity.localClassName ${activity.localClassName}")
-//                        Log.d(
-//                            "roy93~",
-//                            "SplashActivity::class.java.simpleName ${SplashAct::class.java.simpleName}"
-//                        )
-//                        if (activity.localClassName == SplashAct::class.java.simpleName) {
-//                            //do nothing
-//                        } else {
-////                            AdMobManager.showAppOpenAd(activity)
-//                        }
-//                    } else {
-//                        Log.d("roy93~", "App moved to Background")
-//                    }
-//                }, { activity ->
-//                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
-//                    if (activity.localClassName == SplashAct::class.java.simpleName) {
-//                        //do nothing
-//                    } else {
-////                        AdMobManager.loadAppOpenAd(
-////                            context = this,
-////                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-////                            onAdLoaded = {},
-////                        )
-//                    }
-//                }
-//            )
-//        )
     }
 }

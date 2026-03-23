@@ -199,4 +199,7 @@
         <item>접시 조절법: 반은 채소, 4분의 1은 단백질, 4분의 1은 곡물</item>
         <item>빠른 다이어트보다 건강한 습관 만들기에 집중하세요</item>
     </string-array>
+    <!-- Reward Ad -->
+    <string name="reward_ad_skipped">광고 전체를 시청하여 상세 건강 계획을 잠금 해제하세요 🎯</string>
+    <string name="btn_detailed_plan">🎁 상세 건강 계획 받기</string>
 </resources>

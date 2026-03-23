@@ -3,23 +3,19 @@ package com.samsunggalaxy.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
-import androidx.lifecycle.lifecycleScope
+import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
-import com.samsunggalaxy.sdkadbmob.AdMobManager
 import com.samsunggalaxy.sdkadbmob.UIUtils
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.jvm.java
 
 @SuppressLint("CustomSplashScreen")
 class SplashAct : BaseActivity() {
 
-    private val handler = android.os.Handler(android.os.Looper.getMainLooper())
+    private val handler = Handler(Looper.getMainLooper())
     private val finishRunnable = Runnable { finish() }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +30,13 @@ class SplashAct : BaseActivity() {
 
         startAnimations()
 
-        AdMobManager.initSplashScreen(this, {
+        // SDK tự lo: load App Open Ad, show, timeout 8s → callback khi xong
+        AdManager.initSplashScreen(this) {
             goToMain()
-        })
+        }
     }
 
     private fun startAnimations() {
-        // Fade in animation cho title và subtitle
         val appTitle = findViewById<View>(R.id.appTitle)
         val appSubtitle = findViewById<View>(R.id.appSubtitle)
         val bottomSection = findViewById<View>(R.id.bottomSection)
@@ -66,7 +62,6 @@ class SplashAct : BaseActivity() {
             bottomSection.alpha = 1f
         }, 900)
 
-        // Floating animation cho background circles
         animateFloatingCircles()
     }
 
@@ -79,7 +74,6 @@ class SplashAct : BaseActivity() {
         circle2 = circle2 ?: findViewById(R.id.circle2)
         circle3 = circle3 ?: findViewById(R.id.circle3)
 
-        // Circle 1 - Move diagonally
         circle1?.animate()
             ?.translationX(50f)
             ?.translationY(50f)
@@ -96,7 +90,6 @@ class SplashAct : BaseActivity() {
             }
             ?.start()
 
-        // Circle 2 - Move vertically
         circle2?.animate()
             ?.translationY(-100f)
             ?.setDuration(2500)
@@ -110,7 +103,6 @@ class SplashAct : BaseActivity() {
             }
             ?.start()
 
-        // Circle 3 - Move horizontally
         circle3?.animate()
             ?.translationX(30f)
             ?.translationY(-30f)
@@ -131,12 +123,10 @@ class SplashAct : BaseActivity() {
         val intent = Intent(this, MainAct::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        // Trì hoãn finish để đợi animation hoàn tất
         handler.postDelayed(finishRunnable, 300)
     }
 
     override fun onDestroy() {
-        // ML-01: Cancel all animations to prevent recursive loop holding Activity reference
         circle1?.animate()?.cancel()
         circle2?.animate()?.cancel()
         circle3?.animate()?.cancel()

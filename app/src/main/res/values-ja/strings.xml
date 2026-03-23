@@ -199,4 +199,7 @@
         <item>ポーションコントロール：半分は野菜、4分の1はタンパク質、4分の1は穀物</item>
         <item>即効性のダイエットよりも健康的な習慣づくりに集中しましょう</item>
     </string-array>
+    <!-- Reward Ad -->
+    <string name="reward_ad_skipped">広告を最後まで見て詳細な健康プランをアンロックしよう 🎯</string>
+    <string name="btn_detailed_plan">🎁 詳細な健康プランを取得</string>
 </resources>

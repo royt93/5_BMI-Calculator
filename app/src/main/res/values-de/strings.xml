@@ -199,4 +199,7 @@
         <item>Portionskontrolle: Hälfte Gemüse, Viertel Protein, Viertel Getreide</item>
         <item>Konzentrieren Sie sich auf gesunde Gewohnheiten statt Crash-Diäten</item>
     </string-array>
+    <!-- Reward Ad -->
+    <string name="reward_ad_skipped">Schau die ganze Werbung, um deinen detaillierten Gesundheitsplan freizuschalten 🎯</string>
+    <string name="btn_detailed_plan">🎁 Detaillierten Gesundheitsplan erhalten</string>
 </resources>

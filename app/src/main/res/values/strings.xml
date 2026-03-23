@@ -528,4 +528,8 @@
         <item>99</item>
         <item>100</item>
     </string-array>
+    <!-- Reward Ad — ResultAct Detailed Plan -->
+    <string name="reward_ad_skipped">Watch the full ad to unlock your detailed health plan 🎯</string>
+    <string name="btn_detailed_plan">🎁 Get Detailed Health Plan</string>
+
 </resources>

@@ -199,4 +199,7 @@
         <item>ควบคุมปริมาณ: ครึ่งจานผัก หนึ่งในสี่โปรตีน หนึ่งในสี่ธัญพืช</item>
         <item>เน้นสร้างนิสัยที่ดีต่อสุขภาพแทนการลดน้ำหนักแบบด่วน</item>
     </string-array>
+    <!-- Reward Ad -->
+    <string name="reward_ad_skipped">ดูโฆษณาจนจบเพื่อปลดล็อคแผนสุขภาพโดยละเอียด 🎯</string>
+    <string name="btn_detailed_plan">🎁 รับแผนสุขภาพโดยละเอียด</string>
 </resources>

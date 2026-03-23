@@ -10,6 +10,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,20 +18,17 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.drawToBitmap
+import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.LoadAdError
+import androidx.lifecycle.lifecycleScope
+import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.databinding.AResultBinding
 import com.samsunggalaxy.ext.displayToast
 import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
-import com.samsunggalaxy.sdkadbmob.AdMobManager
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.data.AppDatabase
@@ -39,13 +37,10 @@ import com.samsunggalaxy.data.BmiRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import androidx.lifecycle.lifecycleScope
 import android.widget.EditText
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import kotlin.jvm.java
 
-class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
+class ResultAct : BaseActivity() {
     private lateinit var binding: AResultBinding
     private val _binding get() = binding
     private var weight: Double = 1.0
@@ -55,8 +50,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     private var age: Int = 25
     private lateinit var repository: BmiRepository
 
-    //    private var adView: MaxAdView? = null
-    private var adView: AdView? = null
+    private var adView: View? = null // AdmobWrapper banner view
     private val handler = Handler(Looper.getMainLooper())
     private val backRunnable = Runnable {
         val resultIntent = Intent()
@@ -68,15 +62,14 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private var tipAutoScrollRunnable: Runnable? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UIUtils.setupEdgeToEdge1(window)
         binding = DataBindingUtil.setContentView(this, R.layout.a_result)
         UIUtils.setupEdgeToEdge2(
-            rootView = findViewById(R.id.layoutRoot),
-            paddingTop = true,
-            paddingBottom = true
+            rootView      = binding.root,
+            paddingTop    = true,
+            paddingBottom = true,
         )
 
         // Setup OnBackPressedDispatcher
@@ -90,22 +83,20 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         val database = AppDatabase.getDatabase(this)
         repository = BmiRepository(database.bmiDao(), database.profileDao())
 
-        AdMobManager.setCurrentActivity(this)
-        AdMobManager.interstitialListener = this
-        AdMobManager.loadInterstitial(this, BuildConfig.ADMOB_INTERSTITIAL_ID)
+        // Load Interstitial ngầm — sẵn sàng khi user bấm Delete
+        AdManager.loadInterstitial(this)
 
-//        createAdInter()
         setupViews()
     }
 
     override fun onResume() {
         super.onResume()
-        rateAppInApp(BuildConfig.DEBUG)
-        adView?.resume()
+        rateAppInApp(com.samsunggalaxy.BuildConfig.DEBUG)
+        AdManager.bannerResume(adView)
     }
 
     override fun onPause() {
-        adView?.pause()
+        AdManager.bannerPause(adView)
         super.onPause()
     }
 
@@ -126,37 +117,29 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             backPreviousPage(false)
         }
         _binding.ivDeleteBtn.setOnClickListener {
-            // BUG-01: use onBackPressedDispatcher instead of deprecated back flow
+            // Show Interstitial Ad khi user xoá/back
             backPreviousPage(true)
         }
         _binding.ivShare.setOnClickListener {
             shareImage()
         }
 
-//        adView = this.createAdBanner(
-//            logTag = ResultAct::class.simpleName,
-//            viewGroup = binding.flAd,
-//            isAdaptiveBanner = true,
-//        )
-        adView = binding.flAd?.let {
-            val bannerContainer = it.findViewById<ViewGroup>(R.id.bannerContainer)
-            val tvLabelAd = it.findViewById<TextView>(R.id.tvLabelAd)
-            AdMobManager.loadBanner(
-                context = this,
-                adUnitId = BuildConfig.ADMOB_BANNER_ID,
-                container = bannerContainer,
-                tvLabelAd = tvLabelAd,
-                adSize = AdSize.BANNER,
-            )
-        }
+        // Reward Ad — deferred until SDK adds showRewardedAd support
+        // setupRewardButton()
+
+        adView = AdManager.loadBanner(
+            context   = this,
+            container = _binding.flAd.findViewById(R.id.bannerContainer),
+            tvLabelAd = _binding.flAd.findViewById(R.id.tvLabelAd),
+        )
     }
+
     // ---- Health Tips Feature ----
     private fun setupHealthTips() {
         try {
             val vpTips = _binding.root.findViewById<androidx.viewpager2.widget.ViewPager2>(R.id.vpHealthTips) ?: return
             val dotsContainer = _binding.root.findViewById<android.widget.LinearLayout>(R.id.dotsIndicator) ?: return
 
-            // Select tips array + color based on BMI category
             val (tipsArrayRes, catNameRes, catColorRes) = when {
                 result < 18.5 -> Triple(R.array.tips_underweight, R.string.bmi_category_underweight, R.color.bmi_underweight)
                 result < 25.0 -> Triple(R.array.tips_healthy, R.string.bmi_category_healthy, R.color.bmi_healthy)
@@ -167,18 +150,14 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
             val allTips = resources.getStringArray(tipsArrayRes)
             if (allTips.isEmpty()) return
 
-            // Pick 3 tips based on dayOfYear
             val dayOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
             val startIdx = dayOfYear % allTips.size
-            val selectedTips = (0 until 3).map { i ->
-                allTips[(startIdx + i) % allTips.size]
-            }
+            val selectedTips = (0 until 3).map { i -> allTips[(startIdx + i) % allTips.size] }
 
             val categoryLabel = "${getString(R.string.daily_tip_for)}: ${getString(catNameRes)}"
             val adapter = HealthTipAdapter(selectedTips, categoryLabel, catColorRes)
             vpTips.adapter = adapter
 
-            // Dot indicators
             dotsContainer.removeAllViews()
             val dots = Array(selectedTips.size) { i ->
                 val dot = TextView(this).apply {
@@ -201,7 +180,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 }
             })
 
-            // Auto-scroll every 5s
             tipAutoScrollRunnable = object : Runnable {
                 override fun run() {
                     if (!isFinishing && !isDestroyed) {
@@ -218,7 +196,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     // ---- Goal Weight Feature ----
-    // Uses binding directly to goalCard in XML — no dynamic addView
     private fun loadGoalCard() {
         lifecycleScope.launch(Dispatchers.IO) {
             val profile = repository.getCurrentProfile()
@@ -238,7 +215,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         val tvRemaining = goalCardView.findViewById<TextView>(R.id.tvGoalRemaining)
         val ivEdit = goalCardView.findViewById<View>(R.id.ivEditGoal)
 
-        // Show the card with fade-in
         goalCardView.visibility = View.VISIBLE
         goalCardView.alpha = 0f
         goalCardView.animate().alpha(1f).setDuration(400).start()
@@ -292,14 +268,12 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         val dialogView = android.view.LayoutInflater.from(this)
             .inflate(R.layout.dialog_goal_weight, null)
 
-        // Current BMI info
         val currentBmi = weight / ((height / 100.0) * (height / 100.0))
         dialogView.findViewById<TextView>(R.id.tvDialogCurrentBmi).text =
             String.format("%.1f", currentBmi)
         dialogView.findViewById<TextView>(R.id.tvDialogCurrentWeight).text =
             getString(R.string.goal_weight_current, weight)
 
-        // Category color
         val tvCategory = dialogView.findViewById<TextView>(R.id.tvDialogBmiCategory)
         val (catColorRes, catStringRes) = when {
             currentBmi < 18.5 -> Pair(R.color.bmi_underweight, R.string.bmi_category_underweight)
@@ -310,7 +284,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         tvCategory.text = getString(catStringRes)
         tvCategory.setTextColor(ContextCompat.getColor(this, catColorRes))
 
-        // Goal BMI preview (live update as user types)
         val etGoal = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etGoalWeight)
         val tvPreview = dialogView.findViewById<TextView>(R.id.tvDialogGoalBmiPreview)
         val heightM = height / 100.0
@@ -354,14 +327,11 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     private fun shareImage() {
-
         try {
-            // Hide ad banner before capturing
             val adContainer = _binding.flAd
             val originalVisibility = adContainer?.visibility
             adContainer?.visibility = View.GONE
 
-            // Capture the root layout with gradient background
             val imageURI = _binding.layoutRoot.drawToBitmap().let { bitmap ->
                 saveBitmap(this, bitmap)
             } ?: run {
@@ -370,7 +340,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 return
             }
 
-            // Restore ad visibility
             adContainer?.visibility = originalVisibility ?: View.VISIBLE
 
             val intent = ShareCompat.IntentBuilder(this)
@@ -391,14 +360,11 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
         animationViewUp()
         if (isShowAd) {
             handler.postDelayed({
-                AdMobManager.showInterstitial(this) { success ->
-                    if (success) {
-                        Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
-                    } else {
-                        Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
-                    }
+                // AdSafety tự throttle — nếu không đủ điều kiện, callback vẫn được gọi với adShown=false
+                AdManager.showInterstitial(this) { adShown ->
+                    Log.d("roy93~", "showInterstitial adShown=$adShown")
+                    handler.postDelayed(backRunnable, 100)
                 }
-                handler.postDelayed(backRunnable, 100)
             }, 600)
         } else {
             handler.postDelayed(backRunnable, 600)
@@ -407,7 +373,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun animationView() {
         _binding.apply {
-            // Glass card scale animation
             val cardResult = root.findViewById<View>(R.id.cardResult)
             cardResult.scaleX = 0.8f
             cardResult.scaleY = 0.8f
@@ -422,7 +387,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 .setInterpolator(android.view.animation.OvershootInterpolator(0.8f))
                 .start()
 
-            // Action buttons animation
             ivDeleteBtn.parent.let { deleteCard ->
                 (deleteCard as? View)?.apply {
                     scaleX = 0f
@@ -486,7 +450,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 .setInterpolator(android.view.animation.AccelerateInterpolator())
                 .start()
 
-            // Buttons fade out quickly
             ivDeleteBtn.parent.let { (it as? View)?.animate()?.alpha(0f)?.setDuration(200)?.start() }
             cvReload.animate().alpha(0f).setDuration(200).start()
             ivShare.parent.let { (it as? View)?.animate()?.alpha(0f)?.setDuration(200)?.start() }
@@ -495,7 +458,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     private fun bmiCal() {
         if (height > 0 && weight > 0) {
-            // BUG-04: Convert height from cm to meters for standard BMI formula
             val heightInMeters = height / 100.0
             result = weight / (heightInMeters * heightInMeters)
             showResult()
@@ -517,28 +479,15 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 this.text = "You are Suffering from Obesity"
             }
         }
-
     }
-
-    // BUG-03: Removed duplicate bmiCalMale/bmiCalFemale — BMI formula is gender-neutral.
-    // Gender is used for BMR, TDEE, ideal weight in calculateAndDisplayInsights().
 
     private fun calculateAndDisplayInsights() {
         val isMale = gender == 0
-
-        // Calculate BMR
         val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
-
-        // Calculate TDEE (assuming sedentary activity level = 0)
         val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
-
-        // Calculate ideal weight range
         val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
-
-        // Calculate water intake
         val water = CalculatorUtils.calculateWaterIntake(weight)
 
-        // Update UI
         _binding.root.findViewById<TextView>(R.id.tvBmrValue)?.text =
             "${String.format("%.0f", bmr)} ${getString(R.string.cal_per_day)}"
         _binding.root.findViewById<TextView>(R.id.tvTdeeValue)?.text =
@@ -550,7 +499,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
     }
 
     private fun saveToHistory() {
-        // ML-03: Use lifecycleScope instead of raw CoroutineScope to tie to Activity lifecycle
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val isMale = gender == 0
@@ -558,7 +506,6 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
                 val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
 
-                // Get current profile ID or use 1 as default (created in GalaxyApp)
                 val currentProfile = repository.getCurrentProfile()
                 val profileId = currentProfile?.id ?: 1L
                 Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result")
@@ -581,10 +528,8 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                 val insertedId = repository.insertRecord(record)
                 Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
 
-                // Update streak (SharedPrefs is thread-safe, commit() is sync)
                 StreakManager.recordCheck(this@ResultAct)
 
-                // Check badges
                 try {
                     val recordCount = repository.getRecordCount(profileId)
                     val recentBmiValues = repository.getRecentBmiValues(profileId, 7)
@@ -600,13 +545,12 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
                     )
 
                     if (newlyEarned.isNotEmpty()) {
-                        // Show only the first badge to avoid overlapping Snackbars
                         val badge = newlyEarned.first()
                         withContext(Dispatchers.Main) {
                             if (!isFinishing && !isDestroyed) {
                                 com.google.android.material.snackbar.Snackbar
                                     .make(_binding.root, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
-                                    .setBackgroundTint(androidx.core.content.ContextCompat.getColor(this@ResultAct, R.color.bmi_healthy))
+                                    .setBackgroundTint(ContextCompat.getColor(this@ResultAct, R.color.bmi_healthy))
                                     .show()
                             }
                         }
@@ -622,115 +566,7 @@ class ResultAct : BaseActivity(), AdMobManager.InterstitialAdListener {
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        AdMobManager.interstitialListener = null
-        AdMobManager.clearCurrentActivity()
-//        binding.flAd?.destroyAdBanner(adView)
-        adView?.destroy()
+        AdManager.bannerDestroy(adView)
         super.onDestroy()
     }
-
-    override fun onAdLoaded() {
-    }
-
-    override fun onAdFailedToLoad(error: LoadAdError) {
-    }
-
-    override fun onAdShowed() {
-    }
-
-    override fun onAdDismissed() {
-    }
-
-    override fun onAdClicked() {
-    }
-
-    override fun onAdFailedToShow(error: AdError) {
-    }
-
-    override fun onAdNotAvailable() {
-    }
-
-//    private var interstitialAd: MaxInterstitialAd? = null
-//
-//    private fun createAdInter() {
-//        val enableAdInter = getString(R.string.EnableAdInter) == "true"
-//        if (enableAdInter) {
-//            interstitialAd = MaxInterstitialAd(getString(R.string.INTER), this)
-//            interstitialAd?.let { ad ->
-//                ad.setListener(object : MaxAdListener {
-//                    override fun onAdLoaded(p0: MaxAd) {
-////                        logI("onAdLoaded")
-////                        retryAttempt = 0
-//                    }
-//
-//                    override fun onAdDisplayed(p0: MaxAd) {
-////                        logI("onAdDisplayed")
-//                    }
-//
-//                    override fun onAdHidden(p0: MaxAd) {
-////                        logI("onAdHidden")
-//                        // Interstitial Ad is hidden. Pre-load the next ad
-//                        interstitialAd?.loadAd()
-//                    }
-//
-//                    override fun onAdClicked(p0: MaxAd) {
-////                        logI("onAdClicked")
-//                    }
-//
-//                    override fun onAdLoadFailed(p0: String, p1: MaxError) {
-////                        logI("onAdLoadFailed")
-////                        retryAttempt++
-////                        val delayMillis =
-////                            TimeUnit.SECONDS.toMillis(2.0.pow(min(6, retryAttempt)).toLong())
-////
-////                        Handler(Looper.getMainLooper()).postDelayed(
-////                            {
-////                                interstitialAd?.loadAd()
-////                            }, delayMillis
-////                        )
-//                    }
-//
-//                    override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
-////                        logI("onAdDisplayFailed")
-//                        // Interstitial ad failed to display. We recommend loading the next ad.
-//                        interstitialAd?.loadAd()
-//                    }
-//
-//                })
-//                ad.setRevenueListener {
-////                    logI("onAdDisplayed")
-//                }
-//
-//                // Load the first ad.
-//                ad.loadAd()
-//            }
-//        }
-//    }
-//
-//    private fun showAd(runnable: Runnable? = null) {
-//        val enableAdInter = getString(R.string.EnableAdInter) == "true"
-//        if (enableAdInter) {
-//            if (interstitialAd == null) {
-//                runnable?.run()
-//            } else {
-//                interstitialAd?.let { ad ->
-//                    if (ad.isReady) {
-////                        showDialogProgress()
-////                        setDelay(500.getRandomNumber() + 500) {
-////                            hideDialogProgress()
-////                            ad.showAd()
-////                            runnable?.run()
-////                        }
-//                        ad.showAd()
-//                        runnable?.run()
-//                    } else {
-//                        runnable?.run()
-//                    }
-//                }
-//            }
-//        } else {
-//            Toast.makeText(this, "Applovin show ad Inter in debug mode", Toast.LENGTH_SHORT).show()
-//            runnable?.run()
-//        }
-//    }
 }

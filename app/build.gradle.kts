@@ -10,13 +10,23 @@ android {
 
     defaultConfig {
         applicationId = "com.samsunggalaxy.bmicalculator"
-        minSdk = 23
+        minSdk = 24
         //noinspection EditedTargetSdkVersion
         targetSdk = 36
         versionCode = 20260323
         versionName = "2026.03.23"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // AppLovin MAX IDs (production)
+        buildConfigField(
+            "String", "APPLOVIN_SDK_KEY",
+            "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\""
+        )
+        buildConfigField("String", "APPLOVIN_BANNER_ID",       "\"935687e95c2be5f5\"")
+        buildConfigField("String", "APPLOVIN_INTERSTITIAL_ID", "\"e080595a143cf78e\"")
+        buildConfigField("String", "APPLOVIN_APP_OPEN_ID",     "\"e349570297a4e092\"")
+        buildConfigField("String", "APPLOVIN_REWARD_ID",       "\"584b6f127bd8534f\"")
     }
 
     signingConfigs {
@@ -30,15 +40,17 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false") // false = AppLovin MAX
+            buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3940256099942544/6300978111\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
-            buildConfigField("String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\"")
+            buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3940256099942544/9257395921\"")
         }
         getByName("release") {
             //nho check APPLICATION_ID trong manifest
-            buildConfigField("String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/9117482667\"")
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false") // false = AppLovin MAX
+            buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3612191981543807/9117482667\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
-            buildConfigField("String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/5066557013\"")
+            buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3612191981543807/5066557013\"")
 
             isMinifyEnabled = true
             isShrinkResources = true
@@ -57,35 +69,11 @@ android {
     productFlavors {
         create("dev") {
             dimension = "type"
-            //            buildConfigField("String", "FLAVOR_buildEnv", "dev")
-
             resValue("string", "app_name", "BMI Calculator 2026 DEV")
-
-//            resValue(
-//                "string",
-//                "SDK_KEY",
-//                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
-//            )
-//            resValue("string", "BANNER", "935687e95c2be5f5")
-//            resValue("string", "INTER", "e080595a143cf78e")
-//            resValue("string", "EnableAdInter", "false")
-//            resValue("string", "EnableAdBanner", "true")
         }
         create("production") {
             dimension = "type"
-            //            buildConfigField("String", "FLAVOR_buildEnv", "prod")
-
             resValue("string", "app_name", "BMI Calculator 2026")
-
-//            resValue(
-//                "string",
-//                "SDK_KEY",
-//                "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt"
-//            )
-//            resValue("string", "BANNER", "935687e95c2be5f5")
-//            resValue("string", "INTER", "e080595a143cf78e")
-//            resValue("string", "EnableAdInter", "true")
-//            resValue("string", "EnableAdBanner", "true")
         }
     }
 
@@ -101,6 +89,11 @@ android {
         dataBinding = true
         buildConfig = true
     }
+
+    // Disable lint rule that crashes with Kotlin 2.0.20 (IncompatibleClassChangeError)
+    lint {
+        disable += "NullSafeMutableLiveData"
+    }
 }
 
 dependencies {
@@ -112,12 +105,13 @@ dependencies {
     implementation("com.github.psuzn:WheelView:1.0.0")
     implementation("com.github.CNCoderX:WheelView:1.2.6")
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
-//    implementation("com.applovin:applovin-sdk:13.1.0")
-    implementation("com.google.android.gms:play-services-ads:24.3.0")
-    implementation("com.google.ads.mediation:applovin:13.2.0.1")
+
+    // AdmobWrapper SDK — kéo toàn bộ AdMob + AppLovin MAX + 7 lớp AdSafety
+    // Replaces: play-services-ads + applovin mediation
+    implementation("com.github.royt93:AdmobWrapper:1.1.1")
 
     // Room database
-    val roomVersion = "2.6.1"
+    val roomVersion = "2.7.0"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
@@ -137,11 +131,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 
-    //for testing
-//    testImplementation("junit:junit:4.13.2")
-//    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-//    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
     implementation("com.google.android.play:review:2.0.2")
     implementation("com.google.android.play:review-ktx:2.0.2")
 }
