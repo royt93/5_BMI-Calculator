@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+}
+
+// Load signing credentials từ keystore.properties (không commit lên git)
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
 }
 
 android {
@@ -31,10 +40,10 @@ android {
 
     signingConfigs {
         register("release") {
-            storeFile = file("keystores.jks")
-            storePassword = "27072000"
-            keyAlias = "mckimquyen"
-            keyPassword = "27072000"
+            storeFile     = file(keystoreProperties["storeFile"]     as String)
+            storePassword =      keystoreProperties["storePassword"] as String
+            keyAlias      =      keystoreProperties["keyAlias"]      as String
+            keyPassword   =      keystoreProperties["keyPassword"]   as String
         }
     }
 
