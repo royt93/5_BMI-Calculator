@@ -59,7 +59,7 @@ open class BaseActivity : AppCompatActivity() {
                     window.attributes = window.attributes.apply {
                         preferredDisplayModeId = highestRefreshRateMode.modeId
                     }
-                    Log.d("BaseActivity", "Adaptive refresh rate applied: ${highestRefreshRateMode.refreshRate} Hz")
+                    if (BuildConfig.DEBUG) Log.d("BaseActivity", "Adaptive refresh rate applied: ${highestRefreshRateMode.refreshRate} Hz")
                 }
             }
         }

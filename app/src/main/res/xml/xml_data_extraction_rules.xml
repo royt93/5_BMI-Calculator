@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data-extraction-rules>
-    <cloud-backup />
+    <cloud-backup>
+        <!-- Loại trừ health data khỏi cloud backup (Android 12+) -->
+        <exclude domain="database" path="bmi_database" />
+        <exclude domain="database" path="bmi_database-shm" />
+        <exclude domain="database" path="bmi_database-wal" />
+        <exclude domain="sharedpref" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Loại trừ DB khi chuyển thiết bị -->
+        <exclude domain="database" path="bmi_database" />
+    </device-transfer>
 </data-extraction-rules>

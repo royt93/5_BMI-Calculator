@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.samsunggalaxy.BuildConfig
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -114,20 +115,20 @@ class MainAct : BaseActivity() {
     }
 
     private fun updateStreakUI() {
-        Log.d("roy93~", "updateStreakUI() called")
+        if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI() called")
         try {
             val streakCard = _binding.root.findViewById<View>(R.id.streakCard)
-            Log.d("roy93~", "updateStreakUI: streakCard=${streakCard != null}")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: streakCard=${streakCard != null}")
             if (streakCard == null) return
 
             val tvTitle = streakCard.findViewById<TextView>(R.id.tvStreakTitle)
             val tvBest = streakCard.findViewById<TextView>(R.id.tvStreakBest)
             val tvMotivation = streakCard.findViewById<TextView>(R.id.tvStreakMotivation)
-            Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
             if (tvTitle == null || tvBest == null || tvMotivation == null) return
 
             val data = StreakManager.getStreakData(this)
-            Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
 
             if (data.current > 0) {
                 tvTitle.text = getString(R.string.streak_title, data.current)
@@ -144,13 +145,13 @@ class MainAct : BaseActivity() {
             val dayLabels = arrayOf("M", "T", "W", "T", "F", "S", "S")
             val todayIndex = (java.time.LocalDate.now().dayOfWeek.value - 1) // 0=Mon
             val todayChecked = StreakManager.isTodayChecked(this)
-            Log.d("roy93~", "updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
 
             // How many past days in this week are part of the streak?
             val streakDays = data.current
             val checkedToday = if (todayChecked) 1 else 0
             val pastDaysCovered = minOf(streakDays - checkedToday, todayIndex)
-            Log.d("roy93~", "updateStreakUI: streakDays=$streakDays, pastDaysCovered=$pastDaysCovered")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: streakDays=$streakDays, pastDaysCovered=$pastDaysCovered")
 
             for (i in 0..6) {
                 val tv = streakCard.findViewById<TextView>(dayIds[i]) ?: continue
@@ -160,7 +161,7 @@ class MainAct : BaseActivity() {
                     else -> tv.text = dayLabels[i]
                 }
             }
-            Log.d("roy93~", "updateStreakUI: DONE, title=${tvTitle.text}")
+            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: DONE, title=${tvTitle.text}")
         } catch (e: Exception) {
             Log.e("roy93~", "updateStreakUI error", e)
         }
@@ -257,7 +258,7 @@ class MainAct : BaseActivity() {
             }
         } else {
             // Fallback: age = 25 already set as default
-            android.util.Log.w("MainAct", "Age wheel view not found, using default age: $age")
+            if (BuildConfig.DEBUG) android.util.Log.w("MainAct", "Age wheel view not found, using default age: $age")
         }
 
         _binding.startButton.setOnActiveListener {

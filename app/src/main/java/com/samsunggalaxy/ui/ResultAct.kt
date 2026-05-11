@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.samsunggalaxy.BuildConfig
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
@@ -362,7 +363,7 @@ class ResultAct : BaseActivity() {
             handler.postDelayed({
                 // AdSafety tự throttle — nếu không đủ điều kiện, callback vẫn được gọi với adShown=false
                 AdManager.showInterstitial(this) { adShown ->
-                    Log.d("roy93~", "showInterstitial adShown=$adShown")
+                    if (BuildConfig.DEBUG) Log.d("roy93~", "showInterstitial adShown=$adShown")
                     handler.postDelayed(backRunnable, 100)
                 }
             }, 600)
@@ -508,7 +509,7 @@ class ResultAct : BaseActivity() {
 
                 val currentProfile = repository.getCurrentProfile()
                 val profileId = currentProfile?.id ?: 1L
-                Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result")
+                if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result")
 
                 val record = BmiRecord(
                     timestamp = System.currentTimeMillis(),
@@ -526,7 +527,7 @@ class ResultAct : BaseActivity() {
                 )
 
                 val insertedId = repository.insertRecord(record)
-                Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
+                if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
 
                 StreakManager.recordCheck(this@ResultAct)
 

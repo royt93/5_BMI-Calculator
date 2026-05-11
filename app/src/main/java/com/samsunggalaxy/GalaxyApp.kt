@@ -19,7 +19,7 @@ class GalaxyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("roy93~", "GalaxyApp.onCreate")
+        if (BuildConfig.DEBUG) Log.d("roy93~", "GalaxyApp.onCreate")
 
         // ⚡ FIX: Start AppLovin SDK init AS THE VERY FIRST ACTION
         // AppLovin network handshake (~5s) now starts before DynamicColors, setConfig, earlyInit
@@ -48,7 +48,7 @@ class GalaxyApp : Application() {
         // setConfig + earlyInit are already done
         applovinSdk.initializeSdk {
             AdManager.init(this, adConfig) { success, gaid ->
-                Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
+                if (BuildConfig.DEBUG) Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
             }
         }
 

@@ -170,7 +170,7 @@ fun Activity.rateApp(
         this.startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
             )
         )
     }
@@ -256,7 +256,7 @@ fun Activity.playYoutube(
 fun Activity.playYoutubeWithId(
     id: String,
 ) {
-    this.playYoutube(url = "http://www.youtube.com/watch?v=$id")
+    this.playYoutube(url = "https://www.youtube.com/watch?v=$id")
 }
 
 fun Activity.setChangeStatusBarTintToDark(
