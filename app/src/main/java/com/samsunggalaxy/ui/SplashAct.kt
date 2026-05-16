@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
@@ -25,6 +27,28 @@ class SplashAct : BaseActivity() {
 
     private val prefsManager by lazy { PreferencesManager(applicationContext) }
 
+    /**
+     * Đánh dấu khi user đã tap chọn ngôn ngữ. Set bởi FragmentResult listener
+     * (chạy đồng bộ trước khi sheet dismiss). Đọc bởi FragmentLifecycleCallbacks
+     * để phân biệt user-đã-pick vs user-tap-outside.
+     */
+    private var languageHandled = false
+
+    private val fragmentLifecycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
+            // Safety net: nếu sheet bị dismiss (back / tap outside) mà chưa pick →
+            // fallback "en" để user không bị kẹt trên Splash.
+            if (f !is LanguageBottomSheet || languageHandled) return
+            if (isFinishing || isDestroyed) return
+            languageHandled = true
+            LocaleHelper.setLanguage(this@SplashAct, "en")
+            lifecycleScope.launch {
+                prefsManager.markLanguageSelected()
+                if (!isFinishing && !isDestroyed) goToMain()
+            }
+        }
+    }
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UIUtils.setupEdgeToEdge1(window)
@@ -39,16 +63,20 @@ class SplashAct : BaseActivity() {
         // đồng thời tự huỷ theo lifecycle (no leak). Đăng ký sớm để sống sót qua rotate
         // và process restore (DialogFragment được FragmentManager khôi phục qua tag).
         supportFragmentManager.setFragmentResultListener(
-            FirstRunLanguageSheet.REQUEST_KEY,
+            LanguageBottomSheet.REQUEST_KEY,
             this
         ) { _, bundle ->
-            val langCode = bundle.getString(FirstRunLanguageSheet.RESULT_LANGUAGE) ?: "en"
+            languageHandled = true
+            val langCode = bundle.getString(LanguageBottomSheet.RESULT_LANGUAGE) ?: "en"
             LocaleHelper.setLanguage(this, langCode)
             lifecycleScope.launch {
                 prefsManager.markLanguageSelected()
                 if (!isFinishing && !isDestroyed) goToMain()
             }
         }
+
+        // Bảo vệ trường hợp user dismiss sheet mà chưa pick ngôn ngữ.
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, false)
 
         startAnimations()
 
@@ -77,13 +105,14 @@ class SplashAct : BaseActivity() {
 
     /**
      * Hiển thị bottom sheet chọn ngôn ngữ lần đầu.
+     * Dùng chung component với Settings → UI 100% giống nhau.
      * Listener đã được đăng ký trong onCreate → KHÔNG giữ reference trực tiếp, no memory leak.
      */
     private fun showFirstRunLanguageSheet() {
         if (!isFinishing && !isDestroyed &&
-            supportFragmentManager.findFragmentByTag(FirstRunLanguageSheet.TAG) == null) {
-            FirstRunLanguageSheet.newInstance()
-                .show(supportFragmentManager, FirstRunLanguageSheet.TAG)
+            supportFragmentManager.findFragmentByTag(LanguageBottomSheet.TAG) == null) {
+            LanguageBottomSheet.newInstance()
+                .show(supportFragmentManager, LanguageBottomSheet.TAG)
         }
     }
 
@@ -182,6 +211,7 @@ class SplashAct : BaseActivity() {
     }
 
     override fun onDestroy() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
         // Circles được animate qua ViewPropertyAnimator (view.animate()) — phải dùng
         // animate().cancel() để huỷ. View.clearAnimation() chỉ huỷ legacy Animation
         // framework (do startAnimation() tạo), không động đến ViewPropertyAnimator.

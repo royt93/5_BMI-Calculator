@@ -16,6 +16,7 @@ import com.samsunggalaxy.utils.LocaleHelper
 class LanguageBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
+        const val TAG = "LanguageBottomSheet"
         const val REQUEST_KEY = "language_selection_settings"
         const val RESULT_LANGUAGE = "selected_language"
 

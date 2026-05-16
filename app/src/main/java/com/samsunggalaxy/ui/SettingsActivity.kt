@@ -59,7 +59,7 @@ class SettingsActivity : BaseActivity() {
 
     private fun showLanguageBottomSheet() {
         val bottomSheet = LanguageBottomSheet.newInstance()
-        bottomSheet.show(supportFragmentManager, "LanguageBottomSheet")
+        bottomSheet.show(supportFragmentManager, LanguageBottomSheet.TAG)
     }
 
     private var isRestarting = false
