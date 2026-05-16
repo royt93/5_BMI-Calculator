@@ -3,10 +3,12 @@ package com.samsunggalaxy
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.applovin.sdk.AppLovinSdk
 import com.google.android.material.color.DynamicColors
 import com.roy.sdkadbmob.AdManager
+import com.roy.sdkadbmob.AdSafetyLimits
 import com.roy.sdkadbmob.AdSdkConfig
+import com.roy.sdkadbmob.ErrorReporter
+import com.samsunggalaxy.common.const.AdKeys
 import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,34 +23,43 @@ class GalaxyApp : Application() {
         super.onCreate()
         if (BuildConfig.DEBUG) Log.d("roy93~", "GalaxyApp.onCreate")
 
-        // ⚡ FIX: Start AppLovin SDK init AS THE VERY FIRST ACTION
-        // AppLovin network handshake (~5s) now starts before DynamicColors, setConfig, earlyInit
-        // → gives initSplashScreen max time to load App Open Ad before 8s timeout
-        val applovinSdk = AppLovinSdk.getInstance(this).also { sdk ->
-            sdk.mediationProvider = "max"
-        }
-
-        // These are synchronous & fast (<2ms) — run right after init kickoff
         DynamicColors.applyToActivitiesIfAvailable(this)
 
-        val adConfig = AdSdkConfig(
-            isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
-            isDebug                = BuildConfig.DEBUG,
-            admobBannerId          = BuildConfig.ADMOB_BANNER_ID,
-            admobInterstitialId    = BuildConfig.ADMOB_INTERSTITIAL_ID,
-            admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
-            applovinBannerId       = BuildConfig.APPLOVIN_BANNER_ID,
-            applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
-            applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
-        )
-        AdManager.setConfig(adConfig)
-        AdManager.earlyInit(this)
+        // AdSafety: release dùng UTILITY preset (90s throttle, 3/session, 5/day),
+        // debug dùng TEST preset (gần như không throttle để QC test nhanh).
+        val safetyLimits =
+            if (BuildConfig.DEBUG) AdSafetyLimits.TEST else AdSafetyLimits.UTILITY
 
-        // Start SDK init callback — by the time this fires (~5s later),
-        // setConfig + earlyInit are already done
-        applovinSdk.initializeSdk {
-            AdManager.init(this, adConfig) { success, gaid ->
-                if (BuildConfig.DEBUG) Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
+        val adConfig = AdSdkConfig(
+            isEnableAdmob = BuildConfig.IS_ENABLE_ADMOB,
+            isDebug = BuildConfig.DEBUG,
+            admobBannerId = BuildConfig.ADMOB_BANNER_ID,
+            admobInterstitialId = BuildConfig.ADMOB_INTERSTITIAL_ID,
+            admobAppOpenId = BuildConfig.ADMOB_APP_OPEN_ID,
+            admobRewardedId = BuildConfig.ADMOB_REWARDED_ID,
+            applovinBannerId = BuildConfig.APPLOVIN_BANNER_ID,
+            applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
+            applovinAppOpenId = BuildConfig.APPLOVIN_APP_OPEN_ID,
+            applovinRewardedId = BuildConfig.APPLOVIN_REWARDED_ID,
+            applovinSdkKey = BuildConfig.APPLOVIN_SDK_KEY,
+            vipKeySecret = AdKeys.VIP_SECRET,
+            safety = safetyLimits,
+        )
+
+        // Observability hook — forward SDK exception vào logcat (no Crashlytics yet).
+        AdManager.errorReporter = ErrorReporter { throwable, context ->
+            if (BuildConfig.DEBUG) {
+                Log.w("roy93~Err", "[$context] ${throwable.message}", throwable)
+            }
+        }
+
+        AdManager.setConfig(adConfig)
+        // SDK 1.1.3 đã built-in 1-day grace auto-trial trong init() (xem
+        // AdManager.kt:499-543 of SDK source). KHÔNG được gọi `activateVipByKey`
+        // ở app-side để grant 1 ngày — sẽ stomp giá trị SDK ghi (installBeginMs+24h).
+        AdManager.initialize(this) { success, gaid ->
+            if (BuildConfig.DEBUG) {
+                Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
             }
         }
 
@@ -63,7 +74,10 @@ class GalaxyApp : Application() {
         applicationScope.launch {
             try {
                 val database = com.samsunggalaxy.data.AppDatabase.getDatabase(applicationContext)
-                val repository = com.samsunggalaxy.data.BmiRepository(database.bmiDao(), database.profileDao())
+                val repository = com.samsunggalaxy.data.BmiRepository(
+                    database.bmiDao(),
+                    database.profileDao()
+                )
                 if (repository.getCurrentProfile() == null) {
                     repository.createDefaultProfile()
                 }

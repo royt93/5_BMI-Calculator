@@ -168,4 +168,40 @@
     <string name="female_only">Khusus perempuan</string>
     <string name="reward_ad_skipped">Tonton iklan penuh untuk membuka kunci rencana kesehatan detail Anda 🎯</string>
     <string name="btn_detailed_plan">🎁 Dapatkan Rencana Kesehatan Detail</string>
+    <!-- VIP feature -->
+    <string name="vip_title">Keanggotaan VIP</string>
+    <string name="vip_active">VIP aktif</string>
+    <string name="vip_free_user">Pengguna gratis</string>
+    <string name="vip_until">Sampai %1$s</string>
+    <string name="vip_activated_at">Diaktifkan: %1$s</string>
+    <string name="vip_expires_at">Berakhir: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">Masukkan kunci VIP</string>
+    <string name="vip_redeem_hint">mis. ABC123XYZ</string>
+    <string name="vip_redeem_button">Aktifkan</string>
+    <string name="vip_redeem_invalid">Kunci VIP tidak valid</string>
+    <string name="vip_watch_ad_3d">Tonton iklan → 3 hari VIP</string>
+    <string name="vip_buy_30d_locked">Beli VIP 30 hari — segera hadir</string>
+    <string name="vip_buy_90d_locked">Beli VIP 90 hari — segera hadir</string>
+    <string name="vip_buy_1y_locked">Beli VIP 1 tahun — segera hadir</string>
+    <string name="vip_buy_lifetime_locked">Beli VIP seumur hidup — segera hadir</string>
+    <string name="vip_restore_locked">Pulihkan pembelian — segera hadir</string>
+    <string name="vip_revoke_all_button">Cabut VIP</string>
+    <string name="vip_revoke_all_confirm_title">Konfirmasi pencabutan</string>
+    <string name="vip_revoke_all_confirm_message">Cabut VIP dan kembali ke gratis?</string>
+    <string name="vip_entry_first_install">🎁 Hadiah instalasi pertama</string>
+    <string name="vip_entry_redeemed">VIP %1$d hari</string>
+    <string name="vip_success_title">Berhasil</string>
+    <string name="vip_success_message">VIP diaktifkan selama %1$d hari</string>
+    <string name="vip_failed_title">Gagal</string>
+    <string name="vip_rewarded_load_failed">Iklan belum siap. Coba lagi nanti.</string>
+    <string name="vip_rewarded_earned_message">Terima kasih! 3 hari VIP diberikan.</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="ok">OK</string>
+    <string name="vip_verifying_title">Memverifikasi…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 Buka VIP</string>
+    <string name="vip_section_upgrade">✨ Paket Upgrade</string>
+    <string name="vip_section_more">⚙ Lainnya</string>
 </resources>
+

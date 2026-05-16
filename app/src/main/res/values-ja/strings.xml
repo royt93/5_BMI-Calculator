@@ -202,4 +202,40 @@
     <!-- Reward Ad -->
     <string name="reward_ad_skipped">広告を最後まで見て詳細な健康プランをアンロックしよう 🎯</string>
     <string name="btn_detailed_plan">🎁 詳細な健康プランを取得</string>
+    <!-- VIP feature -->
+    <string name="vip_title">VIPメンバーシップ</string>
+    <string name="vip_active">VIP有効</string>
+    <string name="vip_free_user">無料ユーザー</string>
+    <string name="vip_until">%1$sまで</string>
+    <string name="vip_activated_at">有効化: %1$s</string>
+    <string name="vip_expires_at">有効期限: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">VIPキーを入力</string>
+    <string name="vip_redeem_hint">例: ABC123XYZ</string>
+    <string name="vip_redeem_button">有効化</string>
+    <string name="vip_redeem_invalid">無効なVIPキー</string>
+    <string name="vip_watch_ad_3d">広告を見る → 3日間VIP</string>
+    <string name="vip_buy_30d_locked">VIP 30日購入 — 近日公開</string>
+    <string name="vip_buy_90d_locked">VIP 90日購入 — 近日公開</string>
+    <string name="vip_buy_1y_locked">VIP 1年購入 — 近日公開</string>
+    <string name="vip_buy_lifetime_locked">VIP 永久購入 — 近日公開</string>
+    <string name="vip_restore_locked">購入を復元 — 近日公開</string>
+    <string name="vip_revoke_all_button">VIPを取り消す</string>
+    <string name="vip_revoke_all_confirm_title">取り消しの確認</string>
+    <string name="vip_revoke_all_confirm_message">VIPを取り消して無料版に戻りますか?</string>
+    <string name="vip_entry_first_install">🎁 初回インストール特典</string>
+    <string name="vip_entry_redeemed">VIP %1$d日</string>
+    <string name="vip_success_title">成功</string>
+    <string name="vip_success_message">%1$d日間VIPを有効化しました</string>
+    <string name="vip_failed_title">失敗</string>
+    <string name="vip_rewarded_load_failed">広告の準備ができていません。後でもう一度お試しください。</string>
+    <string name="vip_rewarded_earned_message">ありがとうございます!3日間VIPを付与しました。</string>
+    <string name="confirm">確認</string>
+    <string name="ok">OK</string>
+    <string name="vip_verifying_title">確認中…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 VIPをアンロック</string>
+    <string name="vip_section_upgrade">✨ アップグレードプラン</string>
+    <string name="vip_section_more">⚙ その他</string>
 </resources>
+

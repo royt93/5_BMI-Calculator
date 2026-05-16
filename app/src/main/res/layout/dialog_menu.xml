@@ -129,6 +129,35 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/menuVip"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/menu_item_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_workspace_premium"
+                    app:tint="@color/vip_gold_dark" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/vip_title"
+                    android:textColor="#1A1A1A"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/menuCalculators"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"

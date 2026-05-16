@@ -22,15 +22,15 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
 
-        <!-- Khai báo AdMob App ID -->
+        <!-- AdMob App ID — bắt buộc khai báo qua manifest cho Google Mobile Ads SDK. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3612191981543807~1273576268" />
 
-        <!-- AppLovin SDK Key -->
-        <meta-data
-            android:name="applovin.sdk.key"
-            android:value="e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt" />
+        <!-- LƯU Ý: AppLovin SDK 13.x (bundle vào AdmobApplovinWrapper 1.1.3+) BẮT BUỘC
+             SDK key qua code (AdSdkConfig.applovinSdkKey = BuildConfig.APPLOVIN_SDK_KEY).
+             KHÔNG khai báo `applovin.sdk.key` ở đây — sẽ crash IllegalStateException
+             "Invalid initialization process" khi SDK init. -->
 
         <activity
             android:name=".ui.SplashAct"
@@ -76,6 +76,10 @@
 
         <activity
             android:name=".ui.SettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".feature.vip.VipActivity"
             android:exported="false" />
 
         <provider

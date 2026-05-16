@@ -168,4 +168,40 @@
         <item>Porsiyon kontrolü yapın: yarısı sebze, dörtte biri protein, dörtte biri tahıl</item>
         <item>Hızlı diyet yerine sağlıklı alışkanlıklar edinmeye odaklanın</item>
     </string-array>
+    <!-- VIP feature -->
+    <string name="vip_title">VIP Üyelik</string>
+    <string name="vip_active">VIP aktif</string>
+    <string name="vip_free_user">Ücretsiz kullanıcı</string>
+    <string name="vip_until">%1$s tarihine kadar</string>
+    <string name="vip_activated_at">Aktifleştirildi: %1$s</string>
+    <string name="vip_expires_at">Sona eriyor: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">VIP anahtarı girin</string>
+    <string name="vip_redeem_hint">örn. ABC123XYZ</string>
+    <string name="vip_redeem_button">Aktifleştir</string>
+    <string name="vip_redeem_invalid">Geçersiz VIP anahtarı</string>
+    <string name="vip_watch_ad_3d">Reklam izle → 3 gün VIP</string>
+    <string name="vip_buy_30d_locked">VIP 30 gün satın al — yakında</string>
+    <string name="vip_buy_90d_locked">VIP 90 gün satın al — yakında</string>
+    <string name="vip_buy_1y_locked">VIP 1 yıl satın al — yakında</string>
+    <string name="vip_buy_lifetime_locked">VIP ömür boyu satın al — yakında</string>
+    <string name="vip_restore_locked">Satın almayı geri yükle — yakında</string>
+    <string name="vip_revoke_all_button">VIP’yi iptal et</string>
+    <string name="vip_revoke_all_confirm_title">İptali onayla</string>
+    <string name="vip_revoke_all_confirm_message">VIP’yi iptal edip Ücretsiz’e dönmek istiyor musunuz?</string>
+    <string name="vip_entry_first_install">🎁 İlk kurulum hediyesi</string>
+    <string name="vip_entry_redeemed">VIP %1$d gün</string>
+    <string name="vip_success_title">Başarılı</string>
+    <string name="vip_success_message">%1$d gün için VIP aktifleştirildi</string>
+    <string name="vip_failed_title">Başarısız</string>
+    <string name="vip_rewarded_load_failed">Reklam hazır değil. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="vip_rewarded_earned_message">Teşekkürler! 3 gün VIP verildi.</string>
+    <string name="confirm">Onayla</string>
+    <string name="ok">Tamam</string>
+    <string name="vip_verifying_title">Doğrulanıyor…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 VIP’i aç</string>
+    <string name="vip_section_upgrade">✨ Yükseltme paketleri</string>
+    <string name="vip_section_more">⚙ Daha fazla</string>
 </resources>
+

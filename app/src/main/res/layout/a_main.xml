@@ -56,6 +56,24 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+                <!-- VIP pill: luôn hiển thị, đổi style theo state (active gold vs free glass).
+                     Click mở VipActivity — quick access shortcut từ home. -->
+                <TextView
+                    android:id="@+id/tvVipBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_vip_badge_free"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-medium"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:text="@string/vip_badge"
+                    android:textColor="@color/textColor"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="48dp"
                     android:layout_height="48dp"

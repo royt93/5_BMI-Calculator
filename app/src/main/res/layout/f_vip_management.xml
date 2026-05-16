@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="24dp">
+
+        <!-- ============================================================
+             [1] Hero card — crown + status + halo glow
+             ============================================================ -->
+        <FrameLayout
+            android:id="@+id/cardStatusHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_glass_card_main"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <!-- Radial gold glow backdrop (toggled active/free by Kotlin) -->
+            <View
+                android:id="@+id/heroGlow"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_vip_hero_glow_free" />
+
+            <LinearLayout
+                android:id="@+id/headerInner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingStart="24dp"
+                android:paddingTop="32dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="24dp">
+
+                <ImageView
+                    android:id="@+id/ivCrown"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:contentDescription="@string/vip_active"
+                    android:src="@drawable/ic_workspace_premium"
+                    app:tint="@color/vip_gold_dark" />
+
+                <TextView
+                    android:id="@+id/tvStatusTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/vip_free_user"
+                    android:textColor="@color/textColor"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvStatusSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="@color/textColorAdditional"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- ============================================================
+             [2+3+4+5] Stats card — countdown + progress + activated/expires
+             Visibility: GONE khi free
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/cardStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_vip_section_card"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <!-- [5] Countdown text (big hero number) -->
+            <TextView
+                android:id="@+id/tvCountdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/vip_gold_dark"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:text="29d 23h 59m 58s" />
+
+            <!-- [4] Progress bar (elapsed semantic) -->
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressVip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:indeterminate="false"
+                android:max="100"
+                app:indicatorColor="@color/vip_gold"
+                app:trackColor="#33000000"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="6dp" />
+
+            <!-- [2+3] Activated + Expires inline footer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvActivatedAt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textColor="@color/textColorAdditional"
+                    android:textSize="11sp"
+                    tools:text="Activated: 16/05/2026" />
+
+                <TextView
+                    android:id="@+id/tvExpiresAt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textColor="@color/textColorAdditional"
+                    android:textSize="11sp"
+                    tools:text="Expires: 15/06/2026" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ============================================================
+             [12] Active VIP entry card (single-entry)
+             Visibility: GONE khi free
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/cardActiveVip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_vip_section_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="12dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvActiveLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/vip_gold_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="🎁 First-install gift" />
+
+                <TextView
+                    android:id="@+id/tvActiveDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/textColorAdditional"
+                    android:textSize="13sp"
+                    tools:text="Until 17/05/2026 15:00" />
+
+            </LinearLayout>
+
+            <!-- Spec Step 10.3 row #12: button revoke INSIDE active VIP card.
+                 Same handler as "Thu hồi tất cả VIP" button ở More section. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRevokeFromCard"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:text="@string/vip_revoke_all_button"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorError"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- ============================================================
+             Section: Unlock VIP — TextField + Watch Ad
+             Visibility: GONE khi VIP active (user đã VIP, không cần redeem).
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/sectionUnlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/vip_section_unlock"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_vip_section_card"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="20dp">
+
+            <!-- [6] EditText nhập key VIP (vertical stack tránh lệch với button bên cạnh) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRedeem"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/vip_redeem_label"
+                app:boxBackgroundColor="#80FFFFFF"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_confirmation_number"
+                app:startIconTint="@color/textColorAdditional">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRedeem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRedeem"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/vip_redeem_button"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_check"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#22000000" />
+
+            <!-- [7] Watch ad button (premium gold gradient, pulse anim).
+                 clipChildren=false ở parent đảm bảo 1.05x scale không bị cut. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWatchAdReward"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_vip_watch_ad"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/vip_watch_ad_3d"
+                android:textAllCaps="false"
+                android:textColor="@color/vip_text_on_gold"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:cornerRadius="14dp"
+                app:icon="@drawable/ic_play_circle"
+                app:iconTint="@color/vip_text_on_gold" />
+
+            </LinearLayout>
+            <!-- /Unlock card -->
+
+        </LinearLayout>
+        <!-- /sectionUnlock -->
+
+        <!-- ============================================================
+             Section: Upgrade plans
+             ============================================================ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/vip_section_upgrade"
+            android:textColor="@color/textColor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_vip_section_card"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- [8] Buy 30-day VIP -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuy30d"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="6dp"
+                android:enabled="false"
+                android:text="@string/vip_buy_30d_locked"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_calendar_month" />
+
+            <!-- [9] Buy 90-day VIP -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuy90d"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="6dp"
+                android:enabled="false"
+                android:text="@string/vip_buy_90d_locked"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_calendar_month" />
+
+            <!-- [10] Buy 1-year VIP -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuy1y"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="6dp"
+                android:enabled="false"
+                android:text="@string/vip_buy_1y_locked"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_calendar_year" />
+
+            <!-- [11] Buy lifetime VIP -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuyLifetime"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:enabled="false"
+                android:text="@string/vip_buy_lifetime_locked"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_infinity" />
+
+        </LinearLayout>
+
+        <!-- ============================================================
+             Section: More — Restore + Revoke
+             ============================================================ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/vip_section_more"
+            android:textColor="@color/textColor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_vip_section_card"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- [13] Restore Purchase -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRestore"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="6dp"
+                android:enabled="false"
+                android:text="@string/vip_restore_locked"
+                android:textAllCaps="false"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_restore" />
+
+            <!-- Revoke VIP (text style, red) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRevokeVip"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="@string/vip_revoke_all_button"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorError" />
+
+        </LinearLayout>
+
+        <!-- Privacy Policy footer -->
+        <TextView
+            android:id="@+id/tvPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/textColorAdditional"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

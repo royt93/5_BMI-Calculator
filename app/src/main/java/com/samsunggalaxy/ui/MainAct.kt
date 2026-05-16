@@ -1,5 +1,8 @@
 package com.samsunggalaxy.ui
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
@@ -14,6 +17,7 @@ import com.samsunggalaxy.BuildConfig
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.OvershootInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -32,6 +36,7 @@ import com.samsunggalaxy.ext.moreApp
 import com.samsunggalaxy.ext.openBrowserPolicy
 import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
+import com.samsunggalaxy.feature.vip.VipActivity
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
@@ -48,9 +53,16 @@ class MainAct : BaseActivity() {
     private var age = 25
     private var doubleBackToExitPressedOnce = false
 
-    private var adView: View? = null // AdmobWrapper banner view
     private val handler = Handler(Looper.getMainLooper())
     private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
+
+    // Banner view ref — restored để destroy khi user activate VIP mid-session.
+    // SDK autoManageLifecycle xử lý lifecycle activity, nhưng KHÔNG biết VIP state đổi.
+    private var adView: View? = null
+
+    // VIP pill pulse animator — nullable + cancelled ở onPause/onDestroy (no leak).
+    private var vipBadgePulseAnimator: ObjectAnimator? = null
+    private var vipBadgePulseHasBouncedIn = false
 
     // BUG-11: Use ActivityResultLauncher instead of deprecated startActivityForResult
     private val resultLauncher = registerForActivityResult(
@@ -110,8 +122,123 @@ class MainAct : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        AdManager.bannerResume(adView)
+        // Banner lifecycle: SDK 1.1.3 auto-manage qua ActivityLifecycleCallbacks (no manual call).
+        // NHƯNG: khi user activate/revoke VIP mid-session, SDK không tự destroy banner đã load.
+        // → app-side phải manual refresh banner theo VIP state ở mỗi onResume.
+        syncBannerWithVipState()
         updateStreakUI()
+        refreshVipBadge()
+        startVipBadgePulse()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopVipBadgePulse()
+    }
+
+    /**
+     * VIP pill animation — 2 phases:
+     *  1) One-shot bounce-in (scale 0.85 → overshoot → 1.0) khi MainAct lần đầu visible.
+     *  2) Continuous gentle scale pulse, intensity tăng khi VIP active.
+     * Cancel ở onPause để dừng khi user navigate đi, restart ở onResume.
+     */
+    private fun startVipBadgePulse() {
+        val target = _binding.tvVipBadge
+        vipBadgePulseAnimator?.cancel()
+
+        if (!vipBadgePulseHasBouncedIn) {
+            // One-shot entrance animation: shrink + overshoot back.
+            target.scaleX = 0.85f
+            target.scaleY = 0.85f
+            target.alpha = 0f
+            target.animate()
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .alpha(1.0f)
+                .setDuration(550L)
+                .setInterpolator(OvershootInterpolator(1.4f))
+                .withEndAction { launchContinuousPulse(target) }
+                .start()
+            vipBadgePulseHasBouncedIn = true
+        } else {
+            launchContinuousPulse(target)
+        }
+    }
+
+    private fun launchContinuousPulse(target: View) {
+        val active = AdManager.isVipByKeyActive()
+        // VIP active: pulse mạnh hơn (1.0 → 1.12) + nhanh hơn (900ms).
+        // Free: pulse nhẹ (1.0 → 1.05) + chậm (1500ms) — subtle attention grab.
+        val scaleMax = if (active) 1.12f else 1.05f
+        val pulseDuration = if (active) 900L else 1500L
+        vipBadgePulseAnimator = ObjectAnimator.ofPropertyValuesHolder(
+            target,
+            PropertyValuesHolder.ofFloat(View.SCALE_X, 1.0f, scaleMax),
+            PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f, scaleMax),
+        ).apply {
+            duration = pulseDuration
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            start()
+        }
+    }
+
+    private fun stopVipBadgePulse() {
+        vipBadgePulseAnimator?.cancel()
+        // Reset scale để không bị stuck ở mid-frame khi pause (defensive).
+        _binding.tvVipBadge.apply {
+            scaleX = 1.0f
+            scaleY = 1.0f
+            animate().cancel()
+        }
+    }
+
+    /**
+     * Đồng bộ banner với VIP state:
+     * - VIP active: destroy adView (nếu có) + hide flAd container.
+     * - Free: load banner nếu chưa load (idempotent qua adView nullable check).
+     */
+    private fun syncBannerWithVipState() {
+        try {
+            val isVip = AdManager.isVipByKeyActive()
+            if (isVip) {
+                adView?.let { AdManager.bannerDestroy(it) }
+                adView = null
+                binding.flAd.visibility = View.GONE
+            } else {
+                binding.flAd.visibility = View.VISIBLE
+                if (adView == null) {
+                    adView = AdManager.loadBanner(
+                        context = this,
+                        container = binding.flAd.findViewById(R.id.bannerContainer),
+                        tvLabelAd = binding.flAd.findViewById(R.id.tvLabelAd),
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            if (BuildConfig.DEBUG) Log.w("roy93~", "syncBannerWithVipState failed", e)
+        }
+    }
+
+    private fun refreshVipBadge() {
+        try {
+            val active = AdManager.isVipByKeyActive()
+            // VIP pill luôn hiển thị (quick access). Đổi bg + text color theo state.
+            _binding.tvVipBadge.visibility = View.VISIBLE
+            if (active) {
+                _binding.tvVipBadge.setBackgroundResource(R.drawable.bg_vip_badge)
+                _binding.tvVipBadge.setTextColor(
+                    androidx.core.content.ContextCompat.getColor(this, R.color.vip_text_on_gold)
+                )
+            } else {
+                _binding.tvVipBadge.setBackgroundResource(R.drawable.bg_vip_badge_free)
+                _binding.tvVipBadge.setTextColor(
+                    androidx.core.content.ContextCompat.getColor(this, R.color.textColor)
+                )
+            }
+        } catch (e: Exception) {
+            if (BuildConfig.DEBUG) Log.w("roy93~", "refreshVipBadge failed", e)
+        }
     }
 
     private fun updateStreakUI() {
@@ -165,11 +292,6 @@ class MainAct : BaseActivity() {
         } catch (e: Exception) {
             Log.e("roy93~", "updateStreakUI error", e)
         }
-    }
-
-    override fun onPause() {
-        AdManager.bannerPause(adView)
-        super.onPause()
     }
 
     private fun setupViews() {
@@ -274,12 +396,12 @@ class MainAct : BaseActivity() {
         _binding.ivMenu.setOnClickListener {
             showMenu()
         }
+        _binding.tvVipBadge.setOnClickListener {
+            startActivity(Intent(this, VipActivity::class.java))
+        }
 
-        adView = AdManager.loadBanner(
-            context   = this,
-            container = binding.flAd.findViewById(R.id.bannerContainer),
-            tvLabelAd = binding.flAd.findViewById(R.id.tvLabelAd),
-        )
+        // Banner load: delegated tới `syncBannerWithVipState()` (gọi từ onResume).
+        // Tránh load duplicate trong setupViews — onResume xử lý cả initial state + state changes.
     }
 
     private fun getData(count: Int): List<String> {
@@ -395,6 +517,12 @@ class MainAct : BaseActivity() {
             AchievementsBottomSheet().show(supportFragmentManager, AchievementsBottomSheet.TAG)
         }
 
+        val menuVip = dialog.findViewById<LinearLayout>(R.id.menuVip)
+        menuVip?.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, VipActivity::class.java))
+        }
+
         menuCalculators.setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(this, CalculatorsActivity::class.java))
@@ -446,7 +574,13 @@ class MainAct : BaseActivity() {
     override fun onDestroy() {
         handler.removeCallbacks(exitResetRunnable)
         handler.removeCallbacks(navigationRunnable)
-        AdManager.bannerDestroy(adView)
+        // Memory leak guards — explicit cleanup even if SDK autoManageLifecycle handles too.
+        vipBadgePulseAnimator?.cancel()
+        vipBadgePulseAnimator?.removeAllUpdateListeners()
+        vipBadgePulseAnimator = null
+        _binding.tvVipBadge.animate().cancel()
+        adView?.let { AdManager.bannerDestroy(it) }
+        adView = null
         super.onDestroy()
     }
 }

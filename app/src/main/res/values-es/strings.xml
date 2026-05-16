@@ -168,4 +168,40 @@
     <string name="female_only">Solo para mujeres</string>
     <string name="reward_ad_skipped">Ve el anuncio completo para desbloquear tu plan de salud detallado 🎯</string>
     <string name="btn_detailed_plan">🎁 Obtener Plan de Salud Detallado</string>
+    <!-- VIP feature -->
+    <string name="vip_title">Membresía VIP</string>
+    <string name="vip_active">VIP activo</string>
+    <string name="vip_free_user">Usuario gratuito</string>
+    <string name="vip_until">Hasta %1$s</string>
+    <string name="vip_activated_at">Activado: %1$s</string>
+    <string name="vip_expires_at">Caduca: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">Ingresa clave VIP</string>
+    <string name="vip_redeem_hint">ej. ABC123XYZ</string>
+    <string name="vip_redeem_button">Activar</string>
+    <string name="vip_redeem_invalid">Clave VIP inválida</string>
+    <string name="vip_watch_ad_3d">Ver anuncio → 3 días VIP</string>
+    <string name="vip_buy_30d_locked">Comprar VIP 30 días — próximamente</string>
+    <string name="vip_buy_90d_locked">Comprar VIP 90 días — próximamente</string>
+    <string name="vip_buy_1y_locked">Comprar VIP 1 año — próximamente</string>
+    <string name="vip_buy_lifetime_locked">Comprar VIP de por vida — próximamente</string>
+    <string name="vip_restore_locked">Restaurar compra — próximamente</string>
+    <string name="vip_revoke_all_button">Revocar VIP</string>
+    <string name="vip_revoke_all_confirm_title">Confirmar revocación</string>
+    <string name="vip_revoke_all_confirm_message">¿Revocar VIP y volver a la versión gratuita?</string>
+    <string name="vip_entry_first_install">🎁 Regalo de primera instalación</string>
+    <string name="vip_entry_redeemed">VIP %1$d días</string>
+    <string name="vip_success_title">Éxito</string>
+    <string name="vip_success_message">VIP activado por %1$d días</string>
+    <string name="vip_failed_title">Fallido</string>
+    <string name="vip_rewarded_load_failed">Anuncio no listo. Inténtalo de nuevo más tarde.</string>
+    <string name="vip_rewarded_earned_message">¡Gracias! 3 días VIP otorgados.</string>
+    <string name="confirm">Confirmar</string>
+    <string name="ok">Aceptar</string>
+    <string name="vip_verifying_title">Verificando…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 Desbloquear VIP</string>
+    <string name="vip_section_upgrade">✨ Planes premium</string>
+    <string name="vip_section_more">⚙ Más</string>
 </resources>
+

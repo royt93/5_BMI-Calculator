@@ -35,7 +35,13 @@ android {
         buildConfigField("String", "APPLOVIN_BANNER_ID",       "\"935687e95c2be5f5\"")
         buildConfigField("String", "APPLOVIN_INTERSTITIAL_ID", "\"e080595a143cf78e\"")
         buildConfigField("String", "APPLOVIN_APP_OPEN_ID",     "\"e349570297a4e092\"")
-        buildConfigField("String", "APPLOVIN_REWARD_ID",       "\"584b6f127bd8534f\"")
+        buildConfigField("String", "APPLOVIN_REWARDED_ID",     "\"584b6f127bd8534f\"")
+
+        // Privacy Policy — nhúng vào VIP screen footer + consent dialog
+        buildConfigField(
+            "String", "PRIVACY_POLICY_URL",
+            "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
+        )
     }
 
     signingConfigs {
@@ -53,6 +59,8 @@ android {
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3940256099942544/6300978111\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3940256099942544/9257395921\"")
+            // TEST rewarded ID — TODO: thay bằng production ID khi user cấp
+            buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
         }
         getByName("release") {
             //nho check APPLICATION_ID trong manifest
@@ -60,6 +68,8 @@ android {
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3612191981543807/9117482667\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3612191981543807/5066557013\"")
+            // TEST rewarded ID — TODO: thay bằng production ID khi user cấp ID thật
+            buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
 
             isMinifyEnabled = true
             isShrinkResources = true
@@ -96,6 +106,7 @@ android {
     //noinspection DataBindingWithoutKapt
     buildFeatures {
         dataBinding = true
+        viewBinding = true
         buildConfig = true
     }
 
@@ -115,9 +126,9 @@ dependencies {
     implementation("com.github.CNCoderX:WheelView:1.2.6")
     implementation("com.github.mhdmoh:swipe-button:1.0.3")
 
-    // AdmobWrapper SDK — kéo toàn bộ AdMob + AppLovin MAX + 7 lớp AdSafety
+    // AdmobApplovinWrapper SDK — AdMob + AppLovin MAX + 7 lớp AdSafety + VIP API
     // Replaces: play-services-ads + applovin mediation
-    implementation("com.github.royt93:AdmobWrapper:1.1.1")
+    implementation("com.github.royt93:AdmobApplovinWrapper:1.1.3")
 
     // Room database
     val roomVersion = "2.7.0"

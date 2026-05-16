@@ -168,4 +168,40 @@
     <string name="female_only">仅限女性</string>
     <string name="reward_ad_skipped">观看完整广告以解锁您的详细健康计划 🎯</string>
     <string name="btn_detailed_plan">🎁 获取详细健康计划</string>
+    <!-- VIP feature -->
+    <string name="vip_title">VIP 会员</string>
+    <string name="vip_active">VIP 已激活</string>
+    <string name="vip_free_user">免费用户</string>
+    <string name="vip_until">至 %1$s</string>
+    <string name="vip_activated_at">激活时间: %1$s</string>
+    <string name="vip_expires_at">过期时间: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">输入 VIP 密钥</string>
+    <string name="vip_redeem_hint">例如 ABC123XYZ</string>
+    <string name="vip_redeem_button">激活</string>
+    <string name="vip_redeem_invalid">无效的 VIP 密钥</string>
+    <string name="vip_watch_ad_3d">观看广告 → 3 天 VIP</string>
+    <string name="vip_buy_30d_locked">购买 VIP 30 天 — 即将推出</string>
+    <string name="vip_buy_90d_locked">购买 VIP 90 天 — 即将推出</string>
+    <string name="vip_buy_1y_locked">购买 VIP 1 年 — 即将推出</string>
+    <string name="vip_buy_lifetime_locked">购买 VIP 终身 — 即将推出</string>
+    <string name="vip_restore_locked">恢复购买 — 即将推出</string>
+    <string name="vip_revoke_all_button">撤销 VIP</string>
+    <string name="vip_revoke_all_confirm_title">确认撤销</string>
+    <string name="vip_revoke_all_confirm_message">撤销 VIP 并恢复至免费版本?</string>
+    <string name="vip_entry_first_install">🎁 首次安装礼物</string>
+    <string name="vip_entry_redeemed">VIP %1$d 天</string>
+    <string name="vip_success_title">成功</string>
+    <string name="vip_success_message">VIP 已激活 %1$d 天</string>
+    <string name="vip_failed_title">失败</string>
+    <string name="vip_rewarded_load_failed">广告未准备好。请稍后重试。</string>
+    <string name="vip_rewarded_earned_message">谢谢!已授予 3 天 VIP。</string>
+    <string name="confirm">确认</string>
+    <string name="ok">确定</string>
+    <string name="vip_verifying_title">验证中…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 解锁 VIP</string>
+    <string name="vip_section_upgrade">✨ 升级方案</string>
+    <string name="vip_section_more">⚙ 更多</string>
 </resources>
+

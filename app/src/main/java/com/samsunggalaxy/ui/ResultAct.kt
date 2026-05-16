@@ -51,8 +51,10 @@ class ResultAct : BaseActivity() {
     private var age: Int = 25
     private lateinit var repository: BmiRepository
 
-    private var adView: View? = null // AdmobWrapper banner view
     private val handler = Handler(Looper.getMainLooper())
+
+    // Banner view ref — restored để destroy khi user activate VIP mid-session.
+    private var adView: View? = null
     private val backRunnable = Runnable {
         val resultIntent = Intent()
         resultIntent.putExtra(REQUEST_RESULT, true)
@@ -93,11 +95,33 @@ class ResultAct : BaseActivity() {
     override fun onResume() {
         super.onResume()
         rateAppInApp(com.samsunggalaxy.BuildConfig.DEBUG)
-        AdManager.bannerResume(adView)
+        // Sync banner với VIP state — handle activate/revoke mid-session.
+        syncBannerWithVipState()
+    }
+
+    private fun syncBannerWithVipState() {
+        try {
+            val isVip = AdManager.isVipByKeyActive()
+            if (isVip) {
+                adView?.let { AdManager.bannerDestroy(it) }
+                adView = null
+                _binding.flAd.visibility = View.GONE
+            } else {
+                _binding.flAd.visibility = View.VISIBLE
+                if (adView == null) {
+                    adView = AdManager.loadBanner(
+                        context = this,
+                        container = _binding.flAd.findViewById(R.id.bannerContainer),
+                        tvLabelAd = _binding.flAd.findViewById(R.id.tvLabelAd),
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            if (com.samsunggalaxy.BuildConfig.DEBUG) Log.w("roy93~", "syncBannerWithVipState failed", e)
+        }
     }
 
     override fun onPause() {
-        AdManager.bannerPause(adView)
         super.onPause()
     }
 
@@ -128,11 +152,7 @@ class ResultAct : BaseActivity() {
         // Reward Ad — deferred until SDK adds showRewardedAd support
         // setupRewardButton()
 
-        adView = AdManager.loadBanner(
-            context   = this,
-            container = _binding.flAd.findViewById(R.id.bannerContainer),
-            tvLabelAd = _binding.flAd.findViewById(R.id.tvLabelAd),
-        )
+        // Banner load: delegated tới `syncBannerWithVipState()` (gọi từ onResume).
     }
 
     // ---- Health Tips Feature ----
@@ -567,7 +587,10 @@ class ResultAct : BaseActivity() {
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        AdManager.bannerDestroy(adView)
+        // Defensive: SDK autoManageLifecycle xử lý destroy banner, nhưng manual destroy
+        // idempotent (per SDK contract) đảm bảo không leak refs giữa app + lib.
+        adView?.let { AdManager.bannerDestroy(it) }
+        adView = null
         super.onDestroy()
     }
 }

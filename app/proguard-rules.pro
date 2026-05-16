@@ -70,3 +70,14 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
+
+# ============================================================
+# Fragments referenced via FragmentContainerView android:name —
+# AndroidX FragmentFactory dùng reflection để instantiate.
+# Activity classes tự keep từ manifest, nhưng Fragment subclass
+# từ XML name attribute KHÔNG được auto-keep bởi R8.
+# ============================================================
+-keep class com.samsunggalaxy.feature.vip.FVipManagement { <init>(); }
+-keepclassmembers class * extends androidx.fragment.app.Fragment {
+    public <init>();
+}

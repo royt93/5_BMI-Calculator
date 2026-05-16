@@ -168,4 +168,40 @@
     <string name="female_only">للإناث فقط</string>
     <string name="reward_ad_skipped">شاهد الإعلان كاملاً لفتح خطة صحتك التفصيلية 🎯</string>
     <string name="btn_detailed_plan">🎁 احصل على خطة الصحة التفصيلية</string>
+    <!-- VIP feature -->
+    <string name="vip_title">عضوية VIP</string>
+    <string name="vip_active">VIP نشط</string>
+    <string name="vip_free_user">مستخدم مجاني</string>
+    <string name="vip_until">حتى %1$s</string>
+    <string name="vip_activated_at">التفعيل: %1$s</string>
+    <string name="vip_expires_at">ينتهي: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">أدخل مفتاح VIP</string>
+    <string name="vip_redeem_hint">مثال: ABC123XYZ</string>
+    <string name="vip_redeem_button">تفعيل</string>
+    <string name="vip_redeem_invalid">مفتاح VIP غير صالح</string>
+    <string name="vip_watch_ad_3d">شاهد الإعلان → 3 أيام VIP</string>
+    <string name="vip_buy_30d_locked">شراء VIP لمدة 30 يومًا — قريبًا</string>
+    <string name="vip_buy_90d_locked">شراء VIP لمدة 90 يومًا — قريبًا</string>
+    <string name="vip_buy_1y_locked">شراء VIP لمدة سنة — قريبًا</string>
+    <string name="vip_buy_lifetime_locked">شراء VIP مدى الحياة — قريبًا</string>
+    <string name="vip_restore_locked">استعادة المشتريات — قريبًا</string>
+    <string name="vip_revoke_all_button">إلغاء VIP</string>
+    <string name="vip_revoke_all_confirm_title">تأكيد الإلغاء</string>
+    <string name="vip_revoke_all_confirm_message">هل تريد إلغاء VIP والعودة إلى المجاني؟</string>
+    <string name="vip_entry_first_install">🎁 هدية التثبيت لأول مرة</string>
+    <string name="vip_entry_redeemed">VIP %1$d أيام</string>
+    <string name="vip_success_title">نجاح</string>
+    <string name="vip_success_message">تم تفعيل VIP لمدة %1$d أيام</string>
+    <string name="vip_failed_title">فشل</string>
+    <string name="vip_rewarded_load_failed">الإعلان غير جاهز. يرجى المحاولة لاحقًا.</string>
+    <string name="vip_rewarded_earned_message">شكرًا! تم منح VIP لمدة 3 أيام.</string>
+    <string name="confirm">تأكيد</string>
+    <string name="ok">موافق</string>
+    <string name="vip_verifying_title">جارٍ التحقق…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 فتح VIP</string>
+    <string name="vip_section_upgrade">✨ خطط الترقية</string>
+    <string name="vip_section_more">⚙ المزيد</string>
 </resources>
+

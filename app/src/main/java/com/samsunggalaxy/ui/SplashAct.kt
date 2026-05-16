@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
+import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.LocaleHelper
@@ -80,9 +82,21 @@ class SplashAct : BaseActivity() {
 
         startAnimations()
 
-        // SDK tự lo: load App Open Ad, show, timeout 8s → callback khi xong
-        AdManager.initSplashScreen(this) {
-            checkFirstRunAndProceed()
+        // UMP consent (GDPR/EEA). Block App Open + Banner + Interstitial cho tới khi resolved.
+        // - Non-EEA: SDK skip dialog, canRequestAds=true ngay.
+        // - EEA accept: canRequestAds=true sau khi user choose.
+        // - EEA deny: canRequestAds=false → skip ads, vào main ngay.
+        AdManager.requestConsentInfoUpdate(this) { canRequestAds ->
+            if (isFinishing || isDestroyed) return@requestConsentInfoUpdate
+            if (canRequestAds) {
+                // SDK tự lo: load App Open Ad, show, timeout 8s → callback khi xong.
+                AdManager.initSplashScreen(this) {
+                    checkFirstRunAndProceed()
+                }
+            } else {
+                if (BuildConfig.DEBUG) Log.d("roy93~", "Consent denied → skip ads, navigate")
+                checkFirstRunAndProceed()
+            }
         }
     }
 

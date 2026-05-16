@@ -168,4 +168,40 @@
         <item>Beheers porties: helft groenten, kwart eiwit, kwart granen</item>
         <item>Focus op het opbouwen van gezonde gewoonten in plaats van sneldiëten</item>
     </string-array>
+    <!-- VIP feature -->
+    <string name="vip_title">VIP-lidmaatschap</string>
+    <string name="vip_active">VIP actief</string>
+    <string name="vip_free_user">Gratis gebruiker</string>
+    <string name="vip_until">Tot %1$s</string>
+    <string name="vip_activated_at">Geactiveerd: %1$s</string>
+    <string name="vip_expires_at">Verloopt: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">Voer VIP-sleutel in</string>
+    <string name="vip_redeem_hint">bijv. ABC123XYZ</string>
+    <string name="vip_redeem_button">Activeren</string>
+    <string name="vip_redeem_invalid">Ongeldige VIP-sleutel</string>
+    <string name="vip_watch_ad_3d">Advertentie bekijken → 3 dagen VIP</string>
+    <string name="vip_buy_30d_locked">VIP 30 dagen kopen — binnenkort beschikbaar</string>
+    <string name="vip_buy_90d_locked">VIP 90 dagen kopen — binnenkort beschikbaar</string>
+    <string name="vip_buy_1y_locked">VIP 1 jaar kopen — binnenkort beschikbaar</string>
+    <string name="vip_buy_lifetime_locked">VIP levenslang kopen — binnenkort beschikbaar</string>
+    <string name="vip_restore_locked">Aankoop herstellen — binnenkort beschikbaar</string>
+    <string name="vip_revoke_all_button">VIP intrekken</string>
+    <string name="vip_revoke_all_confirm_title">Intrekken bevestigen</string>
+    <string name="vip_revoke_all_confirm_message">VIP intrekken en terug naar gratis?</string>
+    <string name="vip_entry_first_install">🎁 Cadeau bij eerste installatie</string>
+    <string name="vip_entry_redeemed">VIP %1$d dagen</string>
+    <string name="vip_success_title">Succes</string>
+    <string name="vip_success_message">VIP geactiveerd voor %1$d dagen</string>
+    <string name="vip_failed_title">Mislukt</string>
+    <string name="vip_rewarded_load_failed">Advertentie niet gereed. Probeer het later opnieuw.</string>
+    <string name="vip_rewarded_earned_message">Bedankt! 3 dagen VIP toegekend.</string>
+    <string name="confirm">Bevestigen</string>
+    <string name="ok">OK</string>
+    <string name="vip_verifying_title">Verifiëren…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 VIP ontgrendelen</string>
+    <string name="vip_section_upgrade">✨ Upgrade-pakketten</string>
+    <string name="vip_section_more">⚙ Meer</string>
 </resources>
+

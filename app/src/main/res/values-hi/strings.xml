@@ -168,4 +168,40 @@
     <string name="female_only">केवल महिलाओं के लिए</string>
     <string name="reward_ad_skipped">अपनी विस्तृत स्वास्थ्य योजना अनलॉक करने के लिए पूरा विज्ञापन देखें 🎯</string>
     <string name="btn_detailed_plan">🎁 विस्तृत स्वास्थ्य योजना प्राप्त करें</string>
+    <!-- VIP feature -->
+    <string name="vip_title">VIP सदस्यता</string>
+    <string name="vip_active">VIP सक्रिय</string>
+    <string name="vip_free_user">मुफ़्त उपयोगकर्ता</string>
+    <string name="vip_until">तक %1$s</string>
+    <string name="vip_activated_at">सक्रिय: %1$s</string>
+    <string name="vip_expires_at">समाप्त: %1$s</string>
+    <string name="vip_remaining">%1$dd %2$02dh %3$02dm %4$02ds</string>
+    <string name="vip_redeem_label">VIP कुंजी दर्ज करें</string>
+    <string name="vip_redeem_hint">उदा. ABC123XYZ</string>
+    <string name="vip_redeem_button">सक्रिय करें</string>
+    <string name="vip_redeem_invalid">अमान्य VIP कुंजी</string>
+    <string name="vip_watch_ad_3d">विज्ञापन देखें → 3 दिन VIP</string>
+    <string name="vip_buy_30d_locked">VIP 30 दिन खरीदें — जल्द आ रहा है</string>
+    <string name="vip_buy_90d_locked">VIP 90 दिन खरीदें — जल्द आ रहा है</string>
+    <string name="vip_buy_1y_locked">VIP 1 साल खरीदें — जल्द आ रहा है</string>
+    <string name="vip_buy_lifetime_locked">VIP आजीवन खरीदें — जल्द आ रहा है</string>
+    <string name="vip_restore_locked">खरीदारी पुनर्स्थापित करें — जल्द आ रहा है</string>
+    <string name="vip_revoke_all_button">VIP रद्द करें</string>
+    <string name="vip_revoke_all_confirm_title">रद्द करने की पुष्टि</string>
+    <string name="vip_revoke_all_confirm_message">VIP रद्द करें और मुफ़्त पर वापस जाएं?</string>
+    <string name="vip_entry_first_install">🎁 पहली इंस्टॉल का उपहार</string>
+    <string name="vip_entry_redeemed">VIP %1$d दिन</string>
+    <string name="vip_success_title">सफलता</string>
+    <string name="vip_success_message">%1$d दिनों के लिए VIP सक्रिय</string>
+    <string name="vip_failed_title">विफल</string>
+    <string name="vip_rewarded_load_failed">विज्ञापन तैयार नहीं है। बाद में पुनः प्रयास करें।</string>
+    <string name="vip_rewarded_earned_message">धन्यवाद! 3 दिन VIP प्रदान किया गया।</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="ok">ठीक है</string>
+    <string name="vip_verifying_title">सत्यापित किया जा रहा है…</string>
+    <string name="vip_badge" translatable="false">VIP</string>
+    <string name="vip_section_unlock">🔑 VIP अनलॉक करें</string>
+    <string name="vip_section_upgrade">✨ अपग्रेड प्लान</string>
+    <string name="vip_section_more">⚙ अधिक</string>
 </resources>
+
