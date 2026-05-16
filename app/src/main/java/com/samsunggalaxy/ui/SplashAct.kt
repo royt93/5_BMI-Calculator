@@ -7,16 +7,23 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.lifecycleScope
 import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.LocaleHelper
+import com.samsunggalaxy.utils.PreferencesManager
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
 class SplashAct : BaseActivity() {
 
     private val handler = Handler(Looper.getMainLooper())
     private val finishRunnable = Runnable { finish() }
+
+    private val prefsManager by lazy { PreferencesManager(applicationContext) }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +35,55 @@ class SplashAct : BaseActivity() {
             paddingBottom = true
         )
 
+        // Đăng ký FragmentResult listener trong onCreate — tồn tại trước khi sheet trả result,
+        // đồng thời tự huỷ theo lifecycle (no leak). Đăng ký sớm để sống sót qua rotate
+        // và process restore (DialogFragment được FragmentManager khôi phục qua tag).
+        supportFragmentManager.setFragmentResultListener(
+            FirstRunLanguageSheet.REQUEST_KEY,
+            this
+        ) { _, bundle ->
+            val langCode = bundle.getString(FirstRunLanguageSheet.RESULT_LANGUAGE) ?: "en"
+            LocaleHelper.setLanguage(this, langCode)
+            lifecycleScope.launch {
+                prefsManager.markLanguageSelected()
+                if (!isFinishing && !isDestroyed) goToMain()
+            }
+        }
+
         startAnimations()
 
         // SDK tự lo: load App Open Ad, show, timeout 8s → callback khi xong
         AdManager.initSplashScreen(this) {
-            goToMain()
+            checkFirstRunAndProceed()
+        }
+    }
+
+    /**
+     * Kiểm tra first-run language selection.
+     * Dùng lifecycleScope (auto-cancel khi Activity destroy — không leak).
+     * Đọc DataStore bằng .first() — lấy 1 lần, không subscribe liên tục.
+     */
+    private fun checkFirstRunAndProceed() {
+        lifecycleScope.launch {
+            val isSelected = prefsManager.isLanguageSelected.first()
+            if (isFinishing || isDestroyed) return@launch
+            if (!isSelected) {
+                showFirstRunLanguageSheet()
+            } else {
+                goToMain()
+            }
+        }
+    }
+
+    /**
+     * Hiển thị bottom sheet chọn ngôn ngữ lần đầu.
+     * Listener đã được đăng ký trong onCreate → KHÔNG giữ reference trực tiếp, no memory leak.
+     */
+    private fun showFirstRunLanguageSheet() {
+        if (!isFinishing && !isDestroyed &&
+            supportFragmentManager.findFragmentByTag(FirstRunLanguageSheet.TAG) == null) {
+            FirstRunLanguageSheet.newInstance()
+                .show(supportFragmentManager, FirstRunLanguageSheet.TAG)
         }
     }
 
@@ -119,7 +170,11 @@ class SplashAct : BaseActivity() {
             ?.start()
     }
 
+    private var isNavigating = false
+
     private fun goToMain() {
+        if (isNavigating) return
+        isNavigating = true
         val intent = Intent(this, MainAct::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -127,6 +182,9 @@ class SplashAct : BaseActivity() {
     }
 
     override fun onDestroy() {
+        // Circles được animate qua ViewPropertyAnimator (view.animate()) — phải dùng
+        // animate().cancel() để huỷ. View.clearAnimation() chỉ huỷ legacy Animation
+        // framework (do startAnimation() tạo), không động đến ViewPropertyAnimator.
         circle1?.animate()?.cancel()
         circle2?.animate()?.cancel()
         circle3?.animate()?.cancel()

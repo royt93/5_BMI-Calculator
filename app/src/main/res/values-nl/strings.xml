@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normaal BMI gewichtsbereik voor de lengte: 18,5 – 24,9</string>
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="rate_app">App beoordelen</string>
+    <string name="get_more_apps">Meer apps</string>
+    <string name="share_this_app">Deel deze app</string>
+    <string name="your_health">Uw gezondheid</string>
+    <string name="gender">GESLACHT</string>
+    <string name="weight">GEWICHT</string>
+    <string name="kg">(KG)</string>
+    <string name="height">LENGTE</string>
+    <string name="cm">(CM)</string>
+    <string name="age">LEEFTIJD</string>
+    <string name="menu">Menu</string>
+    <string name="history">Geschiedenis</string>
+    <string name="calculators">Calculators</string>
+    <string name="settings">Instellingen</string>
+    <string name="language">Taal</string>
+    <string name="select_language">Taal selecteren</string>
+    <string name="bmr_calculator">BMR Calculator</string>
+    <string name="tdee_calculator">TDEE Calculator</string>
+    <string name="ideal_weight_calculator">Ideaal Gewicht Calculator</string>
+    <string name="body_fat_calculator">Lichaamsvet Calculator</string>
+    <string name="bmr_description">Bereken calorieverbranding in rust</string>
+    <string name="tdee_description">Totaal dagelijks energieverbruik</string>
+    <string name="ideal_weight_description">Vind uw gezonde gewichtsbereik</string>
+    <string name="body_fat_description">Schat uw lichaamsvetpercentage</string>
+    <string name="calculate">Berekenen</string>
+    <string name="male">Man</string>
+    <string name="female">Vrouw</string>
+    <string name="activity_level">Activiteitsniveau</string>
+    <string name="calculator">Calculator</string>
+    <string name="please_enter_valid_values">Voer geldige waarden in</string>
+    <string name="please_enter_valid_measurements">Voer geldige metingen in</string>
+    <string name="track_your_health">Volg uw gezondheid</string>
+    <string name="loading">Laden</string>
+    <string name="please_note_action">Let op: deze actie kan advertenties tonen</string>
+    <string name="your_are_healthy">U bent gezond</string>
+    <string name="health_insights">Gezondheidsdata</string>
+    <string name="ideal_weight">Ideaal gewicht</string>
+    <string name="water_intake">Waterinname</string>
+    <string name="cal_per_day">kcal/dag</string>
+    <string name="l_per_day">L/dag</string>
+    <string name="sharing_image">Afbeelding delen</string>
+    <string name="this_app_is_incredibly">Deze app is ongelooflijk handig voor het bijhouden van mijn BMI en algehele gezondheid! Echt een aanrader.</string>
+    <string name="progress">Voortgang</string>
+    <string name="recent_records">Recente records</string>
+    <string name="delete_record">Record verwijderen</string>
+    <string name="are_you_sure_delete">Weet u zeker dat u dit record wilt verwijderen?</string>
+    <string name="cancel">Annuleren</string>
+    <string name="delete">Verwijderen</string>
+    <string name="goal_weight_title">🎯 Mijn doel</string>
+    <string name="goal_weight_current">Huidig: %1$.1f kg</string>
+    <string name="goal_weight_target">Doel: %1$.1f kg</string>
+    <string name="goal_weight_remaining">Nog %1$.1f kg te gaan</string>
+    <string name="goal_weight_achieved">🎉 U heeft uw doel bereikt!</string>
+    <string name="goal_weight_set_hint">Streefgewicht instellen (kg)</string>
+    <string name="goal_weight_save">Doel opslaan</string>
+    <string name="goal_weight_no_goal">Geen doel ingesteld. Tik om in te stellen.</string>
+    <string name="goal_weight_label">Streefgewicht</string>
+    <string name="bmi_trend_stable">Stabiel</string>
+    <string name="bmi_trend_improved">Verbeterd</string>
+    <string name="bmi_trend_worsened">Verslechterd</string>
+    <string name="bmi_category_underweight">Ondergewicht</string>
+    <string name="bmi_category_healthy">Normaal</string>
+    <string name="bmi_category_overweight">Overgewicht</string>
+    <string name="bmi_category_obese">Obesitas</string>
+    <string name="goal_bmi_target_label">Doel BMI</string>
+    <string name="tracker_title">Gewicht &amp; Lengte Tracker</string>
+    <string name="tracker_tab_weight">Gewicht (kg)</string>
+    <string name="tracker_tab_height">Lengte (cm)</string>
+    <string name="tracker_latest">Laatste</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Max</string>
+    <string name="tracker_trend">Trend</string>
+    <string name="tracker_increased">gestegen</string>
+    <string name="tracker_decreased">gedaald</string>
+    <string name="tracker_summary_30d">Uw %1$s %2$s %3$s %4$s in de afgelopen 30 dagen</string>
+    <string name="streak_title">%d dagen op rij!</string>
+    <string name="streak_best">Best: %d</string>
+    <string name="streak_motivation">Blijf doorgaan! Houd uw BMI dagelijks bij</string>
+    <string name="streak_start">Begin vandaag uw reeks!</string>
+    <string name="achievements_menu">Prestaties</string>
+    <string name="achievements_title">Prestaties (%1$d/%2$d)</string>
+    <string name="badge_first_step">Eerste Stap</string>
+    <string name="badge_first_step_desc">Registreer uw eerste BMI</string>
+    <string name="badge_week_warrior">Weekkrijger</string>
+    <string name="badge_week_warrior_desc">Houd een reeks van 7 dagen bij</string>
+    <string name="badge_monthly_master">Maandmeester</string>
+    <string name="badge_monthly_master_desc">Houd een reeks van 30 dagen bij</string>
+    <string name="badge_goal_crusher">Doelbreker</string>
+    <string name="badge_goal_crusher_desc">Bereik uw streefgewicht</string>
+    <string name="badge_healthy_zone">Gezonde Zone</string>
+    <string name="badge_healthy_zone_desc">Gezonde BMI in 7 opeenvolgende registraties</string>
+    <string name="badge_data_lover">Dataliefhebber</string>
+    <string name="badge_data_lover_desc">Registreer 50 BMI-waarden</string>
+    <string name="badge_unlocked">Prestatie ontgrendeld!</string>
+    <string name="daily_tip_label">💡 Tip van de dag</string>
+    <string name="daily_tip_for">Voor</string>
+    <string name="sedentary">Zittend (weinig of geen beweging)</string>
+    <string name="lightly_active">Licht actief (1-3 dagen/week)</string>
+    <string name="moderately_active">Matig actief (3-5 dagen/week)</string>
+    <string name="very_active">Zeer actief (6-7 dagen/week)</string>
+    <string name="super_active">Extreem actief (intensief sporten/zwaar lichamelijk werk)</string>
+    <string name="neck">Nek</string>
+    <string name="hip">Heup</string>
+    <string name="waist">Taille</string>
+    <string name="female_only">Alleen voor vrouwen</string>
+    <string name="reward_ad_skipped">Bekijk de volledige advertentie om uw gedetailleerde gezondheidsplan te ontgrendelen 🎯</string>
+    <string name="btn_detailed_plan">🎁 Gedetailleerd Gezondheidsplan Ontvangen</string>
+    <string-array name="tips_underweight">
+        <item>Eet caloriërijke voeding zoals noten, avocado\'s en volkorenproducten</item>
+        <item>Probeer 5-6 kleine maaltijden per dag te eten in plaats van 3 grote</item>
+        <item>Voeg eiwitrijke voeding toe zoals eieren, vis en peulvruchten bij elke maaltijd</item>
+        <item>Krachttraining helpt bij het opbouwen van gezonde spiermassa</item>
+        <item>Houd uw dagelijkse calorie-inname bij om er zeker van te zijn dat u genoeg eet</item>
+        <item>Voeg gezonde vetten toe zoals olijfolie, kaas en notenboter aan maaltijden</item>
+        <item>Drink calorierijke smoothies en shakes als tussendoortje</item>
+        <item>Vermijd water drinken vlak voor maaltijden want dit vermindert de eetlust</item>
+        <item>Kies voor voedzame snacks zoals notenmengsels, yoghurt en gedroogd fruit</item>
+        <item>Slaap voldoende; slechte slaap beïnvloedt eetlust en stofwisseling</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Houd een evenwichtig dieet aan met veel fruit en groenten</item>
+        <item>Blijf actief met minimaal 150 minuten matige beweging per week</item>
+        <item>Drink minimaal 8 glazen water per dag om gehydrateerd te blijven</item>
+        <item>Slaap elke nacht 7-9 uur kwalitatief goed</item>
+        <item>Regelmatige gezondheidscontroles helpen problemen vroeg op te sporen</item>
+        <item>Oefen mindful eten en let op honger- en verzadigingssignalen</item>
+        <item>Beperk bewerkte voeding en kies voor natuurlijke alternatieven</item>
+        <item>Beheers stress via meditatie, yoga of diepe ademhalingsoefeningen</item>
+        <item>Neem diverse voedselgroepen op in elke maaltijd voor evenwichtige voeding</item>
+        <item>Neem korte wandelpauzes als u lang zit</item>
+        <item>Beperk toegevoegde suiker tot minder dan 25 g per dag</item>
+        <item>Eet meer vezelrijke voeding zoals haver, bonen en volkorenbrood</item>
+        <item>Kook vaker thuis om ingrediënten en porties te beheersen</item>
+        <item>Blijf sociaal actief; sterke sociale banden verbeteren de gezondheid</item>
+        <item>Bescherm uw huid met zonnebrandcrème in de zon</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Verklein porties geleidelijk en gebruik kleinere borden als visuele truc</item>
+        <item>Neem meer vezelrijke voeding op om langer verzadigd te blijven</item>
+        <item>Begin met 30 minuten wandelen per dag en bouw geleidelijk op</item>
+        <item>Vervang suikerhoudende dranken door water, kruidenthee of fruitwater</item>
+        <item>Houd een eetdagboek bij om bewust te worden van uw eetgewoonten</item>
+        <item>Eet langzaam en kauw goed; het duurt 20 minuten voor het verzadigingssignaal aankomt</item>
+        <item>Plan maaltijden van tevoren om impulsieve ongezonde keuzes te vermijden</item>
+        <item>Kies magere eiwitten zoals kipfilet, vis en tofu</item>
+        <item>Vermijd laat eten en sluit het avondeten 3 uur voor bedtijd af</item>
+        <item>Vind lichamelijke activiteiten die u leuk vindt zoals dansen, zwemmen of fietsen</item>
+        <item>Verminder geraffineerde koolhydraten zoals witbrood, pasta en gebak</item>
+        <item>Zoek een trainingspartner; sociale steun verhoogt motivatie</item>
+        <item>Lees voedingsetiketten voor bewuste voedingskeuzes</item>
+        <item>Gebruik de trap in plaats van de lift waar mogelijk</item>
+        <item>Vier kleine successen; elke 0,5 kg minder is echte vooruitgang</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Raadpleeg een zorgprofessional voor persoonlijk advies</item>
+        <item>Begin met lichte beweging zoals wandelen of aquarobics</item>
+        <item>Focus op onbewerkte voeding en vermijd sterk bewerkte producten</item>
+        <item>Stel realistische doelen; streef naar 0,5-1 kg per week</item>
+        <item>Overweeg samen te werken met een geregistreerde diëtist</item>
+        <item>Volg uw voortgang regelmatig; kleine veranderingen stapelen zich op</item>
+        <item>Bouw een ondersteuningsnetwerk op met familie en vrienden</item>
+        <item>Geef prioriteit aan slaap; slechte slaap verhoogt hongerhormonen</item>
+        <item>Beheers porties: helft groenten, kwart eiwit, kwart granen</item>
+        <item>Focus op het opbouwen van gezonde gewoonten in plaats van sneldiëten</item>
+    </string-array>
+</resources>

@@ -35,6 +35,15 @@ class SettingsActivity : BaseActivity() {
             showLanguageBottomSheet()
         }
 
+        supportFragmentManager.setFragmentResultListener(
+            LanguageBottomSheet.REQUEST_KEY,
+            this
+        ) { _, bundle ->
+            val langCode = bundle.getString(LanguageBottomSheet.RESULT_LANGUAGE) ?: "en"
+            LocaleHelper.setLanguage(this, langCode)
+            restartApp(this)
+        }
+
         updateLanguageDisplay()
     }
 
@@ -45,40 +54,30 @@ class SettingsActivity : BaseActivity() {
 
     private fun updateLanguageDisplay() {
         val currentLanguage = LocaleHelper.getLanguage(this)
-        tvCurrentLanguage.text = getLanguageName(currentLanguage)
-    }
-
-    private fun getLanguageName(code: String): String {
-        return when (code) {
-            "en" -> "English"
-            "vi" -> "Vietnamese"
-            "fr" -> "French"
-            "de" -> "German"
-            "ja" -> "Japanese"
-            "ko" -> "Korean"
-            "th" -> "Thai"
-            else -> "English"
-        }
+        tvCurrentLanguage.text = Languages.displayName(currentLanguage)
     }
 
     private fun showLanguageBottomSheet() {
-        val bottomSheet = LanguageBottomSheet { languageCode ->
-            LocaleHelper.setLanguage(this, languageCode)
-            restartApp(this)
-        }
+        val bottomSheet = LanguageBottomSheet.newInstance()
         bottomSheet.show(supportFragmentManager, "LanguageBottomSheet")
     }
 
+    private var isRestarting = false
+
     private fun restartApp(context: Context) {
+        if (isRestarting) return
+        isRestarting = true
+        
+        val appCtx = context.applicationContext
         // Give a small delay to ensure SharedPreferences are fully written to disk
         android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-            val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            val intent = appCtx.packageManager.getLaunchIntentForPackage(appCtx.packageName)
             intent?.apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             }
-            context.startActivity(intent)
+            appCtx.startActivity(intent)
 
             // Kill the current process to ensure clean restart
             Process.killProcess(Process.myPid())

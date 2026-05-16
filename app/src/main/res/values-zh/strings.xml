@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BMI计算器</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">正常BMI体重范围（按身高）：18.5 – 24.9</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="rate_app">评价应用</string>
+    <string name="get_more_apps">更多应用</string>
+    <string name="share_this_app">分享此应用</string>
+    <string name="your_health">您的健康</string>
+    <string name="gender">性别</string>
+    <string name="weight">体重</string>
+    <string name="kg">（千克）</string>
+    <string name="height">身高</string>
+    <string name="cm">（厘米）</string>
+    <string name="age">年龄</string>
+    <string name="menu">菜单</string>
+    <string name="history">历史记录</string>
+    <string name="calculators">计算器</string>
+    <string name="settings">设置</string>
+    <string name="language">语言</string>
+    <string name="select_language">选择语言</string>
+    <string name="bmr_calculator">基础代谢率计算器</string>
+    <string name="tdee_calculator">每日总能量消耗计算器</string>
+    <string name="ideal_weight_calculator">理想体重计算器</string>
+    <string name="body_fat_calculator">体脂率计算器</string>
+    <string name="bmr_description">计算静息状态下燃烧的卡路里</string>
+    <string name="tdee_description">每日总能量消耗</string>
+    <string name="ideal_weight_description">了解您的健康体重范围</string>
+    <string name="body_fat_description">估算您的体脂百分比</string>
+    <string name="calculate">计算</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="activity_level">活动水平</string>
+    <string name="calculator">计算器</string>
+    <string name="please_enter_valid_values">请输入有效值</string>
+    <string name="please_enter_valid_measurements">请输入有效测量值</string>
+    <string name="track_your_health">跟踪您的健康状况</string>
+    <string name="loading">加载中</string>
+    <string name="please_note_action">注意：此操作可能会显示广告</string>
+    <string name="your_are_healthy">您的身体很健康</string>
+    <string name="health_insights">健康数据分析</string>
+    <string name="ideal_weight">理想体重</string>
+    <string name="water_intake">每日饮水量</string>
+    <string name="cal_per_day">卡路里/天</string>
+    <string name="l_per_day">升/天</string>
+    <string name="sharing_image">正在分享图片</string>
+    <string name="this_app_is_incredibly">这款应用非常适合追踪BMI和整体健康状况！强烈推荐。</string>
+    <string name="progress">进度</string>
+    <string name="recent_records">最近记录</string>
+    <string name="delete_record">删除记录</string>
+    <string name="are_you_sure_delete">确定要删除此记录吗？</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="goal_weight_title">🎯 我的目标</string>
+    <string name="goal_weight_current">当前：%1$.1f 千克</string>
+    <string name="goal_weight_target">目标：%1$.1f 千克</string>
+    <string name="goal_weight_remaining">距目标还差 %1$.1f 千克</string>
+    <string name="goal_weight_achieved">🎉 您已达成目标！</string>
+    <string name="goal_weight_set_hint">设置目标体重（千克）</string>
+    <string name="goal_weight_save">保存目标</string>
+    <string name="goal_weight_no_goal">暂无目标，点击设置。</string>
+    <string name="goal_weight_label">目标体重</string>
+    <string name="bmi_trend_stable">稳定</string>
+    <string name="bmi_trend_improved">改善</string>
+    <string name="bmi_trend_worsened">恶化</string>
+    <string name="bmi_category_underweight">体重过轻</string>
+    <string name="bmi_category_healthy">正常</string>
+    <string name="bmi_category_overweight">超重</string>
+    <string name="bmi_category_obese">肥胖</string>
+    <string name="goal_bmi_target_label">目标BMI</string>
+    <string name="tracker_title">体重 &amp; 身高追踪</string>
+    <string name="tracker_tab_weight">体重（千克）</string>
+    <string name="tracker_tab_height">身高（厘米）</string>
+    <string name="tracker_latest">最新</string>
+    <string name="tracker_min">最低</string>
+    <string name="tracker_max">最高</string>
+    <string name="tracker_trend">趋势</string>
+    <string name="tracker_increased">上升了</string>
+    <string name="tracker_decreased">下降了</string>
+    <string name="tracker_summary_30d">过去30天内您的%1$s %2$s %3$s %4$s</string>
+    <string name="streak_title">连续%d天！</string>
+    <string name="streak_best">最佳：%d</string>
+    <string name="streak_motivation">继续加油！每天记录您的BMI</string>
+    <string name="streak_start">今天开始您的连续记录！</string>
+    <string name="achievements_menu">成就</string>
+    <string name="achievements_title">成就（%1$d/%2$d）</string>
+    <string name="badge_first_step">第一步</string>
+    <string name="badge_first_step_desc">记录您的第一个BMI</string>
+    <string name="badge_week_warrior">一周勇士</string>
+    <string name="badge_week_warrior_desc">保持7天连续记录</string>
+    <string name="badge_monthly_master">月度达人</string>
+    <string name="badge_monthly_master_desc">保持30天连续记录</string>
+    <string name="badge_goal_crusher">目标粉碎者</string>
+    <string name="badge_goal_crusher_desc">达到您的目标体重</string>
+    <string name="badge_healthy_zone">健康区</string>
+    <string name="badge_healthy_zone_desc">连续7次BMI处于健康范围</string>
+    <string name="badge_data_lover">数据达人</string>
+    <string name="badge_data_lover_desc">记录50条BMI数据</string>
+    <string name="badge_unlocked">成就已解锁！</string>
+    <string name="daily_tip_label">💡 每日贴士</string>
+    <string name="daily_tip_for">针对</string>
+    <string-array name="tips_underweight">
+        <item>多吃热量密集的食物，如坚果、牛油果和全谷物</item>
+        <item>尝试每天吃5-6顿小餐，而不是3顿大餐</item>
+        <item>每顿饭都包含富含蛋白质的食物，如鸡蛋、鱼和豆类</item>
+        <item>力量训练有助于建立健康的肌肉量</item>
+        <item>追踪每日卡路里摄入，确保进食足够</item>
+        <item>在饮食中添加健康脂肪，如橄榄油、奶酪和坚果酱</item>
+        <item>在两餐之间喝富含卡路里的果昔和奶昔</item>
+        <item>避免饭前喝水，因为这会降低食欲</item>
+        <item>选择营养丰富的零食，如坚果混合、酸奶和干果</item>
+        <item>保证充足睡眠，睡眠不足会影响食欲和新陈代谢</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>保持均衡饮食，多吃水果和蔬菜</item>
+        <item>每周至少进行150分钟的中等强度运动</item>
+        <item>每天至少喝8杯水以保持水分充足</item>
+        <item>每晚保持7-9小时的优质睡眠</item>
+        <item>定期体检有助于早期发现问题</item>
+        <item>进行正念饮食，关注饥饿和饱足的信号</item>
+        <item>减少加工食品，选择天然替代品</item>
+        <item>通过冥想、瑜伽或深呼吸练习来管理压力</item>
+        <item>每顿饭中包含多种食物类别，以获得均衡营养</item>
+        <item>长时间久坐时，短暂起身走动</item>
+        <item>将添加糖的摄入量限制在每天25克以下</item>
+        <item>多吃富含纤维的食物，如燕麦、豆类和全麦面包</item>
+        <item>多在家烹饪，以控制食材和份量</item>
+        <item>保持社交活跃，良好的社会关系有益健康</item>
+        <item>外出时使用防晒霜保护皮肤</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>逐渐减少份量，用较小的盘子作为视觉技巧</item>
+        <item>多吃富含纤维的食物，帮助更长时间保持饱腹感</item>
+        <item>从每天30分钟的步行开始，逐渐增加</item>
+        <item>用水、花草茶或水果水代替含糖饮料</item>
+        <item>记录饮食日记，了解自己的饮食习惯</item>
+        <item>慢慢吃，细嚼慢咽；身体需要20分钟才能感到饱</item>
+        <item>提前规划餐食，避免冲动选择不健康食物</item>
+        <item>选择瘦蛋白，如鸡胸肉、鱼和豆腐</item>
+        <item>避免深夜进食，晚餐在睡前3小时结束</item>
+        <item>找到您喜欢的体育活动，如跳舞、游泳或骑车</item>
+        <item>减少精制碳水化合物，如白面包、面条和甜点</item>
+        <item>找运动伙伴，社交支持可以提高积极性</item>
+        <item>阅读营养标签，做出明智的食物选择</item>
+        <item>尽可能爬楼梯代替乘电梯</item>
+        <item>庆祝小成就；每减少0.5千克都是进步</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>咨询医疗专业人员以获得个性化指导</item>
+        <item>从轻松的运动开始，如步行或水中有氧运动</item>
+        <item>专注于天然食物，避免高度加工食品</item>
+        <item>设定实际目标，每周减重0.5至1千克</item>
+        <item>考虑与注册营养师合作</item>
+        <item>定期追踪进展，小变化积少成多</item>
+        <item>建立家人和朋友的支持系统</item>
+        <item>优先保证睡眠，睡眠不足会增加饥饿激素</item>
+        <item>控制份量：一半蔬菜，四分之一蛋白质，四分之一谷物</item>
+        <item>专注于建立健康习惯，而非追求速效节食</item>
+    </string-array>
+    <string name="sedentary">久坐（几乎不运动）</string>
+    <string name="lightly_active">轻度活跃（每周1-3天运动）</string>
+    <string name="moderately_active">中度活跃（每周3-5天运动）</string>
+    <string name="very_active">非常活跃（每周6-7天运动）</string>
+    <string name="super_active">极度活跃（超高强度运动/体力劳动）</string>
+    <string name="neck">颈围</string>
+    <string name="hip">臀围</string>
+    <string name="waist">腰围</string>
+    <string name="female_only">仅限女性</string>
+    <string name="reward_ad_skipped">观看完整广告以解锁您的详细健康计划 🎯</string>
+    <string name="btn_detailed_plan">🎁 获取详细健康计划</string>
+</resources>

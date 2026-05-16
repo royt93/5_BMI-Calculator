@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calcolatore BMI</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Intervallo di peso BMI normale per l\'altezza: 18,5 – 24,9</string>
+    <string name="privacy_policy">Informativa sulla privacy</string>
+    <string name="rate_app">Valuta l\'app</string>
+    <string name="get_more_apps">Altre app</string>
+    <string name="share_this_app">Condividi questa app</string>
+    <string name="your_health">La tua salute</string>
+    <string name="gender">SESSO</string>
+    <string name="weight">PESO</string>
+    <string name="kg">(KG)</string>
+    <string name="height">ALTEZZA</string>
+    <string name="cm">(CM)</string>
+    <string name="age">ETÀ</string>
+    <string name="menu">Menu</string>
+    <string name="history">Cronologia</string>
+    <string name="calculators">Calcolatori</string>
+    <string name="settings">Impostazioni</string>
+    <string name="language">Lingua</string>
+    <string name="select_language">Seleziona la lingua</string>
+    <string name="bmr_calculator">Calcolatore BMR</string>
+    <string name="tdee_calculator">Calcolatore TDEE</string>
+    <string name="ideal_weight_calculator">Calcolatore del peso ideale</string>
+    <string name="body_fat_calculator">Calcolatore del grasso corporeo</string>
+    <string name="bmr_description">Calcola le calorie bruciate a riposo</string>
+    <string name="tdee_description">Dispendio energetico giornaliero totale</string>
+    <string name="ideal_weight_description">Trova il tuo intervallo di peso sano</string>
+    <string name="body_fat_description">Stima la percentuale di grasso corporeo</string>
+    <string name="calculate">Calcola</string>
+    <string name="male">Maschio</string>
+    <string name="female">Femmina</string>
+    <string name="activity_level">Livello di attività</string>
+    <string name="calculator">Calcolatore</string>
+    <string name="please_enter_valid_values">Inserisci valori validi</string>
+    <string name="please_enter_valid_measurements">Inserisci misurazioni valide</string>
+    <string name="track_your_health">Monitora la tua salute</string>
+    <string name="loading">Caricamento</string>
+    <string name="please_note_action">Nota: questa azione potrebbe mostrare annunci</string>
+    <string name="your_are_healthy">Sei in buona salute</string>
+    <string name="health_insights">Dati sulla salute</string>
+    <string name="ideal_weight">Peso ideale</string>
+    <string name="water_intake">Consumo d\'acqua</string>
+    <string name="cal_per_day">cal/giorno</string>
+    <string name="l_per_day">L/giorno</string>
+    <string name="sharing_image">Condivisione immagine</string>
+    <string name="this_app_is_incredibly">Quest\'app è incredibilmente utile per monitorare il mio BMI e la salute generale! La consiglio vivamente.</string>
+    <string name="progress">Progresso</string>
+    <string name="recent_records">Ultimi record</string>
+    <string name="delete_record">Elimina record</string>
+    <string name="are_you_sure_delete">Sei sicuro di voler eliminare questo record?</string>
+    <string name="cancel">Annulla</string>
+    <string name="delete">Elimina</string>
+    <string name="goal_weight_title">🎯 Il mio obiettivo</string>
+    <string name="goal_weight_current">Attuale: %1$.1f kg</string>
+    <string name="goal_weight_target">Obiettivo: %1$.1f kg</string>
+    <string name="goal_weight_remaining">Mancano %1$.1f kg al tuo obiettivo</string>
+    <string name="goal_weight_achieved">🎉 Hai raggiunto il tuo obiettivo!</string>
+    <string name="goal_weight_set_hint">Imposta peso obiettivo (kg)</string>
+    <string name="goal_weight_save">Salva obiettivo</string>
+    <string name="goal_weight_no_goal">Nessun obiettivo. Tocca per impostarne uno.</string>
+    <string name="goal_weight_label">Peso obiettivo</string>
+    <string name="bmi_trend_stable">Stabile</string>
+    <string name="bmi_trend_improved">Migliorato</string>
+    <string name="bmi_trend_worsened">Peggiorato</string>
+    <string name="bmi_category_underweight">Sottopeso</string>
+    <string name="bmi_category_healthy">Normale</string>
+    <string name="bmi_category_overweight">Sovrappeso</string>
+    <string name="bmi_category_obese">Obesità</string>
+    <string name="goal_bmi_target_label">BMI obiettivo</string>
+    <string name="tracker_title">Tracker Peso &amp; Altezza</string>
+    <string name="tracker_tab_weight">Peso (kg)</string>
+    <string name="tracker_tab_height">Altezza (cm)</string>
+    <string name="tracker_latest">Ultimo</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Max</string>
+    <string name="tracker_trend">Tendenza</string>
+    <string name="tracker_increased">è aumentato</string>
+    <string name="tracker_decreased">è diminuito</string>
+    <string name="tracker_summary_30d">Il tuo %1$s %2$s %3$s %4$s negli ultimi 30 giorni</string>
+    <string name="streak_title">%d giorni consecutivi!</string>
+    <string name="streak_best">Record: %d</string>
+    <string name="streak_motivation">Continua così! Tieni traccia del tuo BMI ogni giorno</string>
+    <string name="streak_start">Inizia la tua serie oggi!</string>
+    <string name="achievements_menu">Traguardi</string>
+    <string name="achievements_title">Traguardi (%1$d/%2$d)</string>
+    <string name="badge_first_step">Primo Passo</string>
+    <string name="badge_first_step_desc">Registra il tuo primo BMI</string>
+    <string name="badge_week_warrior">Guerriero Settimanale</string>
+    <string name="badge_week_warrior_desc">Mantieni una serie di 7 giorni</string>
+    <string name="badge_monthly_master">Maestro Mensile</string>
+    <string name="badge_monthly_master_desc">Mantieni una serie di 30 giorni</string>
+    <string name="badge_goal_crusher">Conquistatore di Obiettivi</string>
+    <string name="badge_goal_crusher_desc">Raggiungi il tuo peso obiettivo</string>
+    <string name="badge_healthy_zone">Zona Sana</string>
+    <string name="badge_healthy_zone_desc">BMI sano in 7 registrazioni consecutive</string>
+    <string name="badge_data_lover">Amante dei Dati</string>
+    <string name="badge_data_lover_desc">Registra 50 valori di BMI</string>
+    <string name="badge_unlocked">Traguardo sbloccato!</string>
+    <string name="daily_tip_label">💡 Consiglio del giorno</string>
+    <string name="daily_tip_for">Per</string>
+    <string name="sedentary">Sedentario (poco o nessun esercizio)</string>
+    <string name="lightly_active">Leggermente attivo (1-3 giorni/settimana)</string>
+    <string name="moderately_active">Moderatamente attivo (3-5 giorni/settimana)</string>
+    <string name="very_active">Molto attivo (6-7 giorni/settimana)</string>
+    <string name="super_active">Super attivo (esercizio intensissimo/lavoro fisico)</string>
+    <string name="neck">Collo</string>
+    <string name="hip">Fianchi</string>
+    <string name="waist">Vita</string>
+    <string name="female_only">Solo per donne</string>
+    <string name="reward_ad_skipped">Guarda l\'annuncio completo per sbloccare il tuo piano salute dettagliato 🎯</string>
+    <string name="btn_detailed_plan">🎁 Ottieni il Piano Salute Dettagliato</string>
+    <string-array name="tips_underweight">
+        <item>Mangia cibi ricchi di calorie come noci, avocado e cereali integrali</item>
+        <item>Prova a fare 5-6 pasti piccoli al giorno invece di 3 grandi</item>
+        <item>Includi alimenti ricchi di proteine come uova, pesce e legumi in ogni pasto</item>
+        <item>L\'allenamento di forza aiuta a costruire massa muscolare sana</item>
+        <item>Tieni traccia delle calorie giornaliere per assicurarti di mangiare abbastanza</item>
+        <item>Aggiungi grassi sani come olio d\'oliva, formaggio e burri di frutta secca ai pasti</item>
+        <item>Bevi frullati e shake ricchi di calorie come spuntini tra i pasti</item>
+        <item>Evita di bere acqua prima dei pasti poiché può ridurre l\'appetito</item>
+        <item>Scegli snack nutrienti come mix di frutta secca, yogurt e frutta essiccata</item>
+        <item>Dormi a sufficienza: il riposo insufficiente influenza appetito e metabolismo</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Mantieni una dieta equilibrata con abbondanti frutta e verdura</item>
+        <item>Resta attivo con almeno 150 minuti di esercizio moderato a settimana</item>
+        <item>Bevi almeno 8 bicchieri d\'acqua al giorno per rimanere idratato</item>
+        <item>Dormi 7-9 ore di qualità ogni notte</item>
+        <item>I controlli medici regolari aiutano a rilevare precocemente i problemi</item>
+        <item>Pratica l\'alimentazione consapevole e ascolta i segnali di fame e sazietà</item>
+        <item>Limita i cibi processati e scegli alternative naturali</item>
+        <item>Gestisci lo stress con meditazione, yoga o esercizi di respirazione</item>
+        <item>Includi diversi gruppi alimentari in ogni pasto per una nutrizione equilibrata</item>
+        <item>Fai brevi pause per camminare se stai seduto a lungo</item>
+        <item>Limita gli zuccheri aggiunti a meno di 25 g al giorno</item>
+        <item>Mangia più alimenti ricchi di fibre come avena, fagioli e pane integrale</item>
+        <item>Cucina di più a casa per controllare ingredienti e porzioni</item>
+        <item>Rimani socialmente attivo: le relazioni solide migliorano la salute</item>
+        <item>Proteggi la pelle con la crema solare quando sei all\'aperto</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Riduci gradualmente le porzioni e usa piatti più piccoli come trucco visivo</item>
+        <item>Includi più alimenti ricchi di fibre per sentirti sazio più a lungo</item>
+        <item>Inizia con 30 minuti di camminata quotidiana e aumenta gradualmente</item>
+        <item>Sostituisci le bevande zuccherate con acqua, tisane o acqua aromatizzata</item>
+        <item>Tieni un diario alimentare per essere consapevole delle tue abitudini</item>
+        <item>Mangia lentamente e mastica bene; il corpo impiega 20 minuti per sentirsi sazio</item>
+        <item>Pianifica i pasti in anticipo per evitare scelte impulsive poco sane</item>
+        <item>Scegli proteine magre come petto di pollo, pesce e tofu</item>
+        <item>Evita di mangiare tardi la sera e finisci la cena 3 ore prima di andare a letto</item>
+        <item>Trova attività fisiche che ti piacciono come danza, nuoto o ciclismo</item>
+        <item>Riduci i carboidrati raffinati come pane bianco, pasta e dolci</item>
+        <item>Trova un compagno di allenamento: il supporto sociale aumenta la motivazione</item>
+        <item>Leggi le etichette nutrizionali per fare scelte alimentari informate</item>
+        <item>Usa le scale invece dell\'ascensore quando possibile</item>
+        <item>Celebra i piccoli successi: ogni 0,5 kg perso è un progresso reale</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Consulta un professionista della salute per una guida personalizzata</item>
+        <item>Inizia con esercizi leggeri come camminata o ginnastica in acqua</item>
+        <item>Concentrati su cibi integrali ed evita i prodotti ultra-processati</item>
+        <item>Fissa obiettivi realistici: punta a perdere 0,5-1 kg a settimana</item>
+        <item>Considera di lavorare con un dietista registrato</item>
+        <item>Monitora i progressi regolarmente; i piccoli cambiamenti si accumulano nel tempo</item>
+        <item>Costruisci una rete di supporto con familiari e amici</item>
+        <item>Dai priorità al sonno: dormire male aumenta gli ormoni della fame</item>
+        <item>Controlla le porzioni: metà verdure, un quarto proteine, un quarto cereali</item>
+        <item>Concentrati sulla creazione di abitudini sane anziché diete rapide</item>
+    </string-array>
+</resources>

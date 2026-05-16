@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">حاسبة مؤشر كتلة الجسم</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">نطاق الوزن الطبيعي لمؤشر كتلة الجسم حسب الطول: 18.5 – 24.9</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="rate_app">تقييم التطبيق</string>
+    <string name="get_more_apps">المزيد من التطبيقات</string>
+    <string name="share_this_app">مشاركة هذا التطبيق</string>
+    <string name="your_health">صحتك</string>
+    <string name="gender">الجنس</string>
+    <string name="weight">الوزن</string>
+    <string name="kg">(كجم)</string>
+    <string name="height">الطول</string>
+    <string name="cm">(سم)</string>
+    <string name="age">العمر</string>
+    <string name="menu">القائمة</string>
+    <string name="history">السجل</string>
+    <string name="calculators">الحاسبات</string>
+    <string name="settings">الإعدادات</string>
+    <string name="language">اللغة</string>
+    <string name="select_language">اختر اللغة</string>
+    <string name="bmr_calculator">حاسبة معدل الأيض الأساسي</string>
+    <string name="tdee_calculator">حاسبة إجمالي الطاقة اليومية</string>
+    <string name="ideal_weight_calculator">حاسبة الوزن المثالي</string>
+    <string name="body_fat_calculator">حاسبة نسبة الدهون</string>
+    <string name="bmr_description">احسب السعرات الحرارية المحروقة أثناء الراحة</string>
+    <string name="tdee_description">إجمالي الطاقة اليومية المُستهلكة</string>
+    <string name="ideal_weight_description">اعرف نطاق وزنك الصحي</string>
+    <string name="body_fat_description">قدّر نسبة الدهون في جسمك</string>
+    <string name="calculate">احسب</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="activity_level">مستوى النشاط</string>
+    <string name="calculator">حاسبة</string>
+    <string name="please_enter_valid_values">يرجى إدخال قيم صحيحة</string>
+    <string name="please_enter_valid_measurements">يرجى إدخال قياسات صحيحة</string>
+    <string name="track_your_health">تتبع صحتك</string>
+    <string name="loading">جارٍ التحميل</string>
+    <string name="please_note_action">ملاحظة: قد تعرض هذه الإجراءات إعلانات</string>
+    <string name="your_are_healthy">أنت بصحة جيدة</string>
+    <string name="health_insights">نصائح صحية</string>
+    <string name="ideal_weight">الوزن المثالي</string>
+    <string name="water_intake">استهلاك الماء</string>
+    <string name="cal_per_day">سعرة/يوم</string>
+    <string name="l_per_day">ل/يوم</string>
+    <string name="sharing_image">مشاركة الصورة</string>
+    <string name="this_app_is_incredibly">هذا التطبيق مفيد جداً لمتابعة مؤشر كتلة الجسم وصحتي العامة! أنصح به بشدة.</string>
+    <string name="progress">التقدم</string>
+    <string name="recent_records">السجلات الأخيرة</string>
+    <string name="delete_record">حذف السجل</string>
+    <string name="are_you_sure_delete">هل أنت متأكد أنك تريد حذف هذا السجل؟</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+    <string name="goal_weight_title">🎯 هدفي</string>
+    <string name="goal_weight_current">الحالي: %1$.1f كجم</string>
+    <string name="goal_weight_target">الهدف: %1$.1f كجم</string>
+    <string name="goal_weight_remaining">تبقى %1$.1f كجم لتحقيق هدفك</string>
+    <string name="goal_weight_achieved">🎉 لقد حققت هدفك!</string>
+    <string name="goal_weight_set_hint">حدد وزن الهدف (كجم)</string>
+    <string name="goal_weight_save">حفظ الهدف</string>
+    <string name="goal_weight_no_goal">لا يوجد هدف. اضغط لتعيين واحد.</string>
+    <string name="goal_weight_label">وزن الهدف</string>
+    <string name="bmi_trend_stable">مستقر</string>
+    <string name="bmi_trend_improved">تحسّن</string>
+    <string name="bmi_trend_worsened">تراجع</string>
+    <string name="bmi_category_underweight">نقص الوزن</string>
+    <string name="bmi_category_healthy">وزن طبيعي</string>
+    <string name="bmi_category_overweight">زيادة الوزن</string>
+    <string name="bmi_category_obese">السمنة</string>
+    <string name="goal_bmi_target_label">مؤشر كتلة الجسم المستهدف</string>
+    <string name="tracker_title">متابعة الوزن &amp; الطول</string>
+    <string name="tracker_tab_weight">الوزن (كجم)</string>
+    <string name="tracker_tab_height">الطول (سم)</string>
+    <string name="tracker_latest">الأحدث</string>
+    <string name="tracker_min">الأدنى</string>
+    <string name="tracker_max">الأعلى</string>
+    <string name="tracker_trend">الاتجاه</string>
+    <string name="tracker_increased">ارتفع</string>
+    <string name="tracker_decreased">انخفض</string>
+    <string name="tracker_summary_30d">%1$s الخاص بك %2$s %3$s %4$s خلال الـ 30 يوماً الماضية</string>
+    <string name="streak_title">%d أيام متتالية!</string>
+    <string name="streak_best">الأفضل: %d</string>
+    <string name="streak_motivation">استمر! تتبع مؤشر كتلة جسمك يومياً</string>
+    <string name="streak_start">ابدأ سلسلتك اليوم!</string>
+    <string name="achievements_menu">الإنجازات</string>
+    <string name="achievements_title">الإنجازات (%1$d/%2$d)</string>
+    <string name="badge_first_step">الخطوة الأولى</string>
+    <string name="badge_first_step_desc">سجّل مؤشر كتلة جسمك لأول مرة</string>
+    <string name="badge_week_warrior">محارب الأسبوع</string>
+    <string name="badge_week_warrior_desc">حافظ على سلسلة 7 أيام</string>
+    <string name="badge_monthly_master">بطل الشهر</string>
+    <string name="badge_monthly_master_desc">حافظ على سلسلة 30 يوماً</string>
+    <string name="badge_goal_crusher">محقق الأهداف</string>
+    <string name="badge_goal_crusher_desc">حقق وزن هدفك</string>
+    <string name="badge_healthy_zone">المنطقة الصحية</string>
+    <string name="badge_healthy_zone_desc">مؤشر كتلة جسم صحي في 7 إدخالات متتالية</string>
+    <string name="badge_data_lover">عاشق البيانات</string>
+    <string name="badge_data_lover_desc">سجّل 50 إدخالاً لمؤشر كتلة الجسم</string>
+    <string name="badge_unlocked">تم فتح الإنجاز!</string>
+    <string name="daily_tip_label">💡 نصيحة اليوم</string>
+    <string name="daily_tip_for">لـ</string>
+    <string-array name="tips_underweight">
+        <item>تناول أطعمة غنية بالسعرات كالمكسرات والأفوكادو والحبوب الكاملة</item>
+        <item>جرّب تناول 5-6 وجبات صغيرة يومياً بدلاً من 3 وجبات كبيرة</item>
+        <item>أضف أطعمة غنية بالبروتين كالبيض والسمك والبقوليات لكل وجبة</item>
+        <item>تدريب القوة يساعد على بناء كتلة عضلية صحية</item>
+        <item>تتبع استهلاكك اليومي من السعرات للتأكد من أنك تأكل بما يكفي</item>
+        <item>أضف دهوناً صحية كزيت الزيتون والجبن وزبدة المكسرات لوجباتك</item>
+        <item>اشرب عصائر وشيك غنية بالسعرات كوجبات خفيفة بين الوجبات</item>
+        <item>تجنب شرب الماء قبل الوجبات مباشرة لأنه يقلل الشهية</item>
+        <item>اختر وجبات خفيفة مغذية كخليط المكسرات والزبادي والفواكه المجففة</item>
+        <item>احصل على قسط كافٍ من النوم لأن قلة النوم تؤثر على الشهية والتمثيل الغذائي</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>حافظ على نظام غذائي متوازن غني بالفواكه والخضروات</item>
+        <item>كن نشيطاً بممارسة 150 دقيقة على الأقل من التمارين المعتدلة أسبوعياً</item>
+        <item>اشرب 8 أكواب من الماء يومياً للبقاء رطباً</item>
+        <item>نَم 7 إلى 9 ساعات جيدة كل ليلة</item>
+        <item>الفحوصات الطبية المنتظمة تساعد في الكشف المبكر عن المشكلات</item>
+        <item>مارس الأكل الواعي وانتبه لإشارات الجوع والشبع</item>
+        <item>قلّل الأطعمة المعالجة واختر البدائل الطبيعية</item>
+        <item>تحكم في التوتر بالتأمل أو اليوغا أو تمارين التنفس العميق</item>
+        <item>أدرج مجموعات غذائية متنوعة في كل وجبة لتحقيق تغذية متوازنة</item>
+        <item>خذ فترات راحة قصيرة للمشي إذا جلست لفترات طويلة</item>
+        <item>قلل السكر المضاف إلى أقل من 25 جرام يومياً</item>
+        <item>تناول المزيد من الأطعمة الغنية بالألياف كالشوفان والفاصوليا وخبز القمح الكامل</item>
+        <item>اطبخ في المنزل أكثر للتحكم في المكونات والحصص</item>
+        <item>كن نشطاً اجتماعياً لأن العلاقات الصحية تحسّن الصحة العامة</item>
+        <item>احمِ بشرتك من الشمس باستخدام واقٍ شمسي</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>قلّل أحجام الحصص تدريجياً واستخدم أطباقاً أصغر</item>
+        <item>أضف المزيد من الأطعمة الغنية بالألياف لتشعر بالشبع لفترة أطول</item>
+        <item>ابدأ بالمشي 30 دقيقة يومياً وزد المدة تدريجياً</item>
+        <item>استبدل المشروبات السكرية بالماء أو الشاي الأعشاب أو الماء المنكه</item>
+        <item>احتفظ بمفكرة طعام لتكون واعياً بعاداتك الغذائية</item>
+        <item>تناول ببطء وامضغ جيداً؛ يحتاج الجسم 20 دقيقة للشعور بالشبع</item>
+        <item>خطط لوجباتك مسبقاً لتجنب الاختيارات المندفعة غير الصحية</item>
+        <item>اختر بروتيناً قليل الدهون كصدر الدجاج والسمك والتوفو</item>
+        <item>تجنب الأكل في وقت متأخر من الليل وأنهِ العشاء قبل 3 ساعات من النوم</item>
+        <item>ابحث عن أنشطة بدنية تستمتع بها كالرقص أو السباحة أو ركوب الدراجة</item>
+        <item>قلّل الكربوهيدرات المكررة كالخبز الأبيض والمعكرونة والحلويات</item>
+        <item>ابحث عن شريك رياضي لأن الدعم الاجتماعي يزيد الدافعية</item>
+        <item>اقرأ بطاقات التغذية لاتخاذ خيارات غذائية مدروسة</item>
+        <item>استخدم السلم بدلاً من المصعد كلما أمكن</item>
+        <item>احتفل بالإنجازات الصغيرة؛ كل 0.5 كجم خسرته يُعدّ تقدماً حقيقياً</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>استشر متخصصاً في الرعاية الصحية للحصول على توجيه شخصي</item>
+        <item>ابدأ بتمارين خفيفة كالمشي أو الرياضة المائية</item>
+        <item>ركّز على الأطعمة الطبيعية وتجنب الأطعمة شديدة المعالجة</item>
+        <item>ضع أهدافاً واقعية واستهدف فقدان 0.5 إلى 1 كجم أسبوعياً</item>
+        <item>فكّر في العمل مع أخصائي تغذية معتمد</item>
+        <item>تتبع تقدمك بانتظام؛ التغييرات الصغيرة تتراكم بمرور الوقت</item>
+        <item>أنشئ شبكة دعم من العائلة والأصدقاء</item>
+        <item>أعطِ النوم الأولوية لأن قلته تزيد هرمونات الجوع</item>
+        <item>تحكم في الحصص: نصف الطبق خضروات، ربع بروتين، ربع حبوب</item>
+        <item>ركّز على بناء عادات صحية بدلاً من الحميات السريعة</item>
+    </string-array>
+    <string name="sedentary">خامل (قليل أو لا توجد ممارسة رياضية)</string>
+    <string name="lightly_active">نشيط قليلاً (تمرين 1-3 أيام/أسبوع)</string>
+    <string name="moderately_active">نشيط بشكل معتدل (تمرين 3-5 أيام/أسبوع)</string>
+    <string name="very_active">نشيط جداً (تمرين 6-7 أيام/أسبوع)</string>
+    <string name="super_active">شديد النشاط (تمرين مكثف جداً/عمل بدني شاق)</string>
+    <string name="neck">الرقبة</string>
+    <string name="hip">الورك</string>
+    <string name="waist">الخصر</string>
+    <string name="female_only">للإناث فقط</string>
+    <string name="reward_ad_skipped">شاهد الإعلان كاملاً لفتح خطة صحتك التفصيلية 🎯</string>
+    <string name="btn_detailed_plan">🎁 احصل على خطة الصحة التفصيلية</string>
+</resources>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Калькулятор ИМТ</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Нормальный диапазон ИМТ для роста: 18,5 – 24,9</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="get_more_apps">Ещё приложения</string>
+    <string name="share_this_app">Поделиться приложением</string>
+    <string name="your_health">Ваше здоровье</string>
+    <string name="gender">ПОЛ</string>
+    <string name="weight">ВЕС</string>
+    <string name="kg">(КГ)</string>
+    <string name="height">РОСТ</string>
+    <string name="cm">(СМ)</string>
+    <string name="age">ВОЗРАСТ</string>
+    <string name="menu">Меню</string>
+    <string name="history">История</string>
+    <string name="calculators">Калькуляторы</string>
+    <string name="settings">Настройки</string>
+    <string name="language">Язык</string>
+    <string name="select_language">Выбрать язык</string>
+    <string name="bmr_calculator">Калькулятор ОО</string>
+    <string name="tdee_calculator">Калькулятор TDEE</string>
+    <string name="ideal_weight_calculator">Калькулятор идеального веса</string>
+    <string name="body_fat_calculator">Калькулятор жира</string>
+    <string name="bmr_description">Рассчитайте калории, сжигаемые в покое</string>
+    <string name="tdee_description">Общий суточный расход энергии</string>
+    <string name="ideal_weight_description">Узнайте свой здоровый диапазон веса</string>
+    <string name="body_fat_description">Оцените процент жира в теле</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="activity_level">Уровень активности</string>
+    <string name="calculator">Калькулятор</string>
+    <string name="please_enter_valid_values">Пожалуйста, введите корректные значения</string>
+    <string name="please_enter_valid_measurements">Пожалуйста, введите корректные измерения</string>
+    <string name="track_your_health">Следите за своим здоровьем</string>
+    <string name="loading">Загрузка</string>
+    <string name="please_note_action">Примечание: это действие может показывать рекламу</string>
+    <string name="your_are_healthy">Вы здоровы</string>
+    <string name="health_insights">Анализ здоровья</string>
+    <string name="ideal_weight">Идеальный вес</string>
+    <string name="water_intake">Потребление воды</string>
+    <string name="cal_per_day">ккал/день</string>
+    <string name="l_per_day">л/день</string>
+    <string name="sharing_image">Поделиться изображением</string>
+    <string name="this_app_is_incredibly">Это приложение невероятно полезно для отслеживания ИМТ и здоровья! Очень рекомендую.</string>
+    <string name="progress">Прогресс</string>
+    <string name="recent_records">Последние записи</string>
+    <string name="delete_record">Удалить запись</string>
+    <string name="are_you_sure_delete">Вы уверены, что хотите удалить эту запись?</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="goal_weight_title">🎯 Моя цель</string>
+    <string name="goal_weight_current">Текущий: %1$.1f кг</string>
+    <string name="goal_weight_target">Цель: %1$.1f кг</string>
+    <string name="goal_weight_remaining">Ещё %1$.1f кг до достижения цели</string>
+    <string name="goal_weight_achieved">🎉 Вы достигли цели!</string>
+    <string name="goal_weight_set_hint">Установить целевой вес (кг)</string>
+    <string name="goal_weight_save">Сохранить цель</string>
+    <string name="goal_weight_no_goal">Цель не задана. Нажмите, чтобы задать.</string>
+    <string name="goal_weight_label">Целевой вес</string>
+    <string name="bmi_trend_stable">Стабильно</string>
+    <string name="bmi_trend_improved">Улучшилось</string>
+    <string name="bmi_trend_worsened">Ухудшилось</string>
+    <string name="bmi_category_underweight">Недостаточный вес</string>
+    <string name="bmi_category_healthy">Норма</string>
+    <string name="bmi_category_overweight">Избыточный вес</string>
+    <string name="bmi_category_obese">Ожирение</string>
+    <string name="goal_bmi_target_label">Целевой ИМТ</string>
+    <string name="tracker_title">Трекер веса &amp; роста</string>
+    <string name="tracker_tab_weight">Вес (кг)</string>
+    <string name="tracker_tab_height">Рост (см)</string>
+    <string name="tracker_latest">Последнее</string>
+    <string name="tracker_min">Мин</string>
+    <string name="tracker_max">Макс</string>
+    <string name="tracker_trend">Тренд</string>
+    <string name="tracker_increased">увеличился</string>
+    <string name="tracker_decreased">уменьшился</string>
+    <string name="tracker_summary_30d">Ваш %1$s %2$s %3$s %4$s за последние 30 дней</string>
+    <string name="streak_title">%d дней подряд!</string>
+    <string name="streak_best">Лучший: %d</string>
+    <string name="streak_motivation">Продолжайте! Отслеживайте ИМТ каждый день</string>
+    <string name="streak_start">Начните свою серию сегодня!</string>
+    <string name="achievements_menu">Достижения</string>
+    <string name="achievements_title">Достижения (%1$d/%2$d)</string>
+    <string name="badge_first_step">Первый шаг</string>
+    <string name="badge_first_step_desc">Запишите свой первый ИМТ</string>
+    <string name="badge_week_warrior">Недельный воин</string>
+    <string name="badge_week_warrior_desc">Поддерживайте серию 7 дней</string>
+    <string name="badge_monthly_master">Мастер месяца</string>
+    <string name="badge_monthly_master_desc">Поддерживайте серию 30 дней</string>
+    <string name="badge_goal_crusher">Покоритель цели</string>
+    <string name="badge_goal_crusher_desc">Достигните целевого веса</string>
+    <string name="badge_healthy_zone">Зона здоровья</string>
+    <string name="badge_healthy_zone_desc">Здоровый ИМТ в 7 записях подряд</string>
+    <string name="badge_data_lover">Любитель данных</string>
+    <string name="badge_data_lover_desc">Запишите 50 значений ИМТ</string>
+    <string name="badge_unlocked">Достижение открыто!</string>
+    <string name="daily_tip_label">💡 Совет дня</string>
+    <string name="daily_tip_for">Для</string>
+    <string name="sedentary">Малоподвижный (мало или нет упражнений)</string>
+    <string name="lightly_active">Немного активный (1-3 дня/неделю)</string>
+    <string name="moderately_active">Умеренно активный (3-5 дней/неделю)</string>
+    <string name="very_active">Очень активный (6-7 дней/неделю)</string>
+    <string name="super_active">Сверхактивный (очень интенсивные тренировки/физический труд)</string>
+    <string name="neck">Шея</string>
+    <string name="hip">Бёдра</string>
+    <string name="waist">Талия</string>
+    <string name="female_only">Только для женщин</string>
+    <string name="reward_ad_skipped">Посмотрите рекламу полностью, чтобы получить подробный план здоровья 🎯</string>
+    <string name="btn_detailed_plan">🎁 Получить подробный план здоровья</string>
+    <string-array name="tips_underweight">
+        <item>Ешьте калорийную пищу: орехи, авокадо и цельнозерновые продукты</item>
+        <item>Попробуйте есть 5-6 небольших приёмов пищи в день вместо 3 больших</item>
+        <item>Включайте белковые продукты — яйца, рыбу и бобовые — в каждый приём пищи</item>
+        <item>Силовые тренировки помогают нарастить здоровую мышечную массу</item>
+        <item>Отслеживайте суточное потребление калорий, чтобы убедиться, что едите достаточно</item>
+        <item>Добавляйте полезные жиры: оливковое масло, сыр и ореховые пасты</item>
+        <item>Пейте калорийные смузи и молочные коктейли между приёмами пищи</item>
+        <item>Избегайте воды прямо перед едой — это снижает аппетит</item>
+        <item>Выбирайте питательные перекусы: ореховые смеси, йогурт, сухофрукты</item>
+        <item>Достаточно спите — недосып нарушает аппетит и обмен веществ</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Придерживайтесь сбалансированного питания с большим количеством фруктов и овощей</item>
+        <item>Оставайтесь активными — не менее 150 минут умеренных упражнений в неделю</item>
+        <item>Выпивайте не менее 8 стаканов воды в день</item>
+        <item>Спите 7-9 часов качественного сна каждую ночь</item>
+        <item>Регулярные медосмотры помогают выявить проблемы на ранней стадии</item>
+        <item>Практикуйте осознанное питание, прислушивайтесь к сигналам голода и сытости</item>
+        <item>Ограничьте переработанные продукты, выбирайте натуральные альтернативы</item>
+        <item>Управляйте стрессом с помощью медитации, йоги или дыхательных упражнений</item>
+        <item>Включайте разнообразные группы продуктов в каждый приём для сбалансированного питания</item>
+        <item>Делайте короткие прогулки, если долго сидите</item>
+        <item>Ограничьте добавленный сахар до менее 25 г в день</item>
+        <item>Ешьте больше клетчатки: овсянка, бобовые, цельнозерновой хлеб</item>
+        <item>Готовьте дома чаще, чтобы контролировать состав и размеры порций</item>
+        <item>Поддерживайте социальную активность — крепкие связи улучшают здоровье</item>
+        <item>Защищайте кожу солнцезащитным кремом на улице</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Постепенно уменьшайте порции, используйте тарелки меньшего размера</item>
+        <item>Включайте больше клетчатки — она помогает дольше оставаться сытым</item>
+        <item>Начните с 30-минутных прогулок ежедневно и постепенно увеличивайте</item>
+        <item>Замените сладкие напитки водой, травяным чаем или водой с фруктами</item>
+        <item>Ведите пищевой дневник, чтобы осознать свои привычки питания</item>
+        <item>Ешьте медленно и тщательно пережёвывайте — насыщение приходит через 20 минут</item>
+        <item>Планируйте питание заранее, чтобы избежать импульсивных вредных выборов</item>
+        <item>Выбирайте постные белки: куриная грудка, рыба, тофу</item>
+        <item>Не ешьте поздно ночью, заканчивайте ужин за 3 часа до сна</item>
+        <item>Найдите физическую активность, которая вам нравится: танцы, плавание, велосипед</item>
+        <item>Сократите рафинированные углеводы: белый хлеб, паста, выпечка</item>
+        <item>Найдите партнёра для тренировок — социальная поддержка повышает мотивацию</item>
+        <item>Читайте этикетки продуктов для осознанного выбора питания</item>
+        <item>Пользуйтесь лестницей вместо лифта при каждой возможности</item>
+        <item>Отмечайте маленькие победы — каждые -0,5 кг это реальный прогресс</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Проконсультируйтесь с врачом для персонализированного руководства</item>
+        <item>Начните с лёгких упражнений: ходьба или аквааэробика</item>
+        <item>Делайте акцент на цельных продуктах, избегайте ультраобработанной еды</item>
+        <item>Ставьте реалистичные цели: теряйте 0,5-1 кг в неделю</item>
+        <item>Рассмотрите работу с зарегистрированным диетологом</item>
+        <item>Регулярно отслеживайте прогресс — маленькие изменения накапливаются</item>
+        <item>Создайте систему поддержки из семьи и друзей</item>
+        <item>Приоритизируйте сон — его нехватка увеличивает гормоны голода</item>
+        <item>Контролируйте порции: половина — овощи, четверть — белок, четверть — злаки</item>
+        <item>Сосредоточьтесь на формировании здоровых привычек, а не быстрых диетах</item>
+    </string-array>
+</resources>

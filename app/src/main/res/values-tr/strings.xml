@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BMI Hesaplayıcı</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Boy için normal BMI kilo aralığı: 18,5 – 24,9</string>
+    <string name="privacy_policy">Gizlilik politikası</string>
+    <string name="rate_app">Uygulamayı derecelendir</string>
+    <string name="get_more_apps">Daha fazla uygulama</string>
+    <string name="share_this_app">Bu uygulamayı paylaş</string>
+    <string name="your_health">Sağlığınız</string>
+    <string name="gender">CİNSİYET</string>
+    <string name="weight">KİLO</string>
+    <string name="kg">(KG)</string>
+    <string name="height">BOY</string>
+    <string name="cm">(CM)</string>
+    <string name="age">YAŞ</string>
+    <string name="menu">Menü</string>
+    <string name="history">Geçmiş</string>
+    <string name="calculators">Hesaplayıcılar</string>
+    <string name="settings">Ayarlar</string>
+    <string name="language">Dil</string>
+    <string name="select_language">Dil Seçin</string>
+    <string name="bmr_calculator">BMH Hesaplayıcı</string>
+    <string name="tdee_calculator">TGEH Hesaplayıcı</string>
+    <string name="ideal_weight_calculator">İdeal Kilo Hesaplayıcı</string>
+    <string name="body_fat_calculator">Vücut Yağ Hesaplayıcı</string>
+    <string name="bmr_description">Dinlenme sırasında yakılan kalorileri hesaplayın</string>
+    <string name="tdee_description">Günlük toplam enerji harcaması</string>
+    <string name="ideal_weight_description">Sağlıklı kilo aralığınızı bulun</string>
+    <string name="body_fat_description">Vücut yağ yüzdenizi tahmin edin</string>
+    <string name="calculate">Hesapla</string>
+    <string name="male">Erkek</string>
+    <string name="female">Kadın</string>
+    <string name="activity_level">Aktivite seviyesi</string>
+    <string name="calculator">Hesaplayıcı</string>
+    <string name="please_enter_valid_values">Lütfen geçerli değerler girin</string>
+    <string name="please_enter_valid_measurements">Lütfen geçerli ölçümler girin</string>
+    <string name="track_your_health">Sağlığınızı takip edin</string>
+    <string name="loading">Yükleniyor</string>
+    <string name="please_note_action">Not: Bu işlem reklam gösterebilir</string>
+    <string name="your_are_healthy">Sağlıklısınız</string>
+    <string name="health_insights">Sağlık verileri</string>
+    <string name="ideal_weight">İdeal kilo</string>
+    <string name="water_intake">Su tüketimi</string>
+    <string name="cal_per_day">kal/gün</string>
+    <string name="l_per_day">L/gün</string>
+    <string name="sharing_image">Görüntü paylaşılıyor</string>
+    <string name="this_app_is_incredibly">Bu uygulama BMI ve genel sağlığımı takip etmek için harika! Kesinlikle tavsiye ederim.</string>
+    <string name="progress">İlerleme</string>
+    <string name="recent_records">Son kayıtlar</string>
+    <string name="delete_record">Kaydı sil</string>
+    <string name="are_you_sure_delete">Bu kaydı silmek istediğinizden emin misiniz?</string>
+    <string name="cancel">İptal</string>
+    <string name="delete">Sil</string>
+    <string name="goal_weight_title">🎯 Hedefim</string>
+    <string name="goal_weight_current">Mevcut: %1$.1f kg</string>
+    <string name="goal_weight_target">Hedef: %1$.1f kg</string>
+    <string name="goal_weight_remaining">Hedefinize %1$.1f kg kaldı</string>
+    <string name="goal_weight_achieved">🎉 Hedefinize ulaştınız!</string>
+    <string name="goal_weight_set_hint">Hedef kilo belirleyin (kg)</string>
+    <string name="goal_weight_save">Hedefi kaydet</string>
+    <string name="goal_weight_no_goal">Hedef yok. Belirlemek için dokunun.</string>
+    <string name="goal_weight_label">Hedef kilo</string>
+    <string name="bmi_trend_stable">Sabit</string>
+    <string name="bmi_trend_improved">İyileşti</string>
+    <string name="bmi_trend_worsened">Kötüleşti</string>
+    <string name="bmi_category_underweight">Zayıf</string>
+    <string name="bmi_category_healthy">Normal</string>
+    <string name="bmi_category_overweight">Fazla kilolu</string>
+    <string name="bmi_category_obese">Obez</string>
+    <string name="goal_bmi_target_label">Hedef BMI</string>
+    <string name="tracker_title">Kilo &amp; Boy Takibi</string>
+    <string name="tracker_tab_weight">Kilo (kg)</string>
+    <string name="tracker_tab_height">Boy (cm)</string>
+    <string name="tracker_latest">Son</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Maks</string>
+    <string name="tracker_trend">Eğilim</string>
+    <string name="tracker_increased">arttı</string>
+    <string name="tracker_decreased">azaldı</string>
+    <string name="tracker_summary_30d">Son 30 günde %1$s değeriniz %2$s %3$s %4$s</string>
+    <string name="streak_title">%d Günlük Seri!</string>
+    <string name="streak_best">En iyi: %d</string>
+    <string name="streak_motivation">Devam edin! BMI\'nizi her gün takip edin</string>
+    <string name="streak_start">Serinizi bugün başlatın!</string>
+    <string name="achievements_menu">Başarılar</string>
+    <string name="achievements_title">Başarılar (%1$d/%2$d)</string>
+    <string name="badge_first_step">İlk Adım</string>
+    <string name="badge_first_step_desc">İlk BMI\'nizi kaydedin</string>
+    <string name="badge_week_warrior">Hafta Savaşçısı</string>
+    <string name="badge_week_warrior_desc">7 günlük seri sürdürün</string>
+    <string name="badge_monthly_master">Aylık Usta</string>
+    <string name="badge_monthly_master_desc">30 günlük seri sürdürün</string>
+    <string name="badge_goal_crusher">Hedef Kırıcı</string>
+    <string name="badge_goal_crusher_desc">Hedef kilonuza ulaşın</string>
+    <string name="badge_healthy_zone">Sağlıklı Bölge</string>
+    <string name="badge_healthy_zone_desc">7 kayıt boyunca sağlıklı BMI\'de kalın</string>
+    <string name="badge_data_lover">Veri Sever</string>
+    <string name="badge_data_lover_desc">50 BMI kaydı girin</string>
+    <string name="badge_unlocked">Başarı açıldı!</string>
+    <string name="daily_tip_label">💡 Günün İpucu</string>
+    <string name="daily_tip_for">Şunun için</string>
+    <string name="sedentary">Hareketsiz (az veya hiç egzersiz yok)</string>
+    <string name="lightly_active">Hafif aktif (haftada 1-3 gün egzersiz)</string>
+    <string name="moderately_active">Orta düzeyde aktif (haftada 3-5 gün egzersiz)</string>
+    <string name="very_active">Çok aktif (haftada 6-7 gün egzersiz)</string>
+    <string name="super_active">Aşırı aktif (çok yoğun egzersiz/fiziksel iş)</string>
+    <string name="neck">Boyun</string>
+    <string name="hip">Kalça</string>
+    <string name="waist">Bel</string>
+    <string name="female_only">Yalnızca kadınlar için</string>
+    <string name="reward_ad_skipped">Ayrıntılı sağlık planınızın kilidini açmak için reklamın tamamını izleyin 🎯</string>
+    <string name="btn_detailed_plan">🎁 Ayrıntılı Sağlık Planı Al</string>
+    <string-array name="tips_underweight">
+        <item>Fındık, avokado ve tam tahıllar gibi kalorisi yüksek besinler tüketin</item>
+        <item>3 büyük öğün yerine günde 5-6 küçük öğün yemeyi deneyin</item>
+        <item>Her öğüne yumurta, balık ve baklagiller gibi protein açısından zengin besinler ekleyin</item>
+        <item>Güç antrenmanı sağlıklı kas kütlesi oluşturmaya yardımcı olur</item>
+        <item>Yeterince yediğinizden emin olmak için günlük kalori alımınızı takip edin</item>
+        <item>Yemeklerinize zeytinyağı, peynir ve fıstık ezmesi gibi sağlıklı yağlar ekleyin</item>
+        <item>Öğünler arasında kalorisi yüksek smoothie ve milkshake için</item>
+        <item>Yemeklerden önce su içmekten kaçının; bu iştahı azaltabilir</item>
+        <item>Kuruyemiş karışımı, yoğurt ve kuru meyve gibi besleyici atıştırmalıklar seçin</item>
+        <item>Yeterince uyuyun; uyku bozukluğu iştah ve metabolizmayı olumsuz etkiler</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Bol meyve ve sebze içeren dengeli bir beslenme düzeni sürdürün</item>
+        <item>Haftada en az 150 dakika orta yoğunlukta egzersiz yapın</item>
+        <item>Hidrate kalmak için günde en az 8 bardak su için</item>
+        <item>Her gece 7-9 saat kaliteli uyku alın</item>
+        <item>Düzenli sağlık kontrolleri sorunları erken tespit etmeye yardımcı olur</item>
+        <item>Bilinçli yemek yiyin; açlık ve tokluk sinyallerine dikkat edin</item>
+        <item>İşlenmiş gıdaları sınırlandırın ve doğal alternatifleri tercih edin</item>
+        <item>Meditasyon, yoga veya derin nefes egzersizleriyle stresi yönetin</item>
+        <item>Dengeli beslenme için her öğüne çeşitli besin gruplarını dahil edin</item>
+        <item>Uzun süre oturuyorsanız kısa yürüyüş molaları verin</item>
+        <item>Eklenen şeker tüketimini günde 25 gramın altında tutun</item>
+        <item>Yulaf, fasulye ve tam buğday ekmeği gibi lif açısından zengin besinler tüketin</item>
+        <item>Malzemeleri ve porsiyonları kontrol etmek için evde daha fazla pişirin</item>
+        <item>Sosyal açıdan aktif kalın; güçlü sosyal bağlar sağlığı iyileştirir</item>
+        <item>Güneşte güvende olmak için güneş koruyucu kullanın</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Porsiyon boyutlarını yavaş yavaş azaltın ve daha küçük tabaklar kullanın</item>
+        <item>Daha uzun süre tok hissetmenize yardımcı olmak için daha fazla lifli besin tüketin</item>
+        <item>Günlük 30 dakika yürüyüşle başlayın ve kademeli olarak artırın</item>
+        <item>Şekerli içecekleri su, bitki çayı veya meyve suyuyla değiştirin</item>
+        <item>Yeme alışkanlıklarınızın farkında olmak için yemek günlüğü tutun</item>
+        <item>Yavaş yiyin ve iyice çiğneyin; vücudun tok hissetmesi 20 dakika alır</item>
+        <item>Dürtüsel sağlıksız seçimlerden kaçınmak için önceden yemek planlayın</item>
+        <item>Tavuk göğsü, balık ve tofu gibi yağsız proteinler seçin</item>
+        <item>Gece geç saatlerde yemekten kaçının; akşam yemeğini yatmadan 3 saat önce bitirin</item>
+        <item>Dans, yüzme veya bisiklet gibi keyif aldığınız fiziksel aktiviteler bulun</item>
+        <item>Beyaz ekmek, makarna ve hamur işleri gibi rafine karbonhidratları azaltın</item>
+        <item>Sosyal destek motivasyonu artırdığı için antrenman arkadaşı bulun</item>
+        <item>Bilinçli gıda seçimleri yapmak için besin etiketlerini okuyun</item>
+        <item>Mümkün olduğunda asansör yerine merdiven kullanın</item>
+        <item>Küçük başarıları kutlayın; verilen her 0,5 kg ilerleme sayılır</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Kişiselleştirilmiş rehberlik için bir sağlık uzmanına danışın</item>
+        <item>Yürüyüş veya su aerobiği gibi hafif egzersizlerle başlayın</item>
+        <item>Tam gıdalara odaklanın ve aşırı işlenmiş gıdalardan kaçının</item>
+        <item>Gerçekçi hedefler belirleyin; haftada 0,5 ila 1 kg vermeyi hedefleyin</item>
+        <item>Diyetisyenle çalışmayı düşünün</item>
+        <item>İlerlemenizi düzenli olarak takip edin; küçük değişiklikler zamanla birikir</item>
+        <item>Aile ve arkadaşlardan destek sistemi oluşturun</item>
+        <item>Uykuya öncelik verin; uyku bozukluğu açlık hormonlarını artırır</item>
+        <item>Porsiyon kontrolü yapın: yarısı sebze, dörtte biri protein, dörtte biri tahıl</item>
+        <item>Hızlı diyet yerine sağlıklı alışkanlıklar edinmeye odaklanın</item>
+    </string-array>
+</resources>

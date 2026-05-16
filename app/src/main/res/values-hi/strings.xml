@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">बीएमआई कैलकुलेटर</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">ऊंचाई के लिए सामान्य बीएमआई वजन सीमा: 18.5 – 24.9</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="rate_app">ऐप रेट करें</string>
+    <string name="get_more_apps">और ऐप्स देखें</string>
+    <string name="share_this_app">यह ऐप शेयर करें</string>
+    <string name="your_health">आपका स्वास्थ्य</string>
+    <string name="gender">लिंग</string>
+    <string name="weight">वजन</string>
+    <string name="kg">(किग्रा)</string>
+    <string name="height">ऊंचाई</string>
+    <string name="cm">(सेमी)</string>
+    <string name="age">उम्र</string>
+    <string name="menu">मेनू</string>
+    <string name="history">इतिहास</string>
+    <string name="calculators">कैलकुलेटर</string>
+    <string name="settings">सेटिंग</string>
+    <string name="language">भाषा</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="bmr_calculator">बीएमआर कैलकुलेटर</string>
+    <string name="tdee_calculator">टीडीईई कैलकुलेटर</string>
+    <string name="ideal_weight_calculator">आदर्श वजन कैलकुलेटर</string>
+    <string name="body_fat_calculator">शरीर की चर्बी कैलकुलेटर</string>
+    <string name="bmr_description">आराम के समय जलाई जाने वाली कैलोरी की गणना करें</string>
+    <string name="tdee_description">कुल दैनिक ऊर्जा खर्च</string>
+    <string name="ideal_weight_description">अपना स्वस्थ वजन सीमा जानें</string>
+    <string name="body_fat_description">शरीर की चर्बी का प्रतिशत अनुमानित करें</string>
+    <string name="calculate">गणना करें</string>
+    <string name="male">पुरुष</string>
+    <string name="female">महिला</string>
+    <string name="activity_level">गतिविधि स्तर</string>
+    <string name="calculator">कैलकुलेटर</string>
+    <string name="please_enter_valid_values">कृपया सही मान दर्ज करें</string>
+    <string name="please_enter_valid_measurements">कृपया सही माप दर्ज करें</string>
+    <string name="track_your_health">अपने स्वास्थ्य को ट्रैक करें</string>
+    <string name="loading">लोड हो रहा है</string>
+    <string name="please_note_action">ध्यान दें: इस कार्य से विज्ञापन दिख सकते हैं</string>
+    <string name="your_are_healthy">आप स्वस्थ हैं</string>
+    <string name="health_insights">स्वास्थ्य जानकारी</string>
+    <string name="ideal_weight">आदर्श वजन</string>
+    <string name="water_intake">पानी की मात्रा</string>
+    <string name="cal_per_day">कैलोरी/दिन</string>
+    <string name="l_per_day">ली/दिन</string>
+    <string name="sharing_image">चित्र शेयर कर रहे हैं</string>
+    <string name="this_app_is_incredibly">यह ऐप बीएमआई और स्वास्थ्य ट्रैक करने के लिए बेहद उपयोगी है! इसकी सिफारिश जरूर करें।</string>
+    <string name="progress">प्रगति</string>
+    <string name="recent_records">हालिया रिकॉर्ड</string>
+    <string name="delete_record">रिकॉर्ड हटाएं</string>
+    <string name="are_you_sure_delete">क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="delete">हटाएं</string>
+    <string name="goal_weight_title">🎯 मेरा लक्ष्य</string>
+    <string name="goal_weight_current">वर्तमान: %1$.1f किग्रा</string>
+    <string name="goal_weight_target">लक्ष्य: %1$.1f किग्रा</string>
+    <string name="goal_weight_remaining">लक्ष्य तक %1$.1f किग्रा और</string>
+    <string name="goal_weight_achieved">🎉 आपने अपना लक्ष्य पा लिया!</string>
+    <string name="goal_weight_set_hint">लक्ष्य वजन सेट करें (किग्रा)</string>
+    <string name="goal_weight_save">लक्ष्य सहेजें</string>
+    <string name="goal_weight_no_goal">कोई लक्ष्य नहीं। सेट करने के लिए टैप करें।</string>
+    <string name="goal_weight_label">लक्ष्य वजन</string>
+    <string name="bmi_trend_stable">स्थिर</string>
+    <string name="bmi_trend_improved">सुधार हुआ</string>
+    <string name="bmi_trend_worsened">बिगड़ा</string>
+    <string name="bmi_category_underweight">कम वजन</string>
+    <string name="bmi_category_healthy">सामान्य</string>
+    <string name="bmi_category_overweight">अधिक वजन</string>
+    <string name="bmi_category_obese">मोटापा</string>
+    <string name="goal_bmi_target_label">बीएमआई लक्ष्य</string>
+    <string name="tracker_title">वजन &amp; ऊंचाई ट्रैकर</string>
+    <string name="tracker_tab_weight">वजन (किग्रा)</string>
+    <string name="tracker_tab_height">ऊंचाई (सेमी)</string>
+    <string name="tracker_latest">नवीनतम</string>
+    <string name="tracker_min">न्यूनतम</string>
+    <string name="tracker_max">अधिकतम</string>
+    <string name="tracker_trend">रुझान</string>
+    <string name="tracker_increased">बढ़ा</string>
+    <string name="tracker_decreased">घटा</string>
+    <string name="tracker_summary_30d">पिछले 30 दिनों में आपका %1$s %2$s %3$s %4$s</string>
+    <string name="streak_title">%d दिन लगातार!</string>
+    <string name="streak_best">सर्वश्रेष्ठ: %d</string>
+    <string name="streak_motivation">जारी रखें! रोज अपना बीएमआई ट्रैक करें</string>
+    <string name="streak_start">आज से अपनी स्ट्रीक शुरू करें!</string>
+    <string name="achievements_menu">उपलब्धियां</string>
+    <string name="achievements_title">उपलब्धियां (%1$d/%2$d)</string>
+    <string name="badge_first_step">पहला कदम</string>
+    <string name="badge_first_step_desc">अपना पहला बीएमआई रिकॉर्ड करें</string>
+    <string name="badge_week_warrior">सप्ताह योद्धा</string>
+    <string name="badge_week_warrior_desc">7 दिन की स्ट्रीक बनाए रखें</string>
+    <string name="badge_monthly_master">मासिक मास्टर</string>
+    <string name="badge_monthly_master_desc">30 दिन की स्ट्रीक बनाए रखें</string>
+    <string name="badge_goal_crusher">लक्ष्य विजेता</string>
+    <string name="badge_goal_crusher_desc">अपना लक्ष्य वजन प्राप्त करें</string>
+    <string name="badge_healthy_zone">स्वस्थ क्षेत्र</string>
+    <string name="badge_healthy_zone_desc">7 बार स्वस्थ बीएमआई बनाए रखें</string>
+    <string name="badge_data_lover">डेटा प्रेमी</string>
+    <string name="badge_data_lover_desc">50 बीएमआई एंट्री दर्ज करें</string>
+    <string name="badge_unlocked">उपलब्धि अनलॉक हुई!</string>
+    <string name="daily_tip_label">💡 आज की सलाह</string>
+    <string name="daily_tip_for">के लिए</string>
+    <string-array name="tips_underweight">
+        <item>मेवे, एवोकाडो और साबुत अनाज जैसे कैलोरी-घने खाद्य पदार्थ खाएं</item>
+        <item>दिन में 3 बड़े के बजाय 5-6 छोटे भोजन करने की कोशिश करें</item>
+        <item>हर भोजन में अंडे, मछली और दालें जैसे प्रोटीन युक्त खाद्य पदार्थ शामिल करें</item>
+        <item>स्ट्रेंथ ट्रेनिंग स्वस्थ मांसपेशी बनाने में मदद करती है</item>
+        <item>यह सुनिश्चित करने के लिए दैनिक कैलोरी ट्रैक करें कि आप पर्याप्त खा रहे हैं</item>
+        <item>भोजन में जैतून का तेल, पनीर और नट बटर जैसे स्वस्थ वसा जोड़ें</item>
+        <item>भोजन के बीच कैलोरी से भरपूर स्मूदी और शेक पिएं</item>
+        <item>भोजन से पहले पानी पीने से बचें क्योंकि इससे भूख कम होती है</item>
+        <item>ट्रेल मिक्स, दही और सूखे फल जैसे पोषक तत्वों से भरे स्नैक्स चुनें</item>
+        <item>पर्याप्त नींद लें क्योंकि खराब नींद भूख और मेटाबॉलिज्म को प्रभावित करती है</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>भरपूर फल और सब्जियों के साथ संतुलित आहार बनाए रखें</item>
+        <item>हफ्ते में कम से कम 150 मिनट मध्यम व्यायाम करें</item>
+        <item>हाइड्रेटेड रहने के लिए रोज कम से कम 8 गिलास पानी पिएं</item>
+        <item>हर रात 7-9 घंटे की गुणवत्तापूर्ण नींद लें</item>
+        <item>नियमित स्वास्थ्य जांच से समस्याओं का जल्द पता चलता है</item>
+        <item>सचेत खाना खाएं और भूख और भरे होने के संकेतों पर ध्यान दें</item>
+        <item>प्रसंस्कृत खाद्य पदार्थ सीमित करें और प्राकृतिक विकल्प चुनें</item>
+        <item>ध्यान, योग या गहरी सांस लेने के व्यायाम से तनाव प्रबंधित करें</item>
+        <item>संतुलित पोषण के लिए हर भोजन में विभिन्न खाद्य समूह शामिल करें</item>
+        <item>दिन में लंबे समय बैठने पर छोटी चहलकदमी करें</item>
+        <item>प्रतिदिन 25 ग्राम से कम अतिरिक्त चीनी लें</item>
+        <item>जई, बीन्स और साबुत गेहूं की रोटी जैसे फाइबर युक्त खाद्य पदार्थ अधिक खाएं</item>
+        <item>सामग्री और मात्रा नियंत्रित करने के लिए घर पर अधिक खाना पकाएं</item>
+        <item>सामाजिक रूप से सक्रिय रहें क्योंकि मजबूत संबंध स्वास्थ्य में सुधार करते हैं</item>
+        <item>सनस्क्रीन से त्वचा की रक्षा करें और धूप में सुरक्षित रहें</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>धीरे-धीरे भाग का आकार कम करें और दृश्य संकेत के रूप में छोटी प्लेट उपयोग करें</item>
+        <item>लंबे समय तक तृप्त रहने में मदद के लिए अधिक फाइबर युक्त खाद्य पदार्थ शामिल करें</item>
+        <item>प्रतिदिन 30 मिनट की सैर से शुरू करें और धीरे-धीरे बढ़ाएं</item>
+        <item>मीठे पेय को पानी, हर्बल चाय या इन्फ्यूज्ड वाटर से बदलें</item>
+        <item>अपनी खाने की आदतों से परिचित होने के लिए फूड जर्नल रखें</item>
+        <item>धीरे खाएं और अच्छी तरह चबाएं क्योंकि भरे होने का एहसास होने में 20 मिनट लगते हैं</item>
+        <item>आवेगी अस्वस्थ विकल्पों से बचने के लिए पहले से भोजन की योजना बनाएं</item>
+        <item>चिकन ब्रेस्ट, मछली और टोफू जैसे लीन प्रोटीन चुनें</item>
+        <item>रात को देर से खाने से बचें और सोने से 3 घंटे पहले रात का खाना खाएं</item>
+        <item>नृत्य, तैराकी या साइकिलिंग जैसी शारीरिक गतिविधियां खोजें जो आपको पसंद हों</item>
+        <item>सफेद ब्रेड, पास्ता और मिठाई जैसे रिफाइंड कार्ब्स कम करें</item>
+        <item>वर्कआउट पार्टनर खोजें क्योंकि सामाजिक समर्थन प्रेरणा बढ़ाता है</item>
+        <item>सूचित खाद्य विकल्प के लिए पोषण लेबल पढ़ें</item>
+        <item>जब भी संभव हो लिफ्ट की जगह सीढ़ियां इस्तेमाल करें</item>
+        <item>छोटी जीत का जश्न मनाएं क्योंकि हर 0.5 किग्रा वजन घटाना प्रगति है</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>व्यक्तिगत मार्गदर्शन के लिए स्वास्थ्य पेशेवर से परामर्श करें</item>
+        <item>चलना या वाटर एरोबिक्स जैसे हल्के व्यायाम से शुरू करें</item>
+        <item>संपूर्ण खाद्य पदार्थों पर ध्यान दें और अत्यधिक प्रसंस्कृत खाद्य से बचें</item>
+        <item>यथार्थवादी लक्ष्य निर्धारित करें और प्रति सप्ताह 0.5 से 1 किग्रा वजन कम करने का लक्ष्य रखें</item>
+        <item>किसी पंजीकृत पोषण विशेषज्ञ के साथ काम करने पर विचार करें</item>
+        <item>नियमित रूप से प्रगति ट्रैक करें क्योंकि छोटे परिवर्तन समय के साथ जुड़ते हैं</item>
+        <item>परिवार और दोस्तों का समर्थन तंत्र बनाएं</item>
+        <item>नींद को प्राथमिकता दें क्योंकि खराब नींद भूख हार्मोन बढ़ाती है</item>
+        <item>भाग नियंत्रण करें: आधा सब्जियां, एक चौथाई प्रोटीन, एक चौथाई अनाज</item>
+        <item>त्वरित-फिक्स आहार के बजाय स्वस्थ आदतें बनाने पर ध्यान दें</item>
+    </string-array>
+    <string name="sedentary">बैठे रहने वाले (कम या कोई व्यायाम नहीं)</string>
+    <string name="lightly_active">थोड़ा सक्रिय (1-3 दिन/सप्ताह व्यायाम)</string>
+    <string name="moderately_active">मध्यम सक्रिय (3-5 दिन/सप्ताह व्यायाम)</string>
+    <string name="very_active">बहुत सक्रिय (6-7 दिन/सप्ताह व्यायाम)</string>
+    <string name="super_active">अत्यंत सक्रिय (बहुत कठिन व्यायाम/शारीरिक कार्य)</string>
+    <string name="neck">गर्दन</string>
+    <string name="hip">कूल्हा</string>
+    <string name="waist">कमर</string>
+    <string name="female_only">केवल महिलाओं के लिए</string>
+    <string name="reward_ad_skipped">अपनी विस्तृत स्वास्थ्य योजना अनलॉक करने के लिए पूरा विज्ञापन देखें 🎯</string>
+    <string name="btn_detailed_plan">🎁 विस्तृत स्वास्थ्य योजना प्राप्त करें</string>
+</resources>

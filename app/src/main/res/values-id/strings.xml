@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kalkulator BMI</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Rentang berat badan BMI normal untuk tinggi badan: 18,5 – 24,9</string>
+    <string name="privacy_policy">Kebijakan privasi</string>
+    <string name="rate_app">Beri nilai aplikasi</string>
+    <string name="get_more_apps">Lebih banyak aplikasi</string>
+    <string name="share_this_app">Bagikan aplikasi ini</string>
+    <string name="your_health">Kesehatan Anda</string>
+    <string name="gender">JENIS KELAMIN</string>
+    <string name="weight">BERAT</string>
+    <string name="kg">(KG)</string>
+    <string name="height">TINGGI</string>
+    <string name="cm">(CM)</string>
+    <string name="age">USIA</string>
+    <string name="menu">Menu</string>
+    <string name="history">Riwayat</string>
+    <string name="calculators">Kalkulator</string>
+    <string name="settings">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="bmr_calculator">Kalkulator BMR</string>
+    <string name="tdee_calculator">Kalkulator TDEE</string>
+    <string name="ideal_weight_calculator">Kalkulator Berat Ideal</string>
+    <string name="body_fat_calculator">Kalkulator Lemak Tubuh</string>
+    <string name="bmr_description">Hitung kalori yang terbakar saat istirahat</string>
+    <string name="tdee_description">Total pengeluaran energi harian</string>
+    <string name="ideal_weight_description">Temukan rentang berat sehat Anda</string>
+    <string name="body_fat_description">Perkirakan persentase lemak tubuh Anda</string>
+    <string name="calculate">Hitung</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="activity_level">Tingkat aktivitas</string>
+    <string name="calculator">Kalkulator</string>
+    <string name="please_enter_valid_values">Silakan masukkan nilai yang valid</string>
+    <string name="please_enter_valid_measurements">Silakan masukkan pengukuran yang valid</string>
+    <string name="track_your_health">Pantau kesehatan Anda</string>
+    <string name="loading">Memuat</string>
+    <string name="please_note_action">Catatan: Tindakan ini mungkin menampilkan iklan</string>
+    <string name="your_are_healthy">Anda sehat</string>
+    <string name="health_insights">Wawasan kesehatan</string>
+    <string name="ideal_weight">Berat ideal</string>
+    <string name="water_intake">Asupan air</string>
+    <string name="cal_per_day">kal/hari</string>
+    <string name="l_per_day">L/hari</string>
+    <string name="sharing_image">Membagikan gambar</string>
+    <string name="this_app_is_incredibly">Aplikasi ini sangat berguna untuk memantau BMI dan kesehatan saya secara keseluruhan! Sangat direkomendasikan.</string>
+    <string name="progress">Kemajuan</string>
+    <string name="recent_records">Catatan terbaru</string>
+    <string name="delete_record">Hapus catatan</string>
+    <string name="are_you_sure_delete">Apakah Anda yakin ingin menghapus catatan ini?</string>
+    <string name="cancel">Batal</string>
+    <string name="delete">Hapus</string>
+    <string name="goal_weight_title">🎯 Target saya</string>
+    <string name="goal_weight_current">Saat ini: %1$.1f kg</string>
+    <string name="goal_weight_target">Target: %1$.1f kg</string>
+    <string name="goal_weight_remaining">%1$.1f kg lagi untuk mencapai target</string>
+    <string name="goal_weight_achieved">🎉 Anda telah mencapai target!</string>
+    <string name="goal_weight_set_hint">Atur berat target (kg)</string>
+    <string name="goal_weight_save">Simpan target</string>
+    <string name="goal_weight_no_goal">Belum ada target. Ketuk untuk menetapkan.</string>
+    <string name="goal_weight_label">Berat target</string>
+    <string name="bmi_trend_stable">Stabil</string>
+    <string name="bmi_trend_improved">Membaik</string>
+    <string name="bmi_trend_worsened">Memburuk</string>
+    <string name="bmi_category_underweight">Berat badan kurang</string>
+    <string name="bmi_category_healthy">Normal</string>
+    <string name="bmi_category_overweight">Kelebihan berat badan</string>
+    <string name="bmi_category_obese">Obesitas</string>
+    <string name="goal_bmi_target_label">Target BMI</string>
+    <string name="tracker_title">Pelacak Berat &amp; Tinggi</string>
+    <string name="tracker_tab_weight">Berat (kg)</string>
+    <string name="tracker_tab_height">Tinggi (cm)</string>
+    <string name="tracker_latest">Terbaru</string>
+    <string name="tracker_min">Min</string>
+    <string name="tracker_max">Maks</string>
+    <string name="tracker_trend">Tren</string>
+    <string name="tracker_increased">meningkat</string>
+    <string name="tracker_decreased">menurun</string>
+    <string name="tracker_summary_30d">%1$s Anda %2$s %3$s %4$s dalam 30 hari terakhir</string>
+    <string name="streak_title">%d Hari Berturut-turut!</string>
+    <string name="streak_best">Terbaik: %d</string>
+    <string name="streak_motivation">Terus semangat! Pantau BMI setiap hari</string>
+    <string name="streak_start">Mulai streak Anda hari ini!</string>
+    <string name="achievements_menu">Pencapaian</string>
+    <string name="achievements_title">Pencapaian (%1$d/%2$d)</string>
+    <string name="badge_first_step">Langkah Pertama</string>
+    <string name="badge_first_step_desc">Catat BMI pertama Anda</string>
+    <string name="badge_week_warrior">Pejuang Mingguan</string>
+    <string name="badge_week_warrior_desc">Pertahankan streak 7 hari</string>
+    <string name="badge_monthly_master">Master Bulanan</string>
+    <string name="badge_monthly_master_desc">Pertahankan streak 30 hari</string>
+    <string name="badge_goal_crusher">Penghancur Target</string>
+    <string name="badge_goal_crusher_desc">Capai berat target Anda</string>
+    <string name="badge_healthy_zone">Zona Sehat</string>
+    <string name="badge_healthy_zone_desc">BMI sehat dalam 7 catatan berturut-turut</string>
+    <string name="badge_data_lover">Pecinta Data</string>
+    <string name="badge_data_lover_desc">Catat 50 entri BMI</string>
+    <string name="badge_unlocked">Pencapaian terbuka!</string>
+    <string name="daily_tip_label">💡 Tips Hari Ini</string>
+    <string name="daily_tip_for">Untuk</string>
+    <string-array name="tips_underweight">
+        <item>Makan makanan padat kalori seperti kacang-kacangan, alpukat, dan biji-bijian utuh</item>
+        <item>Coba makan 5-6 kali porsi kecil per hari daripada 3 kali porsi besar</item>
+        <item>Sertakan makanan kaya protein seperti telur, ikan, dan kacang-kacangan di setiap makan</item>
+        <item>Latihan kekuatan membantu membangun massa otot yang sehat</item>
+        <item>Pantau asupan kalori harian untuk memastikan Anda makan cukup</item>
+        <item>Tambahkan lemak sehat seperti minyak zaitun, keju, dan selai kacang ke makanan</item>
+        <item>Minum smoothie dan minuman shake kaya kalori sebagai camilan di antara waktu makan</item>
+        <item>Hindari minum air sebelum makan karena dapat mengurangi nafsu makan</item>
+        <item>Pilih camilan bergizi seperti campuran kacang, yogurt, dan buah kering</item>
+        <item>Tidur cukup karena kurang tidur dapat memengaruhi nafsu makan dan metabolisme</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Pertahankan pola makan seimbang dengan banyak buah dan sayuran</item>
+        <item>Tetap aktif dengan setidaknya 150 menit olahraga sedang per minggu</item>
+        <item>Minum setidaknya 8 gelas air sehari agar tetap terhidrasi</item>
+        <item>Tidur berkualitas 7-9 jam setiap malam</item>
+        <item>Pemeriksaan kesehatan rutin membantu mendeteksi masalah lebih awal</item>
+        <item>Praktikkan makan dengan penuh perhatian dan perhatikan sinyal lapar dan kenyang</item>
+        <item>Batasi makanan olahan dan pilih alternatif alami</item>
+        <item>Kelola stres melalui meditasi, yoga, atau latihan pernapasan</item>
+        <item>Sertakan berbagai kelompok makanan di setiap makan untuk nutrisi seimbang</item>
+        <item>Ambil jeda singkat untuk berjalan jika Anda duduk lama</item>
+        <item>Batasi gula tambahan hingga kurang dari 25 gram per hari</item>
+        <item>Makan lebih banyak makanan kaya serat seperti gandum, kacang-kacangan, dan roti gandum utuh</item>
+        <item>Masak lebih sering di rumah untuk mengontrol bahan dan porsi</item>
+        <item>Tetap aktif secara sosial karena hubungan yang kuat meningkatkan kesehatan</item>
+        <item>Lindungi kulit dengan tabir surya dan jaga diri di bawah sinar matahari</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Kurangi ukuran porsi secara bertahap dan gunakan piring yang lebih kecil</item>
+        <item>Sertakan lebih banyak makanan kaya serat agar kenyang lebih lama</item>
+        <item>Mulailah dengan berjalan 30 menit sehari dan tingkatkan secara bertahap</item>
+        <item>Ganti minuman manis dengan air putih, teh herbal, atau air infus</item>
+        <item>Simpan jurnal makan untuk menyadari pola makan Anda</item>
+        <item>Makan perlahan dan kunyah dengan baik; tubuh butuh 20 menit untuk merasa kenyang</item>
+        <item>Rencanakan menu makan sebelumnya untuk menghindari pilihan tidak sehat secara impulsif</item>
+        <item>Pilih protein tanpa lemak seperti dada ayam, ikan, dan tahu</item>
+        <item>Hindari makan larut malam dan selesaikan makan malam 3 jam sebelum tidur</item>
+        <item>Temukan aktivitas fisik yang Anda nikmati seperti menari, berenang, atau bersepeda</item>
+        <item>Kurangi karbohidrat olahan seperti roti putih, pasta, dan kue</item>
+        <item>Cari teman olahraga karena dukungan sosial meningkatkan motivasi</item>
+        <item>Baca label nutrisi untuk membuat pilihan makanan yang tepat</item>
+        <item>Gunakan tangga daripada lift bila memungkinkan</item>
+        <item>Rayakan pencapaian kecil karena setiap 0,5 kg yang turun adalah kemajuan</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Konsultasikan dengan profesional kesehatan untuk panduan yang dipersonalisasi</item>
+        <item>Mulailah dengan olahraga ringan seperti berjalan atau senam air</item>
+        <item>Fokus pada makanan utuh dan hindari makanan yang sangat olahan</item>
+        <item>Tetapkan tujuan realistis dan targetkan penurunan 0,5 hingga 1 kg per minggu</item>
+        <item>Pertimbangkan bekerja sama dengan ahli gizi terdaftar</item>
+        <item>Pantau kemajuan secara teratur karena perubahan kecil terakumulasi seiring waktu</item>
+        <item>Bangun sistem dukungan dari keluarga dan teman</item>
+        <item>Prioritaskan tidur karena kurang tidur meningkatkan hormon lapar</item>
+        <item>Kendalikan porsi: setengah sayuran, seperempat protein, seperempat biji-bijian</item>
+        <item>Fokus pada membangun kebiasaan sehat daripada diet cepat</item>
+    </string-array>
+    <string name="sedentary">Tidak aktif (sedikit atau tidak ada olahraga)</string>
+    <string name="lightly_active">Sedikit aktif (olahraga 1-3 hari/minggu)</string>
+    <string name="moderately_active">Cukup aktif (olahraga 3-5 hari/minggu)</string>
+    <string name="very_active">Sangat aktif (olahraga 6-7 hari/minggu)</string>
+    <string name="super_active">Sangat aktif sekali (olahraga sangat berat/pekerjaan fisik)</string>
+    <string name="neck">Leher</string>
+    <string name="hip">Pinggul</string>
+    <string name="waist">Pinggang</string>
+    <string name="female_only">Khusus perempuan</string>
+    <string name="reward_ad_skipped">Tonton iklan penuh untuk membuka kunci rencana kesehatan detail Anda 🎯</string>
+    <string name="btn_detailed_plan">🎁 Dapatkan Rencana Kesehatan Detail</string>
+</resources>

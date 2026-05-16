@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calculadora de IMC</string>
+    <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Faixa de peso IMC normal para a altura: 18.5 – 24.9</string>
+    <string name="privacy_policy">Política de privacidade</string>
+    <string name="rate_app">Avaliar app</string>
+    <string name="get_more_apps">Mais aplicativos</string>
+    <string name="share_this_app">Compartilhar este app</string>
+    <string name="your_health">Sua saúde</string>
+    <string name="gender">GÊNERO</string>
+    <string name="weight">PESO</string>
+    <string name="kg">(KG)</string>
+    <string name="height">ALTURA</string>
+    <string name="cm">(CM)</string>
+    <string name="age">IDADE</string>
+    <string name="menu">Menu</string>
+    <string name="history">Histórico</string>
+    <string name="calculators">Calculadoras</string>
+    <string name="settings">Configurações</string>
+    <string name="language">Idioma</string>
+    <string name="select_language">Selecionar idioma</string>
+    <string name="bmr_calculator">Calculadora de TMB</string>
+    <string name="tdee_calculator">Calculadora de TDEE</string>
+    <string name="ideal_weight_calculator">Calculadora de Peso Ideal</string>
+    <string name="body_fat_calculator">Calculadora de Gordura Corporal</string>
+    <string name="bmr_description">Calcule as calorias queimadas em repouso</string>
+    <string name="tdee_description">Gasto energético total diário</string>
+    <string name="ideal_weight_description">Encontre sua faixa de peso saudável</string>
+    <string name="body_fat_description">Estime seu percentual de gordura corporal</string>
+    <string name="calculate">Calcular</string>
+    <string name="male">Masculino</string>
+    <string name="female">Feminino</string>
+    <string name="activity_level">Nível de atividade</string>
+    <string name="calculator">Calculadora</string>
+    <string name="please_enter_valid_values">Por favor, insira valores válidos</string>
+    <string name="please_enter_valid_measurements">Por favor, insira medidas válidas</string>
+    <string name="track_your_health">Monitore sua saúde</string>
+    <string name="loading">Carregando</string>
+    <string name="please_note_action">Atenção: Esta ação pode exibir anúncios</string>
+    <string name="your_are_healthy">Você está saudável</string>
+    <string name="health_insights">Informações de saúde</string>
+    <string name="ideal_weight">Peso ideal</string>
+    <string name="water_intake">Consumo de água</string>
+    <string name="cal_per_day">cal/dia</string>
+    <string name="l_per_day">L/dia</string>
+    <string name="sharing_image">Compartilhando imagem</string>
+    <string name="this_app_is_incredibly">Este app é incrivelmente útil para monitorar meu IMC e saúde em geral! Super recomendo.</string>
+    <string name="progress">Progresso</string>
+    <string name="recent_records">Registros recentes</string>
+    <string name="delete_record">Excluir registro</string>
+    <string name="are_you_sure_delete">Tem certeza que deseja excluir este registro?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Excluir</string>
+    <string name="goal_weight_title">🎯 Minha meta</string>
+    <string name="goal_weight_current">Atual: %1$.1f kg</string>
+    <string name="goal_weight_target">Meta: %1$.1f kg</string>
+    <string name="goal_weight_remaining">Faltam %1$.1f kg para atingir sua meta</string>
+    <string name="goal_weight_achieved">🎉 Você atingiu sua meta!</string>
+    <string name="goal_weight_set_hint">Definir peso alvo (kg)</string>
+    <string name="goal_weight_save">Salvar meta</string>
+    <string name="goal_weight_no_goal">Sem meta. Toque para definir uma.</string>
+    <string name="goal_weight_label">Peso alvo</string>
+    <string name="bmi_trend_stable">Estável</string>
+    <string name="bmi_trend_improved">Melhorado</string>
+    <string name="bmi_trend_worsened">Piorado</string>
+    <string name="bmi_category_underweight">Abaixo do peso</string>
+    <string name="bmi_category_healthy">Peso normal</string>
+    <string name="bmi_category_overweight">Sobrepeso</string>
+    <string name="bmi_category_obese">Obesidade</string>
+    <string name="goal_bmi_target_label">IMC alvo</string>
+    <string name="tracker_title">Rastreamento de Peso &amp; Altura</string>
+    <string name="tracker_tab_weight">Peso (kg)</string>
+    <string name="tracker_tab_height">Altura (cm)</string>
+    <string name="tracker_latest">Mais recente</string>
+    <string name="tracker_min">Mín</string>
+    <string name="tracker_max">Máx</string>
+    <string name="tracker_trend">Tendência</string>
+    <string name="tracker_increased">aumentou</string>
+    <string name="tracker_decreased">diminuiu</string>
+    <string name="tracker_summary_30d">Seu %1$s %2$s %3$s %4$s nos últimos 30 dias</string>
+    <string name="streak_title">%d dias seguidos!</string>
+    <string name="streak_best">Recorde: %d</string>
+    <string name="streak_motivation">Continue assim! Registre seu IMC todo dia</string>
+    <string name="streak_start">Comece sua sequência hoje!</string>
+    <string name="achievements_menu">Conquistas</string>
+    <string name="achievements_title">Conquistas (%1$d/%2$d)</string>
+    <string name="badge_first_step">Primeiro Passo</string>
+    <string name="badge_first_step_desc">Registre seu primeiro IMC</string>
+    <string name="badge_week_warrior">Guerreiro Semanal</string>
+    <string name="badge_week_warrior_desc">Mantenha uma sequência de 7 dias</string>
+    <string name="badge_monthly_master">Mestre Mensal</string>
+    <string name="badge_monthly_master_desc">Mantenha uma sequência de 30 dias</string>
+    <string name="badge_goal_crusher">Conquistador de Metas</string>
+    <string name="badge_goal_crusher_desc">Atinja seu peso alvo</string>
+    <string name="badge_healthy_zone">Zona Saudável</string>
+    <string name="badge_healthy_zone_desc">IMC saudável em 7 registros consecutivos</string>
+    <string name="badge_data_lover">Amante de Dados</string>
+    <string name="badge_data_lover_desc">Registre 50 entradas de IMC</string>
+    <string name="badge_unlocked">Conquista desbloqueada!</string>
+    <string name="daily_tip_label">💡 Dica do dia</string>
+    <string name="daily_tip_for">Para</string>
+    <string-array name="tips_underweight">
+        <item>Coma alimentos ricos em calorias como nozes, abacate e grãos integrais</item>
+        <item>Tente fazer 5-6 refeições menores ao dia em vez de 3 grandes</item>
+        <item>Inclua alimentos ricos em proteína como ovos, peixe e leguminosas em cada refeição</item>
+        <item>O treinamento de força ajuda a construir massa muscular saudável</item>
+        <item>Acompanhe sua ingestão calórica diária para garantir que está comendo o suficiente</item>
+        <item>Adicione gorduras saudáveis como azeite, queijo e pastas de castanhas às refeições</item>
+        <item>Beba vitaminas e shakes ricos em calorias como lanches entre as refeições</item>
+        <item>Evite beber água antes das refeições, pois pode reduzir o apetite</item>
+        <item>Escolha lanches nutritivos como mix de nozes, iogurte e frutas secas</item>
+        <item>Durma bem, pois o sono ruim afeta o apetite e o metabolismo</item>
+    </string-array>
+    <string-array name="tips_healthy">
+        <item>Mantenha uma dieta equilibrada com bastante frutas e vegetais</item>
+        <item>Fique ativo com pelo menos 150 minutos de exercício moderado por semana</item>
+        <item>Beba pelo menos 8 copos de água por dia para se manter hidratado</item>
+        <item>Durma entre 7 e 9 horas de qualidade por noite</item>
+        <item>Consultas médicas regulares ajudam a detectar problemas cedo</item>
+        <item>Pratique a alimentação consciente e preste atenção à fome e saciedade</item>
+        <item>Limite alimentos processados e escolha alternativas naturais</item>
+        <item>Gerencie o estresse com meditação, yoga ou exercícios de respiração</item>
+        <item>Inclua variedade de grupos alimentares em cada refeição para nutrição equilibrada</item>
+        <item>Faça pequenas pausas para caminhar se ficar sentado por longos períodos</item>
+        <item>Limite o açúcar adicionado a menos de 25 g por dia</item>
+        <item>Coma mais alimentos ricos em fibras como aveia, feijão e pão integral</item>
+        <item>Cozinhe mais em casa para controlar os ingredientes e as porções</item>
+        <item>Mantenha uma vida social ativa, pois conexões fortes melhoram a saúde</item>
+        <item>Proteja a pele com protetor solar e cuide-se ao sol</item>
+    </string-array>
+    <string-array name="tips_overweight">
+        <item>Reduza as porções gradualmente e use pratos menores como truque visual</item>
+        <item>Inclua mais alimentos ricos em fibras para se sentir saciado por mais tempo</item>
+        <item>Comece com 30 minutos de caminhada diária e aumente gradualmente</item>
+        <item>Substitua bebidas açucaradas por água, chá de ervas ou água infusionada</item>
+        <item>Mantenha um diário alimentar para ter consciência dos seus hábitos</item>
+        <item>Coma devagar e mastigue bem; o corpo leva 20 minutos para sentir saciedade</item>
+        <item>Planeje as refeições com antecedência para evitar escolhas impulsivas</item>
+        <item>Escolha proteínas magras como frango grelhado, peixe e tofu</item>
+        <item>Evite comer tarde da noite e termine o jantar 3 horas antes de dormir</item>
+        <item>Encontre atividades físicas que você goste, como dança, natação ou ciclismo</item>
+        <item>Reduza carboidratos refinados como pão branco, macarrão e doces</item>
+        <item>Encontre um parceiro de exercícios; o apoio social aumenta a motivação</item>
+        <item>Leia os rótulos nutricionais para fazer escolhas alimentares conscientes</item>
+        <item>Use as escadas no lugar do elevador sempre que possível</item>
+        <item>Celebre as pequenas vitórias; cada 0.5 kg perdido é um progresso real</item>
+    </string-array>
+    <string-array name="tips_obese">
+        <item>Consulte um profissional de saúde para orientação personalizada</item>
+        <item>Comece com exercícios leves como caminhada ou hidroginástica</item>
+        <item>Foque em alimentos naturais e evite os ultraprocessados</item>
+        <item>Estabeleça metas realistas: almeje perder 0.5 a 1 kg por semana</item>
+        <item>Considere trabalhar com um nutricionista registrado</item>
+        <item>Acompanhe seu progresso regularmente; pequenas mudanças se acumulam</item>
+        <item>Construa uma rede de apoio com família e amigos</item>
+        <item>Priorize o sono, pois dormir mal aumenta os hormônios da fome</item>
+        <item>Controle as porções: metade do prato de vegetais, um quarto proteína, um quarto carboidrato</item>
+        <item>Foque em criar hábitos saudáveis em vez de dietas milagrosas</item>
+    </string-array>
+    <string name="sedentary">Sedentário (pouco ou nenhum exercício)</string>
+    <string name="lightly_active">Levemente ativo (exercício 1-3 dias/semana)</string>
+    <string name="moderately_active">Moderadamente ativo (exercício 3-5 dias/semana)</string>
+    <string name="very_active">Muito ativo (exercício 6-7 dias/semana)</string>
+    <string name="super_active">Extremamente ativo (exercício intenso/trabalho físico pesado)</string>
+    <string name="neck">Pescoço</string>
+    <string name="hip">Quadril</string>
+    <string name="waist">Cintura</string>
+    <string name="female_only">Apenas para mulheres</string>
+    <string name="reward_ad_skipped">Assista ao anúncio completo para desbloquear seu plano de saúde detalhado 🎯</string>
+    <string name="btn_detailed_plan">🎁 Obter Plano de Saúde Detalhado</string>
+</resources>

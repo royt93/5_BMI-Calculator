@@ -16,7 +16,9 @@ import android.os.Build
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.provider.Telephony
+import android.util.Log
 import android.view.*
+import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 
 fun isDefaultLauncher(application: Application): Boolean {
@@ -64,7 +66,7 @@ fun Activity.searchIconPack() {
             )
         )
     } catch (ex: Exception) {
-        ex.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", ex.message, ex)
         this.moreApp()
     }
 }
@@ -75,7 +77,7 @@ fun Activity.launchClockApp() {
         val i = Intent(AlarmClock.ACTION_SHOW_ALARMS)
         this.startActivity(i)
     } catch (e: Exception) {
-        e.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", e.message, e)
     }
 }
 
@@ -166,7 +168,7 @@ fun Activity.rateApp(
             )
         )
     } catch (e: android.content.ActivityNotFoundException) {
-        e.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", e.message, e)
         this.startActivity(
             Intent(
                 Intent.ACTION_VIEW,
@@ -195,7 +197,7 @@ fun Activity.shareApp(
         intent.putExtra(Intent.EXTRA_TEXT, sAux)
         this.startActivity(Intent.createChooser(intent, this.getString(R.string.share_this_app)))
     } catch (e: Exception) {
-        e.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", e.message, e)
     }
 }
 
@@ -211,7 +213,7 @@ fun Activity.share(
         intent.putExtra(Intent.EXTRA_TEXT, msg)
         this.startActivity(Intent.createChooser(intent, "Share via"))
     } catch (e: Exception) {
-        e.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", e.message, e)
     }
 }
 
@@ -238,7 +240,7 @@ fun Context.getFacebookPageURL(): String {
             "fb://page/$facebookPageId"
         }
     } catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
+        if (BuildConfig.DEBUG) Log.e("Activity", e.message, e)
         facebookUrl
     }
 }

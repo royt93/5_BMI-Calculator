@@ -4,7 +4,12 @@
       "Bash(./gradlew:*)",
       "Bash(find:*)",
       "Bash(adb install:*)",
-      "Bash(adb uninstall:*)"
+      "Bash(adb uninstall:*)",
+      "Bash(~/.claude/bin/tg-chat.sh send *)",
+      "Bash(~/.claude/bin/tg-chat.sh)",
+      "Bash(~/.claude/bin/tg-chat.sh help *)",
+      "Bash(~/.claude/bin/tg-chat.sh use *)",
+      "Bash(~/.claude/bin/tg-chat.sh whoami *)"
     ],
     "deny": [],
     "ask": []
