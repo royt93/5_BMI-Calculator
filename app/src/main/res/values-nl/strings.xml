@@ -68,6 +68,23 @@
     <string name="bmi_category_overweight">Overgewicht</string>
     <string name="bmi_category_obese">Obesitas</string>
     <string name="goal_bmi_target_label">Doel BMI</string>
+
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">Gewicht</string>
+    <string name="dashboard_series_height">Lengte</string>
+    <string name="dashboard_empty_title">Nog geen gegevens</string>
+    <string name="dashboard_empty_subtitle">Bereken je BMI om je voortgang te volgen</string>
+    <string name="dashboard_eta_days">In dit tempo nog ~%1$d dagen tot je doel</string>
+    <string name="dashboard_eta_not_enough_data">Blijf loggen — nog een paar invoeren nodig om je tempo te schatten</string>
+    <string name="dashboard_eta_wrong_direction">Je recente trend beweegt nog niet richting dit doel</string>
+    <string name="quick_log_title">Gewicht loggen</string>
+    <string name="quick_log_weight_hint">Gewicht (kg)</string>
+    <string name="quick_log_save">Loggen</string>
+    <string name="quick_log_fab_description">Snel gewicht loggen</string>
+    <string name="quick_log_invalid_weight">Voer een geldig gewicht in</string>
+    <string name="quick_log_no_baseline">Bereken eerst één keer je BMI zodat we je lengte en leeftijd kennen</string>
+    <string name="quick_log_saved">Gewicht gelogd!</string>
     <string name="tracker_title">Gewicht &amp; Lengte Tracker</string>
     <string name="tracker_tab_weight">Gewicht (kg)</string>
     <string name="tracker_tab_height">Lengte (cm)</string>

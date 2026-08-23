@@ -61,8 +61,9 @@ object BadgeManager {
         tryUnlock(Badge.MONTHLY_MASTER, streakData.best >= 30)
 
         if (goalWeight != null && goalWeight > 0) {
-            // Goal reached if within 1kg of goal (handles both lose and gain goals)
-            val reachedGoal = kotlin.math.abs(currentWeight - goalWeight) <= 1.0
+            // Shared tolerance with CalculatorUtils.calculateGoalProgress — keeps the goal
+            // card/dashboard "achieved" state and this badge from silently drifting apart.
+            val reachedGoal = kotlin.math.abs(currentWeight - goalWeight) <= com.samsunggalaxy.utils.CalculatorUtils.GOAL_ACHIEVED_TOLERANCE_KG
             tryUnlock(Badge.GOAL_CRUSHER, reachedGoal)
         }
 

@@ -71,4 +71,13 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     suspend fun getRecentBmiValues(profileId: Long, limit: Int): List<Double> {
         return bmiDao.getRecentBmiValues(profileId, limit)
     }
+
+    // Goal Weight Feature — baseline for direction-aware progress (see CalculatorUtils.calculateGoalProgress)
+    suspend fun getFirstRecordWeight(profileId: Long): Double? {
+        return bmiDao.getFirstRecordWeight(profileId)
+    }
+
+    suspend fun getMostRecentRecord(profileId: Long): BmiRecord? {
+        return bmiDao.getMostRecentRecord(profileId)
+    }
 }

@@ -99,6 +99,23 @@
     <string name="bmi_category_obese">Adipositas</string>
     <string name="goal_bmi_target_label">BMI-Ziel</string>
 
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">Gewicht</string>
+    <string name="dashboard_series_height">Größe</string>
+    <string name="dashboard_empty_title">Noch keine Daten</string>
+    <string name="dashboard_empty_subtitle">Berechne deinen BMI, um deinen Fortschritt zu verfolgen</string>
+    <string name="dashboard_eta_days">Bei diesem Tempo noch ca. %1$d Tage bis zu deinem Ziel</string>
+    <string name="dashboard_eta_not_enough_data">Weiter eintragen — noch ein paar Einträge nötig, um dein Tempo zu schätzen</string>
+    <string name="dashboard_eta_wrong_direction">Dein aktueller Trend bewegt sich noch nicht auf dieses Ziel zu</string>
+    <string name="quick_log_title">Gewicht eintragen</string>
+    <string name="quick_log_weight_hint">Gewicht (kg)</string>
+    <string name="quick_log_save">Eintragen</string>
+    <string name="quick_log_fab_description">Gewicht schnell eintragen</string>
+    <string name="quick_log_invalid_weight">Gib ein gültiges Gewicht ein</string>
+    <string name="quick_log_no_baseline">Berechne zuerst einmal deinen BMI, damit wir deine Größe und dein Alter kennen</string>
+    <string name="quick_log_saved">Gewicht eingetragen!</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">Gewicht- &amp; Größen-Tracker</string>
     <string name="tracker_tab_weight">Gewicht (kg)</string>

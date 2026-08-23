@@ -13,19 +13,41 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 
 | Epic | Category | Priority | Points | File |
 |---|---|---|---|---|
-| **EPIC-00 Critical correctness bugs (đồng thuận 2-3 AI)** | 🐛 | **P0** | 10 | `todo/EPIC-00-critical-bugs.md` |
+| ✅ EPIC-00 Critical correctness bugs (đồng thuận 2-3 AI) | 🐛 | P0 | 10 | `done/EPIC-00-critical-bugs.md` |
 | EPIC-01 i18n & code hygiene fixes | 🐛 | P1 | 5 | `todo/EPIC-01-i18n-hygiene-fixes.md` |
 | EPIC-02 Security hardening (leftover M/L items) | 🐛 | P1/P2 | 8 | `todo/EPIC-02-security-hardening.md` |
-| EPIC-03 Reward-ad "Detailed Plan" — **CHỐT: gộp vào Weight Dashboard** | 🐛/⚙️ | P1 | 3 | `todo/EPIC-03-reward-ad-detailed-plan.md` |
+| EPIC-03 Reward-ad "Detailed Plan" — hướng đã chốt, chưa implement | 🐛/⚙️ | P1 | 3 | `todo/EPIC-03-reward-ad-detailed-plan.md` |
 | EPIC-04 Settings screen + Unit system (kg⇄lbs) | ⚙️ | P1 | 13 | `todo/EPIC-04-settings-and-units.md` |
-| EPIC-05 Multi-profile UI (gia đình) — **CHỐT: streak/badge theo từng profile** | ⚙️ | P1 | 13 | `todo/EPIC-05-multi-profile-ui.md` |
+| EPIC-05 Multi-profile UI (gia đình) — streak/badge theo từng profile | ⚙️ | P1 | 13 | `todo/EPIC-05-multi-profile-ui.md` |
 | EPIC-06 Calculator Hub integration | ⚙️ | P2 | 8 | `todo/EPIC-06-calculator-hub-integration.md` |
-| **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | **P0** | 16 | `todo/EPIC-07-weight-dashboard.md` |
+| ✅ **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | P0 | 16 | `done/EPIC-07-weight-dashboard.md` |
 | EPIC-08 Engagement features (reminder/export/measurements) | ✨ | P2 | 21 | `todo/EPIC-08-engagement-features.md` |
 | EPIC-09 Platform extensions (widget/Health Connect) | ✨ | P3 | 21 | `todo/EPIC-09-platform-extensions.md` |
 | Ideas độc quyền — **CHỐT: I3+I2+I4 vào roadmap gần nhất** | 💡 | — | — | `IDEAS.md` |
 
-**Tổng**: 10 epic, ~45 task con, ~118 story points.
+**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-07 (26 pts).**
+
+## Đã implement (2026-08-23) — chi tiết
+
+**EPIC-00** (`CalculatorUtils.kt`, `ResultAct.kt`, `MainAct.kt`, `StreakManager.kt`, `TdeeCalculatorActivity.kt`, `BmiDao.kt`/`BmiRepository.kt`): fix goal-weight gain-direction, TDEE hardcoded Sedentary, ngưỡng BMI category lệch nhau, streak stale display, gender "Other" bị tính như Female.
+
+**EPIC-07** (`HistoryActivity.kt` nâng cấp thành Weight Dashboard, `a_history.xml`, `dialog_quick_log.xml` mới): series switcher BMI/Weight/Height, goal row (nguồn sự thật duy nhất, gộp từ `ResultAct`), ETA prediction (`CalculatorUtils.estimateGoalEtaDays` — linear regression), empty state, quick-log FAB. **Chưa làm**: rewarded-ad unlock Advanced Insights (EPIC-03).
+
+**Test**: 25 unit test (`CalculatorUtilsTest.kt`, `StreakManagerLogicTest.kt`) + 10 instrumented test (`BmiDaoTest.kt`, `ResultActGoalCardTest.kt`, `ResultActGenderPersistenceTest.kt`, `HistoryActivityDashboardTest.kt`) — tất cả pass trên `Pixel_10_Pro_XL(AVD)`. Gradle test dependencies (JUnit4, kotlinx-coroutines-test, Espresso 3.7.0, Room-testing) được thêm mới vào `app/build.gradle.kts` — project trước đó **0 test**.
+
+## Audit pass (2026-08-23, sau khi implement) — điểm 9→10/10
+
+Chạy `/code-review high` (4 sub-agent song song) audit lại toàn bộ diff EPIC-00+07. 10 finding, verify từng cái:
+- **4 bug thật, đã fix + có test**: goal overshoot (vượt mục tiêu vẫn báo "99% remaining" thay vì "đã đạt"), ETA gộp nhầm "chưa đủ data" với "xu hướng sai hướng", coroutine ngoài trong `ResultAct` thiếu try/catch (rủi ro crash nếu DataStore lỗi), `BadgeManager` hardcode ngưỡng riêng thay vì dùng chung `CalculatorUtils.GOAL_ACHIEVED_TOLERANCE_KG`.
+- **1 code duplication đã dedup**: tách `RecordSaveHelper.saveAndCheckBadges()` dùng chung giữa `ResultAct.saveToHistory()` và `HistoryActivity.quickLogWeight()` — trước đó lặp code insert+streak+badge+snackbar ở 2 nơi.
+- **1 gap i18n đã đóng**: 14/16 locale còn thiếu 15 string key mới của Dashboard — đã dịch đầy đủ cho `ar de es fr hi id it ja ko nl pt ru th tr zh` (cùng `en`+`vi` đã có từ trước → đủ 17 locale).
+- **2 finding false positive** (đã verify bằng grep, không phải bug): `@string/progress` không "dead" (vẫn dùng làm tiêu đề card trong `a_history.xml`); standalone Calculator không cần genderCode 3 chiều vì UI chỉ có radio M/F, không có "Other".
+- **1 duplication nhẹ giữ nguyên**: goal dialog (`showGoalDialog`) lặp code UI thuần giữa `ResultAct`/`HistoryActivity` — rủi ro thấp, chưa dedup.
+- **1 nợ kỹ thuật có sẵn từ trước** (không phải regression turn này): `ResultAct` tính BMR/TDEE 2 lần độc lập ở `calculateAndDisplayInsights()`/`saveToHistory()` — đã track sẵn ở EPIC-06.
+
+Sau fix: rebuild sạch (`assembleDevDebug`) + rerun toàn bộ 25 unit + 10 instrumented test — 100% xanh. **Đã push lên `origin/dev`.**
+
+**Phát hiện phụ trong lúc test**: instrumented test đầu tiên bị App Open/Interstitial ad che UI khi launch Activity trực tiếp qua `ActivityScenario` (không qua `SplashAct`) — đã xử lý bằng cách tắt network emulator lúc chạy test (`adb shell svc wifi/data disable`, bật lại sau khi xong). Cũng phát hiện và fix lỗi cô lập test: các test trước đó ghi thẳng vào profile thật (`bmi_database` là DB thật, không phải in-memory) gây ô nhiễm dữ liệu giữa các lần chạy — mọi test giờ dùng profile tạm riêng, dọn dẹp ở `@After`.
 
 ## Quyết định user đã chốt (qua AskUserQuestion, 2026-08-23)
 - **Sprint tới**: làm song song nhiều epic (không dồn 1 hướng duy nhất).

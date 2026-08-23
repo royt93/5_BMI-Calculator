@@ -68,6 +68,23 @@
     <string name="bmi_category_overweight">超重</string>
     <string name="bmi_category_obese">肥胖</string>
     <string name="goal_bmi_target_label">目标BMI</string>
+
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">体重</string>
+    <string name="dashboard_series_height">身高</string>
+    <string name="dashboard_empty_title">暂无数据</string>
+    <string name="dashboard_empty_subtitle">计算您的BMI以开始跟踪进度</string>
+    <string name="dashboard_eta_days">按此速度，大约还需%1$d天达成目标</string>
+    <string name="dashboard_eta_not_enough_data">继续记录——还需要几条记录来估算您的进度速度</string>
+    <string name="dashboard_eta_wrong_direction">您最近的趋势还未朝这个目标发展</string>
+    <string name="quick_log_title">记录体重</string>
+    <string name="quick_log_weight_hint">体重（千克）</string>
+    <string name="quick_log_save">记录</string>
+    <string name="quick_log_fab_description">快速记录体重</string>
+    <string name="quick_log_invalid_weight">请输入有效的体重</string>
+    <string name="quick_log_no_baseline">请先计算一次BMI，以便我们知道您的身高和年龄</string>
+    <string name="quick_log_saved">体重已记录！</string>
     <string name="tracker_title">体重 &amp; 身高追踪</string>
     <string name="tracker_tab_weight">体重（千克）</string>
     <string name="tracker_tab_height">身高（厘米）</string>

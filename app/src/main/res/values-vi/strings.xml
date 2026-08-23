@@ -86,6 +86,23 @@
     <string name="bmi_category_obese">Béo phì</string>
     <string name="goal_bmi_target_label">BMI Mục tiêu</string>
 
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">Cân nặng</string>
+    <string name="dashboard_series_height">Chiều cao</string>
+    <string name="dashboard_empty_title">Chưa có dữ liệu</string>
+    <string name="dashboard_empty_subtitle">Tính BMI để bắt đầu theo dõi tiến trình của bạn</string>
+    <string name="dashboard_eta_days">Với tốc độ hiện tại, còn khoảng %1$d ngày để đạt mục tiêu</string>
+    <string name="dashboard_eta_not_enough_data">Hãy ghi thêm vài lần nữa để ước tính tốc độ của bạn</string>
+    <string name="dashboard_eta_wrong_direction">Xu hướng gần đây chưa tiến về mục tiêu này</string>
+    <string name="quick_log_title">Ghi Cân Nặng</string>
+    <string name="quick_log_weight_hint">Cân nặng (kg)</string>
+    <string name="quick_log_save">Ghi lại</string>
+    <string name="quick_log_fab_description">Ghi nhanh cân nặng</string>
+    <string name="quick_log_invalid_weight">Nhập cân nặng hợp lệ</string>
+    <string name="quick_log_no_baseline">Hãy tính BMI ít nhất 1 lần để app biết chiều cao và tuổi của bạn</string>
+    <string name="quick_log_saved">Đã ghi cân nặng!</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">Theo dõi Cân nặng &amp; Chiều cao</string>
     <string name="tracker_tab_weight">Cân nặng (kg)</string>

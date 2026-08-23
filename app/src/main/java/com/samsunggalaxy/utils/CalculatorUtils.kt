@@ -1,5 +1,6 @@
 package com.samsunggalaxy.utils
 
+import com.samsunggalaxy.R
 import kotlin.math.pow
 
 object CalculatorUtils {
@@ -13,16 +14,14 @@ object CalculatorUtils {
         return (weight / ((height / 100).pow(2)))
     }
 
-    /**
-     * Get BMI category
-     */
-    fun getBMICategory(bmi: Double): String {
-        return when {
-            bmi < 18.5 -> "Underweight"
-            bmi < 24.9 -> "Healthy"
-            bmi < 30.0 -> "Overweight"
-            else -> "Obesity"
-        }
+    /** Single source of truth for BMI category boundaries (label/color/tips resources). */
+    data class BmiCategoryInfo(val labelRes: Int, val colorRes: Int, val tipsArrayRes: Int)
+
+    fun getBMICategoryInfo(bmi: Double): BmiCategoryInfo = when {
+        bmi < 18.5 -> BmiCategoryInfo(R.string.bmi_category_underweight, R.color.bmi_underweight, R.array.tips_underweight)
+        bmi < 25.0 -> BmiCategoryInfo(R.string.bmi_category_healthy, R.color.bmi_healthy, R.array.tips_healthy)
+        bmi < 30.0 -> BmiCategoryInfo(R.string.bmi_category_overweight, R.color.bmi_overweight, R.array.tips_overweight)
+        else -> BmiCategoryInfo(R.string.bmi_category_obese, R.color.bmi_obese, R.array.tips_obese)
     }
 
     /**
@@ -33,6 +32,20 @@ object CalculatorUtils {
     fun calculateBMR(weight: Double, height: Double, age: Int, isMale: Boolean): Double {
         val base = 10 * weight + 6.25 * height - 5 * age
         return if (isMale) base + 5 else base - 161
+    }
+
+    /**
+     * BMR for 3-way gender input (0=Male, 1=Female, 2=Other).
+     * "Other" uses the midpoint of the male/female offsets instead of silently
+     * defaulting to the female formula.
+     */
+    fun calculateBMR(weight: Double, height: Double, age: Int, genderCode: Int): Double {
+        val base = 10 * weight + 6.25 * height - 5 * age
+        return when (genderCode) {
+            0 -> base + 5
+            1 -> base - 161
+            else -> base - 78.0 // midpoint of +5 and -161
+        }
     }
 
     /**
@@ -78,6 +91,57 @@ object CalculatorUtils {
         return Pair(min, max)
     }
 
+    /** Ideal weight range for 3-way gender input (0=Male, 1=Female, 2=Other — midpoint base). */
+    fun calculateIdealWeightRange(height: Double, genderCode: Int): Pair<Double, Double> {
+        if (height <= 0) return Pair(0.0, 0.0)
+
+        val heightInInches = height / 2.54
+        val base = when (genderCode) {
+            0 -> 50.0
+            1 -> 45.5
+            else -> 47.75 // midpoint of 50.0 and 45.5
+        }
+        val ideal = if (heightInInches > 60) base + 2.3 * (heightInInches - 60) else base
+        val min = maxOf(ideal - 5, 30.0)
+        val max = ideal + 5
+        return Pair(min, max)
+    }
+
+    /** Tolerance (kg) within which current weight counts as having reached the goal. */
+    const val GOAL_ACHIEVED_TOLERANCE_KG = 1.0
+
+    /** Result of comparing progress toward a goal weight, direction-aware (loss OR gain). */
+    data class GoalProgress(
+        val percent: Int,
+        val achieved: Boolean,
+        val remainingKg: Double,
+        val isGainGoal: Boolean
+    )
+
+    /**
+     * Direction-aware goal progress. `startWeight` is the baseline (e.g. earliest tracked
+     * weight) used to compute % progress; `currentWeight`/`goalWeight` determine direction
+     * and remaining distance. Handles both weight-loss goals (goalWeight < startWeight) and
+     * weight-gain goals (goalWeight > startWeight) — a fixed "diff <= 0 => achieved" check
+     * incorrectly reports gain goals as 100% achieved on day one. Also handles overshoot
+     * (past the goal, beyond tolerance) as achieved rather than "99% — Xkg remaining".
+     */
+    fun calculateGoalProgress(startWeight: Double, currentWeight: Double, goalWeight: Double): GoalProgress {
+        val isGainGoal = goalWeight >= startWeight
+        val withinTolerance = kotlin.math.abs(currentWeight - goalWeight) <= GOAL_ACHIEVED_TOLERANCE_KG
+        val overshot = if (isGainGoal) currentWeight > goalWeight else currentWeight < goalWeight
+        val achieved = withinTolerance || overshot
+        val totalDistance = kotlin.math.abs(goalWeight - startWeight)
+        val progressed = if (isGainGoal) currentWeight - startWeight else startWeight - currentWeight
+        val percent = when {
+            achieved -> 100
+            totalDistance <= 0.0 -> 0
+            else -> ((progressed / totalDistance) * 100).toInt().coerceIn(0, 99)
+        }
+        val remainingKg = kotlin.math.abs(currentWeight - goalWeight)
+        return GoalProgress(percent, achieved, remainingKg, isGainGoal)
+    }
+
     /**
      * Calculate body fat percentage using Navy formula
      * Men: 495 / (1.0324 - 0.19077 × log10(waist - neck) + 0.15456 × log10(height)) - 450
@@ -118,6 +182,45 @@ object CalculatorUtils {
      */
     fun calculateWaterIntake(weight: Double): Double {
         return weight * 0.033
+    }
+
+    /** ETA estimate toward a goal weight, from a simple linear-regression trend. */
+    data class GoalEta(val etaDays: Int?, val hasEnoughData: Boolean)
+
+    /**
+     * Estimate days-to-goal via least-squares linear regression over `records`
+     * (timestamp millis, weight kg — any order; sorted internally by timestamp).
+     * Requires >=3 points spread over >=2 days, and a trend actually moving toward
+     * the goal — otherwise returns etaDays=null so the UI can show a neutral state
+     * instead of a misleading number from too little/contradictory data.
+     */
+    fun estimateGoalEtaDays(records: List<Pair<Long, Double>>, goalWeight: Double): GoalEta {
+        val sorted = records.sortedBy { it.first }
+        if (sorted.size < 3) return GoalEta(null, false)
+
+        val spanMillis = sorted.last().first - sorted.first().first
+        val minSpanMillis = 2L * 24 * 60 * 60 * 1000
+        if (spanMillis < minSpanMillis) return GoalEta(null, false)
+
+        val firstTimestamp = sorted.first().first
+        val daysSinceFirst = sorted.map { (it.first - firstTimestamp) / 86_400_000.0 }
+        val weights = sorted.map { it.second }
+        val n = sorted.size
+        val sumX = daysSinceFirst.sum()
+        val sumY = weights.sum()
+        val sumXY = daysSinceFirst.zip(weights).sumOf { it.first * it.second }
+        val sumXX = daysSinceFirst.sumOf { it * it }
+        val denom = n * sumXX - sumX * sumX
+        if (denom == 0.0) return GoalEta(null, true)
+        val slopePerDay = (n * sumXY - sumX * sumY) / denom
+
+        if (kotlin.math.abs(slopePerDay) < 0.001) return GoalEta(null, true) // flat trend
+
+        val diff = goalWeight - weights.last()
+        val daysToGoal = diff / slopePerDay
+        if (daysToGoal <= 0) return GoalEta(null, true) // trend moving away from goal (or already there)
+
+        return GoalEta(daysToGoal.toInt().coerceAtMost(3650), true)
     }
 
     /**

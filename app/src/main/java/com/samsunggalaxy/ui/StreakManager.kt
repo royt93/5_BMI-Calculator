@@ -50,5 +50,24 @@ object StreakManager {
         return prefs.getString(KEY_LAST, null) == LocalDate.now().toString()
     }
 
+    /**
+     * `getStreakData()` returns the raw persisted value, which stays stale (shows the old
+     * streak count) until the user calculates BMI again and `recordCheck()` runs. Use this
+     * for UI display instead — it detects an already-broken streak (missed >1 day) even
+     * before the user takes any new action.
+     */
+    fun getDisplayStreak(context: Context): StreakData {
+        val raw = getStreakData(context)
+        val displayCurrent = computeDisplayCurrent(raw.current, raw.lastDate)
+        return if (displayCurrent == raw.current) raw else raw.copy(current = displayCurrent)
+    }
+
+    /** Pure logic (no Context) so it's directly unit-testable. */
+    fun computeDisplayCurrent(current: Int, lastDate: String?, today: LocalDate = LocalDate.now()): Int {
+        if (lastDate == null) return current
+        val yesterday = today.minusDays(1).toString()
+        return if (lastDate == today.toString() || lastDate == yesterday) current else 0
+    }
+
     data class StreakData(val current: Int, val best: Int, val lastDate: String?)
 }

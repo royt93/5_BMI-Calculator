@@ -99,6 +99,23 @@
     <string name="bmi_category_obese">비만</string>
     <string name="goal_bmi_target_label">BMI 목표</string>
 
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">체중</string>
+    <string name="dashboard_series_height">키</string>
+    <string name="dashboard_empty_title">아직 데이터가 없습니다</string>
+    <string name="dashboard_empty_subtitle">BMI를 계산하여 진행 상황 추적을 시작하세요</string>
+    <string name="dashboard_eta_days">이 속도라면 목표까지 약 %1$d일 남았습니다</string>
+    <string name="dashboard_eta_not_enough_data">계속 기록하세요 — 속도를 추정하려면 몇 개의 기록이 더 필요합니다</string>
+    <string name="dashboard_eta_wrong_direction">최근 추세가 아직 이 목표 방향으로 움직이지 않고 있습니다</string>
+    <string name="quick_log_title">체중 기록</string>
+    <string name="quick_log_weight_hint">체중 (kg)</string>
+    <string name="quick_log_save">기록</string>
+    <string name="quick_log_fab_description">체중 빠른 기록</string>
+    <string name="quick_log_invalid_weight">유효한 체중을 입력하세요</string>
+    <string name="quick_log_no_baseline">먼저 BMI를 한 번 계산하여 키와 나이를 알려주세요</string>
+    <string name="quick_log_saved">체중이 기록되었습니다!</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">체중 &amp; 키 추적기</string>
     <string name="tracker_tab_weight">체중 (kg)</string>

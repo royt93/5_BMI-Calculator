@@ -68,6 +68,23 @@
     <string name="bmi_category_overweight">Sobrepeso</string>
     <string name="bmi_category_obese">Obesidade</string>
     <string name="goal_bmi_target_label">IMC alvo</string>
+
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">IMC</string>
+    <string name="dashboard_series_weight">Peso</string>
+    <string name="dashboard_series_height">Altura</string>
+    <string name="dashboard_empty_title">Ainda sem dados</string>
+    <string name="dashboard_empty_subtitle">Calcule seu IMC para começar a acompanhar seu progresso</string>
+    <string name="dashboard_eta_days">Nesse ritmo, ainda ~%1$d dias para atingir sua meta</string>
+    <string name="dashboard_eta_not_enough_data">Continue registrando — precisamos de mais alguns registros para estimar seu ritmo</string>
+    <string name="dashboard_eta_wrong_direction">Sua tendência recente ainda não está indo em direção a essa meta</string>
+    <string name="quick_log_title">Registrar peso</string>
+    <string name="quick_log_weight_hint">Peso (kg)</string>
+    <string name="quick_log_save">Registrar</string>
+    <string name="quick_log_fab_description">Registro rápido de peso</string>
+    <string name="quick_log_invalid_weight">Insira um peso válido</string>
+    <string name="quick_log_no_baseline">Calcule seu IMC uma vez primeiro para sabermos sua altura e idade</string>
+    <string name="quick_log_saved">Peso registrado!</string>
     <string name="tracker_title">Rastreamento de Peso &amp; Altura</string>
     <string name="tracker_tab_weight">Peso (kg)</string>
     <string name="tracker_tab_height">Altura (cm)</string>

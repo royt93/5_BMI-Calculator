@@ -156,6 +156,19 @@ dependencies {
 
     implementation("com.google.android.play:review:2.0.2")
     implementation("com.google.android.play:review-ktx:2.0.2")
+
+    // --- Unit tests (src/test — JVM, ./gradlew testDevDebugUnitTest) ---
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // --- Instrumented/widget/integration tests (src/androidTest — needs device, ./gradlew connectedDevDebugAndroidTest) ---
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+    androidTestImplementation("androidx.room:room-testing:$roomVersion")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 }
 java {
     toolchain {

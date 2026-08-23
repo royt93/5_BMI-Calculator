@@ -1,5 +1,7 @@
 # EPIC-07 — Weight Dashboard hợp nhất ✨ FLAGSHIP (P0, 13 pts)
 
+> **Status (2026-08-23): T07.1–T07.5 ĐÃ XONG + có test.** `HistoryActivity` giờ là dashboard hợp nhất (series switcher BMI/Weight/Height, goal row + ETA, empty state, quick-log FAB). Goal-line bug (dùng chiều cao bản ghi đầu tiên) đã fix — chuyển sang dùng chiều cao bản ghi **mới nhất**, và series Weight vẽ thẳng `goalWeight` không cần convert. Phần rewarded-ad "Advanced Insights" (gộp từ EPIC-03) **CHƯA làm** — xem `EPIC-03-reward-ad-detailed-plan.md` để biết lý do hoãn. Test: 6 unit test ETA regression (`CalculatorUtilsTest.kt`) + 3 instrumented test (`HistoryActivityDashboardTest.kt`) — tất cả pass trên `Pixel_10_Pro_XL(AVD)`.
+
 > User xác nhận đây là tính năng thích nhất. Ưu tiên cao nhất toàn backlog.
 
 ## Vấn đề cốt lõi (3 màn hình rời rạc cho cùng 1 nhu cầu)

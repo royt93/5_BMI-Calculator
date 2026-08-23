@@ -3,11 +3,14 @@ package com.samsunggalaxy.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.utils.PreferencesManager
+import kotlinx.coroutines.launch
 
 class TdeeCalculatorActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +57,10 @@ class TdeeCalculatorActivity : BaseActivity() {
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
                 val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
                 tvResult.text = getString(R.string.tdee_description) + ": ${String.format("%.0f", tdee)} ${getString(R.string.cal_per_day)}"
+                // Persist so ResultAct's saved/displayed TDEE stops defaulting to Sedentary — EPIC-00 T00.2.
+                if (activityLevel in 0..4) {
+                    lifecycleScope.launch { PreferencesManager(this@TdeeCalculatorActivity).setActivityLevel(activityLevel) }
+                }
             } else {
                 tvResult.text = getString(R.string.please_enter_valid_values)
             }

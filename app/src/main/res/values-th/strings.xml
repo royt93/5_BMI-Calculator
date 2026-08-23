@@ -99,6 +99,23 @@
     <string name="bmi_category_obese">อ้วน</string>
     <string name="goal_bmi_target_label">เป้าหมาย BMI</string>
 
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">BMI</string>
+    <string name="dashboard_series_weight">น้ำหนัก</string>
+    <string name="dashboard_series_height">ส่วนสูง</string>
+    <string name="dashboard_empty_title">ยังไม่มีข้อมูล</string>
+    <string name="dashboard_empty_subtitle">คำนวณ BMI ของคุณเพื่อเริ่มติดตามความคืบหน้า</string>
+    <string name="dashboard_eta_days">ด้วยอัตรานี้ อีกประมาณ %1$d วันจะถึงเป้าหมาย</string>
+    <string name="dashboard_eta_not_enough_data">บันทึกต่อไปเรื่อยๆ — ต้องการข้อมูลเพิ่มอีกเล็กน้อยเพื่อประเมินความเร็วของคุณ</string>
+    <string name="dashboard_eta_wrong_direction">แนวโน้มล่าสุดของคุณยังไม่มุ่งไปสู่เป้าหมายนี้</string>
+    <string name="quick_log_title">บันทึกน้ำหนัก</string>
+    <string name="quick_log_weight_hint">น้ำหนัก (kg)</string>
+    <string name="quick_log_save">บันทึก</string>
+    <string name="quick_log_fab_description">บันทึกน้ำหนักด่วน</string>
+    <string name="quick_log_invalid_weight">กรอกน้ำหนักที่ถูกต้อง</string>
+    <string name="quick_log_no_baseline">คำนวณ BMI ของคุณก่อนหนึ่งครั้งเพื่อให้เรารู้ส่วนสูงและอายุของคุณ</string>
+    <string name="quick_log_saved">บันทึกน้ำหนักแล้ว!</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">ติดตามน้ำหนัก &amp; ส่วนสูง</string>
     <string name="tracker_tab_weight">น้ำหนัก (kg)</string>

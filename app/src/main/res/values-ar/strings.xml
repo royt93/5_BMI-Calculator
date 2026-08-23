@@ -68,6 +68,23 @@
     <string name="bmi_category_overweight">زيادة الوزن</string>
     <string name="bmi_category_obese">السمنة</string>
     <string name="goal_bmi_target_label">مؤشر كتلة الجسم المستهدف</string>
+
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">مؤشر كتلة الجسم</string>
+    <string name="dashboard_series_weight">الوزن</string>
+    <string name="dashboard_series_height">الطول</string>
+    <string name="dashboard_empty_title">لا توجد بيانات بعد</string>
+    <string name="dashboard_empty_subtitle">احسب مؤشر كتلة جسمك لبدء تتبع تقدمك</string>
+    <string name="dashboard_eta_days">بهذا المعدل، تحتاج تقريبًا %1$d يومًا للوصول إلى هدفك</string>
+    <string name="dashboard_eta_not_enough_data">واصل التسجيل — نحتاج بضع إدخالات إضافية لتقدير وتيرتك</string>
+    <string name="dashboard_eta_wrong_direction">اتجاهك الأخير لا يتحرك نحو هذا الهدف بعد</string>
+    <string name="quick_log_title">تسجيل الوزن</string>
+    <string name="quick_log_weight_hint">الوزن (كجم)</string>
+    <string name="quick_log_save">تسجيل</string>
+    <string name="quick_log_fab_description">تسجيل سريع للوزن</string>
+    <string name="quick_log_invalid_weight">أدخل وزنًا صالحًا</string>
+    <string name="quick_log_no_baseline">احسب مؤشر كتلة جسمك مرة واحدة أولاً حتى نعرف طولك وعمرك</string>
+    <string name="quick_log_saved">تم تسجيل الوزن!</string>
     <string name="tracker_title">متابعة الوزن &amp; الطول</string>
     <string name="tracker_tab_weight">الوزن (كجم)</string>
     <string name="tracker_tab_height">الطول (سم)</string>

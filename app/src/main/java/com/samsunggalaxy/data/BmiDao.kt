@@ -28,4 +28,10 @@ interface BmiDao {
 
     @Query("SELECT bmi FROM bmi_records WHERE profileId = :profileId ORDER BY timestamp DESC LIMIT :limit")
     suspend fun getRecentBmiValues(profileId: Long, limit: Int): List<Double>
+
+    @Query("SELECT weight FROM bmi_records WHERE profileId = :profileId ORDER BY timestamp ASC LIMIT 1")
+    suspend fun getFirstRecordWeight(profileId: Long): Double?
+
+    @Query("SELECT * FROM bmi_records WHERE profileId = :profileId ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getMostRecentRecord(profileId: Long): BmiRecord?
 }

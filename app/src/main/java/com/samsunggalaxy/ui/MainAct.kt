@@ -82,10 +82,12 @@ class MainAct : BaseActivity() {
         intent.putExtra("Height", height.toDouble())
         intent.putExtra("Weight", weight.toDouble())
         intent.putExtra("Age", age)
-        if (gender == 'M') {
-            intent.putExtra("Gender", 0)
-        } else {
-            intent.putExtra("Gender", 1)
+        // Gender code: 0=Male, 1=Female, 2=Other. "Other" used to silently fall into the
+        // `else` branch and get treated as Female for BMR/ideal-weight — see EPIC-00 T00.5.
+        when (gender) {
+            'M' -> intent.putExtra("Gender", 0)
+            'O' -> intent.putExtra("Gender", 2)
+            else -> intent.putExtra("Gender", 1)
         }
         // BUG-11: use resultLauncher instead of deprecated startActivityForResult
         resultLauncher.launch(intent)
@@ -254,7 +256,7 @@ class MainAct : BaseActivity() {
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
             if (tvTitle == null || tvBest == null || tvMotivation == null) return
 
-            val data = StreakManager.getStreakData(this)
+            val data = StreakManager.getDisplayStreak(this)
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
 
             if (data.current > 0) {

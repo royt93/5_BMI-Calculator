@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -64,9 +65,64 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Goal row (EPIC-07 T07.2: goal card merged in from ResultAct, single source of truth) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardGoalRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card_small"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvGoalSummary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            tools:text="Goal: 65.0 kg" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivEditGoalDashboard"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_edit"
+                            app:tint="@color/textColorAdditional" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvGoalEta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/textColorAdditional"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        tools:text="At this rate, ~14 days to reach your goal"
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="340dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="24dp"
@@ -87,11 +143,57 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/lineChart"
+                    <!-- Series switcher (EPIC-07 T07.1: BMI / Weight / Height in one dashboard) -->
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayoutSeries"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:tabBackground="@android:color/transparent"
+                        app:tabIndicatorColor="@color/bmi_healthy"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="@color/textColor"
+                        app:tabTextColor="@color/textColorAdditional" />
+
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="8dp" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp" />
+
+                        <!-- Empty state (EPIC-07 T07.4) -->
+                        <LinearLayout
+                            android:id="@+id/emptyStateContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvEmptyTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dashboard_empty_title"
+                                android:textColor="@color/textColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center"
+                                android:text="@string/dashboard_empty_subtitle"
+                                android:textColor="@color/textColorAdditional"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -108,9 +210,24 @@
                 android:id="@+id/recyclerViewHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="72dp"
                 android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Quick-log FAB (EPIC-07 T07.5) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabQuickLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/quick_log_fab_description"
+        android:src="@drawable/ic_add_24"
+        app:backgroundTint="@color/bmi_healthy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

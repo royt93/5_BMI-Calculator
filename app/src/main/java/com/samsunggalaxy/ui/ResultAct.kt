@@ -38,6 +38,8 @@ import com.samsunggalaxy.data.BmiRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.first
+import com.samsunggalaxy.utils.PreferencesManager
 import android.widget.EditText
 import kotlin.jvm.java
 
@@ -132,11 +134,24 @@ class ResultAct : BaseActivity() {
         age = intent.getIntExtra("Age", 25)
 
         bmiCal()
-        calculateAndDisplayInsights()
-        saveToHistory()
         animationView()
         loadGoalCard()
         setupHealthTips()
+
+        // Fetch real activity level before computing/saving TDEE — a hardcoded Sedentary(0)
+        // used to be baked into both the display AND the persisted BmiRecord (EPIC-00 T00.2).
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val activityLevel = PreferencesManager(this@ResultAct).activityLevel.first()
+                withContext(Dispatchers.Main) { calculateAndDisplayInsights(activityLevel) }
+                saveToHistory(activityLevel)
+            } catch (e: Exception) {
+                // Matches the defensive try/catch saveToHistory() itself used to wrap the
+                // whole fetch+compute+save flow in before activityLevel was pulled out —
+                // a DataStore IOException here must not crash ResultAct.
+                Log.e("roy93~", "insights/save flow error", e)
+            }
+        }
 
         _binding.cvReload.setOnClickListener {
             backPreviousPage(false)
@@ -161,22 +176,16 @@ class ResultAct : BaseActivity() {
             val vpTips = _binding.root.findViewById<androidx.viewpager2.widget.ViewPager2>(R.id.vpHealthTips) ?: return
             val dotsContainer = _binding.root.findViewById<android.widget.LinearLayout>(R.id.dotsIndicator) ?: return
 
-            val (tipsArrayRes, catNameRes, catColorRes) = when {
-                result < 18.5 -> Triple(R.array.tips_underweight, R.string.bmi_category_underweight, R.color.bmi_underweight)
-                result < 25.0 -> Triple(R.array.tips_healthy, R.string.bmi_category_healthy, R.color.bmi_healthy)
-                result < 30.0 -> Triple(R.array.tips_overweight, R.string.bmi_category_overweight, R.color.bmi_overweight)
-                else -> Triple(R.array.tips_obese, R.string.bmi_category_obese, R.color.bmi_obese)
-            }
-
-            val allTips = resources.getStringArray(tipsArrayRes)
+            val categoryInfo = CalculatorUtils.getBMICategoryInfo(result)
+            val allTips = resources.getStringArray(categoryInfo.tipsArrayRes)
             if (allTips.isEmpty()) return
 
             val dayOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
             val startIdx = dayOfYear % allTips.size
             val selectedTips = (0 until 3).map { i -> allTips[(startIdx + i) % allTips.size] }
 
-            val categoryLabel = "${getString(R.string.daily_tip_for)}: ${getString(catNameRes)}"
-            val adapter = HealthTipAdapter(selectedTips, categoryLabel, catColorRes)
+            val categoryLabel = "${getString(R.string.daily_tip_for)}: ${getString(categoryInfo.labelRes)}"
+            val adapter = HealthTipAdapter(selectedTips, categoryLabel, categoryInfo.colorRes)
             vpTips.adapter = adapter
 
             dotsContainer.removeAllViews()
@@ -222,13 +231,16 @@ class ResultAct : BaseActivity() {
             val profile = repository.getCurrentProfile()
             val goalWeight = profile?.goalWeight
             val profileId = profile?.id ?: 1L
+            // Baseline for direction-aware progress — earliest tracked weight for this
+            // profile, falling back to the current weight if this is the first record.
+            val startWeight = repository.getFirstRecordWeight(profileId) ?: weight
             withContext(Dispatchers.Main) {
-                setupGoalCard(goalWeight, profileId)
+                setupGoalCard(goalWeight, profileId, startWeight)
             }
         }
     }
 
-    private fun setupGoalCard(goalWeight: Double?, profileId: Long) {
+    private fun setupGoalCard(goalWeight: Double?, profileId: Long, startWeight: Double) {
         val goalCardView = _binding.root.findViewById<View>(R.id.goalCard) ?: return
         val tvCurrent = goalCardView.findViewById<TextView>(R.id.tvGoalCurrent)
         val tvTarget = goalCardView.findViewById<TextView>(R.id.tvGoalTarget)
@@ -240,10 +252,10 @@ class ResultAct : BaseActivity() {
         goalCardView.alpha = 0f
         goalCardView.animate().alpha(1f).setDuration(400).start()
 
-        updateGoalUI(goalWeight, tvCurrent, tvTarget, progressBar, tvRemaining)
+        updateGoalUI(goalWeight, startWeight, tvCurrent, tvTarget, progressBar, tvRemaining)
 
         val editClickListener = View.OnClickListener {
-            showGoalDialog(profileId, tvCurrent, tvTarget, progressBar, tvRemaining)
+            showGoalDialog(profileId, startWeight, tvCurrent, tvTarget, progressBar, tvRemaining)
         }
         ivEdit.setOnClickListener(editClickListener)
         if (goalWeight == null) goalCardView.setOnClickListener(editClickListener)
@@ -251,6 +263,7 @@ class ResultAct : BaseActivity() {
 
     private fun updateGoalUI(
         goalWeight: Double?,
+        startWeight: Double,
         tvCurrent: TextView,
         tvTarget: TextView,
         progressBar: ProgressBar,
@@ -266,21 +279,22 @@ class ResultAct : BaseActivity() {
         tvTarget.text = getString(R.string.goal_weight_target, goalWeight)
         progressBar.isVisible = true
         tvRemaining.isVisible = true
-        val diff = weight - goalWeight
-        if (diff <= 0) {
-            progressBar.progress = 100
+        // Direction-aware: handles both loss goals (goalWeight < startWeight) and gain
+        // goals (goalWeight > startWeight) — see EPIC-00 T00.1 / CalculatorUtils.calculateGoalProgress.
+        val progress = CalculatorUtils.calculateGoalProgress(startWeight, weight, goalWeight)
+        progressBar.progress = progress.percent
+        if (progress.achieved) {
             tvRemaining.text = getString(R.string.goal_weight_achieved)
             tvRemaining.setTextColor(ContextCompat.getColor(this, R.color.bmi_healthy))
         } else {
-            val progress = ((goalWeight / weight) * 100).toInt().coerceIn(0, 99)
-            progressBar.progress = progress
-            tvRemaining.text = getString(R.string.goal_weight_remaining, diff)
+            tvRemaining.text = getString(R.string.goal_weight_remaining, progress.remainingKg)
             tvRemaining.setTextColor(ContextCompat.getColor(this, R.color.textColorAdditional))
         }
     }
 
     private fun showGoalDialog(
         profileId: Long,
+        startWeight: Double,
         tvCurrent: TextView,
         tvTarget: TextView,
         progressBar: ProgressBar,
@@ -296,14 +310,9 @@ class ResultAct : BaseActivity() {
             getString(R.string.goal_weight_current, weight)
 
         val tvCategory = dialogView.findViewById<TextView>(R.id.tvDialogBmiCategory)
-        val (catColorRes, catStringRes) = when {
-            currentBmi < 18.5 -> Pair(R.color.bmi_underweight, R.string.bmi_category_underweight)
-            currentBmi < 25.0 -> Pair(R.color.bmi_healthy, R.string.bmi_category_healthy)
-            currentBmi < 30.0 -> Pair(R.color.bmi_overweight, R.string.bmi_category_overweight)
-            else -> Pair(R.color.bmi_obese, R.string.bmi_category_obese)
-        }
-        tvCategory.text = getString(catStringRes)
-        tvCategory.setTextColor(ContextCompat.getColor(this, catColorRes))
+        val categoryInfo = CalculatorUtils.getBMICategoryInfo(currentBmi)
+        tvCategory.text = getString(categoryInfo.labelRes)
+        tvCategory.setTextColor(ContextCompat.getColor(this, categoryInfo.colorRes))
 
         val etGoal = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etGoalWeight)
         val tvPreview = dialogView.findViewById<TextView>(R.id.tvDialogGoalBmiPreview)
@@ -318,13 +327,8 @@ class ResultAct : BaseActivity() {
                     val goalBmi = goalW / (heightM * heightM)
                     tvPreview.visibility = View.VISIBLE
                     tvPreview.text = "${getString(R.string.goal_bmi_target_label)}: ${String.format("%.1f", goalBmi)}"
-                    val previewColor = when {
-                        goalBmi < 18.5 -> R.color.bmi_underweight
-                        goalBmi < 25.0 -> R.color.bmi_healthy
-                        goalBmi < 30.0 -> R.color.bmi_overweight
-                        else -> R.color.bmi_obese
-                    }
-                    tvPreview.setTextColor(ContextCompat.getColor(this@ResultAct, previewColor))
+                    val previewInfo = CalculatorUtils.getBMICategoryInfo(goalBmi)
+                    tvPreview.setTextColor(ContextCompat.getColor(this@ResultAct, previewInfo.colorRes))
                 } else {
                     tvPreview.visibility = View.GONE
                 }
@@ -339,7 +343,7 @@ class ResultAct : BaseActivity() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     repository.updateGoalWeight(profileId, input)
                     withContext(Dispatchers.Main) {
-                        updateGoalUI(input, tvCurrent, tvTarget, progressBar, tvRemaining)
+                        updateGoalUI(input, startWeight, tvCurrent, tvTarget, progressBar, tvRemaining)
                     }
                 }
             }
@@ -485,28 +489,21 @@ class ResultAct : BaseActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n", "DefaultLocale")
+    @SuppressLint("DefaultLocale")
     private fun showResult() {
         val solution = String.format("%.1f", result)
         _binding.tvResult.text = solution
-        _binding.tvBmi.apply {
-            if (result < 18.5) {
-                this.text = "You are Under Weight"
-            } else if (result >= 18.5 && result < 24.9) {
-                this.text = "You are Healthy"
-            } else if (result >= 24.9 && result < 30) {
-                this.text = "You are Overweight"
-            } else if (result >= 30) {
-                this.text = "You are Suffering from Obesity"
-            }
-        }
+        // Unified with setupHealthTips()/showGoalDialog() via CalculatorUtils.getBMICategoryInfo —
+        // previously this used its own 18.5/24.9/30 thresholds (vs 25.0 elsewhere) AND hardcoded
+        // English literals instead of getString(), so the same BMI could show "Overweight" here
+        // while every other card on the same screen said "Healthy". See EPIC-00 T00.3.
+        _binding.tvBmi.text = getString(CalculatorUtils.getBMICategoryInfo(result).labelRes)
     }
 
-    private fun calculateAndDisplayInsights() {
-        val isMale = gender == 0
-        val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
-        val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
-        val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
+    private fun calculateAndDisplayInsights(activityLevel: Int) {
+        val bmr = CalculatorUtils.calculateBMR(weight, height, age, gender)
+        val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
+        val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, gender)
         val water = CalculatorUtils.calculateWaterIntake(weight)
 
         _binding.root.findViewById<TextView>(R.id.tvBmrValue)?.text =
@@ -519,69 +516,56 @@ class ResultAct : BaseActivity() {
             "${String.format("%.1f", water)} ${getString(R.string.l_per_day)}"
     }
 
-    private fun saveToHistory() {
-        lifecycleScope.launch(Dispatchers.IO) {
+    /** Must be called from an IO-dispatcher coroutine — see the launch in setupViews(). */
+    private suspend fun saveToHistory(activityLevel: Int) {
+        try {
+            val bmr = CalculatorUtils.calculateBMR(weight, height, age, gender)
+            val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
+            val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, gender)
+
+            val currentProfile = repository.getCurrentProfile()
+            val profileId = currentProfile?.id ?: 1L
+            if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result, activityLevel=$activityLevel")
+
+            val record = BmiRecord(
+                timestamp = System.currentTimeMillis(),
+                height = height,
+                weight = weight,
+                gender = gender,
+                age = age,
+                bmi = result,
+                bmr = bmr,
+                tdee = tdee,
+                idealWeightMin = idealWeight.first,
+                idealWeightMax = idealWeight.second,
+                bodyFatPercentage = null,
+                profileId = profileId
+            )
+
             try {
-                val isMale = gender == 0
-                val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
-                val tdee = CalculatorUtils.calculateTDEE(bmr, 0)
-                val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, isMale)
-
-                val currentProfile = repository.getCurrentProfile()
-                val profileId = currentProfile?.id ?: 1L
-                if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result")
-
-                val record = BmiRecord(
-                    timestamp = System.currentTimeMillis(),
-                    height = height,
-                    weight = weight,
-                    gender = gender,
-                    age = age,
-                    bmi = result,
-                    bmr = bmr,
-                    tdee = tdee,
-                    idealWeightMin = idealWeight.first,
-                    idealWeightMax = idealWeight.second,
-                    bodyFatPercentage = null,
-                    profileId = profileId
+                val newlyEarned = RecordSaveHelper.saveAndCheckBadges(
+                    context = this@ResultAct,
+                    repository = repository,
+                    record = record,
+                    goalWeight = currentProfile?.goalWeight
                 )
 
-                val insertedId = repository.insertRecord(record)
-                if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: inserted record id=$insertedId")
-
-                StreakManager.recordCheck(this@ResultAct)
-
-                try {
-                    val recordCount = repository.getRecordCount(profileId)
-                    val recentBmiValues = repository.getRecentBmiValues(profileId, 7)
-                    val goalWeight = currentProfile?.goalWeight
-
-                    val newlyEarned = BadgeManager.checkAll(
-                        context = this@ResultAct,
-                        recordCount = recordCount,
-                        currentBmi = result,
-                        currentWeight = weight,
-                        goalWeight = goalWeight,
-                        recentBmiList = recentBmiValues
-                    )
-
-                    if (newlyEarned.isNotEmpty()) {
-                        val badge = newlyEarned.first()
-                        withContext(Dispatchers.Main) {
-                            if (!isFinishing && !isDestroyed) {
-                                com.google.android.material.snackbar.Snackbar
-                                    .make(_binding.root, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
-                                    .setBackgroundTint(ContextCompat.getColor(this@ResultAct, R.color.bmi_healthy))
-                                    .show()
-                            }
+                if (newlyEarned.isNotEmpty()) {
+                    val badge = newlyEarned.first()
+                    withContext(Dispatchers.Main) {
+                        if (!isFinishing && !isDestroyed) {
+                            com.google.android.material.snackbar.Snackbar
+                                .make(_binding.root, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                                .setBackgroundTint(ContextCompat.getColor(this@ResultAct, R.color.bmi_healthy))
+                                .show()
                         }
                     }
-                } catch (e: Exception) {
-                    Log.e("roy93~", "Badge check error", e)
                 }
             } catch (e: Exception) {
-                Log.e("roy93~", "saveToHistory error", e)
+                Log.e("roy93~", "saveAndCheckBadges error", e)
             }
+        } catch (e: Exception) {
+            Log.e("roy93~", "saveToHistory error", e)
         }
     }
 

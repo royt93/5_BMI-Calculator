@@ -68,6 +68,23 @@
     <string name="bmi_category_overweight">अधिक वजन</string>
     <string name="bmi_category_obese">मोटापा</string>
     <string name="goal_bmi_target_label">बीएमआई लक्ष्य</string>
+
+    <!-- Weight Dashboard (EPIC-07) -->
+    <string name="dashboard_series_bmi">बीएमआई</string>
+    <string name="dashboard_series_weight">वजन</string>
+    <string name="dashboard_series_height">ऊंचाई</string>
+    <string name="dashboard_empty_title">अभी तक कोई डेटा नहीं</string>
+    <string name="dashboard_empty_subtitle">अपनी प्रगति ट्रैक करने के लिए अपना बीएमआई कैलकुलेट करें</string>
+    <string name="dashboard_eta_days">इस गति से, लक्ष्य तक पहुंचने में लगभग %1$d दिन</string>
+    <string name="dashboard_eta_not_enough_data">लॉग करते रहें — गति का अनुमान लगाने के लिए कुछ और एंट्री चाहिए</string>
+    <string name="dashboard_eta_wrong_direction">आपका हालिया रुझान अभी इस लक्ष्य की ओर नहीं बढ़ रहा है</string>
+    <string name="quick_log_title">वजन दर्ज करें</string>
+    <string name="quick_log_weight_hint">वजन (किग्रा)</string>
+    <string name="quick_log_save">दर्ज करें</string>
+    <string name="quick_log_fab_description">वजन जल्दी दर्ज करें</string>
+    <string name="quick_log_invalid_weight">मान्य वजन दर्ज करें</string>
+    <string name="quick_log_no_baseline">पहले एक बार अपना बीएमआई कैलकुलेट करें ताकि हमें आपकी ऊंचाई और उम्र पता चले</string>
+    <string name="quick_log_saved">वजन दर्ज हो गया!</string>
     <string name="tracker_title">वजन &amp; ऊंचाई ट्रैकर</string>
     <string name="tracker_tab_weight">वजन (किग्रा)</string>
     <string name="tracker_tab_height">ऊंचाई (सेमी)</string>

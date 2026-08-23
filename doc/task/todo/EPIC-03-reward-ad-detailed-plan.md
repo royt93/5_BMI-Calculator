@@ -1,5 +1,7 @@
 # EPIC-03 — Reward-ad "Get Detailed Health Plan" — quyết định số phận 🐛/⚙️ (P1, 3 pts)
 
+> **Status (2026-08-23): Đã CHỐT hướng (Option C — gộp vào Weight Dashboard) nhưng CHƯA implement.** EPIC-07 (Weight Dashboard) đã xong phần khung UI; phần "rewarded ad → unlock Advanced Insights" chưa làm trong pass này — lý do: cần test thật với Ad SDK (mạng, mediation, fill-rate) trong khi môi trường test tự động vừa phát hiện ads có thể che UI giữa lúc chạy instrumented test (xem ghi chú network-disable trong `HistoryActivityDashboardTest.kt`), nên cần thiết kế test riêng (mock/stub AdManager) thay vì test trên network thật. Còn nguyên trong backlog, chưa bị bỏ.
+
 ## Hiện trạng
 - `ResultAct.kt:152-153`: gọi `setupRewardButton()` bị **comment out** với ghi chú "deferred until SDK adds showRewardedAd support".
 - String `btn_detailed_plan` = "🎁 Get Detailed Health Plan" tồn tại trong `values/strings.xml:531-533` nhưng **không được reference ở bất kỳ layout nào** — dead resource.
