@@ -91,6 +91,9 @@
     <string name="hip">Hanche</string>
     <string name="waist">Taille</string>
     <string name="female_only">Femme uniquement</string>
+    <string name="save_to_history">Enregistrer dans l\'historique</string>
+    <string name="body_fat_saved">Taux de graisse corporelle enregistré dans l\'entrée du jour</string>
+    <string name="body_fat_no_record_today">Enregistrez d\'abord votre poids du jour pour joindre ce résultat</string>
 
     <!-- Goal Weight Feature -->
     <string name="goal_weight_title">🎯 Mon objectif</string>

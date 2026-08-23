@@ -248,6 +248,10 @@
     <string name="hip">Hip</string>
     <string name="waist">Waist</string>
     <string name="female_only">Female only</string>
+    <!-- EPIC-06 Calculator Hub integration -->
+    <string name="save_to_history">Save to History</string>
+    <string name="body_fat_saved">Body fat saved to today\'s record</string>
+    <string name="body_fat_no_record_today">Log your weight today first to attach this result</string>
 
     <string-array name="default_array">
         <item name="1">1</item>

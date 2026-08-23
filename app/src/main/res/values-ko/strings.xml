@@ -91,6 +91,9 @@
     <string name="hip">엉덩이</string>
     <string name="waist">허리</string>
     <string name="female_only">여성 전용</string>
+    <string name="save_to_history">기록에 저장</string>
+    <string name="body_fat_saved">체지방률이 오늘 기록에 저장되었습니다</string>
+    <string name="body_fat_no_record_today">이 결과를 첨부하려면 먼저 오늘 체중을 기록하세요</string>
 
     <!-- Goal Weight Feature -->
     <string name="goal_weight_title">🎯 나의 목표</string>

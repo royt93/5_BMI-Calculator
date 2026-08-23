@@ -214,6 +214,9 @@
     <string name="hip">Pinggul</string>
     <string name="waist">Pinggang</string>
     <string name="female_only">Khusus perempuan</string>
+    <string name="save_to_history">Simpan ke Riwayat</string>
+    <string name="body_fat_saved">Lemak tubuh disimpan ke catatan hari ini</string>
+    <string name="body_fat_no_record_today">Catat berat badan Anda hari ini terlebih dahulu untuk melampirkan hasil ini</string>
     <string name="reward_ad_skipped">Tonton iklan penuh untuk membuka kunci rencana kesehatan detail Anda 🎯</string>
     <string name="btn_detailed_plan">🎁 Dapatkan Rencana Kesehatan Detail</string>
     <!-- VIP feature -->

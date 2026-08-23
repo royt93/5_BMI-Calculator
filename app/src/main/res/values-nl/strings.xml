@@ -156,6 +156,9 @@
     <string name="hip">Heup</string>
     <string name="waist">Taille</string>
     <string name="female_only">Alleen voor vrouwen</string>
+    <string name="save_to_history">Opslaan in geschiedenis</string>
+    <string name="body_fat_saved">Lichaamsvet opgeslagen in het record van vandaag</string>
+    <string name="body_fat_no_record_today">Log eerst je gewicht van vandaag om dit resultaat te koppelen</string>
     <string name="reward_ad_skipped">Bekijk de volledige advertentie om uw gedetailleerde gezondheidsplan te ontgrendelen 🎯</string>
     <string name="btn_detailed_plan">🎁 Gedetailleerd Gezondheidsplan Ontvangen</string>
     <string-array name="tips_underweight">

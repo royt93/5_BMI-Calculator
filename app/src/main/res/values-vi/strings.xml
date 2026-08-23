@@ -247,6 +247,10 @@
     <string name="hip">Hông</string>
     <string name="waist">Eo</string>
     <string name="female_only">Chỉ dành cho nữ</string>
+    <!-- EPIC-06 Calculator Hub integration -->
+    <string name="save_to_history">Lưu vào lịch sử</string>
+    <string name="body_fat_saved">Đã lưu tỷ lệ mỡ cơ thể vào bản ghi hôm nay</string>
+    <string name="body_fat_no_record_today">Hãy ghi cân nặng hôm nay trước để đính kèm kết quả này</string>
     <!-- Reward Ad — ResultAct Detailed Plan -->
     <string name="reward_ad_skipped">Xem hết quảng cáo để mở khóa kế hoạch sức khỏe chi tiết 🎯</string>
     <string name="btn_detailed_plan">🎁 Nhận Kế Hoạch Sức Khỏe Chi Tiết</string>

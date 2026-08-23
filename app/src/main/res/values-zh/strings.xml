@@ -214,6 +214,9 @@
     <string name="hip">臀围</string>
     <string name="waist">腰围</string>
     <string name="female_only">仅限女性</string>
+    <string name="save_to_history">保存到历史记录</string>
+    <string name="body_fat_saved">体脂率已保存到今天的记录</string>
+    <string name="body_fat_no_record_today">请先记录今天的体重，才能附加此结果</string>
     <string name="reward_ad_skipped">观看完整广告以解锁您的详细健康计划 🎯</string>
     <string name="btn_detailed_plan">🎁 获取详细健康计划</string>
     <!-- VIP feature -->

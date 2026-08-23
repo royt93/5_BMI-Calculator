@@ -91,6 +91,9 @@
     <string name="hip">腰</string>
     <string name="waist">ウエスト</string>
     <string name="female_only">女性のみ</string>
+    <string name="save_to_history">履歴に保存</string>
+    <string name="body_fat_saved">体脂肪率を今日の記録に保存しました</string>
+    <string name="body_fat_no_record_today">この結果を紐づけるには、先に今日の体重を記録してください</string>
 
     <!-- Goal Weight Feature -->
     <string name="goal_weight_title">🎯 私の目標</string>

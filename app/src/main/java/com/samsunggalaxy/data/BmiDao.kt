@@ -39,4 +39,11 @@ interface BmiDao {
     // so deleting a profile must explicitly clear its records first (EPIC-05 T05.2).
     @Query("DELETE FROM bmi_records WHERE profileId = :profileId")
     suspend fun deleteAllByProfile(profileId: Long)
+
+    // EPIC-06 T06.2 — the standalone Body Fat calculator computes a value from measurements
+    // not tied to a weigh-in; this attaches it onto an existing record (today's) rather than
+    // fabricating a whole new BmiRecord with a made-up weight/BMI. Returns rows affected so the
+    // caller can detect the record having been deleted concurrently (0 = nothing was updated).
+    @Query("UPDATE bmi_records SET bodyFatPercentage = :value WHERE id = :recordId")
+    suspend fun updateBodyFatPercentage(recordId: Long, value: Double): Int
 }

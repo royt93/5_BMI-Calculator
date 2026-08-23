@@ -99,4 +99,15 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     suspend fun clearHistory(profileId: Long) {
         bmiDao.deleteAllByProfile(profileId)
     }
+
+    /** EPIC-06 T06.2 — attach a Body Fat calculator result onto an existing record. Returns rows affected. */
+    suspend fun updateBodyFatPercentage(recordId: Long, value: Double): Int {
+        return bmiDao.updateBodyFatPercentage(recordId, value)
+    }
+
+    /** EPIC-06 T06.1 — shared prefill lookup used by all 4 standalone calculators. */
+    suspend fun getCurrentProfileMostRecentRecord(): BmiRecord? {
+        val profile = getCurrentProfile() ?: return null
+        return getMostRecentRecord(profile.id)
+    }
 }

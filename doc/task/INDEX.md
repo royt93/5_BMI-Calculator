@@ -19,13 +19,13 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | EPIC-03 Reward-ad "Detailed Plan" — hướng đã chốt, chưa implement | 🐛/⚙️ | P1 | 3 | `todo/EPIC-03-reward-ad-detailed-plan.md` |
 | ✅ EPIC-04 Settings screen + Unit system (kg⇄lbs) | ⚙️ | P1 | 13 | `done/EPIC-04-settings-and-units.md` |
 | ✅ EPIC-05 Multi-profile UI (gia đình) | ⚙️ | P1 | 13 | `done/EPIC-05-multi-profile-ui.md` |
-| EPIC-06 Calculator Hub integration | ⚙️ | P2 | 8 | `todo/EPIC-06-calculator-hub-integration.md` |
+| ✅ EPIC-06 Calculator Hub integration | ⚙️ | P2 | 8 | `done/EPIC-06-calculator-hub-integration.md` |
 | ✅ **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | P0 | 16 | `done/EPIC-07-weight-dashboard.md` |
 | EPIC-08 Engagement features (reminder/export/measurements) | ✨ | P2 | 21 | `todo/EPIC-08-engagement-features.md` |
 | EPIC-09 Platform extensions (widget/Health Connect) | ✨ | P3 | 21 | `todo/EPIC-09-platform-extensions.md` |
 | Ideas độc quyền — **CHỐT: I3+I2+I4 vào roadmap gần nhất** | 💡 | — | — | `IDEAS.md` |
 
-**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-07 (26 pts).**
+**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 (60 pts).**
 
 ## Đã implement (2026-08-23) — chi tiết
 

@@ -214,6 +214,9 @@
     <string name="hip">الورك</string>
     <string name="waist">الخصر</string>
     <string name="female_only">للإناث فقط</string>
+    <string name="save_to_history">حفظ في السجل</string>
+    <string name="body_fat_saved">تم حفظ نسبة الدهون في سجل اليوم</string>
+    <string name="body_fat_no_record_today">سجّل وزنك اليوم أولاً لإرفاق هذه النتيجة</string>
     <string name="reward_ad_skipped">شاهد الإعلان كاملاً لفتح خطة صحتك التفصيلية 🎯</string>
     <string name="btn_detailed_plan">🎁 احصل على خطة الصحة التفصيلية</string>
     <!-- VIP feature -->

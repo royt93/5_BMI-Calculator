@@ -148,6 +148,7 @@ class ResultAct : BaseActivity() {
                 val unitSystem = prefs.unitSystem.first()
                 withContext(Dispatchers.Main) { calculateAndDisplayInsights(activityLevel, unitSystem) }
                 saveToHistory(activityLevel)
+                withContext(Dispatchers.Main) { wireInsightRowLinks() }
             } catch (e: Exception) {
                 // Matches the defensive try/catch saveToHistory() itself used to wrap the
                 // whole fetch+compute+save flow in before activityLevel was pulled out —
@@ -520,6 +521,25 @@ class ResultAct : BaseActivity() {
         } ${UnitFormatter.weightUnitLabel(unitSystem)}"
         _binding.root.findViewById<TextView>(R.id.tvWaterValue)?.text =
             "${String.format("%.1f", water)} ${getString(R.string.l_per_day)}"
+    }
+
+    /**
+     * EPIC-06 T06.3: cross-link each insight row to its dedicated calculator screen. Wired up
+     * only after saveToHistory() finishes — those calculators prefill from
+     * repository.getMostRecentRecord(), so making the rows clickable any earlier would let a
+     * fast tap open BmrCalculatorActivity before the DB insert lands, prefilling it from the
+     * *previous* weigh-in instead of the one just shown.
+     */
+    private fun wireInsightRowLinks() {
+        _binding.root.findViewById<View>(R.id.rowBmr)?.setOnClickListener {
+            startActivity(Intent(this, BmrCalculatorActivity::class.java))
+        }
+        _binding.root.findViewById<View>(R.id.rowTdee)?.setOnClickListener {
+            startActivity(Intent(this, TdeeCalculatorActivity::class.java))
+        }
+        _binding.root.findViewById<View>(R.id.rowIdealWeight)?.setOnClickListener {
+            startActivity(Intent(this, IdealWeightCalculatorActivity::class.java))
+        }
     }
 
     /** Must be called from an IO-dispatcher coroutine — see the launch in setupViews(). */

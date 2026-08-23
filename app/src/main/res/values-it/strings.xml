@@ -156,6 +156,9 @@
     <string name="hip">Fianchi</string>
     <string name="waist">Vita</string>
     <string name="female_only">Solo per donne</string>
+    <string name="save_to_history">Salva nella cronologia</string>
+    <string name="body_fat_saved">Percentuale di grasso corporeo salvata nel record di oggi</string>
+    <string name="body_fat_no_record_today">Registra prima il tuo peso di oggi per allegare questo risultato</string>
     <string name="reward_ad_skipped">Guarda l\'annuncio completo per sbloccare il tuo piano salute dettagliato 🎯</string>
     <string name="btn_detailed_plan">🎁 Ottieni il Piano Salute Dettagliato</string>
     <string-array name="tips_underweight">

@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
+import com.samsunggalaxy.data.AppDatabase
+import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
@@ -44,6 +46,16 @@ class IdealWeightCalculatorActivity : BaseActivity() {
         lifecycleScope.launch {
             unitSystem = PreferencesManager(this@IdealWeightCalculatorActivity).unitSystem.first()
             etHeight.hint = "${getString(R.string.height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
+
+            // EPIC-06 T06.1: prefill height/gender from the latest weigh-in.
+            val database = AppDatabase.getDatabase(this@IdealWeightCalculatorActivity)
+            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val record = repository.getCurrentProfileMostRecentRecord()
+            if (record != null) {
+                // Locale.US — see BmrCalculatorActivity for why (toDoubleOrNull needs '.').
+                etHeight.setText(String.format(java.util.Locale.US, "%.1f", UnitFormatter.heightToDisplay(record.height, unitSystem)))
+                rgGender.check(if (record.gender == 1) R.id.rbFemale else R.id.rbMale)
+            }
         }
 
         btnCalculate.setOnClickListener {

@@ -156,6 +156,9 @@
     <string name="hip">Бёдра</string>
     <string name="waist">Талия</string>
     <string name="female_only">Только для женщин</string>
+    <string name="save_to_history">Сохранить в историю</string>
+    <string name="body_fat_saved">Процент жира сохранён в записи за сегодня</string>
+    <string name="body_fat_no_record_today">Сначала внесите сегодняшний вес, чтобы прикрепить этот результат</string>
     <string name="reward_ad_skipped">Посмотрите рекламу полностью, чтобы получить подробный план здоровья 🎯</string>
     <string name="btn_detailed_plan">🎁 Получить подробный план здоровья</string>
     <string-array name="tips_underweight">

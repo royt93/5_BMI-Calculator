@@ -86,4 +86,25 @@ class BmiDaoTest {
         // Most recent first (ORDER BY timestamp DESC)
         assertEquals(record(3000L, 72.0).bmi, recent[0], 0.001)
     }
+
+    // ---- updateBodyFatPercentage (EPIC-06 T06.2) ----
+
+    @Test
+    fun updateBodyFatPercentage_attachesValueWithoutInsertingNewRecord() = runBlocking {
+        dao.insert(record(timestamp = 1000L, weight = 70.0))
+        val id2 = dao.insert(record(timestamp = 2000L, weight = 71.0))
+
+        val rowsUpdated = dao.updateBodyFatPercentage(id2, 18.5)
+
+        assertEquals(1, rowsUpdated)
+        assertEquals(2, dao.getRecordCount(1L)) // UPDATE, not a fabricated 3rd record
+        val mostRecent = dao.getMostRecentRecord(1L)
+        assertEquals(id2, mostRecent!!.id)
+        assertEquals(18.5, mostRecent.bodyFatPercentage!!, 0.001)
+    }
+
+    @Test
+    fun updateBodyFatPercentage_unknownRecordId_returnsZeroRowsAffected() = runBlocking {
+        assertEquals(0, dao.updateBodyFatPercentage(recordId = 999L, value = 20.0))
+    }
 }

@@ -214,6 +214,9 @@
     <string name="hip">Quadril</string>
     <string name="waist">Cintura</string>
     <string name="female_only">Apenas para mulheres</string>
+    <string name="save_to_history">Salvar no histórico</string>
+    <string name="body_fat_saved">Gordura corporal salva no registro de hoje</string>
+    <string name="body_fat_no_record_today">Registre seu peso de hoje primeiro para anexar este resultado</string>
     <string name="reward_ad_skipped">Assista ao anúncio completo para desbloquear seu plano de saúde detalhado 🎯</string>
     <string name="btn_detailed_plan">🎁 Obter Plano de Saúde Detalhado</string>
     <!-- VIP feature -->

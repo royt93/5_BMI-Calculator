@@ -91,6 +91,9 @@
     <string name="hip">Hüfte</string>
     <string name="waist">Taille</string>
     <string name="female_only">Nur für Frauen</string>
+    <string name="save_to_history">In Verlauf speichern</string>
+    <string name="body_fat_saved">Körperfett im heutigen Eintrag gespeichert</string>
+    <string name="body_fat_no_record_today">Erfasse zuerst dein heutiges Gewicht, um dieses Ergebnis anzuhängen</string>
 
     <!-- Goal Weight Feature -->
     <string name="goal_weight_title">🎯 Mein Ziel</string>

@@ -156,6 +156,9 @@
     <string name="hip">Kalça</string>
     <string name="waist">Bel</string>
     <string name="female_only">Yalnızca kadınlar için</string>
+    <string name="save_to_history">Geçmişe kaydet</string>
+    <string name="body_fat_saved">Vücut yağı bugünkü kayda kaydedildi</string>
+    <string name="body_fat_no_record_today">Bu sonucu eklemek için önce bugünkü kilonuzu girin</string>
     <string name="reward_ad_skipped">Ayrıntılı sağlık planınızın kilidini açmak için reklamın tamamını izleyin 🎯</string>
     <string name="btn_detailed_plan">🎁 Ayrıntılı Sağlık Planı Al</string>
     <string-array name="tips_underweight">

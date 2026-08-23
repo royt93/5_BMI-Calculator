@@ -214,6 +214,9 @@
     <string name="hip">Cadera</string>
     <string name="waist">Cintura</string>
     <string name="female_only">Solo para mujeres</string>
+    <string name="save_to_history">Guardar en el historial</string>
+    <string name="body_fat_saved">Grasa corporal guardada en el registro de hoy</string>
+    <string name="body_fat_no_record_today">Registra tu peso de hoy primero para adjuntar este resultado</string>
     <string name="reward_ad_skipped">Ve el anuncio completo para desbloquear tu plan de salud detallado 🎯</string>
     <string name="btn_detailed_plan">🎁 Obtener Plan de Salud Detallado</string>
     <!-- VIP feature -->

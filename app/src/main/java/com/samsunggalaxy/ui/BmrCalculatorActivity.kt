@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
+import com.samsunggalaxy.data.AppDatabase
+import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
@@ -47,6 +49,21 @@ class BmrCalculatorActivity : BaseActivity() {
             unitSystem = PreferencesManager(this@BmrCalculatorActivity).unitSystem.first()
             etWeight.hint = "${getString(R.string.weight)} (${UnitFormatter.weightUnitLabel(unitSystem)})"
             etHeight.hint = "${getString(R.string.height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
+
+            // EPIC-06 T06.1: prefill from the current profile's latest weigh-in so users don't
+            // have to retype weight/height/age/gender they already tracked. Still user-editable.
+            val database = AppDatabase.getDatabase(this@BmrCalculatorActivity)
+            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val record = repository.getCurrentProfileMostRecentRecord()
+            if (record != null) {
+                // Locale.US, not the device default — etWeight/etHeight are read back with
+                // toDoubleOrNull() which only accepts '.', while default-locale String.format
+                // would render "70,5" on comma-decimal languages (de/fr/ru/...).
+                etWeight.setText(String.format(java.util.Locale.US, "%.1f", UnitFormatter.weightToDisplay(record.weight, unitSystem)))
+                etHeight.setText(String.format(java.util.Locale.US, "%.1f", UnitFormatter.heightToDisplay(record.height, unitSystem)))
+                etAge.setText(record.age.toString())
+                rgGender.check(if (record.gender == 1) R.id.rbFemale else R.id.rbMale)
+            }
         }
 
         btnCalculate.setOnClickListener {

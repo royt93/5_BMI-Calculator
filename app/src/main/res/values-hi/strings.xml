@@ -214,6 +214,9 @@
     <string name="hip">कूल्हा</string>
     <string name="waist">कमर</string>
     <string name="female_only">केवल महिलाओं के लिए</string>
+    <string name="save_to_history">इतिहास में सहेजें</string>
+    <string name="body_fat_saved">आज के रिकॉर्ड में बॉडी फैट सहेजा गया</string>
+    <string name="body_fat_no_record_today">इस परिणाम को जोड़ने के लिए पहले आज अपना वज़न दर्ज करें</string>
     <string name="reward_ad_skipped">अपनी विस्तृत स्वास्थ्य योजना अनलॉक करने के लिए पूरा विज्ञापन देखें 🎯</string>
     <string name="btn_detailed_plan">🎁 विस्तृत स्वास्थ्य योजना प्राप्त करें</string>
     <!-- VIP feature -->

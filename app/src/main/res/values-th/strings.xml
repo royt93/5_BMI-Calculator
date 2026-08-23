@@ -91,6 +91,9 @@
     <string name="hip">สะโพก</string>
     <string name="waist">เอว</string>
     <string name="female_only">เฉพาะผู้หญิง</string>
+    <string name="save_to_history">บันทึกลงประวัติ</string>
+    <string name="body_fat_saved">บันทึกเปอร์เซ็นต์ไขมันลงในบันทึกวันนี้แล้ว</string>
+    <string name="body_fat_no_record_today">บันทึกน้ำหนักวันนี้ก่อนเพื่อแนบผลลัพธ์นี้</string>
 
     <!-- Goal Weight Feature -->
     <string name="goal_weight_title">🎯 เป้าหมายของฉัน</string>

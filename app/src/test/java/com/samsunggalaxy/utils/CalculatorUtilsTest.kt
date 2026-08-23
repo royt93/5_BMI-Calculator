@@ -230,4 +230,36 @@ class CalculatorUtilsTest {
         val kg = 70.0
         assertEquals(kg, CalculatorUtils.lbsToKg(CalculatorUtils.kgToLbs(kg)), 0.0001)
     }
+
+    // ---- isSameCalendarDay (EPIC-06 T06.2: gates whether Body Fat can attach onto today's record) ----
+
+    @Test
+    fun isSameCalendarDay_sameDayDifferentTime_true() {
+        val cal = java.util.Calendar.getInstance()
+        cal.set(2026, java.util.Calendar.AUGUST, 23, 8, 0, 0)
+        val morning = cal.timeInMillis
+        cal.set(2026, java.util.Calendar.AUGUST, 23, 23, 59, 0)
+        val night = cal.timeInMillis
+        assertTrue(CalculatorUtils.isSameCalendarDay(morning, night))
+    }
+
+    @Test
+    fun isSameCalendarDay_differentDay_false() {
+        val cal = java.util.Calendar.getInstance()
+        cal.set(2026, java.util.Calendar.AUGUST, 23, 12, 0, 0)
+        val day1 = cal.timeInMillis
+        cal.set(2026, java.util.Calendar.AUGUST, 24, 12, 0, 0)
+        val day2 = cal.timeInMillis
+        assertTrue(!CalculatorUtils.isSameCalendarDay(day1, day2))
+    }
+
+    @Test
+    fun isSameCalendarDay_sameDayOfYearDifferentYear_false() {
+        val cal = java.util.Calendar.getInstance()
+        cal.set(2025, java.util.Calendar.AUGUST, 23, 12, 0, 0)
+        val lastYear = cal.timeInMillis
+        cal.set(2026, java.util.Calendar.AUGUST, 23, 12, 0, 0)
+        val thisYear = cal.timeInMillis
+        assertTrue(!CalculatorUtils.isSameCalendarDay(lastYear, thisYear))
+    }
 }
