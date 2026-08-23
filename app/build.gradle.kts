@@ -6,9 +6,12 @@ plugins {
     id("kotlin-kapt")
 }
 
-// Load signing credentials từ keystore.properties (không commit lên git)
+// Load signing credentials trực tiếp từ repo private royt93/myKeyStore (single source of
+// truth, không giữ bản copy keystore.jks/keystore.properties trong repo app này nữa).
 val keystoreProperties = Properties()
-val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystorePropertiesFile = File(
+    "/Users/loitran/AndroidStudioProjects/@mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/keystore.properties"
+)
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(keystorePropertiesFile.inputStream())
 }
@@ -46,7 +49,7 @@ android {
 
     signingConfigs {
         register("release") {
-            storeFile     = file(keystoreProperties["storeFile"]     as String)
+            storeFile     = file(File(keystorePropertiesFile.parentFile, keystoreProperties["storeFile"] as String))
             storePassword =      keystoreProperties["storePassword"] as String
             keyAlias      =      keystoreProperties["keyAlias"]      as String
             keyPassword   =      keystoreProperties["keyPassword"]   as String

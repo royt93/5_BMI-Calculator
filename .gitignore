@@ -18,3 +18,8 @@ local.properties
 
 # Claude Code local settings (YOLO/bypassPermissions — không commit)
 .claude/settings.local.json
+
+# Signing credentials — nay lấy trực tiếp từ repo private royt93/myKeyStore, không giữ
+# bản copy trong repo này nữa (xem app/build.gradle.kts)
+keystore.properties
+*.jks
