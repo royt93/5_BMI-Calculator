@@ -104,6 +104,25 @@
     <string name="quick_log_no_baseline">Calculate your BMI once first so we know your height and age</string>
     <string name="quick_log_saved">Weight logged!</string>
 
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Save</string>
+    <string name="profile_switcher_title">Profiles</string>
+    <string name="profile_add">Add profile</string>
+    <string name="profile_current_label">Current</string>
+    <string name="profile_rename">Rename</string>
+    <string name="profile_delete">Delete</string>
+    <string name="profile_delete_confirm_title">Delete profile?</string>
+    <string name="profile_delete_confirm_message">This will permanently delete \"%1$s\" and all of their BMI history. This can\'t be undone.</string>
+    <string name="profile_delete_last_error">You need at least one profile</string>
+    <string name="profile_name_hint">Name</string>
+    <string name="profile_name_dialog_title_create">New profile</string>
+    <string name="profile_name_dialog_title_rename">Rename profile</string>
+    <string name="profile_name_empty_error">Enter a name</string>
+    <string name="profile_switched_toast">Switched to %1$s</string>
+    <string name="onboarding_profile_title">What should we call you?</string>
+    <string name="onboarding_profile_hint">Your name</string>
+    <string name="onboarding_skip">Skip</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">Weight &amp; Height Tracker</string>
     <string name="tracker_tab_weight">Weight (kg)</string>

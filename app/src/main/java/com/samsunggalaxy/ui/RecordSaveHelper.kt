@@ -20,12 +20,13 @@ object RecordSaveHelper {
     ): List<BadgeManager.Badge> {
         val insertedId = repository.insertRecord(record)
         if (BuildConfig.DEBUG) Log.d("roy93~", "RecordSaveHelper: inserted record id=$insertedId, profileId=${record.profileId}, weight=${record.weight}, bmi=${record.bmi}")
-        StreakManager.recordCheck(context)
+        StreakManager.recordCheck(context, record.profileId)
 
         val recordCount = repository.getRecordCount(record.profileId)
         val recentBmiValues = repository.getRecentBmiValues(record.profileId, 7)
         return BadgeManager.checkAll(
             context = context,
+            profileId = record.profileId,
             recordCount = recordCount,
             currentBmi = record.bmi,
             currentWeight = record.weight,

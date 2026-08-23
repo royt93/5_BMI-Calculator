@@ -17,6 +17,9 @@ interface ProfileDao {
     @Query("SELECT * FROM profiles ORDER BY createdAt DESC")
     fun getAllProfiles(): LiveData<List<Profile>>
 
+    @Query("SELECT * FROM profiles ORDER BY createdAt DESC")
+    suspend fun getAllProfilesOnce(): List<Profile>
+
     @Query("SELECT * FROM profiles WHERE isCurrent = 1 LIMIT 1")
     suspend fun getCurrentProfile(): Profile?
 
@@ -37,4 +40,7 @@ interface ProfileDao {
 
     @Query("UPDATE profiles SET goalWeight = :goalWeight WHERE id = :profileId")
     suspend fun updateGoalWeight(profileId: Long, goalWeight: Double?)
+
+    @Query("SELECT COUNT(*) FROM profiles")
+    suspend fun getProfileCount(): Int
 }

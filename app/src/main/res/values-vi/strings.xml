@@ -103,6 +103,25 @@
     <string name="quick_log_no_baseline">Hãy tính BMI ít nhất 1 lần để app biết chiều cao và tuổi của bạn</string>
     <string name="quick_log_saved">Đã ghi cân nặng!</string>
 
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Lưu</string>
+    <string name="profile_switcher_title">Hồ sơ</string>
+    <string name="profile_add">Thêm hồ sơ</string>
+    <string name="profile_current_label">Đang dùng</string>
+    <string name="profile_rename">Đổi tên</string>
+    <string name="profile_delete">Xoá</string>
+    <string name="profile_delete_confirm_title">Xoá hồ sơ?</string>
+    <string name="profile_delete_confirm_message">Thao tác này sẽ xoá vĩnh viễn \"%1$s\" cùng toàn bộ lịch sử BMI. Không thể hoàn tác.</string>
+    <string name="profile_delete_last_error">Bạn cần giữ lại ít nhất 1 hồ sơ</string>
+    <string name="profile_name_hint">Tên</string>
+    <string name="profile_name_dialog_title_create">Hồ sơ mới</string>
+    <string name="profile_name_dialog_title_rename">Đổi tên hồ sơ</string>
+    <string name="profile_name_empty_error">Nhập tên</string>
+    <string name="profile_switched_toast">Đã chuyển sang %1$s</string>
+    <string name="onboarding_profile_title">Chúng tôi nên gọi bạn là gì?</string>
+    <string name="onboarding_profile_hint">Tên của bạn</string>
+    <string name="onboarding_skip">Bỏ qua</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">Theo dõi Cân nặng &amp; Chiều cao</string>
     <string name="tracker_tab_weight">Cân nặng (kg)</string>

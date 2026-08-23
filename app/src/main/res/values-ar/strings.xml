@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">أدخل وزنًا صالحًا</string>
     <string name="quick_log_no_baseline">احسب مؤشر كتلة جسمك مرة واحدة أولاً حتى نعرف طولك وعمرك</string>
     <string name="quick_log_saved">تم تسجيل الوزن!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">حفظ</string>
+    <string name="profile_switcher_title">الملفات الشخصية</string>
+    <string name="profile_add">إضافة ملف شخصي</string>
+    <string name="profile_current_label">الحالي</string>
+    <string name="profile_rename">إعادة تسمية</string>
+    <string name="profile_delete">حذف</string>
+    <string name="profile_delete_confirm_title">حذف الملف الشخصي؟</string>
+    <string name="profile_delete_confirm_message">سيؤدي هذا إلى حذف \"%1$s\" وكل سجل BMI الخاص به نهائيًا. لا يمكن التراجع عن هذا.</string>
+    <string name="profile_delete_last_error">يجب الاحتفاظ بملف شخصي واحد على الأقل</string>
+    <string name="profile_name_hint">الاسم</string>
+    <string name="profile_name_dialog_title_create">ملف شخصي جديد</string>
+    <string name="profile_name_dialog_title_rename">إعادة تسمية الملف الشخصي</string>
+    <string name="profile_name_empty_error">أدخل اسمًا</string>
+    <string name="profile_switched_toast">تم التبديل إلى %1$s</string>
+    <string name="onboarding_profile_title">ماذا يجب أن نناديك؟</string>
+    <string name="onboarding_profile_hint">اسمك</string>
+    <string name="onboarding_skip">تخطي</string>
     <string name="tracker_title">متابعة الوزن &amp; الطول</string>
     <string name="tracker_tab_weight">الوزن (كجم)</string>
     <string name="tracker_tab_height">الطول (سم)</string>

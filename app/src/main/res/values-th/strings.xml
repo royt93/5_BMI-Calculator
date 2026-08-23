@@ -116,6 +116,25 @@
     <string name="quick_log_no_baseline">คำนวณ BMI ของคุณก่อนหนึ่งครั้งเพื่อให้เรารู้ส่วนสูงและอายุของคุณ</string>
     <string name="quick_log_saved">บันทึกน้ำหนักแล้ว!</string>
 
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">บันทึก</string>
+    <string name="profile_switcher_title">โปรไฟล์</string>
+    <string name="profile_add">เพิ่มโปรไฟล์</string>
+    <string name="profile_current_label">ปัจจุบัน</string>
+    <string name="profile_rename">เปลี่ยนชื่อ</string>
+    <string name="profile_delete">ลบ</string>
+    <string name="profile_delete_confirm_title">ลบโปรไฟล์?</string>
+    <string name="profile_delete_confirm_message">การดำเนินการนี้จะลบ \"%1$s\" และประวัติ BMI ทั้งหมดอย่างถาวร ไม่สามารถย้อนกลับได้</string>
+    <string name="profile_delete_last_error">คุณต้องมีอย่างน้อย 1 โปรไฟล์</string>
+    <string name="profile_name_hint">ชื่อ</string>
+    <string name="profile_name_dialog_title_create">โปรไฟล์ใหม่</string>
+    <string name="profile_name_dialog_title_rename">เปลี่ยนชื่อโปรไฟล์</string>
+    <string name="profile_name_empty_error">กรอกชื่อ</string>
+    <string name="profile_switched_toast">สลับไปที่ %1$s แล้ว</string>
+    <string name="onboarding_profile_title">ควรเรียกคุณว่าอะไร?</string>
+    <string name="onboarding_profile_hint">ชื่อของคุณ</string>
+    <string name="onboarding_skip">ข้าม</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">ติดตามน้ำหนัก &amp; ส่วนสูง</string>
     <string name="tracker_tab_weight">น้ำหนัก (kg)</string>

@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Geçerli bir kilo girin</string>
     <string name="quick_log_no_baseline">Boyunuzu ve yaşınızı bilmemiz için önce bir kez BMI\'nizi hesaplayın</string>
     <string name="quick_log_saved">Kilo kaydedildi!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Kaydet</string>
+    <string name="profile_switcher_title">Profiller</string>
+    <string name="profile_add">Profil ekle</string>
+    <string name="profile_current_label">Güncel</string>
+    <string name="profile_rename">Yeniden adlandır</string>
+    <string name="profile_delete">Sil</string>
+    <string name="profile_delete_confirm_title">Profil silinsin mi?</string>
+    <string name="profile_delete_confirm_message">Bu, \"%1$s\" adlı profili ve tüm BMI geçmişini kalıcı olarak silecek. Bu işlem geri alınamaz.</string>
+    <string name="profile_delete_last_error">En az bir profil bulundurmalısınız</string>
+    <string name="profile_name_hint">Ad</string>
+    <string name="profile_name_dialog_title_create">Yeni profil</string>
+    <string name="profile_name_dialog_title_rename">Profili yeniden adlandır</string>
+    <string name="profile_name_empty_error">Bir ad girin</string>
+    <string name="profile_switched_toast">%1$s profiline geçildi</string>
+    <string name="onboarding_profile_title">Size nasıl hitap etmeliyiz?</string>
+    <string name="onboarding_profile_hint">Adınız</string>
+    <string name="onboarding_skip">Atla</string>
     <string name="tracker_title">Kilo &amp; Boy Takibi</string>
     <string name="tracker_tab_weight">Kilo (kg)</string>
     <string name="tracker_tab_height">Boy (cm)</string>

@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Voer een geldig gewicht in</string>
     <string name="quick_log_no_baseline">Bereken eerst één keer je BMI zodat we je lengte en leeftijd kennen</string>
     <string name="quick_log_saved">Gewicht gelogd!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Opslaan</string>
+    <string name="profile_switcher_title">Profielen</string>
+    <string name="profile_add">Profiel toevoegen</string>
+    <string name="profile_current_label">Huidig</string>
+    <string name="profile_rename">Naam wijzigen</string>
+    <string name="profile_delete">Verwijderen</string>
+    <string name="profile_delete_confirm_title">Profiel verwijderen?</string>
+    <string name="profile_delete_confirm_message">Dit verwijdert \"%1$s\" en hun volledige BMI-geschiedenis permanent. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="profile_delete_last_error">Je hebt minstens één profiel nodig</string>
+    <string name="profile_name_hint">Naam</string>
+    <string name="profile_name_dialog_title_create">Nieuw profiel</string>
+    <string name="profile_name_dialog_title_rename">Profiel hernoemen</string>
+    <string name="profile_name_empty_error">Voer een naam in</string>
+    <string name="profile_switched_toast">Overgeschakeld naar %1$s</string>
+    <string name="onboarding_profile_title">Hoe moeten we je noemen?</string>
+    <string name="onboarding_profile_hint">Je naam</string>
+    <string name="onboarding_skip">Overslaan</string>
     <string name="tracker_title">Gewicht &amp; Lengte Tracker</string>
     <string name="tracker_tab_weight">Gewicht (kg)</string>
     <string name="tracker_tab_height">Lengte (cm)</string>

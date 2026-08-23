@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Введите корректный вес</string>
     <string name="quick_log_no_baseline">Сначала рассчитайте ИМТ один раз, чтобы мы знали ваш рост и возраст</string>
     <string name="quick_log_saved">Вес записан!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Сохранить</string>
+    <string name="profile_switcher_title">Профили</string>
+    <string name="profile_add">Добавить профиль</string>
+    <string name="profile_current_label">Текущий</string>
+    <string name="profile_rename">Переименовать</string>
+    <string name="profile_delete">Удалить</string>
+    <string name="profile_delete_confirm_title">Удалить профиль?</string>
+    <string name="profile_delete_confirm_message">Это навсегда удалит \"%1$s\" и всю историю ИМТ. Это действие нельзя отменить.</string>
+    <string name="profile_delete_last_error">Должен остаться хотя бы один профиль</string>
+    <string name="profile_name_hint">Имя</string>
+    <string name="profile_name_dialog_title_create">Новый профиль</string>
+    <string name="profile_name_dialog_title_rename">Переименовать профиль</string>
+    <string name="profile_name_empty_error">Введите имя</string>
+    <string name="profile_switched_toast">Переключено на %1$s</string>
+    <string name="onboarding_profile_title">Как вас называть?</string>
+    <string name="onboarding_profile_hint">Ваше имя</string>
+    <string name="onboarding_skip">Пропустить</string>
     <string name="tracker_title">Трекер веса &amp; роста</string>
     <string name="tracker_tab_weight">Вес (кг)</string>
     <string name="tracker_tab_height">Рост (см)</string>

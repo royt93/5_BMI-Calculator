@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Inserisci un peso valido</string>
     <string name="quick_log_no_baseline">Calcola prima il tuo BMI una volta, così conosciamo la tua altezza ed età</string>
     <string name="quick_log_saved">Peso registrato!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Salva</string>
+    <string name="profile_switcher_title">Profili</string>
+    <string name="profile_add">Aggiungi profilo</string>
+    <string name="profile_current_label">Attuale</string>
+    <string name="profile_rename">Rinomina</string>
+    <string name="profile_delete">Elimina</string>
+    <string name="profile_delete_confirm_title">Eliminare il profilo?</string>
+    <string name="profile_delete_confirm_message">Questo eliminerà definitivamente \"%1$s\" e tutta la sua cronologia BMI. Non può essere annullato.</string>
+    <string name="profile_delete_last_error">Devi mantenere almeno un profilo</string>
+    <string name="profile_name_hint">Nome</string>
+    <string name="profile_name_dialog_title_create">Nuovo profilo</string>
+    <string name="profile_name_dialog_title_rename">Rinomina profilo</string>
+    <string name="profile_name_empty_error">Inserisci un nome</string>
+    <string name="profile_switched_toast">Passato a %1$s</string>
+    <string name="onboarding_profile_title">Come dovremmo chiamarti?</string>
+    <string name="onboarding_profile_hint">Il tuo nome</string>
+    <string name="onboarding_skip">Salta</string>
     <string name="tracker_title">Tracker Peso &amp; Altezza</string>
     <string name="tracker_tab_weight">Peso (kg)</string>
     <string name="tracker_tab_height">Altezza (cm)</string>

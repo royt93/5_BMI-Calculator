@@ -33,6 +33,10 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
         return profileDao.getAllProfiles()
     }
 
+    suspend fun getAllProfilesOnce(): List<Profile> {
+        return profileDao.getAllProfilesOnce()
+    }
+
     suspend fun getCurrentProfile(): Profile? {
         return profileDao.getCurrentProfile()
     }
@@ -47,6 +51,16 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
 
     suspend fun deleteProfile(profile: Profile) {
         profileDao.delete(profile)
+    }
+
+    /** Deletes the profile AND every BmiRecord tied to it (no DB-level cascade — see BmiDao). */
+    suspend fun deleteProfileWithRecords(profile: Profile) {
+        bmiDao.deleteAllByProfile(profile.id)
+        profileDao.delete(profile)
+    }
+
+    suspend fun getProfileCount(): Int {
+        return profileDao.getProfileCount()
     }
 
     suspend fun setCurrentProfile(profileId: Long) {

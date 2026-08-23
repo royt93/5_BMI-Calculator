@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">请输入有效的体重</string>
     <string name="quick_log_no_baseline">请先计算一次BMI，以便我们知道您的身高和年龄</string>
     <string name="quick_log_saved">体重已记录！</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">保存</string>
+    <string name="profile_switcher_title">个人资料</string>
+    <string name="profile_add">添加资料</string>
+    <string name="profile_current_label">当前</string>
+    <string name="profile_rename">重命名</string>
+    <string name="profile_delete">删除</string>
+    <string name="profile_delete_confirm_title">删除资料？</string>
+    <string name="profile_delete_confirm_message">这将永久删除\"%1$s\"及其全部BMI记录，且无法撤销。</string>
+    <string name="profile_delete_last_error">至少需要保留一个资料</string>
+    <string name="profile_name_hint">姓名</string>
+    <string name="profile_name_dialog_title_create">新建资料</string>
+    <string name="profile_name_dialog_title_rename">重命名资料</string>
+    <string name="profile_name_empty_error">请输入姓名</string>
+    <string name="profile_switched_toast">已切换到%1$s</string>
+    <string name="onboarding_profile_title">我们该怎么称呼您？</string>
+    <string name="onboarding_profile_hint">您的姓名</string>
+    <string name="onboarding_skip">跳过</string>
     <string name="tracker_title">体重 &amp; 身高追踪</string>
     <string name="tracker_tab_weight">体重（千克）</string>
     <string name="tracker_tab_height">身高（厘米）</string>

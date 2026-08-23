@@ -3,8 +3,17 @@ package com.samsunggalaxy.ui
 import android.content.Context
 import com.samsunggalaxy.R
 
+/**
+ * Badges are scoped per profile (SharedPrefs file `badge_prefs_<profileId>`) so family
+ * members tracked via separate profiles (EPIC-05) each earn their own badges instead of
+ * sharing one global set. `LEGACY_PREFS` is the single pre-multi-profile file —
+ * [migrateLegacyIfNeeded] copies it into whichever profile reads first after upgrading,
+ * then clears it so it's a one-time move.
+ */
 object BadgeManager {
-    private const val PREFS = "badge_prefs"
+    private const val LEGACY_PREFS = "badge_prefs"
+
+    private fun prefsName(profileId: Long) = "badge_prefs_$profileId"
 
     enum class Badge(val id: String, val titleRes: Int, val descRes: Int, val iconRes: Int) {
         FIRST_STEP("first_step", R.string.badge_first_step, R.string.badge_first_step_desc, R.drawable.ic_badge_star),
@@ -15,18 +24,45 @@ object BadgeManager {
         DATA_LOVER("data_lover", R.string.badge_data_lover, R.string.badge_data_lover_desc, R.drawable.ic_badge_chart);
     }
 
-    fun isEarned(context: Context, badge: Badge): Boolean {
-        return context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    private fun migrateLegacyIfNeeded(context: Context, profileId: Long) {
+        val legacy = context.getSharedPreferences(LEGACY_PREFS, Context.MODE_PRIVATE)
+        val hasLegacyData = Badge.values().any { legacy.contains("${it.id}_earned") }
+        if (!hasLegacyData) return
+
+        val scoped = context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
+        val alreadyMigrated = Badge.values().any { scoped.contains("${it.id}_earned") }
+        if (alreadyMigrated) return
+
+        val editor = scoped.edit()
+        Badge.values().forEach { b ->
+            if (legacy.contains("${b.id}_earned")) {
+                editor.putBoolean("${b.id}_earned", legacy.getBoolean("${b.id}_earned", false))
+                editor.putLong("${b.id}_date", legacy.getLong("${b.id}_date", 0L))
+            }
+        }
+        editor.apply()
+        legacy.edit().clear().apply() // consume — only the first profile to ask gets it
+    }
+
+    /** Called when a profile is deleted (EPIC-05 T05.2) so its SharedPrefs file isn't orphaned. */
+    fun clearProfileData(context: Context, profileId: Long) {
+        context.deleteSharedPreferences(prefsName(profileId))
+    }
+
+    fun isEarned(context: Context, profileId: Long, badge: Badge): Boolean {
+        migrateLegacyIfNeeded(context, profileId)
+        return context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
             .getBoolean("${badge.id}_earned", false)
     }
 
-    fun getEarnedDate(context: Context, badge: Badge): Long {
-        return context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    fun getEarnedDate(context: Context, profileId: Long, badge: Badge): Long {
+        migrateLegacyIfNeeded(context, profileId)
+        return context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
             .getLong("${badge.id}_date", 0L)
     }
 
-    fun getEarnedCount(context: Context): Int {
-        return Badge.values().count { isEarned(context, it) }
+    fun getEarnedCount(context: Context, profileId: Long): Int {
+        return Badge.values().count { isEarned(context, profileId, it) }
     }
 
     /**
@@ -34,14 +70,16 @@ object BadgeManager {
      */
     fun checkAll(
         context: Context,
+        profileId: Long,
         recordCount: Int,
         currentBmi: Double,
         currentWeight: Double,
         goalWeight: Double?,
         recentBmiList: List<Double>
     ): List<Badge> {
+        migrateLegacyIfNeeded(context, profileId)
         val newlyEarned = mutableListOf<Badge>()
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
 
         fun tryUnlock(badge: Badge, condition: Boolean) {
             if (!prefs.getBoolean("${badge.id}_earned", false) && condition) {
@@ -56,7 +94,7 @@ object BadgeManager {
         tryUnlock(Badge.FIRST_STEP, recordCount >= 1)
         tryUnlock(Badge.DATA_LOVER, recordCount >= 50)
 
-        val streakData = StreakManager.getStreakData(context)
+        val streakData = StreakManager.getStreakData(context, profileId)
         tryUnlock(Badge.WEEK_WARRIOR, streakData.best >= 7)
         tryUnlock(Badge.MONTHLY_MASTER, streakData.best >= 30)
 

@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.samsunggalaxy.R
+import com.samsunggalaxy.data.AppDatabase
+import com.samsunggalaxy.data.BmiRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AchievementsBottomSheet : BottomSheetDialogFragment() {
 
@@ -25,24 +30,32 @@ class AchievementsBottomSheet : BottomSheetDialogFragment() {
         // Close button
         view.findViewById<View>(R.id.ivCloseAchievements)?.setOnClickListener { dismiss() }
 
-        // Title
-        val earnedCount = BadgeManager.getEarnedCount(ctx)
-        val totalCount = BadgeManager.Badge.values().size
-        view.findViewById<TextView>(R.id.tvAchievementsTitle)?.text =
-            getString(R.string.achievements_title, earnedCount, totalCount)
+        // Badges are scoped per profile (EPIC-05) — fetch the current one before loading.
+        lifecycleScope.launch(Dispatchers.IO) {
+            val database = AppDatabase.getDatabase(ctx)
+            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val profileId = repository.getCurrentProfile()?.id ?: 1L
 
-        // Badge grid
-        val badges = BadgeManager.Badge.values().map { badge ->
-            BadgeAdapter.BadgeItem(
-                badge = badge,
-                earned = BadgeManager.isEarned(ctx, badge),
-                earnedDate = BadgeManager.getEarnedDate(ctx, badge)
-            )
+            val earnedCount = BadgeManager.getEarnedCount(ctx, profileId)
+            val totalCount = BadgeManager.Badge.values().size
+            val badges = BadgeManager.Badge.values().map { badge ->
+                BadgeAdapter.BadgeItem(
+                    badge = badge,
+                    earned = BadgeManager.isEarned(ctx, profileId, badge),
+                    earnedDate = BadgeManager.getEarnedDate(ctx, profileId, badge)
+                )
+            }
+
+            kotlinx.coroutines.withContext(Dispatchers.Main) {
+                if (!isAdded) return@withContext
+                view.findViewById<TextView>(R.id.tvAchievementsTitle)?.text =
+                    getString(R.string.achievements_title, earnedCount, totalCount)
+
+                val rv = view.findViewById<RecyclerView>(R.id.rvBadges) ?: return@withContext
+                rv.layoutManager = GridLayoutManager(ctx, 2)
+                rv.adapter = BadgeAdapter(badges)
+            }
         }
-
-        val rv = view.findViewById<RecyclerView>(R.id.rvBadges) ?: return
-        rv.layoutManager = GridLayoutManager(ctx, 2)
-        rv.adapter = BadgeAdapter(badges)
     }
 
     companion object {

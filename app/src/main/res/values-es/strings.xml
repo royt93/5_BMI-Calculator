@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Introduce un peso válido</string>
     <string name="quick_log_no_baseline">Calcula tu IMC una vez primero para que sepamos tu altura y edad</string>
     <string name="quick_log_saved">¡Peso registrado!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Guardar</string>
+    <string name="profile_switcher_title">Perfiles</string>
+    <string name="profile_add">Añadir perfil</string>
+    <string name="profile_current_label">Actual</string>
+    <string name="profile_rename">Renombrar</string>
+    <string name="profile_delete">Eliminar</string>
+    <string name="profile_delete_confirm_title">¿Eliminar perfil?</string>
+    <string name="profile_delete_confirm_message">Esto eliminará permanentemente \"%1$s\" y todo su historial de IMC. No se puede deshacer.</string>
+    <string name="profile_delete_last_error">Necesitas al menos un perfil</string>
+    <string name="profile_name_hint">Nombre</string>
+    <string name="profile_name_dialog_title_create">Nuevo perfil</string>
+    <string name="profile_name_dialog_title_rename">Renombrar perfil</string>
+    <string name="profile_name_empty_error">Introduce un nombre</string>
+    <string name="profile_switched_toast">Cambiado a %1$s</string>
+    <string name="onboarding_profile_title">¿Cómo deberíamos llamarte?</string>
+    <string name="onboarding_profile_hint">Tu nombre</string>
+    <string name="onboarding_skip">Omitir</string>
     <string name="tracker_title">Seguimiento de Peso &amp; Altura</string>
     <string name="tracker_tab_weight">Peso (kg)</string>
     <string name="tracker_tab_height">Altura (cm)</string>

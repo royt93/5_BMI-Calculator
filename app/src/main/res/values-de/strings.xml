@@ -116,6 +116,25 @@
     <string name="quick_log_no_baseline">Berechne zuerst einmal deinen BMI, damit wir deine Größe und dein Alter kennen</string>
     <string name="quick_log_saved">Gewicht eingetragen!</string>
 
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Speichern</string>
+    <string name="profile_switcher_title">Profile</string>
+    <string name="profile_add">Profil hinzufügen</string>
+    <string name="profile_current_label">Aktuell</string>
+    <string name="profile_rename">Umbenennen</string>
+    <string name="profile_delete">Löschen</string>
+    <string name="profile_delete_confirm_title">Profil löschen?</string>
+    <string name="profile_delete_confirm_message">Dadurch werden \"%1$s\" und der gesamte BMI-Verlauf endgültig gelöscht. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="profile_delete_last_error">Du brauchst mindestens ein Profil</string>
+    <string name="profile_name_hint">Name</string>
+    <string name="profile_name_dialog_title_create">Neues Profil</string>
+    <string name="profile_name_dialog_title_rename">Profil umbenennen</string>
+    <string name="profile_name_empty_error">Namen eingeben</string>
+    <string name="profile_switched_toast">Zu %1$s gewechselt</string>
+    <string name="onboarding_profile_title">Wie sollen wir dich nennen?</string>
+    <string name="onboarding_profile_hint">Dein Name</string>
+    <string name="onboarding_skip">Überspringen</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">Gewicht- &amp; Größen-Tracker</string>
     <string name="tracker_tab_weight">Gewicht (kg)</string>

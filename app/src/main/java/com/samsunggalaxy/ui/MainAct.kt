@@ -24,6 +24,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.cncoderx.wheelview.OnWheelChangedListener
@@ -31,6 +33,8 @@ import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.adt.WeightPickerAdt
+import com.samsunggalaxy.data.AppDatabase
+import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.databinding.AMainBinding
 import com.samsunggalaxy.ext.moreApp
 import com.samsunggalaxy.ext.openBrowserPolicy
@@ -38,20 +42,29 @@ import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
 import com.samsunggalaxy.feature.vip.VipActivity
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 
 const val REQUEST_CODE = 69
 const val REQUEST_RESULT = "REQUEST_RESULT"
+private const val KEY_ONBOARDING_PROFILE_ASKED = "onboarding_profile_asked"
 
 class MainAct : BaseActivity() {
     private lateinit var binding: AMainBinding
     private val _binding get() = binding
     private lateinit var weightAdapter: WeightPickerAdt
+    private lateinit var repository: BmiRepository
     private var gender = 'M'
     var height = 160 // Default to 160cm
     private var weight = 50
     private var age = 25
     private var doubleBackToExitPressedOnce = false
+
+    // Multi-profile (EPIC-05): every profile-scoped screen fetches this fresh via
+    // repository.getCurrentProfile() rather than caching a stale value across Activities.
+    private var currentProfileId: Long = 1L
 
     private val handler = Handler(Looper.getMainLooper())
     private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
@@ -118,6 +131,15 @@ class MainAct : BaseActivity() {
             }
         })
 
+        val database = AppDatabase.getDatabase(this)
+        repository = BmiRepository(database.bmiDao(), database.profileDao())
+
+        // Refresh profile-scoped UI whenever ProfileSwitcherBottomSheet reports a switch/
+        // create/rename/delete — the sheet itself doesn't know about MainAct's chip/streak.
+        supportFragmentManager.setFragmentResultListener(
+            ProfileSwitcherBottomSheet.REQUEST_KEY, this
+        ) { _, _ -> loadCurrentProfileAndRefresh() }
+
         animationView()
         setupViews()
     }
@@ -128,9 +150,86 @@ class MainAct : BaseActivity() {
         // NHƯNG: khi user activate/revoke VIP mid-session, SDK không tự destroy banner đã load.
         // → app-side phải manual refresh banner theo VIP state ở mỗi onResume.
         syncBannerWithVipState()
-        updateStreakUI()
+        loadCurrentProfileAndRefresh()
         refreshVipBadge()
         startVipBadgePulse()
+    }
+
+    /** Fetches the current profile, then refreshes every profile-scoped UI element. */
+    private fun loadCurrentProfileAndRefresh() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val profile = repository.getCurrentProfile()
+            // Local vals (not the shared `currentProfileId` field) for this invocation's own
+            // UI calls — onResume() and the ProfileSwitcherBottomSheet fragment-result listener
+            // can both trigger this concurrently, and two IO coroutines racing to write/read
+            // the same mutable field could hand one invocation's Main block the other's id.
+            val profileId = profile?.id ?: 1L
+            val profileName = profile?.name ?: "Default"
+            currentProfileId = profileId // still kept in sync for other synchronous readers
+            withContext(Dispatchers.Main) {
+                updateProfileChip(profileName)
+                updateStreakUI(profileId)
+                maybeShowOnboardingRename(profileId, profileName)
+            }
+        }
+    }
+
+    private fun updateProfileChip(name: String) {
+        _binding.tvProfileBadge.text = "👤 $name"
+        _binding.tvProfileBadge.setOnClickListener {
+            ProfileSwitcherBottomSheet().show(supportFragmentManager, ProfileSwitcherBottomSheet.TAG)
+        }
+    }
+
+    /**
+     * One-time prompt to name the auto-created "Default" profile (EPIC-05 T05.4) — decoupled
+     * from SplashAct's first-run language flow to avoid touching that fragile sequencing.
+     * Gated by a SharedPrefs flag so it never nags twice, regardless of whether the user
+     * renamed or skipped.
+     */
+    private fun maybeShowOnboardingRename(profileId: Long, profileName: String) {
+        val prefs = getSharedPreferences("main_prefs", MODE_PRIVATE)
+        if (prefs.getBoolean(KEY_ONBOARDING_PROFILE_ASKED, false)) return
+        if (profileName != "Default") {
+            // Already personalized (e.g. via the switcher) — nothing to ask, consume now.
+            prefs.edit().putBoolean(KEY_ONBOARDING_PROFILE_ASKED, true).apply()
+            return
+        }
+        if (isFinishing || isDestroyed) return // profile fetch is async — Activity may be gone by now
+
+        fun markAsked() = prefs.edit().putBoolean(KEY_ONBOARDING_PROFILE_ASKED, true).apply()
+
+        val dialogView = android.view.LayoutInflater.from(this).inflate(R.layout.dialog_profile_name, null)
+        val etName = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etProfileName)
+
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.onboarding_profile_title))
+            .setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.save)) { _, _ ->
+                val name = etName.text.toString().trim()
+                if (name.isEmpty()) {
+                    // Don't consume the "asked" flag — a dismissed-but-empty submit means the
+                    // dialog (AlertDialog always closes on button click) will simply reappear
+                    // next resume, instead of permanently losing this one-time prompt.
+                    Toast.makeText(this, getString(R.string.profile_name_empty_error), Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                markAsked()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    // Fetch-then-copy (not a bare `Profile(id=..., name=...)`) so
+                    // createdAt/goalWeight/isCurrent aren't silently reset to defaults.
+                    val current = repository.getCurrentProfile()
+                    val saved = current != null && current.id == profileId
+                    if (saved) repository.updateProfile(current!!.copy(name = name))
+                    // Only reflect the typed name in the chip if it was actually persisted —
+                    // otherwise (profile switched/deleted mid-dialog) the chip would show a
+                    // name that silently isn't backed by any DB write.
+                    if (saved) withContext(Dispatchers.Main) { updateProfileChip(name) }
+                }
+            }
+            .setNegativeButton(getString(R.string.onboarding_skip)) { _, _ -> markAsked() }
+            .show()
     }
 
     override fun onPause() {
@@ -243,8 +342,8 @@ class MainAct : BaseActivity() {
         }
     }
 
-    private fun updateStreakUI() {
-        if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI() called")
+    private fun updateStreakUI(profileId: Long) {
+        if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI() called, profileId=$profileId")
         try {
             val streakCard = _binding.root.findViewById<View>(R.id.streakCard)
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: streakCard=${streakCard != null}")
@@ -256,7 +355,7 @@ class MainAct : BaseActivity() {
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
             if (tvTitle == null || tvBest == null || tvMotivation == null) return
 
-            val data = StreakManager.getDisplayStreak(this)
+            val data = StreakManager.getDisplayStreak(this, profileId)
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
 
             if (data.current > 0) {
@@ -273,7 +372,7 @@ class MainAct : BaseActivity() {
             val dayIds = intArrayOf(R.id.tvDay0, R.id.tvDay1, R.id.tvDay2, R.id.tvDay3, R.id.tvDay4, R.id.tvDay5, R.id.tvDay6)
             val dayLabels = arrayOf("M", "T", "W", "T", "F", "S", "S")
             val todayIndex = (java.time.LocalDate.now().dayOfWeek.value - 1) // 0=Mon
-            val todayChecked = StreakManager.isTodayChecked(this)
+            val todayChecked = StreakManager.isTodayChecked(this, profileId)
             if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
 
             // How many past days in this week are part of the streak?

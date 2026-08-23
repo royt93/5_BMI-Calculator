@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">Masukkan berat yang valid</string>
     <string name="quick_log_no_baseline">Hitung BMI Anda sekali dulu agar kami tahu tinggi dan usia Anda</string>
     <string name="quick_log_saved">Berat berhasil dicatat!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">Simpan</string>
+    <string name="profile_switcher_title">Profil</string>
+    <string name="profile_add">Tambah profil</string>
+    <string name="profile_current_label">Saat ini</string>
+    <string name="profile_rename">Ganti nama</string>
+    <string name="profile_delete">Hapus</string>
+    <string name="profile_delete_confirm_title">Hapus profil?</string>
+    <string name="profile_delete_confirm_message">Ini akan menghapus \"%1$s\" secara permanen beserta seluruh riwayat BMI-nya. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="profile_delete_last_error">Anda perlu menyimpan setidaknya satu profil</string>
+    <string name="profile_name_hint">Nama</string>
+    <string name="profile_name_dialog_title_create">Profil baru</string>
+    <string name="profile_name_dialog_title_rename">Ganti nama profil</string>
+    <string name="profile_name_empty_error">Masukkan nama</string>
+    <string name="profile_switched_toast">Beralih ke %1$s</string>
+    <string name="onboarding_profile_title">Harus kami panggil apa?</string>
+    <string name="onboarding_profile_hint">Nama Anda</string>
+    <string name="onboarding_skip">Lewati</string>
     <string name="tracker_title">Pelacak Berat &amp; Tinggi</string>
     <string name="tracker_tab_weight">Berat (kg)</string>
     <string name="tracker_tab_height">Tinggi (cm)</string>

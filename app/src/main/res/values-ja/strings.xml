@@ -116,6 +116,25 @@
     <string name="quick_log_no_baseline">まず一度BMIを計算して、身長と年齢を登録してください</string>
     <string name="quick_log_saved">体重を記録しました！</string>
 
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">保存</string>
+    <string name="profile_switcher_title">プロフィール</string>
+    <string name="profile_add">プロフィールを追加</string>
+    <string name="profile_current_label">現在</string>
+    <string name="profile_rename">名前を変更</string>
+    <string name="profile_delete">削除</string>
+    <string name="profile_delete_confirm_title">プロフィールを削除しますか？</string>
+    <string name="profile_delete_confirm_message">「%1$s」とそのBMI履歴すべてが完全に削除されます。元に戻せません。</string>
+    <string name="profile_delete_last_error">少なくとも1つのプロフィールが必要です</string>
+    <string name="profile_name_hint">名前</string>
+    <string name="profile_name_dialog_title_create">新しいプロフィール</string>
+    <string name="profile_name_dialog_title_rename">プロフィール名を変更</string>
+    <string name="profile_name_empty_error">名前を入力してください</string>
+    <string name="profile_switched_toast">%1$s に切り替えました</string>
+    <string name="onboarding_profile_title">お名前を教えてください</string>
+    <string name="onboarding_profile_hint">お名前</string>
+    <string name="onboarding_skip">スキップ</string>
+
     <!-- Tracker BottomSheet -->
     <string name="tracker_title">体重・身長トラッカー</string>
     <string name="tracker_tab_weight">体重 (kg)</string>

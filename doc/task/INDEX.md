@@ -18,7 +18,7 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | EPIC-02 Security hardening (leftover M/L items) | 🐛 | P1/P2 | 8 | `todo/EPIC-02-security-hardening.md` |
 | EPIC-03 Reward-ad "Detailed Plan" — hướng đã chốt, chưa implement | 🐛/⚙️ | P1 | 3 | `todo/EPIC-03-reward-ad-detailed-plan.md` |
 | EPIC-04 Settings screen + Unit system (kg⇄lbs) | ⚙️ | P1 | 13 | `todo/EPIC-04-settings-and-units.md` |
-| EPIC-05 Multi-profile UI (gia đình) — streak/badge theo từng profile | ⚙️ | P1 | 13 | `todo/EPIC-05-multi-profile-ui.md` |
+| ✅ EPIC-05 Multi-profile UI (gia đình) | ⚙️ | P1 | 13 | `done/EPIC-05-multi-profile-ui.md` |
 | EPIC-06 Calculator Hub integration | ⚙️ | P2 | 8 | `todo/EPIC-06-calculator-hub-integration.md` |
 | ✅ **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | P0 | 16 | `done/EPIC-07-weight-dashboard.md` |
 | EPIC-08 Engagement features (reminder/export/measurements) | ✨ | P2 | 21 | `todo/EPIC-08-engagement-features.md` |

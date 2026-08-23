@@ -85,6 +85,25 @@
     <string name="quick_log_invalid_weight">मान्य वजन दर्ज करें</string>
     <string name="quick_log_no_baseline">पहले एक बार अपना बीएमआई कैलकुलेट करें ताकि हमें आपकी ऊंचाई और उम्र पता चले</string>
     <string name="quick_log_saved">वजन दर्ज हो गया!</string>
+
+    <!-- Multi-profile (EPIC-05) -->
+    <string name="save">सहेजें</string>
+    <string name="profile_switcher_title">प्रोफ़ाइल</string>
+    <string name="profile_add">प्रोफ़ाइल जोड़ें</string>
+    <string name="profile_current_label">वर्तमान</string>
+    <string name="profile_rename">नाम बदलें</string>
+    <string name="profile_delete">हटाएं</string>
+    <string name="profile_delete_confirm_title">प्रोफ़ाइल हटाएं?</string>
+    <string name="profile_delete_confirm_message">इससे \"%1$s\" और उनका पूरा BMI इतिहास स्थायी रूप से हट जाएगा। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="profile_delete_last_error">आपके पास कम से कम एक प्रोफ़ाइल होनी चाहिए</string>
+    <string name="profile_name_hint">नाम</string>
+    <string name="profile_name_dialog_title_create">नई प्रोफ़ाइल</string>
+    <string name="profile_name_dialog_title_rename">प्रोफ़ाइल का नाम बदलें</string>
+    <string name="profile_name_empty_error">नाम दर्ज करें</string>
+    <string name="profile_switched_toast">%1$s में बदला गया</string>
+    <string name="onboarding_profile_title">हमें आपको क्या बुलाना चाहिए?</string>
+    <string name="onboarding_profile_hint">आपका नाम</string>
+    <string name="onboarding_skip">छोड़ें</string>
     <string name="tracker_title">वजन &amp; ऊंचाई ट्रैकर</string>
     <string name="tracker_tab_weight">वजन (किग्रा)</string>
     <string name="tracker_tab_height">ऊंचाई (सेमी)</string>

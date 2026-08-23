@@ -56,6 +56,26 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+                <!-- Profile chip (EPIC-05): hiện tên profile đang chọn, tap mở ProfileSwitcherBottomSheet. -->
+                <TextView
+                    android:id="@+id/tvProfileBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_vip_badge_free"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-medium"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:maxWidth="90dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="Default"
+                    android:textColor="@color/textColor"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
                 <!-- VIP pill: luôn hiển thị, đổi style theo state (active gold vs free glass).
                      Click mở VipActivity — quick access shortcut từ home. -->
                 <TextView

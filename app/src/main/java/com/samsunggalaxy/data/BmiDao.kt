@@ -34,4 +34,9 @@ interface BmiDao {
 
     @Query("SELECT * FROM bmi_records WHERE profileId = :profileId ORDER BY timestamp DESC LIMIT 1")
     suspend fun getMostRecentRecord(profileId: Long): BmiRecord?
+
+    // No @ForeignKey cascade is defined between bmi_records.profileId and profiles.id,
+    // so deleting a profile must explicitly clear its records first (EPIC-05 T05.2).
+    @Query("DELETE FROM bmi_records WHERE profileId = :profileId")
+    suspend fun deleteAllByProfile(profileId: Long)
 }
