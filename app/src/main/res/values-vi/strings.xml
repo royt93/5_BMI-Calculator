@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">Ngôn ngữ</string>
     <string name="select_language">Chọn ngôn ngữ</string>
+    <string name="unit_system_title">Đơn vị đo</string>
+    <string name="unit_metric">Hệ mét (kg, cm)</string>
+    <string name="unit_imperial">Hệ Anh (lbs, in)</string>
+    <string name="theme_title">Giao diện</string>
+    <string name="theme_system">Theo hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+    <string name="data_section_title">Dữ liệu</string>
+    <string name="clear_history">Xoá lịch sử</string>
+    <string name="clear_history_confirm_title">Xoá toàn bộ lịch sử?</string>
+    <string name="clear_history_confirm_message">Thao tác này sẽ xoá vĩnh viễn mọi bản ghi BMI của hồ sơ hiện tại. Không thể hoàn tác.</string>
+    <string name="clear_history_done">Đã xoá lịch sử</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">Máy Tính BMR</string>

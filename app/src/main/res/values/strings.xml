@@ -23,6 +23,18 @@
     <!-- Settings -->
     <string name="language">Language</string>
     <string name="select_language">Select Language</string>
+    <string name="unit_system_title">Unit System</string>
+    <string name="unit_metric">Metric (kg, cm)</string>
+    <string name="unit_imperial">Imperial (lbs, in)</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="data_section_title">Data</string>
+    <string name="clear_history">Clear History</string>
+    <string name="clear_history_confirm_title">Clear all history?</string>
+    <string name="clear_history_confirm_message">This permanently deletes every BMI record for the current profile. This can\'t be undone.</string>
+    <string name="clear_history_done">History cleared</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">BMR Calculator</string>

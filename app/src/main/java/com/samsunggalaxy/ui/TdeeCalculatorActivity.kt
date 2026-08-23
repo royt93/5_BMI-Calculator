@@ -10,9 +10,13 @@ import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class TdeeCalculatorActivity : BaseActivity() {
+    private var unitSystem: String = UnitFormatter.METRIC
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UIUtils.setupEdgeToEdge1(window)
@@ -46,14 +50,30 @@ class TdeeCalculatorActivity : BaseActivity() {
         spinnerActivity.setAdapter(adapter)
         spinnerActivity.setText(activities[0], false)
 
+        // EPIC-04 T04.1 (unit hints) + T04.3 (preselect the last-used activity level instead
+        // of always resetting to Sedentary — the write path already existed from EPIC-00 T00.2).
+        lifecycleScope.launch {
+            val prefs = PreferencesManager(this@TdeeCalculatorActivity)
+            unitSystem = prefs.unitSystem.first()
+            etWeight.hint = "${getString(R.string.weight)} (${UnitFormatter.weightUnitLabel(unitSystem)})"
+            etHeight.hint = "${getString(R.string.height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
+
+            val savedActivityLevel = prefs.activityLevel.first()
+            if (savedActivityLevel in activities.indices) {
+                spinnerActivity.setText(activities[savedActivityLevel], false)
+            }
+        }
+
         btnCalculate.setOnClickListener {
-            val weight = etWeight.text.toString().toDoubleOrNull() ?: 0.0
-            val height = etHeight.text.toString().toDoubleOrNull() ?: 0.0
+            val weightInput = etWeight.text.toString().toDoubleOrNull() ?: 0.0
+            val heightInput = etHeight.text.toString().toDoubleOrNull() ?: 0.0
             val age = etAge.text.toString().toIntOrNull() ?: 0
             val isMale = rgGender.checkedRadioButtonId == R.id.rbMale
             val activityLevel = activities.indexOf(spinnerActivity.text.toString())
 
-            if (weight > 0 && height > 0 && age > 0) {
+            if (weightInput > 0 && heightInput > 0 && age > 0) {
+                val weight = UnitFormatter.weightToMetric(weightInput, unitSystem)
+                val height = UnitFormatter.heightToMetric(heightInput, unitSystem)
                 val bmr = CalculatorUtils.calculateBMR(weight, height, age, isMale)
                 val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
                 tvResult.text = getString(R.string.tdee_description) + ": ${String.format("%.0f", tdee)} ${getString(R.string.cal_per_day)}"

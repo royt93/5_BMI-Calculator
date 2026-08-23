@@ -14,8 +14,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class PreferencesManager(private val context: Context) {
 
     companion object {
-        val THEME_MODE = stringPreferencesKey("theme_mode") // "light" or "dark"
-        val UNIT_SYSTEM = stringPreferencesKey("unit_system") // "metric" or "imperial"
+        val THEME_MODE = stringPreferencesKey("theme_mode") // ThemeHelper.SYSTEM/LIGHT/DARK
+        val UNIT_SYSTEM = stringPreferencesKey("unit_system") // UnitFormatter.METRIC/IMPERIAL
         val LANGUAGE = stringPreferencesKey("language") // ISO 639-1 code: en, vi, es, pt, ar, hi, zh, id, tr, ru, it, nl, fr, de, ja, ko, th
         val CURRENT_PROFILE_ID = longPreferencesKey("current_profile_id")
         val ACTIVITY_LEVEL = intPreferencesKey("activity_level") // 0-4
@@ -23,11 +23,11 @@ class PreferencesManager(private val context: Context) {
     }
 
     val themeMode: Flow<String> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
-        preferences[THEME_MODE] ?: "light"
+        preferences[THEME_MODE] ?: ThemeHelper.SYSTEM
     }
 
     val unitSystem: Flow<String> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
-        preferences[UNIT_SYSTEM] ?: "metric"
+        preferences[UNIT_SYSTEM] ?: UnitFormatter.METRIC
     }
 
     val language: Flow<String> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->

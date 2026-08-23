@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">ภาษา</string>
     <string name="select_language">เลือกภาษา</string>
+    <string name="unit_system_title">ระบบหน่วย</string>
+    <string name="unit_metric">เมตริก (kg, cm)</string>
+    <string name="unit_imperial">อิมพีเรียล (lbs, in)</string>
+    <string name="theme_title">ธีม</string>
+    <string name="theme_system">ตามระบบ</string>
+    <string name="theme_light">สว่าง</string>
+    <string name="theme_dark">มืด</string>
+    <string name="data_section_title">ข้อมูล</string>
+    <string name="clear_history">ล้างประวัติ</string>
+    <string name="clear_history_confirm_title">ล้างประวัติทั้งหมด?</string>
+    <string name="clear_history_confirm_message">การดำเนินการนี้จะลบบันทึก BMI ทั้งหมดของโปรไฟล์ปัจจุบันอย่างถาวร ไม่สามารถย้อนกลับได้</string>
+    <string name="clear_history_done">ล้างประวัติแล้ว</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">เครื่องคำนวณ BMR</string>

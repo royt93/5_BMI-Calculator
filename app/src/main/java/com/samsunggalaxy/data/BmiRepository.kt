@@ -94,4 +94,9 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     suspend fun getMostRecentRecord(profileId: Long): BmiRecord? {
         return bmiDao.getMostRecentRecord(profileId)
     }
+
+    /** EPIC-04 T04.4 — Settings "Clear History": wipes records but keeps the profile itself. */
+    suspend fun clearHistory(profileId: Long) {
+        bmiDao.deleteAllByProfile(profileId)
+    }
 }

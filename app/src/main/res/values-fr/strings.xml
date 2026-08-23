@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">Langue</string>
     <string name="select_language">Sélectionner la langue</string>
+    <string name="unit_system_title">Système d\'unités</string>
+    <string name="unit_metric">Métrique (kg, cm)</string>
+    <string name="unit_imperial">Impérial (lbs, in)</string>
+    <string name="theme_title">Thème</string>
+    <string name="theme_system">Système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="data_section_title">Données</string>
+    <string name="clear_history">Effacer l\'historique</string>
+    <string name="clear_history_confirm_title">Effacer tout l\'historique ?</string>
+    <string name="clear_history_confirm_message">Cela supprime définitivement tous les relevés d\'IMC du profil actuel. Cette action est irréversible.</string>
+    <string name="clear_history_done">Historique effacé</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">Calculateur de MB</string>

@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">언어</string>
     <string name="select_language">언어 선택</string>
+    <string name="unit_system_title">단위 시스템</string>
+    <string name="unit_metric">미터법 (kg, cm)</string>
+    <string name="unit_imperial">야드파운드법 (lbs, in)</string>
+    <string name="theme_title">테마</string>
+    <string name="theme_system">시스템</string>
+    <string name="theme_light">라이트</string>
+    <string name="theme_dark">다크</string>
+    <string name="data_section_title">데이터</string>
+    <string name="clear_history">기록 삭제</string>
+    <string name="clear_history_confirm_title">모든 기록을 삭제하시겠습니까?</string>
+    <string name="clear_history_confirm_message">현재 프로필의 모든 BMI 기록이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
+    <string name="clear_history_done">기록이 삭제되었습니다</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">기초대사량 계산기</string>

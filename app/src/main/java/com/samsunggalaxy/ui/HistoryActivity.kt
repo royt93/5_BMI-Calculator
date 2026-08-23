@@ -34,6 +34,7 @@ import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -66,6 +67,10 @@ class HistoryActivity : BaseActivity() {
     private var records: List<BmiRecord> = emptyList()
     private var currentProfileId: Long = 1L
     private var currentGoalWeight: Double? = null
+    // EPIC-04 T04.1: chart series/goal-line + the history list rows are unit-aware. The goal
+    // row's own text (`goal_weight_target`/`goal_weight_current` locale templates) and the
+    // set-goal dialog stay metric-only for this pass — see UnitFormatter's doc comment.
+    private var unitSystem: String = UnitFormatter.METRIC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,9 +160,11 @@ class HistoryActivity : BaseActivity() {
             val currentProfile = repository.getCurrentProfile()
             currentProfileId = currentProfile?.id ?: 1L
             currentGoalWeight = currentProfile?.goalWeight
-            if (BuildConfig.DEBUG) Log.d("roy93~", "HistoryActivity loadData: profileId=$currentProfileId, goalWeight=$currentGoalWeight")
+            unitSystem = PreferencesManager(this@HistoryActivity).unitSystem.first()
+            if (BuildConfig.DEBUG) Log.d("roy93~", "HistoryActivity loadData: profileId=$currentProfileId, goalWeight=$currentGoalWeight, unitSystem=$unitSystem")
 
             withContext(Dispatchers.Main) {
+                adapter.unitSystem = unitSystem
                 repository.getAllRecordsAscending(currentProfileId).observe(this@HistoryActivity) { recs ->
                     if (BuildConfig.DEBUG) Log.d("roy93~", "HistoryActivity records received: count=${recs.size}")
                     records = recs
@@ -186,16 +193,16 @@ class HistoryActivity : BaseActivity() {
         val entries = records.mapIndexed { index, record ->
             val value = when (currentSeries) {
                 Series.BMI -> record.bmi
-                Series.WEIGHT -> record.weight
-                Series.HEIGHT -> record.height
+                Series.WEIGHT -> UnitFormatter.weightToDisplay(record.weight, unitSystem)
+                Series.HEIGHT -> UnitFormatter.heightToDisplay(record.height, unitSystem)
             }
             Entry(index.toFloat(), value.toFloat())
         }
 
         val label = when (currentSeries) {
             Series.BMI -> getString(R.string.dashboard_series_bmi)
-            Series.WEIGHT -> getString(R.string.dashboard_series_weight)
-            Series.HEIGHT -> getString(R.string.dashboard_series_height)
+            Series.WEIGHT -> "${getString(R.string.dashboard_series_weight)} (${UnitFormatter.weightUnitLabel(unitSystem)})"
+            Series.HEIGHT -> "${getString(R.string.dashboard_series_height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
         }
         val primaryColor = ContextCompat.getColor(this, R.color.bmi_healthy)
         val dataSet = LineDataSet(entries, label).apply {
@@ -219,7 +226,7 @@ class HistoryActivity : BaseActivity() {
         val goalWeight = currentGoalWeight
         if (goalWeight != null && goalWeight > 0) {
             val limitLineValue: Float? = when (currentSeries) {
-                Series.WEIGHT -> goalWeight.toFloat()
+                Series.WEIGHT -> UnitFormatter.weightToDisplay(goalWeight, unitSystem).toFloat()
                 Series.BMI -> {
                     val latestHeightM = records.last().height / 100.0
                     if (latestHeightM > 0) (goalWeight / (latestHeightM * latestHeightM)).toFloat() else null
@@ -349,17 +356,19 @@ class HistoryActivity : BaseActivity() {
         }
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_quick_log, null)
         val etWeight = dialogView.findViewById<TextInputEditText>(R.id.etQuickLogWeight)
-        etWeight.setText(String.format("%.1f", records.last().weight))
+        val tilWeight = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilQuickLogWeight)
+        tilWeight.suffixText = UnitFormatter.weightUnitLabel(unitSystem)
+        etWeight.setText(String.format("%.1f", UnitFormatter.weightToDisplay(records.last().weight, unitSystem)))
 
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.quick_log_title))
             .setView(dialogView)
             .setPositiveButton(getString(R.string.quick_log_save)) { _, _ ->
-                val weight = etWeight.text.toString().toDoubleOrNull()
-                if (weight == null || weight <= 0) {
+                val displayWeight = etWeight.text.toString().toDoubleOrNull()
+                if (displayWeight == null || displayWeight <= 0) {
                     Toast.makeText(this, getString(R.string.quick_log_invalid_weight), Toast.LENGTH_SHORT).show()
                 } else {
-                    quickLogWeight(weight)
+                    quickLogWeight(UnitFormatter.weightToMetric(displayWeight, unitSystem))
                 }
             }
             .setNegativeButton(getString(R.string.cancel), null)
@@ -471,6 +480,13 @@ class HistoryAdapter(
             oldItem == newItem
     }
 ) {
+    /** Set by HistoryActivity from the persisted preference — see EPIC-04 T04.1. */
+    var unitSystem: String = UnitFormatter.METRIC
+        set(value) {
+            if (field == value) return
+            field = value
+            notifyDataSetChanged()
+        }
 
     fun getRecordAt(position: Int): BmiRecord = getItem(position)
 
@@ -498,7 +514,7 @@ class HistoryAdapter(
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             tvDate.text = dateFormat.format(Date(record.timestamp))
             tvBmi.text = "BMI: ${String.format("%.1f", record.bmi)}"
-            tvDetails.text = "${String.format("%.0f", record.weight)}kg • ${String.format("%.0f", record.height)}cm"
+            tvDetails.text = "${UnitFormatter.formatWeight(record.weight, unitSystem)} • ${UnitFormatter.formatHeight(record.height, unitSystem)}"
 
             // BMI category — unified via CalculatorUtils.getBMICategoryInfo (EPIC-00 T00.3)
             val categoryInfo = CalculatorUtils.getBMICategoryInfo(record.bmi)

@@ -13,7 +13,9 @@ import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class GalaxyApp : Application() {
 
@@ -24,6 +26,7 @@ class GalaxyApp : Application() {
         if (BuildConfig.DEBUG) Log.d("roy93~", "GalaxyApp.onCreate")
 
         DynamicColors.applyToActivitiesIfAvailable(this)
+        applyPersistedTheme()
 
         // AdSafety: release dùng UTILITY preset (90s throttle, 3/session, 5/day),
         // debug dùng TEST preset (gần như không throttle để QC test nhanh).
@@ -68,6 +71,23 @@ class GalaxyApp : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(LocaleHelper.onAttach(base))
+    }
+
+    /**
+     * EPIC-04 T04.2 — apply the persisted theme BEFORE any Activity is created. Deliberately
+     * blocking (not `applicationScope.launch`): this runs in Application.onCreate() before
+     * SplashAct's window exists, so there's no frame to jank — but AppCompatDelegate.
+     * setDefaultNightMode() recreates any already-resumed Activity, so applying it
+     * asynchronously (as originally written) let SplashAct start with the wrong mode and
+     * then get abruptly recreated once the DataStore read resolved (audit-found regression).
+     */
+    private fun applyPersistedTheme() {
+        try {
+            val mode = runBlocking { com.samsunggalaxy.utils.PreferencesManager(applicationContext).themeMode.first() }
+            com.samsunggalaxy.utils.ThemeHelper.apply(mode)
+        } catch (e: Exception) {
+            Log.e("roy93~", "applyPersistedTheme error", e)
+        }
     }
 
     private fun initializeDefaultProfile() {

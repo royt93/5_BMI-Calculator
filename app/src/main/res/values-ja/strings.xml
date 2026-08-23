@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">言語</string>
     <string name="select_language">言語を選択</string>
+    <string name="unit_system_title">単位系</string>
+    <string name="unit_metric">メートル法 (kg, cm)</string>
+    <string name="unit_imperial">ヤード・ポンド法 (lbs, in)</string>
+    <string name="theme_title">テーマ</string>
+    <string name="theme_system">システム</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="data_section_title">データ</string>
+    <string name="clear_history">履歴を削除</string>
+    <string name="clear_history_confirm_title">すべての履歴を削除しますか？</string>
+    <string name="clear_history_confirm_message">現在のプロフィールのBMI記録がすべて完全に削除されます。元に戻せません。</string>
+    <string name="clear_history_done">履歴を削除しました</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">基礎代謝計算機</string>

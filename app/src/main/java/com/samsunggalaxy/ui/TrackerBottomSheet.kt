@@ -19,7 +19,10 @@ import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -31,6 +34,7 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var repository: BmiRepository
     private var records: List<BmiRecord> = emptyList()
     private var currentTab = 0 // 0=weight, 1=height
+    private var unitSystem: String = UnitFormatter.METRIC
 
     override fun getTheme(): Int = com.google.android.material.R.style.ThemeOverlay_Material3_BottomSheetDialog
 
@@ -64,6 +68,7 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             val profile = repository.getCurrentProfile()
             val profileId = profile?.id ?: 1L
+            unitSystem = PreferencesManager(ctx).unitSystem.first()
             withContext(Dispatchers.Main) {
                 repository.getAllRecordsAscending(profileId).observe(viewLifecycleOwner) { recs ->
                     records = recs
@@ -86,8 +91,11 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
         val tvSummary = view.findViewById<TextView>(R.id.tvTrackerSummary) ?: return
 
         val isWeight = currentTab == 0
-        val values = if (isWeight) records.map { it.weight } else records.map { it.height }
-        val unit = if (isWeight) "kg" else "cm"
+        // Converted to the current display unit right here — every downstream stat/chart
+        // read in this function operates on `values`, so nothing else needs to know units.
+        val values = if (isWeight) records.map { UnitFormatter.weightToDisplay(it.weight, unitSystem) }
+            else records.map { UnitFormatter.heightToDisplay(it.height, unitSystem) }
+        val unit = if (isWeight) UnitFormatter.weightUnitLabel(unitSystem) else UnitFormatter.heightUnitLabel(unitSystem)
         val label = if (isWeight) getString(R.string.weight) else getString(R.string.height)
 
         // --- Stats ---
@@ -120,7 +128,8 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
         val thirtyDaysAgo = System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
         val recentRecords = records.filter { it.timestamp >= thirtyDaysAgo }
         if (recentRecords.size >= 2) {
-            val recentValues = if (isWeight) recentRecords.map { it.weight } else recentRecords.map { it.height }
+            val recentValues = if (isWeight) recentRecords.map { UnitFormatter.weightToDisplay(it.weight, unitSystem) }
+                else recentRecords.map { UnitFormatter.heightToDisplay(it.height, unitSystem) }
             val recentDiff = recentValues.last() - recentValues.first()
             val direction = if (recentDiff > 0) getString(R.string.tracker_increased)
                 else getString(R.string.tracker_decreased)
@@ -133,7 +142,8 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
 
         // --- Chart ---
         val entries = records.mapIndexed { i, rec ->
-            val v = if (isWeight) rec.weight.toFloat() else rec.height.toFloat()
+            val v = if (isWeight) UnitFormatter.weightToDisplay(rec.weight, unitSystem).toFloat()
+                else UnitFormatter.heightToDisplay(rec.height, unitSystem).toFloat()
             Entry(i.toFloat(), v)
         }
 

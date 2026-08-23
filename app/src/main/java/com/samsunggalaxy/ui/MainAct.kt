@@ -42,7 +42,10 @@ import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
 import com.samsunggalaxy.feature.vip.VipActivity
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
@@ -50,6 +53,38 @@ import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager
 const val REQUEST_CODE = 69
 const val REQUEST_RESULT = "REQUEST_RESULT"
 private const val KEY_ONBOARDING_PROFILE_ASKED = "onboarding_profile_asked"
+
+private const val MAX_WEIGHT_KG = 151.0
+private const val MAX_HEIGHT_CM = 229.0
+
+/**
+ * Pure — no Android dependency — so directly unit-testable (EPIC-04 T04.1).
+ * The imperial upper bound is DERIVED from the metric one (via UnitFormatter), not a
+ * separately hand-picked number — a hardcoded "2..330" undershot 151kg's true lbs
+ * equivalent (~333), so switching to imperial near max weight left no matching wheel
+ * label and silently snapped the display back to the minimum (audit-found regression).
+ */
+fun weightWheelLabels(unitSystem: String): List<String> {
+    val range = if (unitSystem == UnitFormatter.IMPERIAL) {
+        val maxLbs = Math.ceil(UnitFormatter.weightToDisplay(MAX_WEIGHT_KG, UnitFormatter.IMPERIAL)).toInt()
+        2..maxLbs
+    } else {
+        1..MAX_WEIGHT_KG.toInt()
+    }
+    return range.map { it.toString() }
+}
+
+/** Pure — no Android dependency — so directly unit-testable (EPIC-04 T04.1). Same
+ * derive-from-metric approach as [weightWheelLabels] for the same reason. */
+fun heightWheelLabels(unitSystem: String): List<String> {
+    val range = if (unitSystem == UnitFormatter.IMPERIAL) {
+        val maxIn = Math.ceil(UnitFormatter.heightToDisplay(MAX_HEIGHT_CM, UnitFormatter.IMPERIAL)).toInt()
+        1..maxIn
+    } else {
+        1..MAX_HEIGHT_CM.toInt()
+    }
+    return range.map { it.toString() }
+}
 
 class MainAct : BaseActivity() {
     private lateinit var binding: AMainBinding
@@ -65,6 +100,13 @@ class MainAct : BaseActivity() {
     // Multi-profile (EPIC-05): every profile-scoped screen fetches this fresh via
     // repository.getCurrentProfile() rather than caching a stale value across Activities.
     private var currentProfileId: Long = 1L
+
+    // Unit system (EPIC-04 T04.1): wheels build metric first (fast, matches pre-existing
+    // cold-start behavior), then loadCurrentProfileAndRefresh() (onResume) rebuilds them if
+    // the persisted preference is imperial. `weight`/`height` fields ALWAYS stay metric —
+    // the wheel listeners convert on every selection — so nothing downstream (navigationRunnable,
+    // ResultAct, Room) needs to know about units at all.
+    private var unitSystem: String = UnitFormatter.METRIC
 
     private val handler = Handler(Looper.getMainLooper())
     private val exitResetRunnable = Runnable { doubleBackToExitPressedOnce = false }
@@ -165,11 +207,18 @@ class MainAct : BaseActivity() {
             // the same mutable field could hand one invocation's Main block the other's id.
             val profileId = profile?.id ?: 1L
             val profileName = profile?.name ?: "Default"
+            val fetchedUnitSystem = PreferencesManager(this@MainAct).unitSystem.first()
             currentProfileId = profileId // still kept in sync for other synchronous readers
             withContext(Dispatchers.Main) {
                 updateProfileChip(profileName)
                 updateStreakUI(profileId)
                 maybeShowOnboardingRename(profileId, profileName)
+                if (fetchedUnitSystem != unitSystem) {
+                    unitSystem = fetchedUnitSystem
+                    refreshWeightPickerForUnit()
+                    refreshHeightPickerForUnit()
+                    updateUnitLabels()
+                }
             }
         }
     }
@@ -427,7 +476,9 @@ class MainAct : BaseActivity() {
         snapHelper.attachToRecyclerView(_binding.weightRecyclerBtn)
 
         // ML-04: Removed recyclerView reference from adapter constructor
-        weightAdapter = WeightPickerAdt(this, getData(151))
+        // Built metric-first (matches pre-existing cold-start behavior); loadCurrentProfileAndRefresh()
+        // (onResume) rebuilds to imperial if that's the persisted preference — see EPIC-04 T04.1.
+        weightAdapter = WeightPickerAdt(this, weightWheelLabels(unitSystem))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _binding.weightRecyclerBtn.defaultFocusHighlightEnabled = true
@@ -442,14 +493,18 @@ class MainAct : BaseActivity() {
             }
         }
         pickerLayoutManager.setOnScrollStopListener { view ->
-            weight = Integer.parseInt((view as TextView).text.toString())
+            // `weight` always stays metric regardless of what unit the wheel is displaying —
+            // nothing downstream (navigationRunnable, ResultAct, Room) needs to know about units.
+            val selectedDisplay = Integer.parseInt((view as TextView).text.toString())
+            weight = Math.round(UnitFormatter.weightToMetric(selectedDisplay.toDouble(), unitSystem)).toInt()
         }
 
 //        Height
         _binding.heightWheelView.onWheelChangedListener =
             OnWheelChangedListener { view, _, newIndex ->
                 val text = view.getItem(newIndex)
-                height = Integer.parseInt(text.toString())
+                val selectedDisplay = Integer.parseInt(text.toString())
+                height = Math.round(UnitFormatter.heightToMetric(selectedDisplay.toDouble(), unitSystem)).toInt()
             }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -505,13 +560,29 @@ class MainAct : BaseActivity() {
         // Tránh load duplicate trong setupViews — onResume xử lý cả initial state + state changes.
     }
 
-    private fun getData(count: Int): List<String> {
-        // BUG-02: Start from 1 instead of 0 — 0 kg is not a valid weight
-        val data: MutableList<String> = ArrayList()
-        for (i in 1..count) {
-            data.add(i.toString())
-        }
-        return data
+    /** EPIC-04 T04.1: rebuild the weight wheel for the given unit, preserving the current selection. */
+    private fun refreshWeightPickerForUnit() {
+        val labels = weightWheelLabels(unitSystem)
+        weightAdapter.swapData(labels)
+        val displayValue = Math.round(UnitFormatter.weightToDisplay(weight.toDouble(), unitSystem))
+        val idx = labels.indexOf(displayValue.toString()).let { if (it >= 0) it else 0 }
+        _binding.weightRecyclerBtn.scrollToPosition(idx)
+    }
+
+    /** EPIC-04 T04.1: rebuild the height wheel for the given unit, preserving the current selection. */
+    private fun refreshHeightPickerForUnit() {
+        val labels = heightWheelLabels(unitSystem)
+        _binding.heightWheelView.setEntries(labels)
+        val displayValue = Math.round(UnitFormatter.heightToDisplay(height.toDouble(), unitSystem))
+        val idx = labels.indexOf(displayValue.toString()).let { if (it >= 0) it else 0 }
+        _binding.heightWheelView.currentIndex = idx
+    }
+
+    private fun updateUnitLabels() {
+        _binding.root.findViewById<TextView>(R.id.tvWeightUnit)?.text =
+            "(${UnitFormatter.weightUnitLabel(unitSystem).uppercase()})"
+        _binding.root.findViewById<TextView>(R.id.tvHeightUnit)?.text =
+            "(${UnitFormatter.heightUnitLabel(unitSystem).uppercase()})"
     }
 
     private fun animationView() {

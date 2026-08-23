@@ -1,5 +1,12 @@
 # EPIC-04 — Settings screen + Unit system kg⇄lbs ⚙️ (P1, 13 pts)
 
+> **Status (2026-08-23): T04.1–T04.4 ĐÃ XONG + có test. Điểm audit 9.5/10, đã push.**
+> `UnitFormatter`/`ThemeHelper` (utils, pure) + Settings screen (unit toggle Metric/Imperial, theme System/Light/Dark, Clear History). `MainAct` wheel picker chuyển đổi đơn vị (metric-first render, rebuild khi đổi unit ở Settings), nội bộ luôn lưu metric. `ResultAct`/`HistoryActivity` (Dashboard)/`TrackerBottomSheet`/4 calculator hiển thị + nhận input theo unit hiện tại. **Giới hạn đã ghi nhận**: goal-weight card (`goal_weight_current/target/remaining` template dịch sẵn có "kg" nhúng cứng trong 17 locale, và `suffixText="kg"` của dialog set-goal) vẫn chỉ metric — cần 1 epic riêng để làm imperial-variant cho các template đó.
+>
+> **Audit pass** (`/code-review high`): 4 finding — 2 bug thật đã fix (wheel imperial weight range hụt mất 151kg≈333lbs do hardcode "2..330", giờ tự tính từ metric bound; theme áp dụng async trong `GalaxyApp` gây flash+recreate SplashAct lúc cold start, giờ dùng `runBlocking` đọc đồng bộ trước khi Activity đầu tiên tạo — an toàn vì chạy trước khi có frame nào render), 1 nit nhỏ (fallback `"metric"` hardcode → dùng `UnitFormatter.METRIC`), 1 gap i18n (12 string mới đã dịch đủ 14 locale còn thiếu).
+>
+> Test: unit test cho `UnitFormatter`/`ThemeHelper`/wheel-label generation (bao gồm regression test cho bug range đã fix) + instrumented test cho Settings toggle/clear-history/Dashboard hiển thị theo unit — 29/29 pass trên `Pixel_10_Pro_XL(AVD)`.
+
 ## Hiện trạng (Explore agent xác nhận)
 `SettingsActivity.kt` chỉ có **1/6** setting đã khai báo trong `PreferencesManager.kt`: language. 5 pref còn lại là "dead scaffolding":
 | Key | Trạng thái |

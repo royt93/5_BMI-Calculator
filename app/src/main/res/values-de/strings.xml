@@ -22,6 +22,18 @@
     <!-- Settings -->
     <string name="language">Sprache</string>
     <string name="select_language">Sprache auswählen</string>
+    <string name="unit_system_title">Einheitensystem</string>
+    <string name="unit_metric">Metrisch (kg, cm)</string>
+    <string name="unit_imperial">Imperial (lbs, in)</string>
+    <string name="theme_title">Design</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="data_section_title">Daten</string>
+    <string name="clear_history">Verlauf löschen</string>
+    <string name="clear_history_confirm_title">Gesamten Verlauf löschen?</string>
+    <string name="clear_history_confirm_message">Dies löscht dauerhaft alle BMI-Einträge für das aktuelle Profil. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="clear_history_done">Verlauf gelöscht</string>
 
     <!-- Calculator Names -->
     <string name="bmr_calculator">GU-Rechner</string>

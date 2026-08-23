@@ -40,6 +40,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
 import android.widget.EditText
 import kotlin.jvm.java
 
@@ -142,8 +143,10 @@ class ResultAct : BaseActivity() {
         // used to be baked into both the display AND the persisted BmiRecord (EPIC-00 T00.2).
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val activityLevel = PreferencesManager(this@ResultAct).activityLevel.first()
-                withContext(Dispatchers.Main) { calculateAndDisplayInsights(activityLevel) }
+                val prefs = PreferencesManager(this@ResultAct)
+                val activityLevel = prefs.activityLevel.first()
+                val unitSystem = prefs.unitSystem.first()
+                withContext(Dispatchers.Main) { calculateAndDisplayInsights(activityLevel, unitSystem) }
                 saveToHistory(activityLevel)
             } catch (e: Exception) {
                 // Matches the defensive try/catch saveToHistory() itself used to wrap the
@@ -500,7 +503,7 @@ class ResultAct : BaseActivity() {
         _binding.tvBmi.text = getString(CalculatorUtils.getBMICategoryInfo(result).labelRes)
     }
 
-    private fun calculateAndDisplayInsights(activityLevel: Int) {
+    private fun calculateAndDisplayInsights(activityLevel: Int, unitSystem: String) {
         val bmr = CalculatorUtils.calculateBMR(weight, height, age, gender)
         val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
         val idealWeight = CalculatorUtils.calculateIdealWeightRange(height, gender)
@@ -510,8 +513,11 @@ class ResultAct : BaseActivity() {
             "${String.format("%.0f", bmr)} ${getString(R.string.cal_per_day)}"
         _binding.root.findViewById<TextView>(R.id.tvTdeeValue)?.text =
             "${String.format("%.0f", tdee)} ${getString(R.string.cal_per_day)}"
-        _binding.root.findViewById<TextView>(R.id.tvIdealWeightValue)?.text =
-            "${String.format("%.0f", idealWeight.first)}-${String.format("%.0f", idealWeight.second)} kg"
+        _binding.root.findViewById<TextView>(R.id.tvIdealWeightValue)?.text = "${
+            String.format("%.0f", UnitFormatter.weightToDisplay(idealWeight.first, unitSystem))
+        }-${
+            String.format("%.0f", UnitFormatter.weightToDisplay(idealWeight.second, unitSystem))
+        } ${UnitFormatter.weightUnitLabel(unitSystem)}"
         _binding.root.findViewById<TextView>(R.id.tvWaterValue)?.text =
             "${String.format("%.1f", water)} ${getString(R.string.l_per_day)}"
     }

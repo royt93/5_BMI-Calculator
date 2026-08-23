@@ -6,12 +6,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.utils.PreferencesManager
+import com.samsunggalaxy.utils.UnitFormatter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class IdealWeightCalculatorActivity : BaseActivity() {
+    private var unitSystem: String = UnitFormatter.METRIC
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UIUtils.setupEdgeToEdge1(window)
@@ -31,13 +38,25 @@ class IdealWeightCalculatorActivity : BaseActivity() {
             finish()
         }
 
+        // EPIC-04 T04.1: input (height) is converted to metric before CalculatorUtils; the
+        // OUTPUT here is a weight range, so — unlike BMR/TDEE calorie results — it must be
+        // converted back to the display unit too, or an imperial user gets a "kg" range.
+        lifecycleScope.launch {
+            unitSystem = PreferencesManager(this@IdealWeightCalculatorActivity).unitSystem.first()
+            etHeight.hint = "${getString(R.string.height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
+        }
+
         btnCalculate.setOnClickListener {
-            val height = etHeight.text.toString().toDoubleOrNull() ?: 0.0
+            val heightInput = etHeight.text.toString().toDoubleOrNull() ?: 0.0
             val isMale = rgGender.checkedRadioButtonId == R.id.rbMale
 
-            if (height > 0) {
+            if (heightInput > 0) {
+                val height = UnitFormatter.heightToMetric(heightInput, unitSystem)
                 val range = CalculatorUtils.calculateIdealWeightRange(height, isMale)
-                tvResult.text = "${getString(R.string.ideal_weight)}:\n${String.format("%.0f", range.first)} - ${String.format("%.0f", range.second)} kg\n\n${getString(R.string.ideal_weight_description)}"
+                val minDisplay = UnitFormatter.weightToDisplay(range.first, unitSystem)
+                val maxDisplay = UnitFormatter.weightToDisplay(range.second, unitSystem)
+                val unitLabel = UnitFormatter.weightUnitLabel(unitSystem)
+                tvResult.text = "${getString(R.string.ideal_weight)}:\n${String.format("%.0f", minDisplay)} - ${String.format("%.0f", maxDisplay)} $unitLabel\n\n${getString(R.string.ideal_weight_description)}"
             } else {
                 tvResult.text = getString(R.string.please_enter_valid_values)
             }
