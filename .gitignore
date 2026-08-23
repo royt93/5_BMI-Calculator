@@ -15,3 +15,6 @@
 local.properties
 /app/release/output-metadata.json
 /.kotlin/sessions/kotlin-compiler-8063284416785114662.salive
+
+# Claude Code local settings (YOLO/bypassPermissions — không commit)
+.claude/settings.local.json
