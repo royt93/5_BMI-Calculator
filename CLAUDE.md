@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Native Android BMI Calculator app, single Gradle module (`:app`), written in Kotlin. Package `com.samsunggalaxy` / `applicationId com.samsunggalaxy.bmicalculator`. Uses View Binding + Data Binding, Room, DataStore, MPAndroidChart, and the JitPack-hosted `AdmobWrapper` SDK for ads.
+Native Android BMI Calculator app, single Gradle module (`:app`), written in Kotlin. Package `com.samsunggalaxy` / `applicationId com.samsunggalaxy.bmicalculator`. Uses View Binding + Data Binding, Room, DataStore, MPAndroidChart, and the JitPack-hosted `AdmobApplovinWrapper` SDK for ads + VIP.
 
 ## Build & run
 
@@ -46,25 +46,30 @@ Every Activity extends `BaseActivity` (sets locale via `LocaleHelper.onAttach`, 
 
 ### Application setup (`GalaxyApp.kt`)
 
-Order in `onCreate` matters and is documented inline:
+Order in `onCreate`:
 
-1. `AppLovinSdk.getInstance(this).mediationProvider = "max"` — kicked off **first** because the network handshake (~5s) needs to complete before the splash's 8s App Open Ad timeout.
-2. `DynamicColors.applyToActivitiesIfAvailable(this)` (Material You).
-3. `AdManager.setConfig(adConfig)` then `AdManager.earlyInit(this)` — starts the AdSafety session clock as early as possible.
-4. `applovinSdk.initializeSdk { AdManager.init(...) }` — the real init runs only after AppLovin finishes handshaking.
-5. `initializeDefaultProfile()` — on an `applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)`, creates a default `Profile` row if none exists. Required because the rest of the app saves records with `profileId` defaulted to the current/first profile (see `doc/BUGS_FIXED.md` #1 — Room auto-increment starts at 1, never 0).
+1. `DynamicColors.applyToActivitiesIfAvailable(this)` (Material You).
+2. Build `AdSdkConfig` (banner/interstitial/app-open/reward IDs for both networks, `vipKeySecret = AdKeys.VIP_SECRET`, `safety = AdSafetyLimits.TEST` in debug / `.UTILITY` in release) and register `AdManager.errorReporter` (forwards SDK exceptions to logcat, gated `BuildConfig.DEBUG`).
+3. `AdManager.setConfig(adConfig)` then `AdManager.initialize(this) { success, gaid -> ... }` — single call now (no separate AppLovin handshake step or early/late init split since the 1.1.3 migration). SDK 1.1.3 has a built-in 1-day first-install VIP grace period computed from `installBeginMs`; app code must **not** call `activateVipByKey` to grant that first day itself or it will stomp the SDK's own value.
+4. `initializeDefaultProfile()` — on an `applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)`, creates a default `Profile` row if none exists. Required because the rest of the app saves records with `profileId` defaulted to the current/first profile (see `doc/BUGS_FIXED.md` #1 — Room auto-increment starts at 1, never 0).
 
 `attachBaseContext` wraps the context with `LocaleHelper.onAttach(base)` so the app launches in the user-selected language.
 
 ### Ad layer
 
-Ads are delegated entirely to the `com.roy.sdkadbmob.AdManager` singleton from `com.github.royt93:AdmobWrapper:1.1.1` (JitPack). The wrapper handles AdMob + AppLovin MAX mediation, banner/interstitial/app-open/reward formats, GAID lookup, VIP whitelist, error cooldown, and the "7-layer AdSafety" throttling.
+Ads are delegated entirely to the `com.roy.sdkadbmob.AdManager` singleton from `com.github.royt93:AdmobApplovinWrapper:1.1.3` (JitPack; class/package unchanged across the 1.1.1 → 1.1.3 bump). The wrapper handles AdMob + AppLovin MAX mediation, banner/interstitial/app-open/reward formats, GAID lookup, its own VIP-by-key state, error cooldown, and the "7-layer AdSafety" throttling.
 
 `BuildConfig.IS_ENABLE_ADMOB` (defined in `app/build.gradle.kts`) toggles provider: **`false` ⇒ AppLovin MAX is used** in both debug and release. AdMob unit IDs are still passed in as fallbacks. SDK keys & unit IDs are injected as `buildConfigField` strings — see the `defaultConfig`/`buildTypes` blocks for the canonical values, and `doc/AD.MD` for the migration history.
 
-Touchpoints: App Open on `SplashAct`, persistent Banner on `MainAct` and `ResultAct`, Interstitial on `ResultAct` back/delete, Reward Ad on `ResultAct` "Get Detailed Plan" button.
+Touchpoints: App Open on `SplashAct`, persistent Banner on `MainAct` and `ResultAct`, Interstitial on `ResultAct` back/delete, Reward Ad on `ResultAct` "Get Detailed Plan" button. Banner is destroyed/hidden whenever VIP is active — see `syncBannerWithVipState()` in `MainAct.kt` and `ResultAct.kt`.
 
 The legacy hand-rolled `app/src/main/java/com/samsunggalaxy/sdkadbmob/AdMobManager.kt.bak` is kept as a reference only — do not re-introduce it. `UIUtils.kt` (edge-to-edge helpers) in the same package is still in use.
+
+### VIP Membership
+
+`feature/vip/` package: `VipActivity` (thin `BaseActivity` host, layout `a_vip`) hosts the `FVipManagement` fragment, which provides redeem-key input, a "watch rewarded ad → 3 days VIP" flow, revoke, and countdown/progress UI. Launched from `MainAct`'s menu/badge via a plain `Intent`.
+
+VIP truth lives in the SDK, not app persistence: `AdManager.isVipByKeyActive()` / `AdManager.getVipByKeyExpiry()` / `AdManager.activateVipByKey(context, AdKeys.VIP_SECRET, days)` / `AdManager.clearVipByKey()`. `VipPrefs` (SharedPreferences file `vip_screen_prefs`) only supplements this with a `grantedAt` timestamp and a "redeemed at least once" flag, since the SDK doesn't expose a getter for when VIP was granted. Redeem keys are whitelisted in `VipKeys.kt` (Base64-obfuscated) and exposed app-wide via `AdKeys.VIP_SECRET` (`common/const/AdKeys.kt`, which also exposes `AdKeys.PRIVACY_POLICY_URL` from `BuildConfig.PRIVACY_POLICY_URL` for the VIP screen footer / consent dialog).
 
 ### Persistence
 
