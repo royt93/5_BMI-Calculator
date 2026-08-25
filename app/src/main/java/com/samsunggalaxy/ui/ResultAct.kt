@@ -364,7 +364,7 @@ class ResultAct : BaseActivity() {
             val imageURI = _binding.layoutRoot.drawToBitmap().let { bitmap ->
                 saveBitmap(this, bitmap)
             } ?: run {
-                displayToast("Error occurred!")
+                displayToast(getString(R.string.error_occurred))
                 adContainer?.visibility = originalVisibility ?: View.VISIBLE
                 return
             }
@@ -381,7 +381,7 @@ class ResultAct : BaseActivity() {
 
             startActivity(Intent.createChooser(intent, null))
         } catch (e: Exception) {
-            displayToast("Share failed: ${e.message}")
+            displayToast(getString(R.string.share_failed, e.message ?: ""))
         }
     }
 

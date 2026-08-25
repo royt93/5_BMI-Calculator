@@ -13,6 +13,7 @@
     <string name="height">РОСТ</string>
     <string name="cm">(СМ)</string>
     <string name="age">ВОЗРАСТ</string>
+    <string name="ad_label">Реклама</string>
     <string name="menu">Меню</string>
     <string name="history">История</string>
     <string name="calculators">Калькуляторы</string>
@@ -57,6 +58,10 @@
     <string name="track_your_health">Следите за своим здоровьем</string>
     <string name="loading">Загрузка</string>
     <string name="please_note_action">Примечание: это действие может показывать рекламу</string>
+    <string name="press_back_again_to_exit">Нажмите Назад ещё раз для выхода</string>
+    <string name="error_occurred">Произошла ошибка!</string>
+    <string name="share_failed">Не удалось поделиться: %1$s</string>
+    <string name="could_not_open_link">Не удалось открыть ссылку</string>
     <string name="your_are_healthy">Вы здоровы</string>
     <string name="health_insights">Анализ здоровья</string>
     <string name="ideal_weight">Идеальный вес</string>

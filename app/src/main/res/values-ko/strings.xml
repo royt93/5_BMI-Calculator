@@ -12,6 +12,7 @@
     <string name="height">키</string>
     <string name="cm">(CM)</string>
     <string name="age">나이</string>
+    <string name="ad_label">광고</string>
 
     <!-- Menu -->
     <string name="menu">메뉴</string>
@@ -68,6 +69,10 @@
     <string name="track_your_health">건강 추적</string>
     <string name="loading">로딩 중</string>
     <string name="please_note_action">참고: 이 작업은 광고를 표시할 수 있습니다</string>
+    <string name="press_back_again_to_exit">종료하려면 뒤로 버튼을 한 번 더 누르세요</string>
+    <string name="error_occurred">오류가 발생했습니다!</string>
+    <string name="share_failed">공유 실패: %1$s</string>
+    <string name="could_not_open_link">링크를 열 수 없습니다</string>
     <string name="your_are_healthy">당신은 건강합니다</string>
     <string name="health_insights">건강 정보</string>
     <string name="ideal_weight">이상 체중</string>

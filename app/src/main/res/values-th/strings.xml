@@ -12,6 +12,7 @@
     <string name="height">ส่วนสูง</string>
     <string name="cm">(ซม.)</string>
     <string name="age">อายุ</string>
+    <string name="ad_label">โฆษณา</string>
 
     <!-- Menu -->
     <string name="menu">เมนู</string>
@@ -68,6 +69,10 @@
     <string name="track_your_health">ติดตามสุขภาพของคุณ</string>
     <string name="loading">กำลังโหลด</string>
     <string name="please_note_action">โปรดทราบ: การดำเนินการนี้อาจแสดงโฆษณา</string>
+    <string name="press_back_again_to_exit">กดย้อนกลับอีกครั้งเพื่อออก</string>
+    <string name="error_occurred">เกิดข้อผิดพลาด!</string>
+    <string name="share_failed">แชร์ไม่สำเร็จ: %1$s</string>
+    <string name="could_not_open_link">ไม่สามารถเปิดลิงก์ได้</string>
     <string name="your_are_healthy">คุณมีสุขภาพดี</string>
     <string name="health_insights">ข้อมูลเชิงลึกด้านสุขภาพ</string>
     <string name="ideal_weight">น้ำหนักที่เหมาะสม</string>

@@ -12,6 +12,7 @@
     <string name="height">GRÖSSE</string>
     <string name="cm">(CM)</string>
     <string name="age">ALTER</string>
+    <string name="ad_label">Werbung</string>
 
     <!-- Menu -->
     <string name="menu">Menü</string>
@@ -68,6 +69,10 @@
     <string name="track_your_health">Verfolgen Sie Ihre Gesundheit</string>
     <string name="loading">Laden</string>
     <string name="please_note_action">Hinweis: Diese Aktion kann Werbung anzeigen</string>
+    <string name="press_back_again_to_exit">Bitte drücken Sie erneut ZURÜCK, um zu beenden</string>
+    <string name="error_occurred">Ein Fehler ist aufgetreten!</string>
+    <string name="share_failed">Teilen fehlgeschlagen: %1$s</string>
+    <string name="could_not_open_link">Link konnte nicht geöffnet werden</string>
     <string name="your_are_healthy">Sie sind gesund</string>
     <string name="health_insights">Gesundheitseinblicke</string>
     <string name="ideal_weight">Idealgewicht</string>

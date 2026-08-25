@@ -13,6 +13,7 @@
     <string name="height">ALTURA</string>
     <string name="cm">(CM)</string>
     <string name="age">IDADE</string>
+    <string name="ad_label">Anúncio</string>
     <string name="menu">Menu</string>
     <string name="history">Histórico</string>
     <string name="calculators">Calculadoras</string>
@@ -57,6 +58,10 @@
     <string name="track_your_health">Monitore sua saúde</string>
     <string name="loading">Carregando</string>
     <string name="please_note_action">Atenção: Esta ação pode exibir anúncios</string>
+    <string name="press_back_again_to_exit">Toque em VOLTAR novamente para sair</string>
+    <string name="error_occurred">Ocorreu um erro!</string>
+    <string name="share_failed">Falha ao compartilhar: %1$s</string>
+    <string name="could_not_open_link">Não foi possível abrir o link</string>
     <string name="your_are_healthy">Você está saudável</string>
     <string name="health_insights">Informações de saúde</string>
     <string name="ideal_weight">Peso ideal</string>

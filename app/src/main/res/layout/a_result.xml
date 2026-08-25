@@ -90,10 +90,10 @@
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:text="@string/_21_2"
                                 android:textColor="?attr/colorPrimary"
                                 android:textSize="96sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="21.2" />
 
                             <TextView
                                 android:id="@+id/tvBmi"

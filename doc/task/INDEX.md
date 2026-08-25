@@ -14,7 +14,7 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | Epic | Category | Priority | Points | File |
 |---|---|---|---|---|
 | ✅ EPIC-00 Critical correctness bugs (đồng thuận 2-3 AI) | 🐛 | P0 | 10 | `done/EPIC-00-critical-bugs.md` |
-| EPIC-01 i18n & code hygiene fixes | 🐛 | P1 | 5 | `todo/EPIC-01-i18n-hygiene-fixes.md` |
+| ✅ EPIC-01 i18n & code hygiene fixes | 🐛 | P1 | 5 | `done/EPIC-01-i18n-hygiene-fixes.md` |
 | EPIC-02 Security hardening (leftover M/L items) | 🐛 | P1/P2 | 8 | `todo/EPIC-02-security-hardening.md` |
 | EPIC-03 Reward-ad "Detailed Plan" — hướng đã chốt, chưa implement | 🐛/⚙️ | P1 | 3 | `todo/EPIC-03-reward-ad-detailed-plan.md` |
 | ✅ EPIC-04 Settings screen + Unit system (kg⇄lbs) | ⚙️ | P1 | 13 | `done/EPIC-04-settings-and-units.md` |
@@ -25,7 +25,7 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | EPIC-09 Platform extensions (widget/Health Connect) | ✨ | P3 | 21 | `todo/EPIC-09-platform-extensions.md` |
 | Ideas độc quyền — **CHỐT: I3+I2+I4 vào roadmap gần nhất** | 💡 | — | — | `IDEAS.md` |
 
-**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 (81 pts).**
+**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-01 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 (86 pts).**
 
 ## Đã implement (2026-08-23) — chi tiết
 

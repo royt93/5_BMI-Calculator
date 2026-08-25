@@ -12,6 +12,7 @@
     <string name="height">CHIỀU CAO</string>
     <string name="cm">(CM)</string>
     <string name="age">TUỔI</string>
+    <string name="ad_label">Quảng cáo</string>
 
     <!-- Menu -->
     <string name="menu">Menu</string>
@@ -68,6 +69,10 @@
     <string name="track_your_health">Theo dõi sức khỏe của bạn</string>
     <string name="loading">Đang tải</string>
     <string name="please_note_action">Lưu ý: Hành động này có thể hiển thị quảng cáo</string>
+    <string name="press_back_again_to_exit">Nhấn BACK lần nữa để thoát</string>
+    <string name="error_occurred">Đã xảy ra lỗi!</string>
+    <string name="share_failed">Chia sẻ thất bại: %1$s</string>
+    <string name="could_not_open_link">Không thể mở liên kết</string>
     <string name="your_are_healthy">Bạn khỏe mạnh</string>
     <string name="health_insights">Thông tin sức khỏe</string>
     <string name="ideal_weight">Cân nặng lý tưởng</string>

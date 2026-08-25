@@ -13,6 +13,7 @@
     <string name="height">TINGGI</string>
     <string name="cm">(CM)</string>
     <string name="age">USIA</string>
+    <string name="ad_label">Iklan</string>
     <string name="menu">Menu</string>
     <string name="history">Riwayat</string>
     <string name="calculators">Kalkulator</string>
@@ -57,6 +58,10 @@
     <string name="track_your_health">Pantau kesehatan Anda</string>
     <string name="loading">Memuat</string>
     <string name="please_note_action">Catatan: Tindakan ini mungkin menampilkan iklan</string>
+    <string name="press_back_again_to_exit">Tekan BACK sekali lagi untuk keluar</string>
+    <string name="error_occurred">Terjadi kesalahan!</string>
+    <string name="share_failed">Bagikan gagal: %1$s</string>
+    <string name="could_not_open_link">Tidak dapat membuka tautan</string>
     <string name="your_are_healthy">Anda sehat</string>
     <string name="health_insights">Wawasan kesehatan</string>
     <string name="ideal_weight">Berat ideal</string>

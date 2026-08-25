@@ -167,7 +167,7 @@ class MainAct : BaseActivity() {
                     onBackPressedDispatcher.onBackPressed()
                 } else {
                     doubleBackToExitPressedOnce = true
-                    Toast.makeText(this@MainAct, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainAct, getString(R.string.press_back_again_to_exit), Toast.LENGTH_SHORT).show()
                     handler.postDelayed(exitResetRunnable, 2000)
                 }
             }

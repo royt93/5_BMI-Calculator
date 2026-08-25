@@ -426,7 +426,9 @@ class FVipManagement : Fragment() {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         } catch (_: Exception) {
-            Toast.makeText(requireContext(), url, Toast.LENGTH_LONG).show()
+            // No app can handle ACTION_VIEW (e.g. no browser installed) — a raw URL toast isn't
+            // localized and isn't actionable for the user; a plain error message is.
+            Toast.makeText(requireContext(), getString(R.string.could_not_open_link), Toast.LENGTH_LONG).show()
         }
     }
 }

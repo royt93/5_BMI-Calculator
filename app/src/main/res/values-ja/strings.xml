@@ -12,6 +12,7 @@
     <string name="height">身長</string>
     <string name="cm">(CM)</string>
     <string name="age">年齢</string>
+    <string name="ad_label">広告</string>
 
     <!-- Menu -->
     <string name="menu">メニュー</string>
@@ -68,6 +69,10 @@
     <string name="track_your_health">健康を追跡</string>
     <string name="loading">読み込み中</string>
     <string name="please_note_action">ご注意: この操作は広告を表示する場合があります</string>
+    <string name="press_back_again_to_exit">もう一度戻るボタンを押すと終了します</string>
+    <string name="error_occurred">エラーが発生しました！</string>
+    <string name="share_failed">共有に失敗しました: %1$s</string>
+    <string name="could_not_open_link">リンクを開けませんでした</string>
     <string name="your_are_healthy">あなたは健康です</string>
     <string name="health_insights">健康情報</string>
     <string name="ideal_weight">理想体重</string>
