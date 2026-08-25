@@ -27,13 +27,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.samsunggalaxy.BaseActivity
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
 import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
@@ -168,12 +168,12 @@ class HistoryActivity : BaseActivity() {
             currentProfileId = currentProfile?.id ?: 1L
             currentGoalWeight = currentProfile?.goalWeight
             unitSystem = PreferencesManager(this@HistoryActivity).unitSystem.first()
-            if (BuildConfig.DEBUG) Log.d("roy93~", "HistoryActivity loadData: profileId=$currentProfileId, goalWeight=$currentGoalWeight, unitSystem=$unitSystem")
+            AppLog.d("HistoryActivity loadData: profileId=$currentProfileId, goalWeight=$currentGoalWeight, unitSystem=$unitSystem")
 
             withContext(Dispatchers.Main) {
                 adapter.unitSystem = unitSystem
                 repository.getAllRecordsAscending(currentProfileId).observe(this@HistoryActivity) { recs ->
-                    if (BuildConfig.DEBUG) Log.d("roy93~", "HistoryActivity records received: count=${recs.size}")
+                    AppLog.d("HistoryActivity records received: count=${recs.size}")
                     records = recs
                     adapter.submitList(recs.reversed())
                     updateChart()

@@ -31,6 +31,7 @@ import com.samsunggalaxy.ext.displayToast
 import com.samsunggalaxy.ext.saveBitmap
 import com.samsunggalaxy.rateAppInApp
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
@@ -120,7 +121,7 @@ class ResultAct : BaseActivity() {
                 }
             }
         } catch (e: Exception) {
-            if (com.samsunggalaxy.BuildConfig.DEBUG) Log.w("roy93~", "syncBannerWithVipState failed", e)
+            AppLog.w("syncBannerWithVipState failed", e)
         }
     }
 
@@ -391,7 +392,7 @@ class ResultAct : BaseActivity() {
             handler.postDelayed({
                 // AdSafety tự throttle — nếu không đủ điều kiện, callback vẫn được gọi với adShown=false
                 AdManager.showInterstitial(this) { adShown ->
-                    if (BuildConfig.DEBUG) Log.d("roy93~", "showInterstitial adShown=$adShown")
+                    AppLog.d("showInterstitial adShown=$adShown")
                     handler.postDelayed(backRunnable, 100)
                 }
             }, 600)
@@ -551,7 +552,7 @@ class ResultAct : BaseActivity() {
 
             val currentProfile = repository.getCurrentProfile()
             val profileId = currentProfile?.id ?: 1L
-            if (BuildConfig.DEBUG) Log.d("roy93~", "saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result, activityLevel=$activityLevel")
+            AppLog.d("saveToHistory: profileId=$profileId, weight=$weight, height=$height, bmi=$result, activityLevel=$activityLevel")
 
             val record = BmiRecord(
                 timestamp = System.currentTimeMillis(),

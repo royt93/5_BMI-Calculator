@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
@@ -13,9 +12,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.roy.sdkadbmob.AdManager
 import com.samsunggalaxy.BaseActivity
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.R
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.LocaleHelper
 import com.samsunggalaxy.utils.PreferencesManager
 import kotlinx.coroutines.flow.first
@@ -94,7 +93,7 @@ class SplashAct : BaseActivity() {
                     checkFirstRunAndProceed()
                 }
             } else {
-                if (BuildConfig.DEBUG) Log.d("roy93~", "Consent denied → skip ads, navigate")
+                AppLog.d("Consent denied → skip ads, navigate")
                 checkFirstRunAndProceed()
             }
         }

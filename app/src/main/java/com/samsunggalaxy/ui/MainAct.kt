@@ -42,6 +42,7 @@ import com.samsunggalaxy.ext.rateApp
 import com.samsunggalaxy.ext.shareApp
 import com.samsunggalaxy.feature.vip.VipActivity
 import com.samsunggalaxy.sdkadbmob.UIUtils
+import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
 import kotlinx.coroutines.Dispatchers
@@ -366,7 +367,7 @@ class MainAct : BaseActivity() {
                 }
             }
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) Log.w("roy93~", "syncBannerWithVipState failed", e)
+            AppLog.w("syncBannerWithVipState failed", e)
         }
     }
 
@@ -387,25 +388,25 @@ class MainAct : BaseActivity() {
                 )
             }
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) Log.w("roy93~", "refreshVipBadge failed", e)
+            AppLog.w("refreshVipBadge failed", e)
         }
     }
 
     private fun updateStreakUI(profileId: Long) {
-        if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI() called, profileId=$profileId")
+        AppLog.d("updateStreakUI() called, profileId=$profileId")
         try {
             val streakCard = _binding.root.findViewById<View>(R.id.streakCard)
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: streakCard=${streakCard != null}")
+            AppLog.d("updateStreakUI: streakCard=${streakCard != null}")
             if (streakCard == null) return
 
             val tvTitle = streakCard.findViewById<TextView>(R.id.tvStreakTitle)
             val tvBest = streakCard.findViewById<TextView>(R.id.tvStreakBest)
             val tvMotivation = streakCard.findViewById<TextView>(R.id.tvStreakMotivation)
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
+            AppLog.d("updateStreakUI: tvTitle=${tvTitle != null}, tvBest=${tvBest != null}, tvMotivation=${tvMotivation != null}")
             if (tvTitle == null || tvBest == null || tvMotivation == null) return
 
             val data = StreakManager.getDisplayStreak(this, profileId)
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
+            AppLog.d("updateStreakUI: current=${data.current}, best=${data.best}, lastDate=${data.lastDate}")
 
             if (data.current > 0) {
                 tvTitle.text = getString(R.string.streak_title, data.current)
@@ -422,13 +423,13 @@ class MainAct : BaseActivity() {
             val dayLabels = arrayOf("M", "T", "W", "T", "F", "S", "S")
             val todayIndex = (java.time.LocalDate.now().dayOfWeek.value - 1) // 0=Mon
             val todayChecked = StreakManager.isTodayChecked(this, profileId)
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
+            AppLog.d("updateStreakUI: todayIndex=$todayIndex, todayChecked=$todayChecked")
 
             // How many past days in this week are part of the streak?
             val streakDays = data.current
             val checkedToday = if (todayChecked) 1 else 0
             val pastDaysCovered = minOf(streakDays - checkedToday, todayIndex)
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: streakDays=$streakDays, pastDaysCovered=$pastDaysCovered")
+            AppLog.d("updateStreakUI: streakDays=$streakDays, pastDaysCovered=$pastDaysCovered")
 
             for (i in 0..6) {
                 val tv = streakCard.findViewById<TextView>(dayIds[i]) ?: continue
@@ -438,7 +439,7 @@ class MainAct : BaseActivity() {
                     else -> tv.text = dayLabels[i]
                 }
             }
-            if (BuildConfig.DEBUG) Log.d("roy93~", "updateStreakUI: DONE, title=${tvTitle.text}")
+            AppLog.d("updateStreakUI: DONE, title=${tvTitle.text}")
         } catch (e: Exception) {
             Log.e("roy93~", "updateStreakUI error", e)
         }

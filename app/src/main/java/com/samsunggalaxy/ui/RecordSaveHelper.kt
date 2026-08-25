@@ -1,10 +1,9 @@
 package com.samsunggalaxy.ui
 
 import android.content.Context
-import android.util.Log
-import com.samsunggalaxy.BuildConfig
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.utils.AppLog
 
 /**
  * Shared by ResultAct.saveToHistory() (full wizard) and HistoryActivity's quick-log FAB
@@ -19,7 +18,7 @@ object RecordSaveHelper {
         goalWeight: Double?
     ): List<BadgeManager.Badge> {
         val insertedId = repository.insertRecord(record)
-        if (BuildConfig.DEBUG) Log.d("roy93~", "RecordSaveHelper: inserted record id=$insertedId, profileId=${record.profileId}, weight=${record.weight}, bmi=${record.bmi}")
+        AppLog.d("RecordSaveHelper: inserted record id=$insertedId, profileId=${record.profileId}, weight=${record.weight}, bmi=${record.bmi}")
         StreakManager.recordCheck(context, record.profileId)
 
         val recordCount = repository.getRecordCount(record.profileId)

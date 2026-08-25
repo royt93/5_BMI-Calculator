@@ -9,6 +9,7 @@ import com.roy.sdkadbmob.AdSafetyLimits
 import com.roy.sdkadbmob.AdSdkConfig
 import com.roy.sdkadbmob.ErrorReporter
 import com.samsunggalaxy.common.const.AdKeys
+import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,7 @@ class GalaxyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) Log.d("roy93~", "GalaxyApp.onCreate")
+        AppLog.d("GalaxyApp.onCreate")
 
         DynamicColors.applyToActivitiesIfAvailable(this)
         applyPersistedTheme()
@@ -61,9 +62,7 @@ class GalaxyApp : Application() {
         // AdManager.kt:499-543 of SDK source). KHÔNG được gọi `activateVipByKey`
         // ở app-side để grant 1 ngày — sẽ stomp giá trị SDK ghi (installBeginMs+24h).
         AdManager.initialize(this) { success, gaid ->
-            if (BuildConfig.DEBUG) {
-                Log.d("roy93~", "AdManager init: success=$success, gaid=$gaid")
-            }
+            AppLog.d("AdManager init: success=$success, gaid=$gaid")
         }
 
         initializeDefaultProfile()
