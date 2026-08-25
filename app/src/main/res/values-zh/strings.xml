@@ -27,6 +27,14 @@
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>
     <string name="data_section_title">数据</string>
+    <string name="reminder_section_title">提醒</string>
+    <string name="reminder_toggle_label">每日称重提醒</string>
+    <string name="reminder_time_label">提醒时间</string>
+    <string name="reminder_notification_channel_name">称重提醒</string>
+    <string name="reminder_notification_channel_desc">每日提醒您记录体重的通知</string>
+    <string name="reminder_notification_title">该称体重了！</string>
+    <string name="reminder_notification_body">记录今天的体重以保持连续记录</string>
+    <string name="reminder_permission_denied">请在系统设置中开启通知以接收提醒</string>
     <string name="clear_history">清除历史记录</string>
     <string name="clear_history_confirm_title">清除所有历史记录？</string>
     <string name="clear_history_confirm_message">此操作将永久删除当前资料的所有BMI记录，且无法撤销。</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">体重</string>
     <string name="dashboard_series_height">身高</string>
+    <string name="dashboard_series_measurements">身体测量</string>
+    <string name="export_csv">导出CSV</string>
+    <string name="export_csv_empty">暂无可导出的历史记录</string>
+    <string name="export_csv_error">导出失败</string>
     <string name="dashboard_empty_title">暂无数据</string>
     <string name="dashboard_empty_subtitle">计算您的BMI以开始跟踪进度</string>
     <string name="dashboard_eta_days">按此速度，大约还需%1$d天达成目标</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">连续7次BMI处于健康范围</string>
     <string name="badge_data_lover">数据达人</string>
     <string name="badge_data_lover_desc">记录50条BMI数据</string>
+    <string name="badge_measure_taker">测量达人</string>
+    <string name="badge_measure_taker_desc">记录你的第一次身体测量</string>
+    <string name="badge_data_exporter">数据导出达人</string>
+    <string name="badge_data_exporter_desc">首次导出你的历史记录</string>
     <string name="badge_unlocked">成就已解锁！</string>
     <string name="daily_tip_label">💡 每日贴士</string>
     <string name="daily_tip_for">针对</string>

@@ -30,6 +30,14 @@
     <string name="theme_light">Clair</string>
     <string name="theme_dark">Sombre</string>
     <string name="data_section_title">Données</string>
+    <string name="reminder_section_title">Rappels</string>
+    <string name="reminder_toggle_label">Rappel quotidien de pesée</string>
+    <string name="reminder_time_label">Heure du rappel</string>
+    <string name="reminder_notification_channel_name">Rappel de pesée</string>
+    <string name="reminder_notification_channel_desc">Notification quotidienne pour vous rappeler d\'enregistrer votre poids</string>
+    <string name="reminder_notification_title">C\'est l\'heure de la pesée !</string>
+    <string name="reminder_notification_body">Enregistrez votre poids du jour pour continuer votre série</string>
+    <string name="reminder_permission_denied">Activez les notifications dans les paramètres système pour recevoir des rappels</string>
     <string name="clear_history">Effacer l\'historique</string>
     <string name="clear_history_confirm_title">Effacer tout l\'historique ?</string>
     <string name="clear_history_confirm_message">Cela supprime définitivement tous les relevés d\'IMC du profil actuel. Cette action est irréversible.</string>
@@ -118,6 +126,10 @@
     <string name="dashboard_series_bmi">IMC</string>
     <string name="dashboard_series_weight">Poids</string>
     <string name="dashboard_series_height">Taille</string>
+    <string name="dashboard_series_measurements">Mesures</string>
+    <string name="export_csv">Exporter en CSV</string>
+    <string name="export_csv_empty">Aucun historique à exporter pour l\'instant</string>
+    <string name="export_csv_error">Échec de l\'exportation</string>
     <string name="dashboard_empty_title">Pas encore de données</string>
     <string name="dashboard_empty_subtitle">Calculez votre IMC pour commencer à suivre votre progression</string>
     <string name="dashboard_eta_days">À ce rythme, encore ~%1$d jours pour atteindre votre objectif</string>
@@ -183,6 +195,10 @@
     <string name="badge_healthy_zone_desc">IMC sain pendant 7 entrées</string>
     <string name="badge_data_lover">Amateur de Données</string>
     <string name="badge_data_lover_desc">Enregistrer 50 entrées IMC</string>
+    <string name="badge_measure_taker">Preneur de Mesures</string>
+    <string name="badge_measure_taker_desc">Enregistrez votre première mesure corporelle</string>
+    <string name="badge_data_exporter">Exportateur de Données</string>
+    <string name="badge_data_exporter_desc">Exportez votre historique pour la première fois</string>
     <string name="badge_unlocked">Succès débloqué !</string>
 
     <!-- Health Tips -->

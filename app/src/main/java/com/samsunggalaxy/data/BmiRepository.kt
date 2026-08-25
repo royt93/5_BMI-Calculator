@@ -2,7 +2,11 @@ package com.samsunggalaxy.data
 
 import androidx.lifecycle.LiveData
 
-class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileDao) {
+class BmiRepository(
+    private val bmiDao: BmiDao,
+    private val profileDao: ProfileDao,
+    private val bodyMeasurementDao: BodyMeasurementDao
+) {
 
     fun getAllRecords(profileId: Long): LiveData<List<BmiRecord>> {
         return bmiDao.getAllRecords(profileId)
@@ -53,9 +57,10 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
         profileDao.delete(profile)
     }
 
-    /** Deletes the profile AND every BmiRecord tied to it (no DB-level cascade — see BmiDao). */
+    /** Deletes the profile AND every BmiRecord/BodyMeasurement tied to it (no DB-level cascade — see BmiDao). */
     suspend fun deleteProfileWithRecords(profile: Profile) {
         bmiDao.deleteAllByProfile(profile.id)
+        bodyMeasurementDao.deleteAllByProfile(profile.id)
         profileDao.delete(profile)
     }
 
@@ -98,6 +103,7 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     /** EPIC-04 T04.4 — Settings "Clear History": wipes records but keeps the profile itself. */
     suspend fun clearHistory(profileId: Long) {
         bmiDao.deleteAllByProfile(profileId)
+        bodyMeasurementDao.deleteAllByProfile(profileId)
     }
 
     /** EPIC-06 T06.2 — attach a Body Fat calculator result onto an existing record. Returns rows affected. */
@@ -109,5 +115,18 @@ class BmiRepository(private val bmiDao: BmiDao, private val profileDao: ProfileD
     suspend fun getCurrentProfileMostRecentRecord(): BmiRecord? {
         val profile = getCurrentProfile() ?: return null
         return getMostRecentRecord(profile.id)
+    }
+
+    // EPIC-08 T08.3 — body measurements (waist/neck/hip/chest) tracked over time
+    suspend fun insertMeasurement(measurement: BodyMeasurement): Long {
+        return bodyMeasurementDao.insert(measurement)
+    }
+
+    fun getMeasurementsAscending(profileId: Long): LiveData<List<BodyMeasurement>> {
+        return bodyMeasurementDao.getAllAscending(profileId)
+    }
+
+    suspend fun getMeasurementCount(profileId: Long): Int {
+        return bodyMeasurementDao.getCount(profileId)
     }
 }

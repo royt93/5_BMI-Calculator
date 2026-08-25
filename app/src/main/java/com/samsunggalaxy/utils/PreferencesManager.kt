@@ -20,6 +20,10 @@ class PreferencesManager(private val context: Context) {
         val CURRENT_PROFILE_ID = longPreferencesKey("current_profile_id")
         val ACTIVITY_LEVEL = intPreferencesKey("activity_level") // 0-4
         val IS_LANGUAGE_SELECTED = booleanPreferencesKey("is_language_selected")
+        // EPIC-08 T08.1 — daily weigh-in reminder, off by default (opt-in, avoids notification spam).
+        val REMINDER_ENABLED = booleanPreferencesKey("reminder_enabled")
+        val REMINDER_HOUR = intPreferencesKey("reminder_hour")
+        val REMINDER_MINUTE = intPreferencesKey("reminder_minute")
     }
 
     val themeMode: Flow<String> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
@@ -44,6 +48,19 @@ class PreferencesManager(private val context: Context) {
 
     val isLanguageSelected: Flow<Boolean> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
         preferences[IS_LANGUAGE_SELECTED] ?: false
+    }
+
+    val reminderEnabled: Flow<Boolean> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
+        preferences[REMINDER_ENABLED] ?: false
+    }
+
+    // Default 08:00 — before breakfast, a common weigh-in habit-forming time.
+    val reminderHour: Flow<Int> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
+        preferences[REMINDER_HOUR] ?: 8
+    }
+
+    val reminderMinute: Flow<Int> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
+        preferences[REMINDER_MINUTE] ?: 0
     }
 
     suspend fun setThemeMode(mode: String) {
@@ -79,6 +96,19 @@ class PreferencesManager(private val context: Context) {
     suspend fun markLanguageSelected() {
         context.dataStore.edit { preferences ->
             preferences[IS_LANGUAGE_SELECTED] = true
+        }
+    }
+
+    suspend fun setReminderEnabled(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[REMINDER_ENABLED] = enabled
+        }
+    }
+
+    suspend fun setReminderTime(hour: Int, minute: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[REMINDER_HOUR] = hour
+            preferences[REMINDER_MINUTE] = minute
         }
     }
 }

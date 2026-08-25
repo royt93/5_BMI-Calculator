@@ -27,6 +27,14 @@
     <string name="theme_light">Açık</string>
     <string name="theme_dark">Koyu</string>
     <string name="data_section_title">Veri</string>
+    <string name="reminder_section_title">Hatırlatıcılar</string>
+    <string name="reminder_toggle_label">Günlük tartılma hatırlatıcısı</string>
+    <string name="reminder_time_label">Hatırlatıcı saati</string>
+    <string name="reminder_notification_channel_name">Tartılma hatırlatıcısı</string>
+    <string name="reminder_notification_channel_desc">Kilonuzu kaydetmenizi hatırlatan günlük bildirim</string>
+    <string name="reminder_notification_title">Tartılma vakti!</string>
+    <string name="reminder_notification_body">Serinizi sürdürmek için bugünkü kilonuzu kaydedin</string>
+    <string name="reminder_permission_denied">Hatırlatıcı almak için sistem ayarlarından bildirimleri etkinleştirin</string>
     <string name="clear_history">Geçmişi Temizle</string>
     <string name="clear_history_confirm_title">Tüm geçmiş temizlensin mi?</string>
     <string name="clear_history_confirm_message">Bu, mevcut profildeki tüm BMI kayıtlarını kalıcı olarak siler. Bu işlem geri alınamaz.</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">Kilo</string>
     <string name="dashboard_series_height">Boy</string>
+    <string name="dashboard_series_measurements">Ölçümler</string>
+    <string name="export_csv">CSV Dışa Aktar</string>
+    <string name="export_csv_empty">Dışa aktarılacak geçmiş henüz yok</string>
+    <string name="export_csv_error">Dışa aktarma başarısız</string>
     <string name="dashboard_empty_title">Henüz veri yok</string>
     <string name="dashboard_empty_subtitle">İlerlemenizi takip etmeye başlamak için BMI\'nizi hesaplayın</string>
     <string name="dashboard_eta_days">Bu hızla hedefinize ulaşmak için ~%1$d gün kaldı</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">7 kayıt boyunca sağlıklı BMI\'de kalın</string>
     <string name="badge_data_lover">Veri Sever</string>
     <string name="badge_data_lover_desc">50 BMI kaydı girin</string>
+    <string name="badge_measure_taker">Ölçüm Alan</string>
+    <string name="badge_measure_taker_desc">İlk vücut ölçünüzü kaydedin</string>
+    <string name="badge_data_exporter">Veri Aktarıcı</string>
+    <string name="badge_data_exporter_desc">Geçmişinizi ilk kez dışa aktarın</string>
     <string name="badge_unlocked">Başarı açıldı!</string>
     <string name="daily_tip_label">💡 Günün İpucu</string>
     <string name="daily_tip_for">Şunun için</string>

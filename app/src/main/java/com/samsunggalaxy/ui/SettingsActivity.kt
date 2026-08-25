@@ -1,19 +1,26 @@
 package com.samsunggalaxy.ui
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Process
 import android.view.View
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.notification.ReminderScheduler
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.LocaleHelper
 import com.samsunggalaxy.utils.PreferencesManager
@@ -31,11 +38,32 @@ class SettingsActivity : BaseActivity() {
     private lateinit var repository: BmiRepository
     private lateinit var toggleUnitSystem: MaterialButtonToggleGroup
     private lateinit var toggleTheme: MaterialButtonToggleGroup
+    private lateinit var switchReminder: MaterialSwitch
+    private lateinit var reminderTimeContainer: View
+    private lateinit var tvReminderTime: TextView
 
     // Guards against the listener re-persisting the value it just read while
     // programmatically checking a button to reflect the stored preference.
     private var suppressUnitListener = false
     private var suppressThemeListener = false
+    private var suppressReminderListener = false
+    private var reminderHour = 8
+    private var reminderMinute = 0
+
+    // EPIC-08 T08.1 — must be registered before STARTED (class-body init, not inside a click
+    // handler) per ActivityResultContracts contract.
+    private val requestNotificationPermission = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            enableReminder()
+        } else {
+            suppressReminderListener = true
+            switchReminder.isChecked = false
+            suppressReminderListener = false
+            Toast.makeText(this, getString(R.string.reminder_permission_denied), Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +77,14 @@ class SettingsActivity : BaseActivity() {
 
         prefs = PreferencesManager(this)
         val database = AppDatabase.getDatabase(this)
-        repository = BmiRepository(database.bmiDao(), database.profileDao())
+        repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         tvCurrentLanguage = findViewById(R.id.tvCurrentLanguage)
         toggleUnitSystem = findViewById(R.id.toggleUnitSystem)
         toggleTheme = findViewById(R.id.toggleTheme)
+        switchReminder = findViewById(R.id.switchReminder)
+        reminderTimeContainer = findViewById(R.id.reminderTimeContainer)
+        tvReminderTime = findViewById(R.id.tvReminderTime)
 
         findViewById<View>(R.id.ivBack)?.setOnClickListener {
             finish()
@@ -75,6 +106,7 @@ class SettingsActivity : BaseActivity() {
         setupUnitToggle()
         setupThemeToggle()
         setupClearHistory()
+        setupReminder()
         updateLanguageDisplay()
         loadPersistedToggleStates()
     }
@@ -98,6 +130,9 @@ class SettingsActivity : BaseActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val unitSystem = prefs.unitSystem.first()
             val themeMode = prefs.themeMode.first()
+            val reminderEnabled = prefs.reminderEnabled.first()
+            reminderHour = prefs.reminderHour.first()
+            reminderMinute = prefs.reminderMinute.first()
             withContext(Dispatchers.Main) {
                 suppressUnitListener = true
                 toggleUnitSystem.check(
@@ -114,7 +149,67 @@ class SettingsActivity : BaseActivity() {
                     }
                 )
                 suppressThemeListener = false
+
+                suppressReminderListener = true
+                switchReminder.isChecked = reminderEnabled
+                suppressReminderListener = false
+                reminderTimeContainer.visibility = if (reminderEnabled) View.VISIBLE else View.GONE
+                updateReminderTimeText()
             }
+        }
+    }
+
+    private fun updateReminderTimeText() {
+        tvReminderTime.text = String.format(java.util.Locale.US, "%02d:%02d", reminderHour, reminderMinute)
+    }
+
+    /** EPIC-08 T08.1 — opt-in daily reminder; off by default to avoid the "notification spam
+     * → uninstall" risk the epic doc flags, with an easy toggle-off in this same screen. */
+    private fun setupReminder() {
+        switchReminder.setOnCheckedChangeListener { _, isChecked ->
+            if (suppressReminderListener) return@setOnCheckedChangeListener
+            if (isChecked) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } else {
+                    enableReminder()
+                }
+            } else {
+                reminderTimeContainer.visibility = View.GONE
+                lifecycleScope.launch(Dispatchers.IO) {
+                    prefs.setReminderEnabled(false)
+                    ReminderScheduler.cancel(this@SettingsActivity)
+                }
+            }
+        }
+
+        reminderTimeContainer.setOnClickListener {
+            android.app.TimePickerDialog(
+                this,
+                { _: TimePicker, hour: Int, minute: Int ->
+                    reminderHour = hour
+                    reminderMinute = minute
+                    updateReminderTimeText()
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        prefs.setReminderTime(hour, minute)
+                        ReminderScheduler.schedule(this@SettingsActivity, hour, minute)
+                    }
+                },
+                reminderHour,
+                reminderMinute,
+                true
+            ).show()
+        }
+    }
+
+    private fun enableReminder() {
+        reminderTimeContainer.visibility = View.VISIBLE
+        updateReminderTimeText()
+        lifecycleScope.launch(Dispatchers.IO) {
+            prefs.setReminderEnabled(true)
+            ReminderScheduler.schedule(this@SettingsActivity, reminderHour, reminderMinute)
         }
     }
 

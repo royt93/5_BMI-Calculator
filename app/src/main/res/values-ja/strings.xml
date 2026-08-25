@@ -30,6 +30,14 @@
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
     <string name="data_section_title">データ</string>
+    <string name="reminder_section_title">リマインダー</string>
+    <string name="reminder_toggle_label">毎日の体重測定リマインダー</string>
+    <string name="reminder_time_label">リマインダーの時刻</string>
+    <string name="reminder_notification_channel_name">体重測定リマインダー</string>
+    <string name="reminder_notification_channel_desc">体重の記録を促す毎日の通知</string>
+    <string name="reminder_notification_title">体重測定の時間です！</string>
+    <string name="reminder_notification_body">今日の体重を記録して連続記録を続けましょう</string>
+    <string name="reminder_permission_denied">リマインダーを受け取るには、システム設定で通知を有効にしてください</string>
     <string name="clear_history">履歴を削除</string>
     <string name="clear_history_confirm_title">すべての履歴を削除しますか？</string>
     <string name="clear_history_confirm_message">現在のプロフィールのBMI記録がすべて完全に削除されます。元に戻せません。</string>
@@ -118,6 +126,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">体重</string>
     <string name="dashboard_series_height">身長</string>
+    <string name="dashboard_series_measurements">測定値</string>
+    <string name="export_csv">CSVをエクスポート</string>
+    <string name="export_csv_empty">エクスポートする履歴がまだありません</string>
+    <string name="export_csv_error">エクスポートに失敗しました</string>
     <string name="dashboard_empty_title">まだデータがありません</string>
     <string name="dashboard_empty_subtitle">BMIを計算して進捗の記録を始めましょう</string>
     <string name="dashboard_eta_days">このペースだと、目標まであと約%1$d日</string>
@@ -183,6 +195,10 @@
     <string name="badge_healthy_zone_desc">7回連続で健康的なBMI</string>
     <string name="badge_data_lover">データラバー</string>
     <string name="badge_data_lover_desc">BMIを50回記録</string>
+    <string name="badge_measure_taker">測定マスター</string>
+    <string name="badge_measure_taker_desc">初めての体の測定値を記録しました</string>
+    <string name="badge_data_exporter">データエクスポーター</string>
+    <string name="badge_data_exporter_desc">初めて履歴をエクスポートしました</string>
     <string name="badge_unlocked">実績解除！</string>
 
     <!-- Health Tips -->

@@ -46,7 +46,7 @@ class TrackerBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val ctx = requireContext()
         val db = AppDatabase.getDatabase(ctx)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
 
         // Close button
         view.findViewById<View>(R.id.ivCloseTracker).setOnClickListener { dismiss() }

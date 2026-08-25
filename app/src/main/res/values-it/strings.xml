@@ -27,6 +27,14 @@
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
     <string name="data_section_title">Dati</string>
+    <string name="reminder_section_title">Promemoria</string>
+    <string name="reminder_toggle_label">Promemoria pesata giornaliera</string>
+    <string name="reminder_time_label">Orario del promemoria</string>
+    <string name="reminder_notification_channel_name">Promemoria pesata</string>
+    <string name="reminder_notification_channel_desc">Notifica giornaliera che ti ricorda di registrare il peso</string>
+    <string name="reminder_notification_title">Ora di pesarsi!</string>
+    <string name="reminder_notification_body">Registra il peso di oggi per mantenere la tua serie</string>
+    <string name="reminder_permission_denied">Attiva le notifiche nelle impostazioni di sistema per ricevere i promemoria</string>
     <string name="clear_history">Cancella cronologia</string>
     <string name="clear_history_confirm_title">Cancellare tutta la cronologia?</string>
     <string name="clear_history_confirm_message">Questo elimina permanentemente tutti i record BMI del profilo attuale. Non può essere annullato.</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">Peso</string>
     <string name="dashboard_series_height">Altezza</string>
+    <string name="dashboard_series_measurements">Misure</string>
+    <string name="export_csv">Esporta CSV</string>
+    <string name="export_csv_empty">Ancora nessuna cronologia da esportare</string>
+    <string name="export_csv_error">Esportazione non riuscita</string>
     <string name="dashboard_empty_title">Ancora nessun dato</string>
     <string name="dashboard_empty_subtitle">Calcola il tuo BMI per iniziare a monitorare i tuoi progressi</string>
     <string name="dashboard_eta_days">A questo ritmo, ancora ~%1$d giorni per raggiungere il tuo obiettivo</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">BMI sano in 7 registrazioni consecutive</string>
     <string name="badge_data_lover">Amante dei Dati</string>
     <string name="badge_data_lover_desc">Registra 50 valori di BMI</string>
+    <string name="badge_measure_taker">Rilevatore di Misure</string>
+    <string name="badge_measure_taker_desc">Registra la tua prima misura corporea</string>
+    <string name="badge_data_exporter">Esportatore di Dati</string>
+    <string name="badge_data_exporter_desc">Esporta la tua cronologia per la prima volta</string>
     <string name="badge_unlocked">Traguardo sbloccato!</string>
     <string name="daily_tip_label">💡 Consiglio del giorno</string>
     <string name="daily_tip_for">Per</string>

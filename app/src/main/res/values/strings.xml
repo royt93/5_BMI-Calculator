@@ -31,6 +31,14 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="data_section_title">Data</string>
+    <string name="reminder_section_title">Reminders</string>
+    <string name="reminder_toggle_label">Daily weigh-in reminder</string>
+    <string name="reminder_time_label">Reminder time</string>
+    <string name="reminder_notification_channel_name">Weigh-in reminder</string>
+    <string name="reminder_notification_channel_desc">Daily notification reminding you to log your weight</string>
+    <string name="reminder_notification_title">Time to weigh in!</string>
+    <string name="reminder_notification_body">Log today\'s weight to keep your streak going</string>
+    <string name="reminder_permission_denied">Enable notifications in system settings to receive reminders</string>
     <string name="clear_history">Clear History</string>
     <string name="clear_history_confirm_title">Clear all history?</string>
     <string name="clear_history_confirm_message">This permanently deletes every BMI record for the current profile. This can\'t be undone.</string>
@@ -103,6 +111,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">Weight</string>
     <string name="dashboard_series_height">Height</string>
+    <string name="dashboard_series_measurements">Measurements</string>
+    <string name="export_csv">Export CSV</string>
+    <string name="export_csv_empty">No history to export yet</string>
+    <string name="export_csv_error">Export failed</string>
     <string name="dashboard_empty_title">No data yet</string>
     <string name="dashboard_empty_subtitle">Calculate your BMI to start tracking your progress</string>
     <string name="dashboard_eta_days">At this rate, ~%1$d days to reach your goal</string>
@@ -168,6 +180,10 @@
     <string name="badge_healthy_zone_desc">Stay in healthy BMI for 7 entries</string>
     <string name="badge_data_lover">Data Lover</string>
     <string name="badge_data_lover_desc">Record 50 BMI entries</string>
+    <string name="badge_measure_taker">Measure Taker</string>
+    <string name="badge_measure_taker_desc">Log your first body measurement</string>
+    <string name="badge_data_exporter">Data Exporter</string>
+    <string name="badge_data_exporter_desc">Export your history for the first time</string>
     <string name="badge_unlocked">Achievement Unlocked!</string>
 
     <!-- Health Tips -->

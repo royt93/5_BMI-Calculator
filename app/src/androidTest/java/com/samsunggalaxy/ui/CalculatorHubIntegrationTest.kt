@@ -45,7 +45,7 @@ class CalculatorHubIntegrationTest {
     fun setUp() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
         prefs = PreferencesManager(context)
         // Assertions below expect metric-unit strings — pin it regardless of ambient state
         // left over from other tests (e.g. DashboardUnitSystemTest).
@@ -79,6 +79,7 @@ class CalculatorHubIntegrationTest {
         repository.setCurrentProfile(originalProfileId)
         repository.deleteProfileWithRecords(Profile(id = profileId, name = "cleanup", isCurrent = false))
         prefs.setUnitSystem(originalUnitSystem)
+        BadgeManager.clearProfileData(InstrumentationRegistry.getInstrumentation().targetContext, profileId)
     }
 
     @Test
@@ -146,6 +147,13 @@ class CalculatorHubIntegrationTest {
             val record = repository.getMostRecentRecord(profileId)
             assertNotNull(record)
             assertTrue("body fat % must be saved onto today's record", record!!.bodyFatPercentage != null && record.bodyFatPercentage!! > 0)
+
+            // EPIC-08 T08.3 — Save to History must also log a standalone measurement row.
+            assertEquals(1, repository.getMeasurementCount(profileId))
+
+            // EPIC-08 T08.4 — first measurement earns the Measure Taker badge.
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            assertTrue(BadgeManager.isEarned(context, profileId, BadgeManager.Badge.MEASURE_TAKER))
         }
     }
 

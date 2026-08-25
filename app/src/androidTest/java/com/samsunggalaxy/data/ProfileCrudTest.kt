@@ -28,7 +28,7 @@ class ProfileCrudTest {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()
             .build()
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
     }
 
     @After

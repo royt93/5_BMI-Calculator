@@ -174,7 +174,7 @@ class MainAct : BaseActivity() {
         })
 
         val database = AppDatabase.getDatabase(this)
-        repository = BmiRepository(database.bmiDao(), database.profileDao())
+        repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         // Refresh profile-scoped UI whenever ProfileSwitcherBottomSheet reports a switch/
         // create/rename/delete — the sheet itself doesn't know about MainAct's chip/streak.

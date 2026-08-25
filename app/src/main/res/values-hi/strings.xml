@@ -27,6 +27,14 @@
     <string name="theme_light">हल्का</string>
     <string name="theme_dark">गहरा</string>
     <string name="data_section_title">डेटा</string>
+    <string name="reminder_section_title">रिमाइंडर</string>
+    <string name="reminder_toggle_label">दैनिक वजन रिमाइंडर</string>
+    <string name="reminder_time_label">रिमाइंडर का समय</string>
+    <string name="reminder_notification_channel_name">वजन रिमाइंडर</string>
+    <string name="reminder_notification_channel_desc">आपको वजन दर्ज करने की याद दिलाने वाली दैनिक सूचना</string>
+    <string name="reminder_notification_title">वजन करने का समय हो गया!</string>
+    <string name="reminder_notification_body">अपनी स्ट्रीक जारी रखने के लिए आज का वजन दर्ज करें</string>
+    <string name="reminder_permission_denied">रिमाइंडर पाने के लिए सिस्टम सेटिंग्स में सूचनाएं सक्षम करें</string>
     <string name="clear_history">इतिहास साफ़ करें</string>
     <string name="clear_history_confirm_title">पूरा इतिहास साफ़ करें?</string>
     <string name="clear_history_confirm_message">इससे वर्तमान प्रोफ़ाइल के सभी BMI रिकॉर्ड स्थायी रूप से हट जाएंगे। इसे पूर्ववत नहीं किया जा सकता।</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">बीएमआई</string>
     <string name="dashboard_series_weight">वजन</string>
     <string name="dashboard_series_height">ऊंचाई</string>
+    <string name="dashboard_series_measurements">माप</string>
+    <string name="export_csv">CSV निर्यात करें</string>
+    <string name="export_csv_empty">अभी निर्यात करने के लिए कोई इतिहास नहीं है</string>
+    <string name="export_csv_error">निर्यात विफल</string>
     <string name="dashboard_empty_title">अभी तक कोई डेटा नहीं</string>
     <string name="dashboard_empty_subtitle">अपनी प्रगति ट्रैक करने के लिए अपना बीएमआई कैलकुलेट करें</string>
     <string name="dashboard_eta_days">इस गति से, लक्ष्य तक पहुंचने में लगभग %1$d दिन</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">7 बार स्वस्थ बीएमआई बनाए रखें</string>
     <string name="badge_data_lover">डेटा प्रेमी</string>
     <string name="badge_data_lover_desc">50 बीएमआई एंट्री दर्ज करें</string>
+    <string name="badge_measure_taker">माप लेने वाला</string>
+    <string name="badge_measure_taker_desc">अपना पहला शारीरिक माप दर्ज करें</string>
+    <string name="badge_data_exporter">डेटा निर्यातक</string>
+    <string name="badge_data_exporter_desc">पहली बार अपना इतिहास निर्यात करें</string>
     <string name="badge_unlocked">उपलब्धि अनलॉक हुई!</string>
     <string name="daily_tip_label">💡 आज की सलाह</string>
     <string name="daily_tip_for">के लिए</string>

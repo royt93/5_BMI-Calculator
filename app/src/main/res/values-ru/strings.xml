@@ -27,6 +27,14 @@
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Тёмная</string>
     <string name="data_section_title">Данные</string>
+    <string name="reminder_section_title">Напоминания</string>
+    <string name="reminder_toggle_label">Ежедневное напоминание о взвешивании</string>
+    <string name="reminder_time_label">Время напоминания</string>
+    <string name="reminder_notification_channel_name">Напоминание о взвешивании</string>
+    <string name="reminder_notification_channel_desc">Ежедневное уведомление с напоминанием записать вес</string>
+    <string name="reminder_notification_title">Пора взвеситься!</string>
+    <string name="reminder_notification_body">Запишите сегодняшний вес, чтобы не прерывать серию</string>
+    <string name="reminder_permission_denied">Включите уведомления в настройках системы, чтобы получать напоминания</string>
     <string name="clear_history">Очистить историю</string>
     <string name="clear_history_confirm_title">Очистить всю историю?</string>
     <string name="clear_history_confirm_message">Это навсегда удалит все записи ИМТ для текущего профиля. Это действие нельзя отменить.</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">ИМТ</string>
     <string name="dashboard_series_weight">Вес</string>
     <string name="dashboard_series_height">Рост</string>
+    <string name="dashboard_series_measurements">Замеры</string>
+    <string name="export_csv">Экспорт CSV</string>
+    <string name="export_csv_empty">Пока нет истории для экспорта</string>
+    <string name="export_csv_error">Не удалось экспортировать</string>
     <string name="dashboard_empty_title">Пока нет данных</string>
     <string name="dashboard_empty_subtitle">Рассчитайте ИМТ, чтобы начать отслеживать прогресс</string>
     <string name="dashboard_eta_days">При таком темпе — ещё примерно %1$d дней до цели</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">Здоровый ИМТ в 7 записях подряд</string>
     <string name="badge_data_lover">Любитель данных</string>
     <string name="badge_data_lover_desc">Запишите 50 значений ИМТ</string>
+    <string name="badge_measure_taker">Замерщик</string>
+    <string name="badge_measure_taker_desc">Запишите первый замер тела</string>
+    <string name="badge_data_exporter">Экспортёр Данных</string>
+    <string name="badge_data_exporter_desc">Экспортируйте историю в первый раз</string>
     <string name="badge_unlocked">Достижение открыто!</string>
     <string name="daily_tip_label">💡 Совет дня</string>
     <string name="daily_tip_for">Для</string>

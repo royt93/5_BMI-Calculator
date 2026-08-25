@@ -30,6 +30,14 @@
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
     <string name="data_section_title">Daten</string>
+    <string name="reminder_section_title">Erinnerungen</string>
+    <string name="reminder_toggle_label">Tägliche Wiege-Erinnerung</string>
+    <string name="reminder_time_label">Erinnerungszeit</string>
+    <string name="reminder_notification_channel_name">Wiege-Erinnerung</string>
+    <string name="reminder_notification_channel_desc">Tägliche Benachrichtigung, die dich ans Gewicht-Eintragen erinnert</string>
+    <string name="reminder_notification_title">Zeit zum Wiegen!</string>
+    <string name="reminder_notification_body">Trage dein heutiges Gewicht ein, um deine Serie fortzusetzen</string>
+    <string name="reminder_permission_denied">Aktiviere Benachrichtigungen in den Systemeinstellungen, um Erinnerungen zu erhalten</string>
     <string name="clear_history">Verlauf löschen</string>
     <string name="clear_history_confirm_title">Gesamten Verlauf löschen?</string>
     <string name="clear_history_confirm_message">Dies löscht dauerhaft alle BMI-Einträge für das aktuelle Profil. Dies kann nicht rückgängig gemacht werden.</string>
@@ -118,6 +126,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">Gewicht</string>
     <string name="dashboard_series_height">Größe</string>
+    <string name="dashboard_series_measurements">Maße</string>
+    <string name="export_csv">CSV exportieren</string>
+    <string name="export_csv_empty">Noch kein Verlauf zum Exportieren</string>
+    <string name="export_csv_error">Export fehlgeschlagen</string>
     <string name="dashboard_empty_title">Noch keine Daten</string>
     <string name="dashboard_empty_subtitle">Berechne deinen BMI, um deinen Fortschritt zu verfolgen</string>
     <string name="dashboard_eta_days">Bei diesem Tempo noch ca. %1$d Tage bis zu deinem Ziel</string>
@@ -183,6 +195,10 @@
     <string name="badge_healthy_zone_desc">7 Einträge im gesunden BMI</string>
     <string name="badge_data_lover">Daten-Liebhaber</string>
     <string name="badge_data_lover_desc">50 BMI-Einträge aufzeichnen</string>
+    <string name="badge_measure_taker">Maßnehmer</string>
+    <string name="badge_measure_taker_desc">Erfasse dein erstes Körpermaß</string>
+    <string name="badge_data_exporter">Daten-Exporteur</string>
+    <string name="badge_data_exporter_desc">Exportiere deinen Verlauf zum ersten Mal</string>
     <string name="badge_unlocked">Erfolg freigeschaltet!</string>
 
     <!-- Health Tips -->

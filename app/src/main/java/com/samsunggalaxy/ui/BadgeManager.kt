@@ -21,7 +21,9 @@ object BadgeManager {
         MONTHLY_MASTER("monthly_master", R.string.badge_monthly_master, R.string.badge_monthly_master_desc, R.drawable.ic_badge_calendar),
         GOAL_CRUSHER("goal_crusher", R.string.badge_goal_crusher, R.string.badge_goal_crusher_desc, R.drawable.ic_badge_target),
         HEALTHY_ZONE("healthy_zone", R.string.badge_healthy_zone, R.string.badge_healthy_zone_desc, R.drawable.ic_badge_heart),
-        DATA_LOVER("data_lover", R.string.badge_data_lover, R.string.badge_data_lover_desc, R.drawable.ic_badge_chart);
+        DATA_LOVER("data_lover", R.string.badge_data_lover, R.string.badge_data_lover_desc, R.drawable.ic_badge_chart),
+        MEASURE_TAKER("measure_taker", R.string.badge_measure_taker, R.string.badge_measure_taker_desc, R.drawable.ic_badge_ruler),
+        DATA_EXPORTER("data_exporter", R.string.badge_data_exporter, R.string.badge_data_exporter_desc, R.drawable.ic_badge_export);
     }
 
     private fun migrateLegacyIfNeeded(context: Context, profileId: Long) {
@@ -77,18 +79,10 @@ object BadgeManager {
         goalWeight: Double?,
         recentBmiList: List<Double>
     ): List<Badge> {
-        migrateLegacyIfNeeded(context, profileId)
         val newlyEarned = mutableListOf<Badge>()
-        val prefs = context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
 
         fun tryUnlock(badge: Badge, condition: Boolean) {
-            if (!prefs.getBoolean("${badge.id}_earned", false) && condition) {
-                prefs.edit()
-                    .putBoolean("${badge.id}_earned", true)
-                    .putLong("${badge.id}_date", System.currentTimeMillis())
-                    .apply()
-                newlyEarned.add(badge)
-            }
+            if (condition) tryUnlockSingle(context, profileId, badge)?.let { newlyEarned.add(it) }
         }
 
         tryUnlock(Badge.FIRST_STEP, recordCount >= 1)
@@ -112,4 +106,23 @@ object BadgeManager {
 
         return newlyEarned
     }
+
+    private fun tryUnlockSingle(context: Context, profileId: Long, badge: Badge): Badge? {
+        migrateLegacyIfNeeded(context, profileId)
+        val prefs = context.getSharedPreferences(prefsName(profileId), Context.MODE_PRIVATE)
+        if (prefs.getBoolean("${badge.id}_earned", false)) return null
+        prefs.edit()
+            .putBoolean("${badge.id}_earned", true)
+            .putLong("${badge.id}_date", System.currentTimeMillis())
+            .apply()
+        return badge
+    }
+
+    /** EPIC-08 T08.3 — call after the first BodyMeasurement is saved for this profile. */
+    fun tryUnlockMeasureTaker(context: Context, profileId: Long): Badge? =
+        tryUnlockSingle(context, profileId, Badge.MEASURE_TAKER)
+
+    /** EPIC-08 T08.2 — call after the first successful history export for this profile. */
+    fun tryUnlockDataExporter(context: Context, profileId: Long): Badge? =
+        tryUnlockSingle(context, profileId, Badge.DATA_EXPORTER)
 }

@@ -11,6 +11,7 @@ import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
@@ -24,6 +25,12 @@ class BodyFatCalculatorActivity : BaseActivity() {
     private var unitSystem: String = UnitFormatter.METRIC
     private var pendingBodyFat: Double? = null
     private var pendingRecordId: Long? = null
+    // EPIC-08 T08.3 — metric waist/neck/hip captured at Calculate time, persisted as a
+    // BodyMeasurement row (independent of bodyFatPercentage) when the user taps Save.
+    private var pendingWaist: Double? = null
+    private var pendingNeck: Double? = null
+    private var pendingHip: Double? = null
+    private var pendingProfileId: Long? = null
     // Guards against a stale Calculate tap's async DB lookup overwriting a newer one's
     // pending save state if two taps' IO coroutines resolve out of order.
     private var calculationToken = 0
@@ -39,7 +46,7 @@ class BodyFatCalculatorActivity : BaseActivity() {
         )
 
         val database = AppDatabase.getDatabase(this)
-        val repository = BmiRepository(database.bmiDao(), database.profileDao())
+        val repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         val etHeight = findViewById<EditText>(R.id.etHeight)
         val etWaist = findViewById<EditText>(R.id.etWaist)
@@ -64,10 +71,24 @@ class BodyFatCalculatorActivity : BaseActivity() {
         btnSaveToHistory.setOnClickListener {
             val bodyFat = pendingBodyFat
             val recordId = pendingRecordId
-            if (bodyFat == null || recordId == null) return@setOnClickListener
+            val profileId = pendingProfileId
+            if (bodyFat == null || recordId == null || profileId == null) return@setOnClickListener
             btnSaveToHistory.isEnabled = false
             lifecycleScope.launch(Dispatchers.IO) {
                 val rowsUpdated = repository.updateBodyFatPercentage(recordId, bodyFat)
+                // EPIC-08 T08.3 — also log a standalone measurement row so waist/neck/hip
+                // trend independently of bodyFatPercentage (chart in HistoryActivity).
+                repository.insertMeasurement(
+                    BodyMeasurement(
+                        timestamp = System.currentTimeMillis(),
+                        waist = pendingWaist,
+                        neck = pendingNeck,
+                        hip = pendingHip,
+                        chest = null,
+                        profileId = profileId
+                    )
+                )
+                val newBadge = BadgeManager.tryUnlockMeasureTaker(this@BodyFatCalculatorActivity, profileId)
                 withContext(Dispatchers.Main) {
                     tvSaveStatus.text = if (rowsUpdated > 0) {
                         getString(R.string.body_fat_saved)
@@ -76,6 +97,11 @@ class BodyFatCalculatorActivity : BaseActivity() {
                         getString(R.string.body_fat_no_record_today)
                     }
                     tvSaveStatus.visibility = View.VISIBLE
+                    if (newBadge != null && !isFinishing && !isDestroyed) {
+                        com.google.android.material.snackbar.Snackbar
+                            .make(tvSaveStatus, "🎉 ${getString(newBadge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                            .show()
+                    }
                 }
             }
         }
@@ -104,6 +130,10 @@ class BodyFatCalculatorActivity : BaseActivity() {
             val token = ++calculationToken
             pendingBodyFat = null
             pendingRecordId = null
+            pendingWaist = null
+            pendingNeck = null
+            pendingHip = null
+            pendingProfileId = null
             btnSaveToHistory.visibility = View.GONE
             btnSaveToHistory.isEnabled = true
             tvSaveStatus.visibility = View.GONE
@@ -147,6 +177,10 @@ class BodyFatCalculatorActivity : BaseActivity() {
                         if (todayRecord != null) {
                             pendingBodyFat = bodyFat
                             pendingRecordId = todayRecord.id
+                            pendingWaist = waist
+                            pendingNeck = neck
+                            pendingHip = hip
+                            pendingProfileId = todayRecord.profileId
                             btnSaveToHistory.visibility = View.VISIBLE
                         } else {
                             tvSaveStatus.text = getString(R.string.body_fat_no_record_today)

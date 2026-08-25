@@ -39,7 +39,7 @@ class OnboardingProfileRenameTest {
     @Before
     fun setUp() {
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
         originalCurrentId = runBlocking { repository.getCurrentProfile()?.id ?: 1L }
         testProfileId = runBlocking { repository.insertProfile(Profile(name = "Default", isCurrent = false)) }
         runBlocking { repository.setCurrentProfile(testProfileId) }

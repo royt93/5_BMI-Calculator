@@ -44,7 +44,7 @@ class SettingsActivityTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         prefs = PreferencesManager(context)
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
         originalProfileId = runBlocking { repository.getCurrentProfile()?.id ?: 1L }
         runBlocking {
             testProfileId = repository.insertProfile(Profile(name = "SettingsTestProfile_${System.nanoTime()}"))

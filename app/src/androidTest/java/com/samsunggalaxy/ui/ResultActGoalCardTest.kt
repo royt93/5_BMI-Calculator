@@ -45,7 +45,7 @@ class ResultActGoalCardTest {
     fun setUp() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
         originalProfileId = repository.getCurrentProfile()?.id ?: 1L
         profileId = repository.insertProfile(Profile(name = "GoalCardTestProfile_${System.nanoTime()}", isCurrent = false))
         repository.setCurrentProfile(profileId)

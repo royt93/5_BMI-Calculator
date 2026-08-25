@@ -1,5 +1,6 @@
 package com.samsunggalaxy.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,7 @@ import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRecord
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.CalculatorUtils
 import com.samsunggalaxy.utils.PreferencesManager
@@ -50,7 +52,7 @@ import java.util.*
  * doesn't require the full MainAct wizard. See doc/task/todo/EPIC-07-weight-dashboard.md.
  */
 class HistoryActivity : BaseActivity() {
-    private enum class Series { BMI, WEIGHT, HEIGHT }
+    private enum class Series { BMI, WEIGHT, HEIGHT, MEASUREMENTS }
 
     private lateinit var repository: BmiRepository
     private lateinit var recyclerView: RecyclerView
@@ -65,6 +67,7 @@ class HistoryActivity : BaseActivity() {
 
     private var currentSeries = Series.BMI
     private var records: List<BmiRecord> = emptyList()
+    private var measurements: List<BodyMeasurement> = emptyList()
     private var currentProfileId: Long = 1L
     private var currentGoalWeight: Double? = null
     // EPIC-04 T04.1: chart series/goal-line + the history list rows are unit-aware. The goal
@@ -83,7 +86,7 @@ class HistoryActivity : BaseActivity() {
         )
 
         val database = AppDatabase.getDatabase(this)
-        repository = BmiRepository(database.bmiDao(), database.profileDao())
+        repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         setupViews()
         loadData()
@@ -118,20 +121,24 @@ class HistoryActivity : BaseActivity() {
         findViewById<View>(R.id.ivEditGoalDashboard).setOnClickListener { showGoalDialog() }
         cardGoalRow.setOnClickListener { if (currentGoalWeight == null) showGoalDialog() }
         fabQuickLog.setOnClickListener { showQuickLogDialog() }
+        findViewById<View>(R.id.ivExportCsv).setOnClickListener { exportCsv() }
     }
 
     private fun setupSeriesTabs() {
         tabLayoutSeries.addTab(tabLayoutSeries.newTab().setText(getString(R.string.dashboard_series_bmi)))
         tabLayoutSeries.addTab(tabLayoutSeries.newTab().setText(getString(R.string.dashboard_series_weight)))
         tabLayoutSeries.addTab(tabLayoutSeries.newTab().setText(getString(R.string.dashboard_series_height)))
+        tabLayoutSeries.addTab(tabLayoutSeries.newTab().setText(getString(R.string.dashboard_series_measurements)))
         tabLayoutSeries.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 currentSeries = when (tab?.position) {
                     1 -> Series.WEIGHT
                     2 -> Series.HEIGHT
+                    3 -> Series.MEASUREMENTS
                     else -> Series.BMI
                 }
                 updateChart()
+                updateEmptyState()
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -173,18 +180,37 @@ class HistoryActivity : BaseActivity() {
                     updateGoalRow()
                     updateEmptyState()
                 }
+                // EPIC-08 T08.3 — independent series. Its own empty-state check (below) is
+                // per-tab, since a user can delete all BmiRecords via History while measurement
+                // rows survive (deleteRecord() doesn't cascade to body_measurements).
+                repository.getMeasurementsAscending(currentProfileId).observe(this@HistoryActivity) { m ->
+                    measurements = m
+                    if (currentSeries == Series.MEASUREMENTS) {
+                        updateChart()
+                        updateEmptyState()
+                    }
+                }
             }
         }
     }
 
     private fun updateEmptyState() {
-        val isEmpty = records.isEmpty()
-        emptyStateContainer.isVisible = isEmpty
-        lineChart.isVisible = !isEmpty
-        cardGoalRow.isVisible = !isEmpty
+        // The Measurements tab has its own data source (body_measurements, not bmi_records) —
+        // an empty BMI history must not hide a non-empty measurements chart, and vice versa.
+        val chartEmpty = if (currentSeries == Series.MEASUREMENTS) measurements.isEmpty() else records.isEmpty()
+        emptyStateContainer.isVisible = chartEmpty
+        lineChart.isVisible = !chartEmpty
+        // Goal row/FAB depend on having at least one weigh-in at all, independent of which
+        // series tab is showing.
+        cardGoalRow.isVisible = records.isNotEmpty()
     }
 
     private fun updateChart() {
+        if (currentSeries == Series.MEASUREMENTS) {
+            updateMeasurementsChart()
+            return
+        }
+
         if (records.isEmpty()) {
             lineChart.clear()
             return
@@ -195,6 +221,7 @@ class HistoryActivity : BaseActivity() {
                 Series.BMI -> record.bmi
                 Series.WEIGHT -> UnitFormatter.weightToDisplay(record.weight, unitSystem)
                 Series.HEIGHT -> UnitFormatter.heightToDisplay(record.height, unitSystem)
+                Series.MEASUREMENTS -> 0.0 // unreachable — handled by updateMeasurementsChart() above
             }
             Entry(index.toFloat(), value.toFloat())
         }
@@ -203,17 +230,9 @@ class HistoryActivity : BaseActivity() {
             Series.BMI -> getString(R.string.dashboard_series_bmi)
             Series.WEIGHT -> "${getString(R.string.dashboard_series_weight)} (${UnitFormatter.weightUnitLabel(unitSystem)})"
             Series.HEIGHT -> "${getString(R.string.dashboard_series_height)} (${UnitFormatter.heightUnitLabel(unitSystem)})"
+            Series.MEASUREMENTS -> ""
         }
-        val primaryColor = ContextCompat.getColor(this, R.color.bmi_healthy)
-        val dataSet = LineDataSet(entries, label).apply {
-            color = primaryColor
-            valueTextColor = ContextCompat.getColor(this@HistoryActivity, R.color.textColor)
-            lineWidth = 2f
-            setCircleColor(primaryColor)
-            circleRadius = 4f
-            setDrawValues(false)
-            mode = LineDataSet.Mode.CUBIC_BEZIER
-        }
+        val dataSet = styledLineDataSet(entries, label, R.color.bmi_healthy)
 
         lineChart.data = LineData(dataSet)
 
@@ -232,6 +251,7 @@ class HistoryActivity : BaseActivity() {
                     if (latestHeightM > 0) (goalWeight / (latestHeightM * latestHeightM)).toFloat() else null
                 }
                 Series.HEIGHT -> null // goal is a weight target, not meaningful on the height series
+                Series.MEASUREMENTS -> null // unreachable — handled by updateMeasurementsChart() above
             }
             if (limitLineValue != null) {
                 val limitLineColor = ContextCompat.getColor(this, R.color.bmi_overweight)
@@ -254,6 +274,60 @@ class HistoryActivity : BaseActivity() {
                 val index = value.toInt()
                 return if (index >= 0 && index < records.size) {
                     dateFormat.format(Date(records[index].timestamp))
+                } else ""
+            }
+        }
+        lineChart.invalidate()
+    }
+
+    /** Shared styling for every LineDataSet drawn in this Activity (BMI/Weight/Height/Measurements). */
+    private fun styledLineDataSet(entries: List<Entry>, label: String, colorRes: Int): LineDataSet {
+        val color = ContextCompat.getColor(this, colorRes)
+        return LineDataSet(entries, label).apply {
+            this.color = color
+            valueTextColor = ContextCompat.getColor(this@HistoryActivity, R.color.textColor)
+            lineWidth = 2f
+            setCircleColor(color)
+            circleRadius = 4f
+            setDrawValues(false)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+        }
+    }
+
+    /** EPIC-08 T08.3 — multi-line chart (waist/neck/hip) from the independent measurements table. */
+    private fun updateMeasurementsChart() {
+        if (measurements.isEmpty()) {
+            lineChart.clear()
+            return
+        }
+        lineChart.axisLeft.removeAllLimitLines() // goal line is a weight target, not meaningful here
+
+        fun buildSet(label: String, colorRes: Int, selector: (BodyMeasurement) -> Double?): LineDataSet? {
+            val entries = measurements.mapIndexedNotNull { index, m ->
+                selector(m)?.let { Entry(index.toFloat(), UnitFormatter.heightToDisplay(it, unitSystem).toFloat()) }
+            }
+            if (entries.isEmpty()) return null
+            return styledLineDataSet(entries, label, colorRes)
+        }
+
+        val unitLabel = UnitFormatter.heightUnitLabel(unitSystem)
+        val sets = listOfNotNull(
+            buildSet("${getString(R.string.waist)} ($unitLabel)", R.color.bmi_healthy) { it.waist },
+            buildSet("${getString(R.string.neck)} ($unitLabel)", R.color.bmi_overweight) { it.neck },
+            buildSet("${getString(R.string.hip)} ($unitLabel)", R.color.bmi_obese) { it.hip }
+        )
+        if (sets.isEmpty()) {
+            lineChart.clear()
+            return
+        }
+
+        lineChart.data = LineData(sets)
+        lineChart.xAxis.valueFormatter = object : ValueFormatter() {
+            private val dateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
+            override fun getFormattedValue(value: Float): String {
+                val index = value.toInt()
+                return if (index >= 0 && index < measurements.size) {
+                    dateFormat.format(Date(measurements[index].timestamp))
                 } else ""
             }
         }
@@ -419,6 +493,49 @@ class HistoryActivity : BaseActivity() {
                 }
             } catch (e: Exception) {
                 Log.e("roy93~", "quickLogWeight error", e)
+            }
+        }
+    }
+
+    // Guards exportCsv() against a rapid double-tap launching two concurrent exports/badge
+    // unlocks/share sheets from a single user action.
+    private var isExportingCsv = false
+
+    /** EPIC-08 T08.2 — CSV export of BMI history via the share sheet. */
+    private fun exportCsv() {
+        if (records.isEmpty()) {
+            Toast.makeText(this, getString(R.string.export_csv_empty), Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (isExportingCsv) return
+        isExportingCsv = true
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val uri = com.samsunggalaxy.utils.CsvExporter.exportBmiRecords(this@HistoryActivity, records, unitSystem)
+                val newBadge = uri?.let { BadgeManager.tryUnlockDataExporter(this@HistoryActivity, currentProfileId) }
+                withContext(Dispatchers.Main) {
+                    if (uri == null || isFinishing || isDestroyed) return@withContext
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/csv"
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(intent, getString(R.string.export_csv)))
+                    newBadge?.let { badge ->
+                        com.google.android.material.snackbar.Snackbar
+                            .make(recyclerView, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("roy93~", "exportCsv error", e)
+                withContext(Dispatchers.Main) {
+                    if (!isFinishing && !isDestroyed) {
+                        Toast.makeText(this@HistoryActivity, getString(R.string.export_csv_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } finally {
+                isExportingCsv = false
             }
         }
     }

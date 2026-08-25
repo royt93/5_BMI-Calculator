@@ -30,6 +30,14 @@
     <string name="theme_light">สว่าง</string>
     <string name="theme_dark">มืด</string>
     <string name="data_section_title">ข้อมูล</string>
+    <string name="reminder_section_title">การแจ้งเตือน</string>
+    <string name="reminder_toggle_label">แจ้งเตือนชั่งน้ำหนักรายวัน</string>
+    <string name="reminder_time_label">เวลาแจ้งเตือน</string>
+    <string name="reminder_notification_channel_name">แจ้งเตือนชั่งน้ำหนัก</string>
+    <string name="reminder_notification_channel_desc">การแจ้งเตือนรายวันเพื่อเตือนให้คุณบันทึกน้ำหนัก</string>
+    <string name="reminder_notification_title">ถึงเวลาชั่งน้ำหนักแล้ว!</string>
+    <string name="reminder_notification_body">บันทึกน้ำหนักวันนี้เพื่อรักษาสถิติต่อเนื่องของคุณ</string>
+    <string name="reminder_permission_denied">เปิดการแจ้งเตือนในการตั้งค่าระบบเพื่อรับการแจ้งเตือน</string>
     <string name="clear_history">ล้างประวัติ</string>
     <string name="clear_history_confirm_title">ล้างประวัติทั้งหมด?</string>
     <string name="clear_history_confirm_message">การดำเนินการนี้จะลบบันทึก BMI ทั้งหมดของโปรไฟล์ปัจจุบันอย่างถาวร ไม่สามารถย้อนกลับได้</string>
@@ -118,6 +126,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">น้ำหนัก</string>
     <string name="dashboard_series_height">ส่วนสูง</string>
+    <string name="dashboard_series_measurements">การวัดสัดส่วน</string>
+    <string name="export_csv">ส่งออก CSV</string>
+    <string name="export_csv_empty">ยังไม่มีประวัติให้ส่งออก</string>
+    <string name="export_csv_error">ส่งออกไม่สำเร็จ</string>
     <string name="dashboard_empty_title">ยังไม่มีข้อมูล</string>
     <string name="dashboard_empty_subtitle">คำนวณ BMI ของคุณเพื่อเริ่มติดตามความคืบหน้า</string>
     <string name="dashboard_eta_days">ด้วยอัตรานี้ อีกประมาณ %1$d วันจะถึงเป้าหมาย</string>
@@ -183,6 +195,10 @@
     <string name="badge_healthy_zone_desc">BMI สุขภาพดี 7 ครั้งติดต่อกัน</string>
     <string name="badge_data_lover">คนรักข้อมูล</string>
     <string name="badge_data_lover_desc">บันทึก BMI 50 ครั้ง</string>
+    <string name="badge_measure_taker">นักวัดสัดส่วน</string>
+    <string name="badge_measure_taker_desc">บันทึกการวัดสัดส่วนร่างกายครั้งแรกของคุณ</string>
+    <string name="badge_data_exporter">นักส่งออกข้อมูล</string>
+    <string name="badge_data_exporter_desc">ส่งออกประวัติของคุณเป็นครั้งแรก</string>
     <string name="badge_unlocked">ปลดล็อคความสำเร็จ!</string>
 
     <!-- Health Tips -->

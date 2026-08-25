@@ -87,7 +87,7 @@ class ResultAct : BaseActivity() {
 
         // Initialize repository
         val database = AppDatabase.getDatabase(this)
-        repository = BmiRepository(database.bmiDao(), database.profileDao())
+        repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         // Load Interstitial ngầm — sẵn sàng khi user bấm Delete
         AdManager.loadInterstitial(this)

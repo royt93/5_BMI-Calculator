@@ -154,6 +154,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 
+    // WorkManager (EPIC-08 T08.1: daily weigh-in reminder, Doze-safe)
+    implementation("androidx.work:work-runtime-ktx:2.10.0")
+
     implementation("com.google.android.play:review:2.0.2")
     implementation("com.google.android.play:review-ktx:2.0.2")
 

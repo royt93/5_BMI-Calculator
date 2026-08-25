@@ -27,6 +27,14 @@
     <string name="theme_light">Terang</string>
     <string name="theme_dark">Gelap</string>
     <string name="data_section_title">Data</string>
+    <string name="reminder_section_title">Pengingat</string>
+    <string name="reminder_toggle_label">Pengingat penimbangan harian</string>
+    <string name="reminder_time_label">Waktu pengingat</string>
+    <string name="reminder_notification_channel_name">Pengingat penimbangan</string>
+    <string name="reminder_notification_channel_desc">Notifikasi harian yang mengingatkan Anda mencatat berat badan</string>
+    <string name="reminder_notification_title">Waktunya menimbang!</string>
+    <string name="reminder_notification_body">Catat berat badan hari ini untuk menjaga streak Anda</string>
+    <string name="reminder_permission_denied">Aktifkan notifikasi di pengaturan sistem untuk menerima pengingat</string>
     <string name="clear_history">Hapus Riwayat</string>
     <string name="clear_history_confirm_title">Hapus semua riwayat?</string>
     <string name="clear_history_confirm_message">Ini akan menghapus permanen semua catatan BMI untuk profil saat ini. Tindakan ini tidak dapat dibatalkan.</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">Berat</string>
     <string name="dashboard_series_height">Tinggi</string>
+    <string name="dashboard_series_measurements">Pengukuran</string>
+    <string name="export_csv">Ekspor CSV</string>
+    <string name="export_csv_empty">Belum ada riwayat untuk diekspor</string>
+    <string name="export_csv_error">Ekspor gagal</string>
     <string name="dashboard_empty_title">Belum ada data</string>
     <string name="dashboard_empty_subtitle">Hitung BMI Anda untuk mulai melacak progres Anda</string>
     <string name="dashboard_eta_days">Dengan laju ini, ~%1$d hari lagi untuk mencapai target Anda</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">BMI sehat dalam 7 catatan berturut-turut</string>
     <string name="badge_data_lover">Pecinta Data</string>
     <string name="badge_data_lover_desc">Catat 50 entri BMI</string>
+    <string name="badge_measure_taker">Pencatat Ukuran</string>
+    <string name="badge_measure_taker_desc">Catat pengukuran tubuh pertama Anda</string>
+    <string name="badge_data_exporter">Pengekspor Data</string>
+    <string name="badge_data_exporter_desc">Ekspor riwayat Anda untuk pertama kalinya</string>
     <string name="badge_unlocked">Pencapaian terbuka!</string>
     <string name="daily_tip_label">💡 Tips Hari Ini</string>
     <string name="daily_tip_for">Untuk</string>

@@ -53,7 +53,7 @@ class BmrCalculatorActivity : BaseActivity() {
             // EPIC-06 T06.1: prefill from the current profile's latest weigh-in so users don't
             // have to retype weight/height/age/gender they already tracked. Still user-editable.
             val database = AppDatabase.getDatabase(this@BmrCalculatorActivity)
-            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
             val record = repository.getCurrentProfileMostRecentRecord()
             if (record != null) {
                 // Locale.US, not the device default — etWeight/etHeight are read back with

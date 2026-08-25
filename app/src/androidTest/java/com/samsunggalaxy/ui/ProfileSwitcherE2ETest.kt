@@ -36,7 +36,7 @@ class ProfileSwitcherE2ETest {
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
         originalCurrentId = runBlocking { repository.getCurrentProfile()?.id ?: 1L }
         // This test isn't about onboarding (see OnboardingProfileRenameTest) — pre-set the
         // flag so MainAct's modal "What should we call you?" dialog doesn't cover the chip.

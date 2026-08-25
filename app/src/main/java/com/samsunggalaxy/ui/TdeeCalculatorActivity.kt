@@ -67,7 +67,7 @@ class TdeeCalculatorActivity : BaseActivity() {
 
             // EPIC-06 T06.1: prefill weight/height/age/gender from the latest weigh-in.
             val database = AppDatabase.getDatabase(this@TdeeCalculatorActivity)
-            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
             val record = repository.getCurrentProfileMostRecentRecord()
             if (record != null) {
                 // Locale.US — see BmrCalculatorActivity for why (toDoubleOrNull needs '.').

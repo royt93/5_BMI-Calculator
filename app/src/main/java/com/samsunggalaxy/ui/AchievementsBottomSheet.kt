@@ -33,7 +33,7 @@ class AchievementsBottomSheet : BottomSheetDialogFragment() {
         // Badges are scoped per profile (EPIC-05) — fetch the current one before loading.
         lifecycleScope.launch(Dispatchers.IO) {
             val database = AppDatabase.getDatabase(ctx)
-            val repository = BmiRepository(database.bmiDao(), database.profileDao())
+            val repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
             val profileId = repository.getCurrentProfile()?.id ?: 1L
 
             val earnedCount = BadgeManager.getEarnedCount(ctx, profileId)

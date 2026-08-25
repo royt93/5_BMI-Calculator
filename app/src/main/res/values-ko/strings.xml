@@ -30,6 +30,14 @@
     <string name="theme_light">라이트</string>
     <string name="theme_dark">다크</string>
     <string name="data_section_title">데이터</string>
+    <string name="reminder_section_title">알림</string>
+    <string name="reminder_toggle_label">매일 체중 측정 알림</string>
+    <string name="reminder_time_label">알림 시간</string>
+    <string name="reminder_notification_channel_name">체중 측정 알림</string>
+    <string name="reminder_notification_channel_desc">체중 기록을 알려주는 매일 알림</string>
+    <string name="reminder_notification_title">체중을 잴 시간이에요!</string>
+    <string name="reminder_notification_body">오늘의 체중을 기록하고 연속 기록을 이어가세요</string>
+    <string name="reminder_permission_denied">알림을 받으려면 시스템 설정에서 알림을 활성화하세요</string>
     <string name="clear_history">기록 삭제</string>
     <string name="clear_history_confirm_title">모든 기록을 삭제하시겠습니까?</string>
     <string name="clear_history_confirm_message">현재 프로필의 모든 BMI 기록이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
@@ -118,6 +126,10 @@
     <string name="dashboard_series_bmi">BMI</string>
     <string name="dashboard_series_weight">체중</string>
     <string name="dashboard_series_height">키</string>
+    <string name="dashboard_series_measurements">신체 치수</string>
+    <string name="export_csv">CSV 내보내기</string>
+    <string name="export_csv_empty">아직 내보낼 기록이 없습니다</string>
+    <string name="export_csv_error">내보내기 실패</string>
     <string name="dashboard_empty_title">아직 데이터가 없습니다</string>
     <string name="dashboard_empty_subtitle">BMI를 계산하여 진행 상황 추적을 시작하세요</string>
     <string name="dashboard_eta_days">이 속도라면 목표까지 약 %1$d일 남았습니다</string>
@@ -183,6 +195,10 @@
     <string name="badge_healthy_zone_desc">7회 연속 건강 BMI 유지</string>
     <string name="badge_data_lover">데이터 애호가</string>
     <string name="badge_data_lover_desc">BMI 50회 기록</string>
+    <string name="badge_measure_taker">측정왕</string>
+    <string name="badge_measure_taker_desc">첫 신체 치수를 기록했습니다</string>
+    <string name="badge_data_exporter">데이터 내보내기 달인</string>
+    <string name="badge_data_exporter_desc">처음으로 기록을 내보냈습니다</string>
     <string name="badge_unlocked">업적 해제!</string>
 
     <!-- Health Tips -->

@@ -41,7 +41,7 @@ class ProfileSwitcherBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val ctx = context ?: return
         val database = AppDatabase.getDatabase(ctx)
-        repository = BmiRepository(database.bmiDao(), database.profileDao())
+        repository = BmiRepository(database.bmiDao(), database.profileDao(), database.bodyMeasurementDao())
 
         view.findViewById<View>(R.id.ivCloseProfileSwitcher)?.setOnClickListener { dismiss() }
 

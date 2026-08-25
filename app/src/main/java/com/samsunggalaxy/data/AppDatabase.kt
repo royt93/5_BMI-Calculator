@@ -8,13 +8,14 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [BmiRecord::class, Profile::class],
-    version = 2,
+    entities = [BmiRecord::class, Profile::class, BodyMeasurement::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bmiDao(): BmiDao
     abstract fun profileDao(): ProfileDao
+    abstract fun bodyMeasurementDao(): BodyMeasurementDao
 
     companion object {
         @Volatile
@@ -27,6 +28,25 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // EPIC-08 T08.3 — new table for waist/neck/hip/chest tracked independently of a weigh-in.
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `body_measurements` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `timestamp` INTEGER NOT NULL,
+                        `waist` REAL,
+                        `neck` REAL,
+                        `hip` REAL,
+                        `chest` REAL,
+                        `profileId` INTEGER NOT NULL
+                    )
+                    """.trimIndent()
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -34,7 +54,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "bmi_database"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 instance

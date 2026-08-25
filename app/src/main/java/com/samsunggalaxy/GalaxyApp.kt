@@ -96,7 +96,8 @@ class GalaxyApp : Application() {
                 val database = com.samsunggalaxy.data.AppDatabase.getDatabase(applicationContext)
                 val repository = com.samsunggalaxy.data.BmiRepository(
                     database.bmiDao(),
-                    database.profileDao()
+                    database.profileDao(),
+                    database.bodyMeasurementDao()
                 )
                 if (repository.getCurrentProfile() == null) {
                     repository.createDefaultProfile()

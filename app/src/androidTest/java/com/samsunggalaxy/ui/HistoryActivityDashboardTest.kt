@@ -64,7 +64,7 @@ class HistoryActivityDashboardTest {
     fun setUp() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = AppDatabase.getDatabase(context)
-        repository = BmiRepository(db.bmiDao(), db.profileDao())
+        repository = BmiRepository(db.bmiDao(), db.profileDao(), db.bodyMeasurementDao())
 
         originalProfileId = repository.getCurrentProfile()?.id ?: 1L
         testProfileId = repository.insertProfile(

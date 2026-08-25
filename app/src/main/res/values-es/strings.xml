@@ -27,6 +27,14 @@
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
     <string name="data_section_title">Datos</string>
+    <string name="reminder_section_title">Recordatorios</string>
+    <string name="reminder_toggle_label">Recordatorio diario de peso</string>
+    <string name="reminder_time_label">Hora del recordatorio</string>
+    <string name="reminder_notification_channel_name">Recordatorio de peso</string>
+    <string name="reminder_notification_channel_desc">Notificación diaria que te recuerda registrar tu peso</string>
+    <string name="reminder_notification_title">¡Hora de pesarte!</string>
+    <string name="reminder_notification_body">Registra tu peso de hoy para mantener tu racha</string>
+    <string name="reminder_permission_denied">Activa las notificaciones en la configuración del sistema para recibir recordatorios</string>
     <string name="clear_history">Borrar historial</string>
     <string name="clear_history_confirm_title">¿Borrar todo el historial?</string>
     <string name="clear_history_confirm_message">Esto elimina permanentemente todos los registros de IMC del perfil actual. No se puede deshacer.</string>
@@ -85,6 +93,10 @@
     <string name="dashboard_series_bmi">IMC</string>
     <string name="dashboard_series_weight">Peso</string>
     <string name="dashboard_series_height">Altura</string>
+    <string name="dashboard_series_measurements">Medidas</string>
+    <string name="export_csv">Exportar CSV</string>
+    <string name="export_csv_empty">Aún no hay historial para exportar</string>
+    <string name="export_csv_error">Error al exportar</string>
     <string name="dashboard_empty_title">Aún no hay datos</string>
     <string name="dashboard_empty_subtitle">Calcula tu IMC para empezar a seguir tu progreso</string>
     <string name="dashboard_eta_days">A este ritmo, ~%1$d días para alcanzar tu objetivo</string>
@@ -144,6 +156,10 @@
     <string name="badge_healthy_zone_desc">IMC saludable en 7 registros seguidos</string>
     <string name="badge_data_lover">Amante de Datos</string>
     <string name="badge_data_lover_desc">Registra 50 entradas de IMC</string>
+    <string name="badge_measure_taker">Tomador de Medidas</string>
+    <string name="badge_measure_taker_desc">Registra tu primera medida corporal</string>
+    <string name="badge_data_exporter">Exportador de Datos</string>
+    <string name="badge_data_exporter_desc">Exporta tu historial por primera vez</string>
     <string name="badge_unlocked">¡Logro desbloqueado!</string>
     <string name="daily_tip_label">💡 Consejo del día</string>
     <string name="daily_tip_for">Para</string>
