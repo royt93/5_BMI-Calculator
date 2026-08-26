@@ -74,15 +74,14 @@ android {
             buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
         }
         getByName("release") {
-            //nho check APPLICATION_ID trong manifest
+            // AdMob production IDs — publisher ca-app-pub-3004713799155145, đổi 2026-08-26
+            // (đổi account so với publisher cũ 3612191981543807; nguồn: doc/admob/admob.MD).
+            // nho check APPLICATION_ID trong manifest phải cùng publisher này.
             buildConfigField("Boolean", "IS_ENABLE_ADMOB", "true") // true = AdMob (đổi 2026-08-26, xem doc/AD.MD)
-            buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3612191981543807/9117482667\"")
-            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
-            buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3612191981543807/5066557013\"")
-            // 🚨 BLOCKER RELEASE: vẫn là Google TEST ID — user xác nhận (2026-08-26) sẽ cấp ID thật
-            // sau. TUYỆT ĐỐI không build/ship assembleProductionRelease lên Play Store trước khi
-            // đổi dòng này — ship test ID lên production vi phạm chính sách AdMob.
-            buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
+            buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3004713799155145/9886405901\"")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3004713799155145/2805614932\"")
+            buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3004713799155145/7978050569\"")
+            buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3004713799155145/9179451599\"")
 
             isMinifyEnabled = true
             isShrinkResources = true

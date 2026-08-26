@@ -48,10 +48,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="33">
 
-        <!-- AdMob App ID — bắt buộc khai báo qua manifest cho Google Mobile Ads SDK. -->
+        <!-- AdMob App ID — bắt buộc khai báo qua manifest cho Google Mobile Ads SDK.
+             Publisher ca-app-pub-3004713799155145, đổi 2026-08-26 (doc/admob/admob.MD). -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3612191981543807~1273576268" />
+            android:value="ca-app-pub-3004713799155145~2001950526" />
 
         <!-- LƯU Ý: AppLovin SDK 13.x (bundle vào AdmobApplovinWrapper 1.1.3+) BẮT BUỘC
              SDK key qua code (AdSdkConfig.applovinSdkKey = BuildConfig.APPLOVIN_SDK_KEY).

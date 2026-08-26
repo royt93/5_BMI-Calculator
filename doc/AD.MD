@@ -37,10 +37,49 @@ propagate xong (Google đôi khi mất vài giờ sau Publish). **Cần user t�
 messaging, xác nhận đúng app `ca-app-pub-3612191981543807~1273576268` có form Published, trước khi tin
 consent EEA đã sẵn sàng cho production.**
 
+## 🔀 Round 2 — user cấp full config AdMob account MỚI (2026-08-26, doc/admob/admob.MD)
+
+User cấp `doc/admob/admob.MD` + screenshot AdMob Console — hoá ra là **account/app AdMob khác hẳn**:
+publisher `3004713799155145` (App ID `ca-app-pub-3004713799155145~2001950526`), không phải publisher
+`3612191981543807` đã dùng ở round 1. Đã audit + thay toàn bộ:
+
+| Field | Cũ (publisher 3612191981543807) | Mới (publisher 3004713799155145) |
+|---|---|---|
+| App ID (manifest) | `~1273576268` | `~2001950526` |
+| Banner | `/9117482667` | `/9886405901` |
+| Interstitial | `/4216509777` | `/2805614932` |
+| App Open | `/5066557013` | `/7978050569` |
+| Rewarded | Google test ID (blocker) | `/9179451599` — **ID thật, blocker đã hết** |
+
+- Package name (`com.samsunggalaxy.bmicalculator`) và privacy policy URL trong `admob.MD` khớp đúng
+  100% với `applicationId` + `BuildConfig.PRIVACY_POLICY_URL` hiện có — không cần đổi gì thêm.
+- `admob.MD` có thêm ID **native** (`/2800026878`) — **hiện app KHÔNG dùng native ad** (SDK
+  `AdmobApplovinWrapper` không có API native trong Phụ lục A đã research), ID này chưa wire vào đâu, để
+  dành nếu tương lai thêm native ad slot.
+- Build lại `assembleDevDebug` + `assembleProductionRelease` — xanh cả 2 sau khi đổi ID.
+- Smoke test lại trên device thật — **đổi device**: Samsung A50s trước đó đã ngắt kết nối, chỉ còn
+  **Samsung A11 (SM-A115F, R9JN61LDLFJ)**, dùng máy này (đã báo user, chỉ 1 device nên không hỏi thêm).
+  Cold start không crash, `provider=AdMob` init thành công với App ID mới, debug vẫn dùng đúng Google
+  test ad-unit ID (không đổi debug ID — chủ ý, tránh invalid traffic khi QA UI tự động) — Interstitial/
+  Rewarded/App Open đều `✅ Loaded`.
+- **Xác nhận lại lỗi UMP xảy ra với đúng App ID MỚI** (`ca-app-pub-3004713799155145~2001950526`) —
+  không phải cache/data cũ. Kết luận: form UMP mà user Publish ở round 1 là cho **account AdMob CŨ**
+  (`3612191981543807`); account MỚI (`3004713799155145`, account thực sự đang dùng bây giờ) **CHƯA có
+  form nào** → **blocker mới, chưa release được cho EEA/UK/CH** cho tới khi user tạo + Publish UMP form
+  đúng cho app ID `ca-app-pub-3004713799155145~2001950526` trên AdMob Console.
+- **Chưa live-test 4 ad-unit ID thật mới** (chỉ verify đúng format `ca-app-pub-.../<10-digit>`, khớp
+  publisher, chưa thấy request thật tới các ID đó) — cố ý không flip debug sang ID thật để tránh risk
+  invalid-traffic khi test bằng UI automation. Muốn verify thật: đăng ký device này làm AdMob test
+  device (Bước 3b, `AdManager.copyTestDeviceHashToClipboard`) rồi build tạm 1 bản trỏ debug sang 4 ID
+  thật, hoặc dùng Play Console Internal Testing track.
+
 **Còn lại trước khi release thật:**
-1. Cấp `ADMOB_REWARDED_ID` production thật (blocker cứng).
-2. Xác nhận lại UMP form đúng app ID (mục ⚠️ trên).
-3. Chưa test flow VIP/redeem/interstitial fallback lại với `IS_ENABLE_ADMOB=true` — logic không phụ
+1. ✅ ~~Cấp `ADMOB_REWARDED_ID` production thật~~ — đã xong (round 2).
+2. 🚨 **Tạo + Publish UMP consent form cho app `ca-app-pub-3004713799155145~2001950526`** trên AdMob
+   Console (Privacy & messaging) — form cũ publish cho account khác không có tác dụng cho app này.
+3. Live-verify 4 ad-unit ID thật (banner/interstitial/appopen/rewarded publisher `3004713799155145`) —
+   chưa test thật, chỉ verify đúng format/wiring.
+4. Chưa test flow VIP/redeem/interstitial fallback lại với `IS_ENABLE_ADMOB=true` — logic không phụ
    thuộc provider (đều qua `AdManager` abstraction) nên rủi ro thấp, nhưng chưa click-through riêng.
 
 ---
