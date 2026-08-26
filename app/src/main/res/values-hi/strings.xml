@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">Health Connect अनुमति अस्वीकार कर दी गई</string>
     <string name="health_connect_sync_success">सिंक हुआ: %1$d आयात, %2$d निर्यात, %3$d अपडेट किए गए</string>
     <string name="health_connect_sync_failed">सिंक विफल रहा। कृपया बाद में पुनः प्रयास करें।</string>
+
+    <string name="share_progress">प्रगति साझा करें</string>
+    <string name="share_progress_period_label">पिछले %1$d दिन</string>
+    <string name="share_progress_streak_label">🔥 %1$d दिन की स्ट्रीक</string>
+    <string name="share_progress_footer">BMI Calculator के साथ ट्रैक किया गया</string>
+    <string name="share_progress_no_data">अभी पर्याप्त डेटा नहीं है</string>
+    <string name="share_progress_not_enough_data_toast">अपनी प्रगति साझा करने के लिए कम से कम 2 वज़न प्रविष्टियाँ दर्ज करें</string>
+    <string name="share_progress_error">साझा करना विफल रहा</string>
 </resources>
 

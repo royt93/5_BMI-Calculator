@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">Toestemming voor Health Connect is geweigerd</string>
     <string name="health_connect_sync_success">Gesynchroniseerd: %1$d geïmporteerd, %2$d geëxporteerd, %3$d bijgewerkt</string>
     <string name="health_connect_sync_failed">Synchronisatie mislukt. Probeer het later opnieuw.</string>
+
+    <string name="share_progress">Voortgang delen</string>
+    <string name="share_progress_period_label">Laatste %1$d dagen</string>
+    <string name="share_progress_streak_label">🔥 %1$d dagen op rij</string>
+    <string name="share_progress_footer">Bijgehouden met BMI Calculator</string>
+    <string name="share_progress_no_data">Nog niet genoeg gegevens</string>
+    <string name="share_progress_not_enough_data_toast">Log minstens 2 weegmomenten om je voortgang te delen</string>
+    <string name="share_progress_error">Delen mislukt</string>
 </resources>
 

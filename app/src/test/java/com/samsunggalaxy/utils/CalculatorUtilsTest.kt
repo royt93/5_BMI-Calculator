@@ -223,6 +223,43 @@ class CalculatorUtilsTest {
         assertTrue(eta.etaDays == null)
     }
 
+    // ---- calculateWeightChange (Idea I3 — Share Progress Card) ----
+
+    @Test
+    fun weightChange_fewerThanTwoRecords_returnsNull() {
+        assertEquals(null, CalculatorUtils.calculateWeightChange(emptyList()))
+        assertEquals(null, CalculatorUtils.calculateWeightChange(listOf(0L to 80.0)))
+    }
+
+    @Test
+    fun weightChange_lossOverPeriod_returnsNegativeDelta() {
+        val records = listOf(0L to 80.0, dayMs to 79.0, 2 * dayMs to 77.7)
+        val change = CalculatorUtils.calculateWeightChange(records)
+        assertEquals(-2.3, change!!, 0.001)
+    }
+
+    @Test
+    fun weightChange_gainOverPeriod_returnsPositiveDelta() {
+        val records = listOf(0L to 70.0, dayMs to 71.2)
+        val change = CalculatorUtils.calculateWeightChange(records)
+        assertEquals(1.2, change!!, 0.001)
+    }
+
+    @Test
+    fun weightChange_unsortedInput_stillComputesFirstVsLastByTimestamp() {
+        // Deliberately out of chronological order — must sort internally, not trust list order.
+        val records = listOf(2 * dayMs to 77.7, 0L to 80.0, dayMs to 79.0)
+        val change = CalculatorUtils.calculateWeightChange(records)
+        assertEquals(-2.3, change!!, 0.001)
+    }
+
+    @Test
+    fun weightChange_noChange_returnsZeroDelta() {
+        val records = listOf(0L to 75.0, dayMs to 75.0)
+        val change = CalculatorUtils.calculateWeightChange(records)
+        assertEquals(0.0, change!!, 0.001)
+    }
+
     // ---- unit conversions ----
 
     @Test

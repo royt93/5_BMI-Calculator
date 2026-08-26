@@ -55,6 +55,12 @@ import java.util.*
 class HistoryActivity : BaseActivity() {
     private enum class Series { BMI, WEIGHT, HEIGHT, MEASUREMENTS }
 
+    companion object {
+        // Idea I3 — Share Progress Card window; matches the example in the idea spec
+        // ("Trong 30 ngày, giảm 2.3kg...") and the Health Connect sync window (EPIC-09).
+        private const val SHARE_PROGRESS_PERIOD_DAYS = 30
+    }
+
     private lateinit var repository: BmiRepository
     private lateinit var recyclerView: RecyclerView
     private lateinit var lineChart: LineChart
@@ -123,6 +129,7 @@ class HistoryActivity : BaseActivity() {
         cardGoalRow.setOnClickListener { if (currentGoalWeight == null) showGoalDialog() }
         fabQuickLog.setOnClickListener { showQuickLogDialog() }
         findViewById<View>(R.id.ivExportCsv).setOnClickListener { exportCsv() }
+        findViewById<View>(R.id.ivShareProgress).setOnClickListener { shareProgressCard() }
     }
 
     private fun setupSeriesTabs() {
@@ -537,6 +544,60 @@ class HistoryActivity : BaseActivity() {
                 }
             } finally {
                 isExportingCsv = false
+            }
+        }
+    }
+
+    // Guards shareProgressCard() the same way isExportingCsv guards exportCsv().
+    private var isSharingProgress = false
+
+    /** Idea I3 — Share Progress Card: renders + shares a summary image of the last 30 days. */
+    private fun shareProgressCard() {
+        if (isSharingProgress) return
+        isSharingProgress = true
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val sinceMs = System.currentTimeMillis() - java.util.concurrent.TimeUnit.DAYS.toMillis(SHARE_PROGRESS_PERIOD_DAYS.toLong())
+                val recentRecords = repository.getRecordsSince(currentProfileId, sinceMs)
+                if (recentRecords.size < 2) {
+                    withContext(Dispatchers.Main) {
+                        if (!isFinishing && !isDestroyed) {
+                            Toast.makeText(this@HistoryActivity, getString(R.string.share_progress_not_enough_data_toast), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    return@launch
+                }
+
+                val weightChange = CalculatorUtils.calculateWeightChange(recentRecords.map { it.timestamp to it.weight })
+                val streakDays = StreakManager.getDisplayStreak(this@HistoryActivity, currentProfileId).current
+                val bitmap = com.samsunggalaxy.share.ShareProgressCardRenderer.render(
+                    context = this@HistoryActivity,
+                    periodDays = SHARE_PROGRESS_PERIOD_DAYS,
+                    deltaKg = weightChange,
+                    unitSystem = unitSystem,
+                    streakDays = streakDays,
+                    sparklineValues = recentRecords.map { it.weight }
+                )
+                val uri = com.samsunggalaxy.share.ShareProgressCardExporter.save(this@HistoryActivity, bitmap)
+
+                withContext(Dispatchers.Main) {
+                    if (isFinishing || isDestroyed) return@withContext
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "image/png"
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(intent, getString(R.string.share_progress)))
+                }
+            } catch (e: Exception) {
+                Log.e("roy93~", "shareProgressCard error", e)
+                withContext(Dispatchers.Main) {
+                    if (!isFinishing && !isDestroyed) {
+                        Toast.makeText(this@HistoryActivity, getString(R.string.share_progress_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } finally {
+                isSharingProgress = false
             }
         }
     }

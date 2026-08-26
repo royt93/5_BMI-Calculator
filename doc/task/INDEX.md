@@ -23,9 +23,9 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | ✅ **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | P0 | 16 | `done/EPIC-07-weight-dashboard.md` |
 | ✅ EPIC-08 Engagement features (reminder/export/measurements) | ✨ | P2 | 21 | `done/EPIC-08-engagement-features.md` |
 | ✅ EPIC-09 Platform extensions (widget/Health Connect) | ✨ | P3 | 21 | `done/EPIC-09-platform-extensions.md` |
-| Ideas độc quyền — **CHỐT: I3+I2+I4 vào roadmap gần nhất** | 💡 | — | — | `IDEAS.md` |
+| Ideas độc quyền — ✅ I3 xong, còn I2+I4 | 💡 | — | — | `IDEAS.md` |
 
-**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-01 + EPIC-02 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 + EPIC-09 (115 pts). Chỉ còn EPIC-03 (deferred, ad-related) + Ideas.**
+**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-01 + EPIC-02 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 + EPIC-09 (115 pts) + Idea I3 (Share Progress Card). Còn lại: EPIC-03 (deferred, ad-related) + Idea I2 (Smart Insights) + I4 (Family Challenge Mode).**
 
 ## Đã implement (2026-08-23) — chi tiết
 

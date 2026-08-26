@@ -327,4 +327,12 @@
     <string name="health_connect_permission_denied">Quyền truy cập Health Connect đã bị từ chối</string>
     <string name="health_connect_sync_success">Đã đồng bộ: nhập %1$d, xuất %2$d, cập nhật %3$d</string>
     <string name="health_connect_sync_failed">Đồng bộ thất bại. Vui lòng thử lại sau.</string>
+
+    <string name="share_progress">Chia sẻ tiến trình</string>
+    <string name="share_progress_period_label">%1$d ngày qua</string>
+    <string name="share_progress_streak_label">🔥 chuỗi %1$d ngày</string>
+    <string name="share_progress_footer">Được theo dõi bằng BMI Calculator</string>
+    <string name="share_progress_no_data">Chưa đủ dữ liệu</string>
+    <string name="share_progress_not_enough_data_toast">Ghi lại ít nhất 2 lần cân để chia sẻ tiến trình của bạn</string>
+    <string name="share_progress_error">Chia sẻ thất bại</string>
 </resources>

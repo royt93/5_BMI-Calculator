@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">Health Connect 权限被拒绝</string>
     <string name="health_connect_sync_success">已同步：导入 %1$d 项，导出 %2$d 项，更新 %3$d 项</string>
     <string name="health_connect_sync_failed">同步失败，请稍后重试。</string>
+
+    <string name="share_progress">分享进度</string>
+    <string name="share_progress_period_label">最近%1$d天</string>
+    <string name="share_progress_streak_label">🔥 连续%1$d天</string>
+    <string name="share_progress_footer">使用BMI Calculator记录</string>
+    <string name="share_progress_no_data">数据尚不足</string>
+    <string name="share_progress_not_enough_data_toast">至少记录2次体重才能分享你的进度</string>
+    <string name="share_progress_error">分享失败</string>
 </resources>
 

@@ -224,6 +224,19 @@ object CalculatorUtils {
     }
 
     /**
+     * Idea I3 — Share Progress Card: simple first-vs-last weight delta (kg) over a window.
+     * `records` (timestamp millis, weight kg) should already be filtered to the desired window
+     * by the caller (e.g. `BmiRepository.getRecordsSince`) — this just does the arithmetic,
+     * sorted internally by timestamp so caller order doesn't matter. Returns null with fewer
+     * than 2 records (no meaningful "change" to report).
+     */
+    fun calculateWeightChange(records: List<Pair<Long, Double>>): Double? {
+        if (records.size < 2) return null
+        val sorted = records.sortedBy { it.first }
+        return sorted.last().second - sorted.first().second
+    }
+
+    /**
      * Convert kg to lbs
      */
     fun kgToLbs(kg: Double): Double = kg * 2.20462

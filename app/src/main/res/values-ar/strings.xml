@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">تم رفض إذن Health Connect</string>
     <string name="health_connect_sync_success">تمت المزامنة: تم استيراد %1$d، وتصدير %2$d، وتحديث %3$d</string>
     <string name="health_connect_sync_failed">فشلت المزامنة. يرجى المحاولة مرة أخرى لاحقًا.</string>
+
+    <string name="share_progress">مشاركة التقدم</string>
+    <string name="share_progress_period_label">آخر %1$d يومًا</string>
+    <string name="share_progress_streak_label">🔥 %1$d يوم متتالي</string>
+    <string name="share_progress_footer">تم التتبع باستخدام BMI Calculator</string>
+    <string name="share_progress_no_data">لا توجد بيانات كافية بعد</string>
+    <string name="share_progress_not_enough_data_toast">سجّل وزنك مرتين على الأقل لمشاركة تقدمك</string>
+    <string name="share_progress_error">فشلت المشاركة</string>
 </resources>
 

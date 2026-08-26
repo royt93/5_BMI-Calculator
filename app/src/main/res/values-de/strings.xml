@@ -324,5 +324,13 @@
     <string name="health_connect_permission_denied">Die Berechtigung für Health Connect wurde verweigert</string>
     <string name="health_connect_sync_success">Synchronisiert: %1$d importiert, %2$d exportiert, %3$d aktualisiert</string>
     <string name="health_connect_sync_failed">Synchronisierung fehlgeschlagen. Bitte versuche es später erneut.</string>
+
+    <string name="share_progress">Fortschritt teilen</string>
+    <string name="share_progress_period_label">Letzte %1$d Tage</string>
+    <string name="share_progress_streak_label">🔥 %1$d Tage Serie</string>
+    <string name="share_progress_footer">Erfasst mit BMI Calculator</string>
+    <string name="share_progress_no_data">Noch nicht genügend Daten</string>
+    <string name="share_progress_not_enough_data_toast">Erfasse mindestens 2 Gewichtseinträge, um deinen Fortschritt zu teilen</string>
+    <string name="share_progress_error">Teilen fehlgeschlagen</string>
 </resources>
 

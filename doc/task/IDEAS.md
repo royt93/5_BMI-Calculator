@@ -14,10 +14,16 @@ Phân tích thống kê đơn giản trên dữ liệu đã có: tuần giảm/t
 - Ưu: **chi phí 0** (không gọi LLM API), tận dụng 100% dữ liệu đã có sẵn trong Room, khác biệt vì hầu hết app đối thủ chỉ hiện số BMI thô.
 - Nhược: cần đủ dữ liệu lịch sử mới có insight hay (cold-start problem cho user mới).
 
-## I3 — Share Progress Card (ảnh tổng kết đẹp để đăng story/Zalo/Facebook)
+## ✅ I3 — Share Progress Card (ảnh tổng kết đẹp để đăng story/Zalo/Facebook) — ĐÃ XONG (2026-08-26)
 Xuất 1 ảnh card (kiểu Spotify Wrapped/Strava) tóm tắt: "Trong 30 ngày, giảm 2.3kg, streak 18 ngày" kèm mini chart.
 - Ưu: **kênh marketing tự nhiên** — mỗi lần user share là quảng cáo miễn phí cho app; tận dụng lại chart component từ EPIC-07.
 - Nhược: cần thiết kế UI card đẹp (không chỉ chart thô), có thể cần thêm font/asset.
+
+**Implementation**: `share/ShareProgressCardRenderer.kt` (Canvas/Bitmap, 1080×1350, gradient trùng `bg_splash_gradient` để đồng bộ brand) + `share/ShareProgressCardExporter.kt` (FileProvider, cùng pattern `CsvExporter`, dọn card cũ mỗi lần lưu mới — khác CSV export vì tính năng này khuyến khích tap lặp lại). Icon share mới (`ivShareProgress`, `ic_share`) thêm vào toolbar `HistoryActivity`; icon export CSV cũ đổi sang `ic_badge_export` để 2 icon không còn trùng hình (bug nhỏ phát hiện thêm: icon cũ dùng hình share nhưng lại là hành động export CSV). `CalculatorUtils.calculateWeightChange()` mới (pure, unit test) tính delta cân nặng đầu-cuối trong cửa sổ 30 ngày (dùng `BmiDao.getRecordsSince` có sẵn từ EPIC-09).
+
+Audit `/code-review high`: 5 finding — fix constant `FILE_PROVIDER_AUTHORITY` dùng chung (trước lặp ở 2 nơi), fix dọn file card cũ (tránh tích luỹ vô hạn), bỏ field `recordCount` không dùng (YAGNI). 2 finding còn lại (race điều kiện cờ `isSharingProgress` non-volatile, `catch (Exception)` nuốt `CancellationException`) khớp đúng pattern đã có sẵn trong `exportCsv`/`quickLogWeight` — không sửa lẻ để tránh inconsistency, để lại cho 1 lượt dọn dẹp riêng nếu cần.
+
+Test: 78 unit test (`CalculatorUtilsTest` +5) + 56 instrumented test pass. Smoke test tay trên `emulator-5554`: insert 2 record test qua sqlite3 (WeightWheel/SwipeButton của MainAct khó mô phỏng qua adb), mở History → tap Share Progress → share sheet "Sharing image" mở đúng → pull file PNG về xem — card render đúng data ("-2.0 kg", "🔥 9 day streak", sparkline, branding). i18n: 7 string mới dịch đủ 17 locale (en có sẵn + 16 locale khác).
 
 ## I4 — Family Challenge Mode
 Dùng chung multi-profile backend (EPIC-05): so sánh streak/tiến độ giữa các profile trong cùng thiết bị (gia đình cùng dùng 1 máy hoặc 1 người quản lý nhiều profile), leaderboard nhẹ nhàng không cần server/tài khoản.

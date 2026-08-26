@@ -655,4 +655,12 @@
     <string name="health_connect_permission_denied">Health Connect permission was denied</string>
     <string name="health_connect_sync_success">Synced: %1$d imported, %2$d exported, %3$d updated</string>
     <string name="health_connect_sync_failed">Sync failed. Please try again later.</string>
+
+    <string name="share_progress">Share Progress</string>
+    <string name="share_progress_period_label">Last %1$d Days</string>
+    <string name="share_progress_streak_label">🔥 %1$d day streak</string>
+    <string name="share_progress_footer">Tracked with BMI Calculator</string>
+    <string name="share_progress_no_data">Not enough data yet</string>
+    <string name="share_progress_not_enough_data_toast">Log at least 2 weigh-ins to share your progress</string>
+    <string name="share_progress_error">Share failed</string>
 </resources>

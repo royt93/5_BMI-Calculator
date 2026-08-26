@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">В разрешении Health Connect отказано</string>
     <string name="health_connect_sync_success">Синхронизировано: импортировано %1$d, экспортировано %2$d, обновлено %3$d</string>
     <string name="health_connect_sync_failed">Не удалось синхронизировать. Попробуйте ещё раз позже.</string>
+
+    <string name="share_progress">Поделиться прогрессом</string>
+    <string name="share_progress_period_label">Последние %1$d дн.</string>
+    <string name="share_progress_streak_label">🔥 серия %1$d дн. подряд</string>
+    <string name="share_progress_footer">Отслеживается с помощью BMI Calculator</string>
+    <string name="share_progress_no_data">Пока недостаточно данных</string>
+    <string name="share_progress_not_enough_data_toast">Запишите минимум 2 взвешивания, чтобы поделиться прогрессом</string>
+    <string name="share_progress_error">Не удалось поделиться</string>
 </resources>
 

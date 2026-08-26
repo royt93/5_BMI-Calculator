@@ -324,5 +324,13 @@
     <string name="health_connect_permission_denied">การอนุญาต Health Connect ถูกปฏิเสธ</string>
     <string name="health_connect_sync_success">ซิงค์แล้ว: นำเข้า %1$d, ส่งออก %2$d, อัปเดต %3$d</string>
     <string name="health_connect_sync_failed">การซิงค์ล้มเหลว โปรดลองอีกครั้งในภายหลัง</string>
+
+    <string name="share_progress">แชร์ความคืบหน้า</string>
+    <string name="share_progress_period_label">%1$d วันล่าสุด</string>
+    <string name="share_progress_streak_label">🔥 ต่อเนื่อง %1$d วัน</string>
+    <string name="share_progress_footer">ติดตามด้วย BMI Calculator</string>
+    <string name="share_progress_no_data">ยังมีข้อมูลไม่เพียงพอ</string>
+    <string name="share_progress_not_enough_data_toast">บันทึกน้ำหนักอย่างน้อย 2 ครั้งเพื่อแชร์ความคืบหน้าของคุณ</string>
+    <string name="share_progress_error">แชร์ไม่สำเร็จ</string>
 </resources>
 

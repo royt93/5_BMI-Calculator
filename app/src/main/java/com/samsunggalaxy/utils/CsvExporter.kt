@@ -16,7 +16,6 @@ import java.util.Locale
  * storage permission" recommendation.
  */
 object CsvExporter {
-    private const val PROVIDER_AUTHORITY = "com.samsunggalaxy.MainActivity.provider"
 
     /**
      * Locale.US throughout — CSV uses ',' as the column delimiter, so a comma-decimal locale
@@ -52,6 +51,6 @@ object CsvExporter {
         val file = File(dir, "bmi_history_${System.currentTimeMillis()}.csv")
         file.writeText(buildCsvContent(records, unitSystem))
 
-        return FileProvider.getUriForFile(context, PROVIDER_AUTHORITY, file)
+        return FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, file)
     }
 }

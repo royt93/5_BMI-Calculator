@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">Health Connect izni reddedildi</string>
     <string name="health_connect_sync_success">Senkronize edildi: %1$d içe aktarıldı, %2$d dışa aktarıldı, %3$d güncellendi</string>
     <string name="health_connect_sync_failed">Senkronizasyon başarısız oldu. Lütfen daha sonra tekrar deneyin.</string>
+
+    <string name="share_progress">İlerlemeyi Paylaş</string>
+    <string name="share_progress_period_label">Son %1$d Gün</string>
+    <string name="share_progress_streak_label">🔥 %1$d günlük seri</string>
+    <string name="share_progress_footer">BMI Calculator ile takip edildi</string>
+    <string name="share_progress_no_data">Henüz yeterli veri yok</string>
+    <string name="share_progress_not_enough_data_toast">İlerlemenizi paylaşmak için en az 2 tartım kaydedin</string>
+    <string name="share_progress_error">Paylaşma başarısız oldu</string>
 </resources>
 

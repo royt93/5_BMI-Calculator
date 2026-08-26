@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">L\'autorizzazione di Health Connect è stata negata</string>
     <string name="health_connect_sync_success">Sincronizzato: %1$d importati, %2$d esportati, %3$d aggiornati</string>
     <string name="health_connect_sync_failed">Sincronizzazione non riuscita. Riprova più tardi.</string>
+
+    <string name="share_progress">Condividi progressi</string>
+    <string name="share_progress_period_label">Ultimi %1$d giorni</string>
+    <string name="share_progress_streak_label">🔥 serie di %1$d giorni</string>
+    <string name="share_progress_footer">Monitorato con BMI Calculator</string>
+    <string name="share_progress_no_data">Dati ancora insufficienti</string>
+    <string name="share_progress_not_enough_data_toast">Registra almeno 2 pesate per condividere i tuoi progressi</string>
+    <string name="share_progress_error">Condivisione non riuscita</string>
 </resources>
 

@@ -290,5 +290,13 @@
     <string name="health_connect_permission_denied">Izin Health Connect ditolak</string>
     <string name="health_connect_sync_success">Tersinkron: %1$d diimpor, %2$d diekspor, %3$d diperbarui</string>
     <string name="health_connect_sync_failed">Sinkronisasi gagal. Silakan coba lagi nanti.</string>
+
+    <string name="share_progress">Bagikan Progres</string>
+    <string name="share_progress_period_label">%1$d Hari Terakhir</string>
+    <string name="share_progress_streak_label">🔥 rentetan %1$d hari</string>
+    <string name="share_progress_footer">Dilacak dengan BMI Calculator</string>
+    <string name="share_progress_no_data">Data belum cukup</string>
+    <string name="share_progress_not_enough_data_toast">Catat setidaknya 2 kali penimbangan untuk membagikan progres Anda</string>
+    <string name="share_progress_error">Gagal membagikan</string>
 </resources>
 
