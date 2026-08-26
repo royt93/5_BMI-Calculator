@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">Dagelijkse melding die je eraan herinnert je gewicht te registreren</string>
     <string name="reminder_notification_title">Tijd om te wegen!</string>
     <string name="reminder_notification_body">Registreer je gewicht van vandaag om je reeks vol te houden</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 %1$s loggen</string>
+    <string name="notification_quick_log_confirmation_title">Gewicht gelogd</string>
+    <string name="notification_quick_log_confirmation_body">%1$s gelogd voor vandaag ✓</string>
     <string name="reminder_permission_denied">Schakel meldingen in de systeeminstellingen in om herinneringen te ontvangen</string>
     <string name="clear_history">Geschiedenis wissen</string>
     <string name="clear_history_confirm_title">Alle geschiedenis wissen?</string>

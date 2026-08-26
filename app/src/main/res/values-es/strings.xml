@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">Notificación diaria que te recuerda registrar tu peso</string>
     <string name="reminder_notification_title">¡Hora de pesarte!</string>
     <string name="reminder_notification_body">Registra tu peso de hoy para mantener tu racha</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Registrar %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Peso registrado</string>
+    <string name="notification_quick_log_confirmation_body">%1$s registrado hoy ✓</string>
     <string name="reminder_permission_denied">Activa las notificaciones en la configuración del sistema para recibir recordatorios</string>
     <string name="clear_history">Borrar historial</string>
     <string name="clear_history_confirm_title">¿Borrar todo el historial?</string>

@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">Tägliche Benachrichtigung, die dich ans Gewicht-Eintragen erinnert</string>
     <string name="reminder_notification_title">Zeit zum Wiegen!</string>
     <string name="reminder_notification_body">Trage dein heutiges Gewicht ein, um deine Serie fortzusetzen</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 %1$s eintragen</string>
+    <string name="notification_quick_log_confirmation_title">Gewicht eingetragen</string>
+    <string name="notification_quick_log_confirmation_body">%1$s für heute eingetragen ✓</string>
     <string name="reminder_permission_denied">Aktiviere Benachrichtigungen in den Systemeinstellungen, um Erinnerungen zu erhalten</string>
     <string name="clear_history">Verlauf löschen</string>
     <string name="clear_history_confirm_title">Gesamten Verlauf löschen?</string>

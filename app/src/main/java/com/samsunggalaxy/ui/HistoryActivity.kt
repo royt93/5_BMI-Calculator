@@ -586,25 +586,7 @@ class HistoryActivity : BaseActivity() {
             try {
                 val last = records.last() // reuse height/age/gender — quick-log is weight-only
                 val activityLevel = PreferencesManager(this@HistoryActivity).activityLevel.first()
-                val bmi = CalculatorUtils.calculateBMI(weight, last.height)
-                val bmr = CalculatorUtils.calculateBMR(weight, last.height, last.age, last.gender)
-                val tdee = CalculatorUtils.calculateTDEE(bmr, activityLevel)
-                val idealWeight = CalculatorUtils.calculateIdealWeightRange(last.height, last.gender)
-
-                val record = BmiRecord(
-                    timestamp = System.currentTimeMillis(),
-                    height = last.height,
-                    weight = weight,
-                    gender = last.gender,
-                    age = last.age,
-                    bmi = bmi,
-                    bmr = bmr,
-                    tdee = tdee,
-                    idealWeightMin = idealWeight.first,
-                    idealWeightMax = idealWeight.second,
-                    bodyFatPercentage = null,
-                    profileId = currentProfileId
-                )
+                val record = CalculatorUtils.buildQuickLogRecord(last, weight, activityLevel)
                 val newlyEarned = RecordSaveHelper.saveAndCheckBadges(
                     context = this@HistoryActivity,
                     repository = repository,

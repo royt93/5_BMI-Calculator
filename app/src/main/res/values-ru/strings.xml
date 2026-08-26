@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">Ежедневное уведомление с напоминанием записать вес</string>
     <string name="reminder_notification_title">Пора взвеситься!</string>
     <string name="reminder_notification_body">Запишите сегодняшний вес, чтобы не прерывать серию</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Записать %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Вес записан</string>
+    <string name="notification_quick_log_confirmation_body">%1$s записан за сегодня ✓</string>
     <string name="reminder_permission_denied">Включите уведомления в настройках системы, чтобы получать напоминания</string>
     <string name="clear_history">Очистить историю</string>
     <string name="clear_history_confirm_title">Очистить всю историю?</string>

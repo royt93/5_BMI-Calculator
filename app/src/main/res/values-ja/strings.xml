@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">体重の記録を促す毎日の通知</string>
     <string name="reminder_notification_title">体重測定の時間です！</string>
     <string name="reminder_notification_body">今日の体重を記録して連続記録を続けましょう</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 %1$s を記録</string>
+    <string name="notification_quick_log_confirmation_title">体重を記録しました</string>
+    <string name="notification_quick_log_confirmation_body">今日は%1$sを記録しました ✓</string>
     <string name="reminder_permission_denied">リマインダーを受け取るには、システム設定で通知を有効にしてください</string>
     <string name="clear_history">履歴を削除</string>
     <string name="clear_history_confirm_title">すべての履歴を削除しますか？</string>

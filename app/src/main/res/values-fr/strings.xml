@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">Notification quotidienne pour vous rappeler d\'enregistrer votre poids</string>
     <string name="reminder_notification_title">C\'est l\'heure de la pesée !</string>
     <string name="reminder_notification_body">Enregistrez votre poids du jour pour continuer votre série</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Enregistrer %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Poids enregistré</string>
+    <string name="notification_quick_log_confirmation_body">%1$s enregistré pour aujourd\'hui ✓</string>
     <string name="reminder_permission_denied">Activez les notifications dans les paramètres système pour recevoir des rappels</string>
     <string name="clear_history">Effacer l\'historique</string>
     <string name="clear_history_confirm_title">Effacer tout l\'historique ?</string>

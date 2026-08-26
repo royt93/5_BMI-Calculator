@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">إشعار يومي يذكّرك بتسجيل وزنك</string>
     <string name="reminder_notification_title">حان وقت الوزن!</string>
     <string name="reminder_notification_body">سجّل وزن اليوم للحفاظ على سلسلتك</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 سجّل %1$s</string>
+    <string name="notification_quick_log_confirmation_title">تم تسجيل الوزن</string>
+    <string name="notification_quick_log_confirmation_body">تم تسجيل %1$s لهذا اليوم ✓</string>
     <string name="reminder_permission_denied">فعّل الإشعارات في إعدادات النظام لتلقي التذكيرات</string>
     <string name="clear_history">مسح السجل</string>
     <string name="clear_history_confirm_title">مسح كل السجل؟</string>

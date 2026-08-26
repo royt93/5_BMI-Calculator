@@ -299,4 +299,59 @@ class CalculatorUtilsTest {
         val thisYear = cal.timeInMillis
         assertTrue(!CalculatorUtils.isSameCalendarDay(lastYear, thisYear))
     }
+
+    // ---- buildQuickLogRecord (Idea I6) ----
+
+    private fun sampleLastRecord(profileId: Long = 5L) = com.samsunggalaxy.data.BmiRecord(
+        timestamp = 1000L,
+        height = 175.0,
+        weight = 80.0,
+        gender = 0,
+        age = 30,
+        bmi = 26.1,
+        bmr = 1700.0,
+        tdee = 2200.0,
+        idealWeightMin = 60.0,
+        idealWeightMax = 75.0,
+        bodyFatPercentage = 20.0,
+        profileId = profileId
+    )
+
+    @Test
+    fun buildQuickLogRecord_reusesHeightAgeGenderProfileId_fromLastRecord() {
+        val last = sampleLastRecord(profileId = 42L)
+        val record = CalculatorUtils.buildQuickLogRecord(last, newWeightKg = 79.0, activityLevel = 1, timestampMs = 5000L)
+
+        assertEquals(last.height, record.height, 0.001)
+        assertEquals(last.age, record.age)
+        assertEquals(last.gender, record.gender)
+        assertEquals(42L, record.profileId)
+        assertEquals(5000L, record.timestamp)
+        assertEquals(79.0, record.weight, 0.001)
+    }
+
+    @Test
+    fun buildQuickLogRecord_recomputesBmiBmrTdee_fromNewWeight() {
+        val last = sampleLastRecord()
+        val record = CalculatorUtils.buildQuickLogRecord(last, newWeightKg = 79.0, activityLevel = 1)
+
+        assertEquals(CalculatorUtils.calculateBMI(79.0, last.height), record.bmi, 0.001)
+        val expectedBmr = CalculatorUtils.calculateBMR(79.0, last.height, last.age, last.gender)
+        assertEquals(CalculatorUtils.calculateTDEE(expectedBmr, 1), record.tdee, 0.001)
+    }
+
+    @Test
+    fun buildQuickLogRecord_dropsBodyFatPercentage_quickLogIsWeightOnly() {
+        val last = sampleLastRecord()
+        val record = CalculatorUtils.buildQuickLogRecord(last, newWeightKg = 79.0, activityLevel = 1)
+        assertEquals(null, record.bodyFatPercentage)
+    }
+
+    @Test
+    fun buildQuickLogRecord_defaultsTimestampToNow() {
+        val before = System.currentTimeMillis()
+        val record = CalculatorUtils.buildQuickLogRecord(sampleLastRecord(), newWeightKg = 79.0, activityLevel = 1)
+        val after = System.currentTimeMillis()
+        assertTrue(record.timestamp in before..after)
+    }
 }

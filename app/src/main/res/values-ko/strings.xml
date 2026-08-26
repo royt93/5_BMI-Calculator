@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">체중 기록을 알려주는 매일 알림</string>
     <string name="reminder_notification_title">체중을 잴 시간이에요!</string>
     <string name="reminder_notification_body">오늘의 체중을 기록하고 연속 기록을 이어가세요</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 %1$s 기록</string>
+    <string name="notification_quick_log_confirmation_title">체중이 기록되었습니다</string>
+    <string name="notification_quick_log_confirmation_body">%1$s 기록 완료 ✓</string>
     <string name="reminder_permission_denied">알림을 받으려면 시스템 설정에서 알림을 활성화하세요</string>
     <string name="clear_history">기록 삭제</string>
     <string name="clear_history_confirm_title">모든 기록을 삭제하시겠습니까?</string>

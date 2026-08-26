@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">การแจ้งเตือนรายวันเพื่อเตือนให้คุณบันทึกน้ำหนัก</string>
     <string name="reminder_notification_title">ถึงเวลาชั่งน้ำหนักแล้ว!</string>
     <string name="reminder_notification_body">บันทึกน้ำหนักวันนี้เพื่อรักษาสถิติต่อเนื่องของคุณ</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 บันทึก %1$s</string>
+    <string name="notification_quick_log_confirmation_title">บันทึกน้ำหนักแล้ว</string>
+    <string name="notification_quick_log_confirmation_body">บันทึก %1$s สำหรับวันนี้แล้ว ✓</string>
     <string name="reminder_permission_denied">เปิดการแจ้งเตือนในการตั้งค่าระบบเพื่อรับการแจ้งเตือน</string>
     <string name="clear_history">ล้างประวัติ</string>
     <string name="clear_history_confirm_title">ล้างประวัติทั้งหมด?</string>

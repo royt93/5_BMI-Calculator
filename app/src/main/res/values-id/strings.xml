@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">Notifikasi harian yang mengingatkan Anda mencatat berat badan</string>
     <string name="reminder_notification_title">Waktunya menimbang!</string>
     <string name="reminder_notification_body">Catat berat badan hari ini untuk menjaga streak Anda</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Catat %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Berat tercatat</string>
+    <string name="notification_quick_log_confirmation_body">%1$s tercatat untuk hari ini ✓</string>
     <string name="reminder_permission_denied">Aktifkan notifikasi di pengaturan sistem untuk menerima pengingat</string>
     <string name="clear_history">Hapus Riwayat</string>
     <string name="clear_history_confirm_title">Hapus semua riwayat?</string>

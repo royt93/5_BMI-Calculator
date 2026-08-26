@@ -127,6 +127,13 @@
                 android:resource="@xml/widget_bmi_info" />
         </receiver>
 
+        <!-- Idea I6 — reminder notification's "Log same weight" action button. Only ever
+             triggered via our own explicit PendingIntent (not exported), same trust boundary
+             as an in-app button click. -->
+        <receiver
+            android:name=".notification.QuickLogNotificationReceiver"
+            android:exported="false" />
+
     </application>
 
 </manifest>

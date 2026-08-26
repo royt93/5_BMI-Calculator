@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">Notifica giornaliera che ti ricorda di registrare il peso</string>
     <string name="reminder_notification_title">Ora di pesarsi!</string>
     <string name="reminder_notification_body">Registra il peso di oggi per mantenere la tua serie</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Registra %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Peso registrato</string>
+    <string name="notification_quick_log_confirmation_body">%1$s registrato per oggi ✓</string>
     <string name="reminder_permission_denied">Attiva le notifiche nelle impostazioni di sistema per ricevere i promemoria</string>
     <string name="clear_history">Cancella cronologia</string>
     <string name="clear_history_confirm_title">Cancellare tutta la cronologia?</string>

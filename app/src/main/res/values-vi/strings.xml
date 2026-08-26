@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">Thông báo hàng ngày nhắc bạn ghi cân nặng</string>
     <string name="reminder_notification_title">Đến giờ cân rồi!</string>
     <string name="reminder_notification_body">Ghi cân nặng hôm nay để duy trì streak</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Ghi %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Đã ghi cân nặng</string>
+    <string name="notification_quick_log_confirmation_body">Đã ghi %1$s cho hôm nay ✓</string>
     <string name="reminder_permission_denied">Bật thông báo trong cài đặt hệ thống để nhận nhắc nhở</string>
     <string name="clear_history">Xoá lịch sử</string>
     <string name="clear_history_confirm_title">Xoá toàn bộ lịch sử?</string>

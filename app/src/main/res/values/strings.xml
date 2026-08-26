@@ -38,6 +38,10 @@
     <string name="reminder_notification_channel_desc">Daily notification reminding you to log your weight</string>
     <string name="reminder_notification_title">Time to weigh in!</string>
     <string name="reminder_notification_body">Log today\'s weight to keep your streak going</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 Log %1$s</string>
+    <string name="notification_quick_log_confirmation_title">Weight logged</string>
+    <string name="notification_quick_log_confirmation_body">%1$s logged for today ✓</string>
     <string name="reminder_permission_denied">Enable notifications in system settings to receive reminders</string>
     <string name="clear_history">Clear History</string>
     <string name="clear_history_confirm_title">Clear all history?</string>

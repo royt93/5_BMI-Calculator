@@ -1,6 +1,7 @@
 package com.samsunggalaxy.utils
 
 import com.samsunggalaxy.R
+import com.samsunggalaxy.data.BmiRecord
 import kotlin.math.pow
 
 object CalculatorUtils {
@@ -105,6 +106,37 @@ object CalculatorUtils {
         val min = maxOf(ideal - 5, 30.0)
         val max = ideal + 5
         return Pair(min, max)
+    }
+
+    /**
+     * Idea I6 — Quick-log Notification Action: builds a weight-only follow-up record reusing
+     * [last]'s height/age/gender, the same shape HistoryActivity's quick-log FAB (T07.5) builds
+     * inline. Shared here so the FAB and the new notification quick-log action can't drift.
+     */
+    fun buildQuickLogRecord(
+        last: BmiRecord,
+        newWeightKg: Double,
+        activityLevel: Int,
+        timestampMs: Long = System.currentTimeMillis()
+    ): BmiRecord {
+        val bmi = calculateBMI(newWeightKg, last.height)
+        val bmr = calculateBMR(newWeightKg, last.height, last.age, last.gender)
+        val tdee = calculateTDEE(bmr, activityLevel)
+        val idealWeight = calculateIdealWeightRange(last.height, last.gender)
+        return BmiRecord(
+            timestamp = timestampMs,
+            height = last.height,
+            weight = newWeightKg,
+            gender = last.gender,
+            age = last.age,
+            bmi = bmi,
+            bmr = bmr,
+            tdee = tdee,
+            idealWeightMin = idealWeight.first,
+            idealWeightMax = idealWeight.second,
+            bodyFatPercentage = null,
+            profileId = last.profileId
+        )
     }
 
     /** Tolerance (kg) within which current weight counts as having reached the goal. */

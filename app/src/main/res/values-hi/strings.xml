@@ -35,6 +35,10 @@
     <string name="reminder_notification_channel_desc">आपको वजन दर्ज करने की याद दिलाने वाली दैनिक सूचना</string>
     <string name="reminder_notification_title">वजन करने का समय हो गया!</string>
     <string name="reminder_notification_body">अपनी स्ट्रीक जारी रखने के लिए आज का वजन दर्ज करें</string>
+    <!-- Idea I6 — Quick-log Notification Action -->
+    <string name="notification_quick_log_action">🔁 %1$s दर्ज करें</string>
+    <string name="notification_quick_log_confirmation_title">वजन दर्ज हो गया</string>
+    <string name="notification_quick_log_confirmation_body">%1$s आज के लिए दर्ज हो गया ✓</string>
     <string name="reminder_permission_denied">रिमाइंडर पाने के लिए सिस्टम सेटिंग्स में सूचनाएं सक्षम करें</string>
     <string name="clear_history">इतिहास साफ़ करें</string>
     <string name="clear_history_confirm_title">पूरा इतिहास साफ़ करें?</string>
