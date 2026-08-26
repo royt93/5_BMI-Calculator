@@ -135,6 +135,26 @@
     <string name="export_csv">CSV exportieren</string>
     <string name="export_csv_empty">Noch kein Verlauf zum Exportieren</string>
     <string name="export_csv_error">Export fehlgeschlagen</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDF-Bericht exportieren</string>
+    <string name="export_pdf_empty">Noch kein Verlauf zum Exportieren</string>
+    <string name="export_pdf_error">Export fehlgeschlagen</string>
+    <string name="pdf_report_title">BMI-Gesundheitsbericht</string>
+    <string name="pdf_report_profile_label">Profil: %1$s</string>
+    <string name="pdf_report_period_label">Zeitraum: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Zusammenfassung</string>
+    <string name="pdf_report_current_weight_label">Aktuelles Gewicht</string>
+    <string name="pdf_report_current_bmi_label">Aktueller BMI</string>
+    <string name="pdf_report_weight_change_label">Gewichtsänderung</string>
+    <string name="pdf_report_no_change">Keine Änderung</string>
+    <string name="pdf_report_record_count_label">Einträge insgesamt</string>
+    <string name="pdf_report_history_heading">Verlauf</string>
+    <string name="pdf_report_col_date">Datum</string>
+    <string name="pdf_report_col_weight">Gewicht (%1$s)</string>
+    <string name="pdf_report_col_height">Größe (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">Kategorie</string>
+    <string name="pdf_report_footer">Erstellt von %1$s • Seite %2$d</string>
     <string name="dashboard_empty_title">Noch keine Daten</string>
     <string name="dashboard_empty_subtitle">Berechne deinen BMI, um deinen Fortschritt zu verfolgen</string>
     <string name="dashboard_eta_days">Bei diesem Tempo noch ca. %1$d Tage bis zu deinem Ziel</string>

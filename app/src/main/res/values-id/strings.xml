@@ -102,6 +102,26 @@
     <string name="export_csv">Ekspor CSV</string>
     <string name="export_csv_empty">Belum ada riwayat untuk diekspor</string>
     <string name="export_csv_error">Ekspor gagal</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">Ekspor Laporan PDF</string>
+    <string name="export_pdf_empty">Belum ada riwayat untuk diekspor</string>
+    <string name="export_pdf_error">Ekspor gagal</string>
+    <string name="pdf_report_title">Laporan Kesehatan BMI</string>
+    <string name="pdf_report_profile_label">Profil: %1$s</string>
+    <string name="pdf_report_period_label">Periode: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Ringkasan</string>
+    <string name="pdf_report_current_weight_label">Berat badan saat ini</string>
+    <string name="pdf_report_current_bmi_label">BMI saat ini</string>
+    <string name="pdf_report_weight_change_label">Perubahan berat badan</string>
+    <string name="pdf_report_no_change">Tidak ada perubahan</string>
+    <string name="pdf_report_record_count_label">Total entri</string>
+    <string name="pdf_report_history_heading">Riwayat</string>
+    <string name="pdf_report_col_date">Tanggal</string>
+    <string name="pdf_report_col_weight">Berat (%1$s)</string>
+    <string name="pdf_report_col_height">Tinggi (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">Kategori</string>
+    <string name="pdf_report_footer">Dibuat oleh %1$s • Halaman %2$d</string>
     <string name="dashboard_empty_title">Belum ada data</string>
     <string name="dashboard_empty_subtitle">Hitung BMI Anda untuk mulai melacak progres Anda</string>
     <string name="dashboard_eta_days">Dengan laju ini, ~%1$d hari lagi untuk mencapai target Anda</string>

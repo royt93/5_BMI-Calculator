@@ -2,6 +2,7 @@ package com.samsunggalaxy.ui
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -139,6 +140,7 @@ class HistoryActivity : BaseActivity() {
         fabQuickLog.setOnClickListener { showQuickLogDialog() }
         findViewById<View>(R.id.ivExportCsv).setOnClickListener { exportCsv() }
         findViewById<View>(R.id.ivShareProgress).setOnClickListener { shareProgressCard() }
+        findViewById<View>(R.id.ivExportPdf).setOnClickListener { exportPdf() }
     }
 
     private fun setupSeriesTabs() {
@@ -570,6 +572,22 @@ class HistoryActivity : BaseActivity() {
     // unlocks/share sheets from a single user action.
     private var isExportingCsv = false
 
+    /** Shares a previously-exported file and, if it just unlocked a new badge, shows a snackbar. */
+    private fun shareExportedFile(uri: Uri, mimeType: String, chooserTitleRes: Int, newBadge: BadgeManager.Badge?) {
+        if (isFinishing || isDestroyed) return
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = mimeType
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(intent, getString(chooserTitleRes)))
+        newBadge?.let { badge ->
+            com.google.android.material.snackbar.Snackbar
+                .make(recyclerView, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
+                .show()
+        }
+    }
+
     /** EPIC-08 T08.2 — CSV export of BMI history via the share sheet. */
     private fun exportCsv() {
         if (records.isEmpty()) {
@@ -583,18 +601,7 @@ class HistoryActivity : BaseActivity() {
                 val uri = com.samsunggalaxy.utils.CsvExporter.exportBmiRecords(this@HistoryActivity, records, unitSystem)
                 val newBadge = uri?.let { BadgeManager.tryUnlockDataExporter(this@HistoryActivity, currentProfileId) }
                 withContext(Dispatchers.Main) {
-                    if (uri == null || isFinishing || isDestroyed) return@withContext
-                    val intent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/csv"
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    }
-                    startActivity(Intent.createChooser(intent, getString(R.string.export_csv)))
-                    newBadge?.let { badge ->
-                        com.google.android.material.snackbar.Snackbar
-                            .make(recyclerView, "🎉 ${getString(badge.titleRes)}!", com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
-                            .show()
-                    }
+                    if (uri != null) shareExportedFile(uri, "text/csv", R.string.export_csv, newBadge)
                 }
             } catch (e: Exception) {
                 Log.e("roy93~", "exportCsv error", e)
@@ -605,6 +612,40 @@ class HistoryActivity : BaseActivity() {
                 }
             } finally {
                 isExportingCsv = false
+            }
+        }
+    }
+
+    // Guards exportPdf() the same way isExportingCsv guards exportCsv().
+    private var isExportingPdf = false
+
+    /** Idea I8 — PDF health report export, meant to be handed to a doctor/coach. */
+    private fun exportPdf() {
+        if (records.isEmpty()) {
+            Toast.makeText(this, getString(R.string.export_pdf_empty), Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (isExportingPdf) return
+        isExportingPdf = true
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val profileName = repository.getCurrentProfile()?.name.orEmpty()
+                val uri = com.samsunggalaxy.report.PdfReportExporter.export(
+                    this@HistoryActivity, profileName, records, unitSystem
+                )
+                val newBadge = uri?.let { BadgeManager.tryUnlockDataExporter(this@HistoryActivity, currentProfileId) }
+                withContext(Dispatchers.Main) {
+                    if (uri != null) shareExportedFile(uri, "application/pdf", R.string.export_pdf, newBadge)
+                }
+            } catch (e: Exception) {
+                Log.e("roy93~", "exportPdf error", e)
+                withContext(Dispatchers.Main) {
+                    if (!isFinishing && !isDestroyed) {
+                        Toast.makeText(this@HistoryActivity, getString(R.string.export_pdf_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } finally {
+                isExportingPdf = false
             }
         }
     }
@@ -642,13 +683,7 @@ class HistoryActivity : BaseActivity() {
                 val uri = com.samsunggalaxy.share.ShareProgressCardExporter.save(this@HistoryActivity, bitmap)
 
                 withContext(Dispatchers.Main) {
-                    if (isFinishing || isDestroyed) return@withContext
-                    val intent = Intent(Intent.ACTION_SEND).apply {
-                        type = "image/png"
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    }
-                    startActivity(Intent.createChooser(intent, getString(R.string.share_progress)))
+                    shareExportedFile(uri, "image/png", R.string.share_progress, newBadge = null)
                 }
             } catch (e: Exception) {
                 Log.e("roy93~", "shareProgressCard error", e)

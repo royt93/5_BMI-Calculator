@@ -102,6 +102,26 @@
     <string name="export_csv">Экспорт CSV</string>
     <string name="export_csv_empty">Пока нет истории для экспорта</string>
     <string name="export_csv_error">Не удалось экспортировать</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">Экспорт отчёта PDF</string>
+    <string name="export_pdf_empty">Пока нет истории для экспорта</string>
+    <string name="export_pdf_error">Не удалось экспортировать</string>
+    <string name="pdf_report_title">Отчёт о здоровье по ИМТ</string>
+    <string name="pdf_report_profile_label">Профиль: %1$s</string>
+    <string name="pdf_report_period_label">Период: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Сводка</string>
+    <string name="pdf_report_current_weight_label">Текущий вес</string>
+    <string name="pdf_report_current_bmi_label">Текущий ИМТ</string>
+    <string name="pdf_report_weight_change_label">Изменение веса</string>
+    <string name="pdf_report_no_change">Без изменений</string>
+    <string name="pdf_report_record_count_label">Всего записей</string>
+    <string name="pdf_report_history_heading">История</string>
+    <string name="pdf_report_col_date">Дата</string>
+    <string name="pdf_report_col_weight">Вес (%1$s)</string>
+    <string name="pdf_report_col_height">Рост (%1$s)</string>
+    <string name="pdf_report_col_bmi">ИМТ</string>
+    <string name="pdf_report_col_category">Категория</string>
+    <string name="pdf_report_footer">Создано %1$s • Страница %2$d</string>
     <string name="dashboard_empty_title">Пока нет данных</string>
     <string name="dashboard_empty_subtitle">Рассчитайте ИМТ, чтобы начать отслеживать прогресс</string>
     <string name="dashboard_eta_days">При таком темпе — ещё примерно %1$d дней до цели</string>

@@ -119,6 +119,26 @@
     <string name="export_csv">Xuất CSV</string>
     <string name="export_csv_empty">Chưa có lịch sử để xuất</string>
     <string name="export_csv_error">Xuất thất bại</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">Xuất báo cáo PDF</string>
+    <string name="export_pdf_empty">Chưa có lịch sử để xuất</string>
+    <string name="export_pdf_error">Xuất thất bại</string>
+    <string name="pdf_report_title">Báo cáo sức khỏe BMI</string>
+    <string name="pdf_report_profile_label">Hồ sơ: %1$s</string>
+    <string name="pdf_report_period_label">Khoảng thời gian: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Tóm tắt</string>
+    <string name="pdf_report_current_weight_label">Cân nặng hiện tại</string>
+    <string name="pdf_report_current_bmi_label">BMI hiện tại</string>
+    <string name="pdf_report_weight_change_label">Thay đổi cân nặng</string>
+    <string name="pdf_report_no_change">Không thay đổi</string>
+    <string name="pdf_report_record_count_label">Tổng số lần ghi</string>
+    <string name="pdf_report_history_heading">Lịch sử</string>
+    <string name="pdf_report_col_date">Ngày</string>
+    <string name="pdf_report_col_weight">Cân nặng (%1$s)</string>
+    <string name="pdf_report_col_height">Chiều cao (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">Phân loại</string>
+    <string name="pdf_report_footer">Được tạo bởi %1$s • Trang %2$d</string>
     <string name="dashboard_empty_title">Chưa có dữ liệu</string>
     <string name="dashboard_empty_subtitle">Tính BMI để bắt đầu theo dõi tiến trình của bạn</string>
     <string name="dashboard_eta_days">Với tốc độ hiện tại, còn khoảng %1$d ngày để đạt mục tiêu</string>

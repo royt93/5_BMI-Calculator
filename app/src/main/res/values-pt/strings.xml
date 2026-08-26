@@ -102,6 +102,26 @@
     <string name="export_csv">Exportar CSV</string>
     <string name="export_csv_empty">Ainda não há histórico para exportar</string>
     <string name="export_csv_error">Falha na exportação</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">Exportar relatório PDF</string>
+    <string name="export_pdf_empty">Ainda não há histórico para exportar</string>
+    <string name="export_pdf_error">Falha na exportação</string>
+    <string name="pdf_report_title">Relatório de saúde do IMC</string>
+    <string name="pdf_report_profile_label">Perfil: %1$s</string>
+    <string name="pdf_report_period_label">Período: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Resumo</string>
+    <string name="pdf_report_current_weight_label">Peso atual</string>
+    <string name="pdf_report_current_bmi_label">IMC atual</string>
+    <string name="pdf_report_weight_change_label">Variação de peso</string>
+    <string name="pdf_report_no_change">Sem alteração</string>
+    <string name="pdf_report_record_count_label">Total de registros</string>
+    <string name="pdf_report_history_heading">Histórico</string>
+    <string name="pdf_report_col_date">Data</string>
+    <string name="pdf_report_col_weight">Peso (%1$s)</string>
+    <string name="pdf_report_col_height">Altura (%1$s)</string>
+    <string name="pdf_report_col_bmi">IMC</string>
+    <string name="pdf_report_col_category">Categoria</string>
+    <string name="pdf_report_footer">Gerado por %1$s • Página %2$d</string>
     <string name="dashboard_empty_title">Ainda sem dados</string>
     <string name="dashboard_empty_subtitle">Calcule seu IMC para começar a acompanhar seu progresso</string>
     <string name="dashboard_eta_days">Nesse ritmo, ainda ~%1$d dias para atingir sua meta</string>

@@ -102,6 +102,26 @@
     <string name="export_csv">CSV Dışa Aktar</string>
     <string name="export_csv_empty">Dışa aktarılacak geçmiş henüz yok</string>
     <string name="export_csv_error">Dışa aktarma başarısız</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDF Raporu Dışa Aktar</string>
+    <string name="export_pdf_empty">Dışa aktarılacak geçmiş henüz yok</string>
+    <string name="export_pdf_error">Dışa aktarma başarısız</string>
+    <string name="pdf_report_title">BMI Sağlık Raporu</string>
+    <string name="pdf_report_profile_label">Profil: %1$s</string>
+    <string name="pdf_report_period_label">Dönem: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Özet</string>
+    <string name="pdf_report_current_weight_label">Güncel kilo</string>
+    <string name="pdf_report_current_bmi_label">Güncel BMI</string>
+    <string name="pdf_report_weight_change_label">Kilo değişimi</string>
+    <string name="pdf_report_no_change">Değişiklik yok</string>
+    <string name="pdf_report_record_count_label">Toplam kayıt</string>
+    <string name="pdf_report_history_heading">Geçmiş</string>
+    <string name="pdf_report_col_date">Tarih</string>
+    <string name="pdf_report_col_weight">Kilo (%1$s)</string>
+    <string name="pdf_report_col_height">Boy (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">Kategori</string>
+    <string name="pdf_report_footer">%1$s tarafından oluşturuldu • Sayfa %2$d</string>
     <string name="dashboard_empty_title">Henüz veri yok</string>
     <string name="dashboard_empty_subtitle">İlerlemenizi takip etmeye başlamak için BMI\'nizi hesaplayın</string>
     <string name="dashboard_eta_days">Bu hızla hedefinize ulaşmak için ~%1$d gün kaldı</string>

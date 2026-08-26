@@ -102,6 +102,26 @@
     <string name="export_csv">CSV exporteren</string>
     <string name="export_csv_empty">Nog geen geschiedenis om te exporteren</string>
     <string name="export_csv_error">Exporteren mislukt</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDF-rapport exporteren</string>
+    <string name="export_pdf_empty">Nog geen geschiedenis om te exporteren</string>
+    <string name="export_pdf_error">Exporteren mislukt</string>
+    <string name="pdf_report_title">BMI-gezondheidsrapport</string>
+    <string name="pdf_report_profile_label">Profiel: %1$s</string>
+    <string name="pdf_report_period_label">Periode: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">Samenvatting</string>
+    <string name="pdf_report_current_weight_label">Huidig gewicht</string>
+    <string name="pdf_report_current_bmi_label">Huidige BMI</string>
+    <string name="pdf_report_weight_change_label">Gewichtsverandering</string>
+    <string name="pdf_report_no_change">Geen verandering</string>
+    <string name="pdf_report_record_count_label">Totaal aantal items</string>
+    <string name="pdf_report_history_heading">Geschiedenis</string>
+    <string name="pdf_report_col_date">Datum</string>
+    <string name="pdf_report_col_weight">Gewicht (%1$s)</string>
+    <string name="pdf_report_col_height">Lengte (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">Categorie</string>
+    <string name="pdf_report_footer">Gegenereerd door %1$s • Pagina %2$d</string>
     <string name="dashboard_empty_title">Nog geen gegevens</string>
     <string name="dashboard_empty_subtitle">Bereken je BMI om je voortgang te volgen</string>
     <string name="dashboard_eta_days">In dit tempo nog ~%1$d dagen tot je doel</string>

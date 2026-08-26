@@ -135,6 +135,26 @@
     <string name="export_csv">ส่งออก CSV</string>
     <string name="export_csv_empty">ยังไม่มีประวัติให้ส่งออก</string>
     <string name="export_csv_error">ส่งออกไม่สำเร็จ</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">ส่งออกรายงาน PDF</string>
+    <string name="export_pdf_empty">ยังไม่มีประวัติให้ส่งออก</string>
+    <string name="export_pdf_error">ส่งออกไม่สำเร็จ</string>
+    <string name="pdf_report_title">รายงานสุขภาพ BMI</string>
+    <string name="pdf_report_profile_label">โปรไฟล์: %1$s</string>
+    <string name="pdf_report_period_label">ช่วงเวลา: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">สรุป</string>
+    <string name="pdf_report_current_weight_label">น้ำหนักปัจจุบัน</string>
+    <string name="pdf_report_current_bmi_label">BMI ปัจจุบัน</string>
+    <string name="pdf_report_weight_change_label">การเปลี่ยนแปลงน้ำหนัก</string>
+    <string name="pdf_report_no_change">ไม่มีการเปลี่ยนแปลง</string>
+    <string name="pdf_report_record_count_label">จำนวนรายการทั้งหมด</string>
+    <string name="pdf_report_history_heading">ประวัติ</string>
+    <string name="pdf_report_col_date">วันที่</string>
+    <string name="pdf_report_col_weight">น้ำหนัก (%1$s)</string>
+    <string name="pdf_report_col_height">ส่วนสูง (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">หมวดหมู่</string>
+    <string name="pdf_report_footer">สร้างโดย %1$s • หน้า %2$d</string>
     <string name="dashboard_empty_title">ยังไม่มีข้อมูล</string>
     <string name="dashboard_empty_subtitle">คำนวณ BMI ของคุณเพื่อเริ่มติดตามความคืบหน้า</string>
     <string name="dashboard_eta_days">ด้วยอัตรานี้ อีกประมาณ %1$d วันจะถึงเป้าหมาย</string>

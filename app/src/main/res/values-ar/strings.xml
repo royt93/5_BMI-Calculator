@@ -102,6 +102,26 @@
     <string name="export_csv">تصدير CSV</string>
     <string name="export_csv_empty">لا يوجد سجل للتصدير بعد</string>
     <string name="export_csv_error">فشل التصدير</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">تصدير تقرير PDF</string>
+    <string name="export_pdf_empty">لا يوجد سجل للتصدير بعد</string>
+    <string name="export_pdf_error">فشل التصدير</string>
+    <string name="pdf_report_title">تقرير مؤشر كتلة الجسم الصحي</string>
+    <string name="pdf_report_profile_label">الملف الشخصي: %1$s</string>
+    <string name="pdf_report_period_label">الفترة: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">الملخص</string>
+    <string name="pdf_report_current_weight_label">الوزن الحالي</string>
+    <string name="pdf_report_current_bmi_label">مؤشر كتلة الجسم الحالي</string>
+    <string name="pdf_report_weight_change_label">تغيّر الوزن</string>
+    <string name="pdf_report_no_change">لا تغيير</string>
+    <string name="pdf_report_record_count_label">إجمالي الإدخالات</string>
+    <string name="pdf_report_history_heading">السجل</string>
+    <string name="pdf_report_col_date">التاريخ</string>
+    <string name="pdf_report_col_weight">الوزن (%1$s)</string>
+    <string name="pdf_report_col_height">الطول (%1$s)</string>
+    <string name="pdf_report_col_bmi">مؤشر كتلة الجسم</string>
+    <string name="pdf_report_col_category">الفئة</string>
+    <string name="pdf_report_footer">تم الإنشاء بواسطة %1$s • صفحة %2$d</string>
     <string name="dashboard_empty_title">لا توجد بيانات بعد</string>
     <string name="dashboard_empty_subtitle">احسب مؤشر كتلة جسمك لبدء تتبع تقدمك</string>
     <string name="dashboard_eta_days">بهذا المعدل، تحتاج تقريبًا %1$d يومًا للوصول إلى هدفك</string>

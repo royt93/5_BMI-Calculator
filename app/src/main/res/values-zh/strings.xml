@@ -102,6 +102,26 @@
     <string name="export_csv">导出CSV</string>
     <string name="export_csv_empty">暂无可导出的历史记录</string>
     <string name="export_csv_error">导出失败</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">导出PDF报告</string>
+    <string name="export_pdf_empty">暂无可导出的历史记录</string>
+    <string name="export_pdf_error">导出失败</string>
+    <string name="pdf_report_title">BMI健康报告</string>
+    <string name="pdf_report_profile_label">资料：%1$s</string>
+    <string name="pdf_report_period_label">时间段：%1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">摘要</string>
+    <string name="pdf_report_current_weight_label">当前体重</string>
+    <string name="pdf_report_current_bmi_label">当前BMI</string>
+    <string name="pdf_report_weight_change_label">体重变化</string>
+    <string name="pdf_report_no_change">无变化</string>
+    <string name="pdf_report_record_count_label">记录总数</string>
+    <string name="pdf_report_history_heading">历史记录</string>
+    <string name="pdf_report_col_date">日期</string>
+    <string name="pdf_report_col_weight">体重 (%1$s)</string>
+    <string name="pdf_report_col_height">身高 (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">类别</string>
+    <string name="pdf_report_footer">由 %1$s 生成 • 第 %2$d 页</string>
     <string name="dashboard_empty_title">暂无数据</string>
     <string name="dashboard_empty_subtitle">计算您的BMI以开始跟踪进度</string>
     <string name="dashboard_eta_days">按此速度，大约还需%1$d天达成目标</string>

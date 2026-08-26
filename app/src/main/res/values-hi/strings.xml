@@ -102,6 +102,26 @@
     <string name="export_csv">CSV निर्यात करें</string>
     <string name="export_csv_empty">अभी निर्यात करने के लिए कोई इतिहास नहीं है</string>
     <string name="export_csv_error">निर्यात विफल</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDF रिपोर्ट निर्यात करें</string>
+    <string name="export_pdf_empty">अभी निर्यात करने के लिए कोई इतिहास नहीं है</string>
+    <string name="export_pdf_error">निर्यात विफल</string>
+    <string name="pdf_report_title">बीएमआई स्वास्थ्य रिपोर्ट</string>
+    <string name="pdf_report_profile_label">प्रोफ़ाइल: %1$s</string>
+    <string name="pdf_report_period_label">अवधि: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">सारांश</string>
+    <string name="pdf_report_current_weight_label">वर्तमान वजन</string>
+    <string name="pdf_report_current_bmi_label">वर्तमान बीएमआई</string>
+    <string name="pdf_report_weight_change_label">वजन में बदलाव</string>
+    <string name="pdf_report_no_change">कोई बदलाव नहीं</string>
+    <string name="pdf_report_record_count_label">कुल प्रविष्टियां</string>
+    <string name="pdf_report_history_heading">इतिहास</string>
+    <string name="pdf_report_col_date">तारीख</string>
+    <string name="pdf_report_col_weight">वजन (%1$s)</string>
+    <string name="pdf_report_col_height">ऊंचाई (%1$s)</string>
+    <string name="pdf_report_col_bmi">बीएमआई</string>
+    <string name="pdf_report_col_category">श्रेणी</string>
+    <string name="pdf_report_footer">%1$s द्वारा जनरेट किया गया • पृष्ठ %2$d</string>
     <string name="dashboard_empty_title">अभी तक कोई डेटा नहीं</string>
     <string name="dashboard_empty_subtitle">अपनी प्रगति ट्रैक करने के लिए अपना बीएमआई कैलकुलेट करें</string>
     <string name="dashboard_eta_days">इस गति से, लक्ष्य तक पहुंचने में लगभग %1$d दिन</string>

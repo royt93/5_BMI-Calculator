@@ -135,6 +135,26 @@
     <string name="export_csv">CSV 내보내기</string>
     <string name="export_csv_empty">아직 내보낼 기록이 없습니다</string>
     <string name="export_csv_error">내보내기 실패</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDF 리포트 내보내기</string>
+    <string name="export_pdf_empty">아직 내보낼 기록이 없습니다</string>
+    <string name="export_pdf_error">내보내기 실패</string>
+    <string name="pdf_report_title">BMI 건강 리포트</string>
+    <string name="pdf_report_profile_label">프로필: %1$s</string>
+    <string name="pdf_report_period_label">기간: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">요약</string>
+    <string name="pdf_report_current_weight_label">현재 체중</string>
+    <string name="pdf_report_current_bmi_label">현재 BMI</string>
+    <string name="pdf_report_weight_change_label">체중 변화</string>
+    <string name="pdf_report_no_change">변화 없음</string>
+    <string name="pdf_report_record_count_label">총 기록 수</string>
+    <string name="pdf_report_history_heading">기록</string>
+    <string name="pdf_report_col_date">날짜</string>
+    <string name="pdf_report_col_weight">체중 (%1$s)</string>
+    <string name="pdf_report_col_height">키 (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">카테고리</string>
+    <string name="pdf_report_footer">%1$s 생성 • %2$d 페이지</string>
     <string name="dashboard_empty_title">아직 데이터가 없습니다</string>
     <string name="dashboard_empty_subtitle">BMI를 계산하여 진행 상황 추적을 시작하세요</string>
     <string name="dashboard_eta_days">이 속도라면 목표까지 약 %1$d일 남았습니다</string>

@@ -135,6 +135,26 @@
     <string name="export_csv">CSVをエクスポート</string>
     <string name="export_csv_empty">エクスポートする履歴がまだありません</string>
     <string name="export_csv_error">エクスポートに失敗しました</string>
+    <!-- Idea I8 — PDF health report export -->
+    <string name="export_pdf">PDFレポートをエクスポート</string>
+    <string name="export_pdf_empty">エクスポートする履歴がまだありません</string>
+    <string name="export_pdf_error">エクスポートに失敗しました</string>
+    <string name="pdf_report_title">BMI健康レポート</string>
+    <string name="pdf_report_profile_label">プロフィール: %1$s</string>
+    <string name="pdf_report_period_label">期間: %1$s – %2$s</string>
+    <string name="pdf_report_summary_heading">サマリー</string>
+    <string name="pdf_report_current_weight_label">現在の体重</string>
+    <string name="pdf_report_current_bmi_label">現在のBMI</string>
+    <string name="pdf_report_weight_change_label">体重の変化</string>
+    <string name="pdf_report_no_change">変化なし</string>
+    <string name="pdf_report_record_count_label">合計記録数</string>
+    <string name="pdf_report_history_heading">履歴</string>
+    <string name="pdf_report_col_date">日付</string>
+    <string name="pdf_report_col_weight">体重 (%1$s)</string>
+    <string name="pdf_report_col_height">身長 (%1$s)</string>
+    <string name="pdf_report_col_bmi">BMI</string>
+    <string name="pdf_report_col_category">カテゴリ</string>
+    <string name="pdf_report_footer">%1$s により作成 • %2$d ページ目</string>
     <string name="dashboard_empty_title">まだデータがありません</string>
     <string name="dashboard_empty_subtitle">BMIを計算して進捗の記録を始めましょう</string>
     <string name="dashboard_eta_days">このペースだと、目標まであと約%1$d日</string>
