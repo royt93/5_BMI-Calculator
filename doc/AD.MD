@@ -1,6 +1,47 @@
 # 📊 KẾ HOẠCH TÍCH HỢP QUẢNG CÁO — BMI Calculator 2026
 
-> **SDK đích:** `com.github.royt93:AdmobApplovinWrapper:1.1.3` | **Provider runtime:** AppLovin MAX (`IS_ENABLE_ADMOB=false`) | **Cập nhật:** 2026-05-16
+> **SDK đích:** `com.github.royt93:AdmobApplovinWrapper:1.6.21` | **Provider runtime:** AdMob (`IS_ENABLE_ADMOB=true`, đổi 2026-08-26) | **Cập nhật:** 2026-08-26
+
+---
+
+## 🔀 Đổi provider AppLovin → AdMob (2026-08-26, quyết định user sau round review độc lập)
+
+User quyết định chuyển hẳn provider chính sang AdMob (cả debug + release) sau khi đọc kết quả 3-agent
+review ở trên. Quyết định user, không phải AI tự đổi (đúng theo rule "Cấm tự ý đổi IS_ENABLE_ADMOB").
+
+**Đã cấp / xác nhận lúc quyết định:**
+- Debug: dùng nguyên Google test ID (chủ ý, không phải thiếu sót — QC không cần đăng ký test device).
+- Release: banner/interstitial/app-open đã có ID thật (publisher `3612191981543807`) từ trước.
+- Release rewarded: **user xác nhận sẽ cấp ID thật sau** — hiện `app/build.gradle.kts` còn để Google test
+  ID kèm comment 🚨 BLOCKER, không được build/ship `assembleProductionRelease` trước khi thay.
+- User xác nhận UMP consent form **đã Publish** trên AdMob Console.
+
+**Smoke test thật trên device (Samsung A50s, `devDebug`, `IS_ENABLE_ADMOB=true`):**
+- `initialize()` → `provider=AdMob` thật (không phải AppLovin) — log xác nhận `AdMob ready`,
+  `DynamiteModule` load `com.google.android.gms.ads.dynamite`.
+- Cả 4 format load được qua AdMob SDK thật: Interstitial ✅ Loaded, Banner ✅ Loaded + Impression,
+  Rewarded ✅ Loaded, App Open ✅ Loaded. Không crash.
+- Banner hiện đúng nhãn "Quảng cáo thử nghiệm" (test ad) — test-device hash tự động registered qua
+  whitelist QA hard-code của SDK (log: "AdMob — QC test device hashes registered (debug=true)").
+- `paidEventListener` bắn đúng cho AdMob: `AdRevenue: banner 0.0 USD UNKNOWN
+  com.google.ads.mediation.admob.AdMobAdapter` — xác nhận wiring provider-agnostic hoạt động thật.
+- `admobRewardedInterstitialId` rỗng → log warning "rewarded interstitial LUÔN no-fill" — đúng như spec
+  (field này app không dùng, không phải lỗi).
+
+**⚠️ Phát hiện quan trọng — mâu thuẫn với xác nhận của user:**
+Log VẪN ra đúng lỗi `Publisher misconfiguration: ... no form(s) configured for the input app ID.
+Received app ID: ca-app-pub-3612191981543807~1273576268` dù user xác nhận đã Publish UMP form. Không
+chặn ad (SDK fail-open → `canRequestAds=true` khi fetch lỗi), nhưng nghĩa là **consent UI thật cho user
+EEA/UK/CH chưa hoạt động** — form trên AdMob Console có thể chưa đúng khớp app ID này, hoặc chưa
+propagate xong (Google đôi khi mất vài giờ sau Publish). **Cần user tự vào lại AdMob Console → Privacy &
+messaging, xác nhận đúng app `ca-app-pub-3612191981543807~1273576268` có form Published, trước khi tin
+consent EEA đã sẵn sàng cho production.**
+
+**Còn lại trước khi release thật:**
+1. Cấp `ADMOB_REWARDED_ID` production thật (blocker cứng).
+2. Xác nhận lại UMP form đúng app ID (mục ⚠️ trên).
+3. Chưa test flow VIP/redeem/interstitial fallback lại với `IS_ENABLE_ADMOB=true` — logic không phụ
+   thuộc provider (đều qua `AdManager` abstraction) nên rủi ro thấp, nhưng chưa click-through riêng.
 
 ---
 
