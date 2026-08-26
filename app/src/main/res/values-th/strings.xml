@@ -337,5 +337,13 @@
     <string name="insight_best_week">🏆 สัปดาห์ที่ดีที่สุด: ลดลง %1$s (สัปดาห์ %2$s)</string>
     <string name="insight_stable_day">📅 %1$s เป็นวันชั่งน้ำหนักที่สม่ำเสมอที่สุดของคุณ</string>
     <string name="insight_streak_correlation">🔥 สัปดาห์ที่ต่อเนื่องเต็มรูปแบบ: เฉลี่ย %1$s เทียบกับ %2$s ในสัปดาห์อื่น</string>
+
+    <string name="family_challenge">ความท้าทายของครอบครัว</string>
+    <string name="family_challenge_title">ความท้าทายของครอบครัว</string>
+    <string name="family_challenge_subtitle">เปรียบเทียบสตรีคและความคืบหน้าระหว่างโปรไฟล์บนอุปกรณ์นี้</string>
+    <string name="family_challenge_empty_title">เพิ่มสมาชิกในครอบครัวเพื่อเริ่มความท้าทาย</string>
+    <string name="family_challenge_empty_subtitle">ความท้าทายของครอบครัวจะเปรียบเทียบสตรีคเมื่อมีอย่างน้อย 2 โปรไฟล์บนอุปกรณ์นี้</string>
+    <string name="family_challenge_add_profile_button">เพิ่มโปรไฟล์</string>
+    <string name="family_challenge_no_recent_data">ไม่มีข้อมูลล่าสุด</string>
 </resources>
 

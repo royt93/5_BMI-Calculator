@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 Beste week: %1$s verloren (week van %2$s)</string>
     <string name="insight_stable_day">📅 %1$s is je meest consistente weegdag</string>
     <string name="insight_streak_correlation">🔥 Weken met volledige streak: gemiddeld %1$s tegenover %2$s in andere weken</string>
+
+    <string name="family_challenge">Familie-uitdaging</string>
+    <string name="family_challenge_title">Familie-uitdaging</string>
+    <string name="family_challenge_subtitle">Vergelijk reeksen en voortgang tussen profielen op dit apparaat</string>
+    <string name="family_challenge_empty_title">Voeg een gezinslid toe om de uitdaging te starten</string>
+    <string name="family_challenge_empty_subtitle">De Familie-uitdaging vergelijkt reeksen zodra er minstens 2 profielen op dit apparaat zijn</string>
+    <string name="family_challenge_add_profile_button">Profiel toevoegen</string>
+    <string name="family_challenge_no_recent_data">Geen recente gegevens</string>
 </resources>
 

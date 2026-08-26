@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 最佳一周：减少%1$s（%2$s那一周）</string>
     <string name="insight_stable_day">📅 %1$s是你最规律的称重日</string>
     <string name="insight_streak_correlation">🔥 全勤周：平均%1$s，其他周平均%2$s</string>
+
+    <string name="family_challenge">家庭挑战</string>
+    <string name="family_challenge_title">家庭挑战</string>
+    <string name="family_challenge_subtitle">比较此设备上各资料之间的连续记录和进度</string>
+    <string name="family_challenge_empty_title">添加家庭成员以开始挑战</string>
+    <string name="family_challenge_empty_subtitle">此设备上至少有2个资料时，家庭挑战即可比较连续记录</string>
+    <string name="family_challenge_add_profile_button">添加资料</string>
+    <string name="family_challenge_no_recent_data">暂无最近数据</string>
 </resources>
 

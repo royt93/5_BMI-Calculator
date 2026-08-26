@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 أفضل أسبوع: خسارة %1$s (أسبوع %2$s)</string>
     <string name="insight_stable_day">📅 %1$s هو يوم وزنك الأكثر انتظامًا</string>
     <string name="insight_streak_correlation">🔥 أسابيع السلسلة الكاملة: متوسط %1$s مقابل %2$s في الأسابيع الأخرى</string>
+
+    <string name="family_challenge">تحدي العائلة</string>
+    <string name="family_challenge_title">تحدي العائلة</string>
+    <string name="family_challenge_subtitle">قارن السلاسل والتقدم بين الملفات الشخصية على هذا الجهاز</string>
+    <string name="family_challenge_empty_title">أضف فردًا من العائلة لبدء التحدي</string>
+    <string name="family_challenge_empty_subtitle">يقارن تحدي العائلة السلاسل بمجرد وجود ملفين شخصيين على الأقل على هذا الجهاز</string>
+    <string name="family_challenge_add_profile_button">إضافة ملف شخصي</string>
+    <string name="family_challenge_no_recent_data">لا توجد بيانات حديثة</string>
 </resources>
 

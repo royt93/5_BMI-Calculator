@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 Minggu terbaik: turun %1$s (minggu %2$s)</string>
     <string name="insight_stable_day">📅 %1$s adalah hari penimbangan paling konsisten Anda</string>
     <string name="insight_streak_correlation">🔥 Minggu dengan streak penuh: rata-rata %1$s vs %2$s di minggu lainnya</string>
+
+    <string name="family_challenge">Tantangan Keluarga</string>
+    <string name="family_challenge_title">Tantangan Keluarga</string>
+    <string name="family_challenge_subtitle">Bandingkan streak dan progres antar profil di perangkat ini</string>
+    <string name="family_challenge_empty_title">Tambahkan anggota keluarga untuk memulai tantangan</string>
+    <string name="family_challenge_empty_subtitle">Tantangan Keluarga membandingkan streak setelah ada setidaknya 2 profil di perangkat ini</string>
+    <string name="family_challenge_add_profile_button">Tambah profil</string>
+    <string name="family_challenge_no_recent_data">Belum ada data terbaru</string>
 </resources>
 

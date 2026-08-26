@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 En iyi hafta: %1$s kayıp (hafta %2$s)</string>
     <string name="insight_stable_day">📅 %1$s en tutarlı tartım gününüz</string>
     <string name="insight_streak_correlation">🔥 Tam seri haftalar: ortalama %1$s, diğer haftalarda ortalama %2$s</string>
+
+    <string name="family_challenge">Aile Yarışması</string>
+    <string name="family_challenge_title">Aile Yarışması</string>
+    <string name="family_challenge_subtitle">Bu cihazdaki profiller arasında serileri ve ilerlemeyi karşılaştırın</string>
+    <string name="family_challenge_empty_title">Yarışmayı başlatmak için bir aile üyesi ekleyin</string>
+    <string name="family_challenge_empty_subtitle">Aile Yarışması, bu cihazda en az 2 profil olduğunda serileri karşılaştırır</string>
+    <string name="family_challenge_add_profile_button">Profil ekle</string>
+    <string name="family_challenge_no_recent_data">Son zamanlarda veri yok</string>
 </resources>
 

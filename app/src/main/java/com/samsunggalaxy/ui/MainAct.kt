@@ -701,6 +701,12 @@ class MainAct : BaseActivity() {
             startActivity(Intent(this, CalculatorsActivity::class.java))
         }
 
+        val menuFamilyChallenge = dialog.findViewById<LinearLayout>(R.id.menuFamilyChallenge)
+        menuFamilyChallenge?.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, FamilyChallengeActivity::class.java))
+        }
+
         menuRateApp.setOnClickListener {
             dialog.dismiss()
             rateApp(packageName)

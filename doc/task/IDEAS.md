@@ -35,10 +35,16 @@ Audit `/code-review high`: 5 finding — fix constant `FILE_PROVIDER_AUTHORITY` 
 
 Test: 78 unit test (`CalculatorUtilsTest` +5) + 56 instrumented test pass. Smoke test tay trên `emulator-5554`: insert 2 record test qua sqlite3 (WeightWheel/SwipeButton của MainAct khó mô phỏng qua adb), mở History → tap Share Progress → share sheet "Sharing image" mở đúng → pull file PNG về xem — card render đúng data ("-2.0 kg", "🔥 9 day streak", sparkline, branding). i18n: 7 string mới dịch đủ 17 locale (en có sẵn + 16 locale khác).
 
-## I4 — Family Challenge Mode
+## ✅ I4 — Family Challenge Mode — ĐÃ XONG (2026-08-26)
 Dùng chung multi-profile backend (EPIC-05): so sánh streak/tiến độ giữa các profile trong cùng thiết bị (gia đình cùng dùng 1 máy hoặc 1 người quản lý nhiều profile), leaderboard nhẹ nhàng không cần server/tài khoản.
 - Ưu: tận dụng lại đúng backend Profile đã có sẵn 100%, chỉ cần thêm UI so sánh — chi phí kỹ thuật thấp so với giá trị tạo ra.
 - Nhược: chỉ có giá trị nếu EPIC-05 (multi-profile UI) đã xong; use-case hẹp hơn nếu đa số user chỉ dùng 1 profile cho bản thân.
+
+**Implementation**: `ui/FamilyChallengeActivity.kt` + `ui/LeaderboardAdapter.kt` — leaderboard one-shot (không LiveData, không cần realtime trong 1 lượt xem màn hình), dùng `BmiRepository.getAllProfilesOnce()` (có sẵn), `StreakManager.getDisplayStreak()` (có sẵn), `BmiRepository.getRecordsSince()` + `CalculatorUtils.calculateWeightChange()` (có sẵn từ EPIC-09/I3) để tính streak + delta cân nặng 30 ngày mỗi profile. Rank theo current streak giảm dần, tie-break bằng best streak giảm dần (`sortedForLeaderboard()`, pure function, unit test). Cold-start (<2 profile) hiện empty-state với CTA mở lại `ProfileSwitcherBottomSheet` có sẵn từ EPIC-05, không cần build lại UI quản lý profile. Icon mới `ic_family_group.xml` (không có icon "family/group" sẵn trong drawable set). Entry point: menu item mới `dialog_menu.xml` (2 theme variant) giữa "Calculators" và "Rate app".
+
+Audit `/code-review high`: 2 finding — (1) thiếu bản dịch 7 string mới ở 16 locale (audit chạy trước khi bước dịch hoàn tất, đã fix ngay sau); (2) 3 field dùng `lateinit` — khớp đúng pattern đã tồn tại khắp codebase (`HistoryActivity`, `SettingsActivity`, `ResultAct`...), không sửa lẻ để tránh inconsistency, để dành cho 1 lượt dọn dẹp riêng nếu cần.
+
+Test: 8 unit test mới (`LeaderboardAdapterTest` — sort/tie-break/threshold empty-state) + 91 unit total pass, 1 instrumented test mới (`FamilyChallengeActivityTest`, chỉ test nhánh ≥2 profile — nhánh <2 profile không test instrumented được an toàn vì `bmi_database` thật trên máy dev đã tích luỹ nhiều profile từ các test khác, không thể tái tạo "đúng 1 profile" mà không xoá dữ liệu của test khác; nhánh đó đã có unit test pure function riêng) + 57 instrumented total pass. Trong lúc viết instrumented test phát hiện bug thật: `@Test` dùng expression-body `= runBlocking { ... }` với `.use { }` cuối cùng trả về `ViewInteraction` (không phải `Unit`) khiến JUnit từ chối method (`InvalidTestClassError: should be void`) — fix bằng khai báo tường minh `(): Unit =`. Smoke test tay trên `emulator-5554` với 2 profile seed thật (Default: streak 9/best 15, Mom: streak 5/best 7, cả 2 giảm 1.8kg/30 ngày) — leaderboard hiện đúng thứ tự medal 🥇🥈, nhãn "Current", "No recent data" fallback khi null, không crash. i18n: 7 string mới dịch đủ 17 locale.
 
 ## I5 — Wear OS / Quick-log Tile
 Log cân nặng nhanh 1 chạm từ Wear OS tile hoặc notification action, không cần mở app.
@@ -64,7 +70,7 @@ Thay 350 tips tĩnh hiện có (`doc/TODO.md` Health Tips) bằng gợi ý sinh 
 4. I1, I6 — cân nhắc theo roadmap sau.
 5. I5, I7 — hoãn, ROI thấp / rủi ro cao ở giai đoạn hiện tại.
 
-**User đã chọn (AskUserQuestion)**: I3 + I2 + I4 đưa vào roadmap gần nhất — trùng khớp 100% với khuyến nghị ban đầu.
+**User đã chọn (AskUserQuestion)**: I3 + I2 + I4 đưa vào roadmap gần nhất — trùng khớp 100% với khuyến nghị ban đầu. Cả 3 đã hoàn thành (2026-08-26).
 
 ---
 

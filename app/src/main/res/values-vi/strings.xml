@@ -340,4 +340,12 @@
     <string name="insight_best_week">🏆 Tuần tốt nhất: giảm %1$s (tuần %2$s)</string>
     <string name="insight_stable_day">📅 %1$s là ngày cân đều đặn nhất của bạn</string>
     <string name="insight_streak_correlation">🔥 Các tuần đạt streak đầy đủ: trung bình %1$s so với %2$s ở các tuần khác</string>
+
+    <string name="family_challenge">Thử Thách Gia Đình</string>
+    <string name="family_challenge_title">Thử Thách Gia Đình</string>
+    <string name="family_challenge_subtitle">So sánh chuỗi ngày và tiến trình giữa các hồ sơ trên thiết bị này</string>
+    <string name="family_challenge_empty_title">Thêm thành viên gia đình để bắt đầu thử thách</string>
+    <string name="family_challenge_empty_subtitle">Thử Thách Gia Đình so sánh chuỗi ngày khi có ít nhất 2 hồ sơ trên thiết bị này</string>
+    <string name="family_challenge_add_profile_button">Thêm hồ sơ</string>
+    <string name="family_challenge_no_recent_data">Chưa có dữ liệu gần đây</string>
 </resources>

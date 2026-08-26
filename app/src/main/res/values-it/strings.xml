@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 Settimana migliore: perso %1$s (settimana del %2$s)</string>
     <string name="insight_stable_day">📅 %1$s è il tuo giorno di pesata più costante</string>
     <string name="insight_streak_correlation">🔥 Settimane con serie completa: media %1$s contro %2$s nelle altre settimane</string>
+
+    <string name="family_challenge">Sfida di famiglia</string>
+    <string name="family_challenge_title">Sfida di famiglia</string>
+    <string name="family_challenge_subtitle">Confronta serie e progressi tra i profili su questo dispositivo</string>
+    <string name="family_challenge_empty_title">Aggiungi un familiare per iniziare la sfida</string>
+    <string name="family_challenge_empty_subtitle">La Sfida di famiglia confronta le serie quando ci sono almeno 2 profili su questo dispositivo</string>
+    <string name="family_challenge_add_profile_button">Aggiungi profilo</string>
+    <string name="family_challenge_no_recent_data">Nessun dato recente</string>
 </resources>
 

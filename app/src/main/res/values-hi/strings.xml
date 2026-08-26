@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 सबसे अच्छा सप्ताह: %1$s घटा (सप्ताह %2$s)</string>
     <string name="insight_stable_day">📅 %1$s आपका सबसे नियमित वज़न-माप दिन है</string>
     <string name="insight_streak_correlation">🔥 पूर्ण-स्ट्रीक सप्ताह: औसत %1$s बनाम अन्य सप्ताहों में %2$s</string>
+
+    <string name="family_challenge">पारिवारिक चुनौती</string>
+    <string name="family_challenge_title">पारिवारिक चुनौती</string>
+    <string name="family_challenge_subtitle">इस डिवाइस पर प्रोफ़ाइलों में स्ट्रीक और प्रगति की तुलना करें</string>
+    <string name="family_challenge_empty_title">चुनौती शुरू करने के लिए परिवार का सदस्य जोड़ें</string>
+    <string name="family_challenge_empty_subtitle">इस डिवाइस पर कम से कम 2 प्रोफ़ाइल होने पर पारिवारिक चुनौती स्ट्रीक की तुलना करती है</string>
+    <string name="family_challenge_add_profile_button">प्रोफ़ाइल जोड़ें</string>
+    <string name="family_challenge_no_recent_data">हाल का कोई डेटा नहीं</string>
 </resources>
 

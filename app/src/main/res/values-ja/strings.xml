@@ -337,5 +337,13 @@
     <string name="insight_best_week">🏆 ベストウィーク: %1$s減少（%2$sの週）</string>
     <string name="insight_stable_day">📅 %1$sはあなたの最も安定した体重測定日です</string>
     <string name="insight_streak_correlation">🔥 フルストリークの週: 平均%1$s 対 他の週の%2$s</string>
+
+    <string name="family_challenge">ファミリーチャレンジ</string>
+    <string name="family_challenge_title">ファミリーチャレンジ</string>
+    <string name="family_challenge_subtitle">この端末のプロフィール間で連続記録と進捗を比較します</string>
+    <string name="family_challenge_empty_title">チャレンジを始めるには家族を追加してください</string>
+    <string name="family_challenge_empty_subtitle">この端末に2つ以上のプロフィールがあると、ファミリーチャレンジで連続記録を比較できます</string>
+    <string name="family_challenge_add_profile_button">プロフィールを追加</string>
+    <string name="family_challenge_no_recent_data">最近のデータがありません</string>
 </resources>
 

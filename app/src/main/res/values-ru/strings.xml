@@ -303,5 +303,13 @@
     <string name="insight_best_week">🏆 Лучшая неделя: похудение на %1$s (неделя %2$s)</string>
     <string name="insight_stable_day">📅 %1$s — ваш самый стабильный день взвешивания</string>
     <string name="insight_streak_correlation">🔥 Недели с полной серией: в среднем %1$s против %2$s в остальные недели</string>
+
+    <string name="family_challenge">Семейное испытание</string>
+    <string name="family_challenge_title">Семейное испытание</string>
+    <string name="family_challenge_subtitle">Сравнивайте серии и прогресс между профилями на этом устройстве</string>
+    <string name="family_challenge_empty_title">Добавьте члена семьи, чтобы начать испытание</string>
+    <string name="family_challenge_empty_subtitle">Семейное испытание сравнивает серии, когда на этом устройстве есть минимум 2 профиля</string>
+    <string name="family_challenge_add_profile_button">Добавить профиль</string>
+    <string name="family_challenge_no_recent_data">Нет недавних данных</string>
 </resources>
 

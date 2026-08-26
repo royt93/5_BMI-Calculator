@@ -337,5 +337,13 @@
     <string name="insight_best_week">🏆 Beste Woche: %1$s verloren (Woche vom %2$s)</string>
     <string name="insight_stable_day">📅 %1$s ist dein konstantester Wiegetag</string>
     <string name="insight_streak_correlation">🔥 Wochen mit voller Serie: %1$s im Schnitt gegenüber %2$s in anderen Wochen</string>
+
+    <string name="family_challenge">Familien-Challenge</string>
+    <string name="family_challenge_title">Familien-Challenge</string>
+    <string name="family_challenge_subtitle">Vergleiche Streaks und Fortschritt zwischen Profilen auf diesem Gerät</string>
+    <string name="family_challenge_empty_title">Füge ein Familienmitglied hinzu, um die Challenge zu starten</string>
+    <string name="family_challenge_empty_subtitle">Die Familien-Challenge vergleicht Streaks, sobald es mindestens 2 Profile auf diesem Gerät gibt</string>
+    <string name="family_challenge_add_profile_button">Profil hinzufügen</string>
+    <string name="family_challenge_no_recent_data">Keine aktuellen Daten</string>
 </resources>
 
