@@ -70,6 +70,10 @@ class GalaxyApp : Application() {
         }
 
         AdManager.setConfig(adConfig)
+        // Bước 3b (AD_PROMPT_AOS.MD) — BẮT BUỘC trước khi QA với ad-unit ID thật: khai hash test
+        // device để tránh invalid traffic (KHÔNG PHẢI GAID). Danh sách đầy đủ + cách thu thập:
+        // @mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/test_device_ids.md
+        AdManager.setTestDeviceIds(*AdKeys.QA_TEST_DEVICE_HASHES)
         // SDK có built-in 1-day grace auto-trial trong init() (installBeginMs+24h). KHÔNG được
         // gọi `activateVipByKey`/`grantVipDays` ở app-side để grant 1 ngày này — sẽ stomp giá
         // trị SDK tự ghi.

@@ -75,12 +75,100 @@ publisher `3004713799155145` (App ID `ca-app-pub-3004713799155145~2001950526`), 
 
 **Còn lại trước khi release thật:**
 1. ✅ ~~Cấp `ADMOB_REWARDED_ID` production thật~~ — đã xong (round 2).
-2. 🚨 **Tạo + Publish UMP consent form cho app `ca-app-pub-3004713799155145~2001950526`** trên AdMob
-   Console (Privacy & messaging) — form cũ publish cho account khác không có tác dụng cho app này.
-3. Live-verify 4 ad-unit ID thật (banner/interstitial/appopen/rewarded publisher `3004713799155145`) —
-   chưa test thật, chỉ verify đúng format/wiring.
+2. ✅ ~~Publish UMP form cho account mới~~ — **đã tự resolve** (xem Round 3: propagation delay, không
+   phải thiếu config thật — verify lại 2026-08-26 ~21:34, lỗi hết, form live + accept/deny cả 2 test OK).
+3. ✅ ~~Live-verify ad-unit ID thật~~ — đã test banner thật (Round 3), load thành công, không crash.
 4. Chưa test flow VIP/redeem/interstitial fallback lại với `IS_ENABLE_ADMOB=true` — logic không phụ
    thuộc provider (đều qua `AdManager` abstraction) nên rủi ro thấp, nhưng chưa click-through riêng.
+
+---
+
+## 🔒 Round 3 — Audit bảo mật + test device + line-by-line risk (2026-08-26, theo yêu cầu user)
+
+User yêu cầu 3 việc: (1) audit thông tin nhạy cảm còn sót trong repo public, list rủi ro; (2) audit kỹ
+`AD_PROMPT_AOS.MD` line-by-line với AdMob ID mới; (3) set test device ID tránh invalid traffic.
+
+### 1. Audit thông tin nhạy cảm — repo `tplloi/BMI-Calculator` là **PUBLIC**
+
+Phát hiện quan trọng: `git status` sau round 2 đã sạch — **user tự commit + push** (ngoài phiên làm
+việc, qua IDE) toàn bộ thay đổi round 2 lên `origin/dev`. Repo app này **public trên GitHub**
+(`gh repo view` xác nhận `isPrivate: false`). Mọi thứ từng commit vào đây coi như public vĩnh viễn (kể cả
+xoá sau — history + clone/fork cũ vẫn giữ).
+
+**Danh sách bí mật/thông tin nhạy cảm tìm thấy, đã xử lý phần xử lý được:**
+
+| # | Gì | Ở đâu | Trạng thái |
+|---|---|---|---|
+| 1 | `doc/admob/admob.MD` (App ID + 4 ad-unit ID thật, publisher mới) | Đã commit + **push** (`e541689`, `e37d7e4`) | ✅ **Đã xử lý**: copy sang `myKeyStore/com.samsunggalaxy.bmicalculator/admob.MD`, `git rm --cached` + xoá khỏi repo app, thêm `doc/admob/` vào `.gitignore`. Lịch sử git cũ (2 commit trên) vẫn còn — không rewrite history (destructive, cần bạn confirm riêng nếu muốn). |
+| 2 | AdMob App ID + 4 ad-unit ID (publisher `3004713799155145`) | `app/build.gradle.kts` (release), `AndroidManifest.xml` | ⚠️ **Không xử lý được** — bắt buộc compile vào APK, không phải secret theo thiết kế Google (extractable từ APK dù có giấu ở git hay không). Rủi ro thật: **ad unit vừa tạo, chưa có traffic thật, đã public trên GitHub trước khi app launch** — mục tiêu ưa thích của bot ad-fraud chuyên quét GitHub tìm `ca-app-pub-` string mới để click-bomb trước khi AdSafety có đủ lịch sử pha loãng. Mitigation thực tế = xong test-device registration (mục 3) + theo dõi AdMob Console "Invalid traffic" vài tuần đầu, không phải giấu ID (không giấu được). |
+| 3 | `APPLOVIN_SDK_KEY` (giá trị thật, `e75FnQfS9XTTqM1Kne69U7PW...`) | `app/build.gradle.kts:35` | 🚨 **CHƯA xử lý, cần bạn quyết định** — literal hardcode, đã public từ commit cũ (git blame ra tận `0be99af`/`5cb26cc`). Khác ad-unit ID: đây là API key thật của tài khoản AppLovin, rotate được. Khuyến nghị: vào AppLovin dashboard tạo key mới, thay `APPLOVIN_SDK_KEY`, ship update — key cũ lộ vẫn dùng được cho tới khi bạn rotate. |
+| 4 | `VipKeys.VIP_SECRET_B64` (giải mã `9fA0q7eN!27cLx04@21993Y2u0I7#Q0`) | `VipKeys.kt` | ℹ️ **Chấp nhận rủi ro, không cần xử lý** — chỉ dùng chống-tamper SharedPreferences local (đối xứng), theo thiết kế SDK BẮT BUỘC nằm trong client, không thể giấu. Severity thấp (SDK docs gọi đây là "speed-bump", không phải bảo mật thật). Rotate sẽ làm sai tamper-check của user VIP đang active — chỉ nên đổi nếu có bằng chứng bị lợi dụng thật. |
+| 5 | Keystore signing (`keystore.jks`/`.properties`) | Không nằm trong repo app | ✅ Đã đúng — load trực tiếp từ `myKeyStore` qua absolute path, chưa từng commit vào repo app. |
+| 6 | VIP token private key | `myKeyStore/.../vip_token_keypair.txt` | ✅ Đã đúng (từ round 1) — app chỉ giữ public key qua `BuildConfig`. |
+
+Chi tiết đầy đủ: `myKeyStore/com.samsunggalaxy.bmicalculator/README.md`.
+
+**Quyết định user (2026-08-26, qua AskUserQuestion)**:
+- `APPLOVIN_SDK_KEY`: **KHÔNG rotate** — chấp nhận rủi ro. Chỉ revisit nếu thấy dấu hiệu abuse thật trên
+  AppLovin dashboard (traffic/attribution lạ không phải từ app này).
+- Git history chứa `admob.MD` (`e541689`, `e37d7e4`): **KHÔNG rewrite** — giữ nguyên (option
+  recommended). Lý do: ad-unit ID không phải secret thật (bắt buộc lên APK khi ship dù giấu git hay
+  không), exposure thật đã xảy ra lúc push, rewrite chỉ chặn người clone SAU này, đổi lại phá hết
+  clone/fork hiện có (kể cả quan hệ fork với `royt93/5_BMI-Calculator`) — không đáng đánh đổi.
+
+### 2. Set test-device ID (yêu cầu #3) — đã làm + verify sống
+
+Trước đó code **KHÔNG có** `AdManager.setTestDeviceIds()` nào cả (grep 0 kết quả) — mọi request tới
+ad-unit ID thật từ bất kỳ máy nào (kể cả máy QA) đều tính là invalid traffic risk. Đã xử lý:
+
+1. Capture hash thật cho **đúng máy này + đúng app này** (không tái dùng hash app khác — Android ID scope
+   theo signing-key+app từ Android 8+, đã verify: hash app "notes" cũ trên cùng model SM-A115F
+   (`EB7B65...`) KHÁC hash app bmicalculator (`43A93B95...`)). Cách lấy: tạm trỏ `ADMOB_BANNER_ID` debug
+   sang ID thật, cài, chạy 1 lần, đọc hash từ log Google, revert ngay — đúng quy trình Bước 3b
+   `AD_PROMPT_AOS.MD` mô tả (1 impression thật không-click trong lúc capture, chi phí đã biết trước, không
+   tránh được).
+2. Thêm `AdKeys.QA_TEST_DEVICE_HASHES` + gọi `AdManager.setTestDeviceIds(*AdKeys.QA_TEST_DEVICE_HASHES)`
+   trong `GalaxyApp.onCreate` (trước `initialize()`).
+3. **Verify sống**: trỏ lại banner sang ID thật lần 2 sau khi wire xong → log đổi từ cảnh báo "Use
+   RequestConfiguration..." sang **"This request is sent from a test device."** → revert lại debug
+   banner ID về Google test ID.
+4. Lưu hash + GAID vào `myKeyStore/com.samsunggalaxy.bmicalculator/test_device_ids.md`.
+
+### 3. Audit line-by-line `AD_PROMPT_AOS.MD` Step 8 (Consent & provider-console) với AdMob mới
+
+Đọc lại full Step 8 (1330-1599), test trực tiếp trên device thay vì chỉ đọc code:
+
+- **UMP consent form**: lỗi `Publisher misconfiguration` phát hiện ở round 2 **đã tự hết** khi kiểm tra
+  lại (~1 tiếng sau, đúng như doc cảnh báo "Publish rồi chờ propagation"). Dùng debug field
+  `umpDebugGeography="EEA"` + `umpTestDeviceHashedIds` (SDK tự log đúng hash cần dùng qua dòng
+  `addTestDeviceHashedId(...)` của UMP) để ép hiện form EEA thật trên máy — **verify được cả 2 nhánh
+  Step 8.6 chưa từng test trước đây**:
+  - **Accept**: form hiện đúng branding app → tap "Consent" → `canRequestAds=true`, init/load bình
+    thường.
+  - **Deny**: tap "Do not consent" → `canRequestAds=true` **vẫn true** (đúng thiết kế UMP: deny =
+    non-personalized ads, KHÔNG phải chặn hết ad) → Interstitial/Rewarded/App Open vẫn `✅ Loaded` bình
+    thường, không crash.
+  - Cả 2 field debug đã revert sau test — chỉ có hiệu lực khi `isDebug=true`, SDK tự strip ở release.
+- **Step 8.7 release checklist** — đối chiếu trạng thái thật:
+  - ✅ AdMob App ID đúng app/package.
+  - ✅ European regulations message Published, hết misconfiguration.
+  - ✅ Privacy Policy URL public, mở được (verify `curl` → HTTP 200).
+  - ✅ GMS accept/deny đã test (mục trên).
+  - ⬜ **Chưa test**: revoke + offline-retry scenario (Step 8.6 dòng "Offline cold start", "GMS retry
+    in-session") — chưa re-verify riêng với config AdMob mới.
+  - ✅ Debug dùng Google demo units, release dùng ID thật của account đúng.
+  - N/A: nongms/MAX Privacy States (app không có flavor nongms, AppLovin không phải provider chính).
+- **Gap phát hiện thêm, không phải bug nhưng nên biết**:
+  - Không có bất kỳ `AdManager.getDiagnostics()` call nào trong app (support/debug log) — Phụ lục C
+    khuyến nghị log dòng này khi user báo lỗi ad. Chưa wire, mức độ ưu tiên thấp (nice-to-have).
+  - Không có `AdManager.validateConfig()` trong CI/release-gate — doc khuyến nghị assert
+    `severity != ERROR` trong CI để tự động bắt lỗi cấu hình kiểu này thay vì phát hiện thủ công như hôm
+    nay. Chưa có CI riêng cho app này để wire vào.
+  - US states GPP message — chưa Publish (chỉ bắt buộc nếu app có traffic Mỹ đáng kể; chưa rõ target
+    market cụ thể, để user tự quyết định có cần không).
+
+Build lại `assembleDevDebug`/`assembleProductionRelease` sau các thay đổi — xanh. Máy dùng: **Samsung
+A11 (SM-A115F, R9JN61LDLFJ)**.
 
 ---
 

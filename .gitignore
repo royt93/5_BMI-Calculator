@@ -23,3 +23,7 @@ local.properties
 # bản copy trong repo này nữa (xem app/build.gradle.kts)
 keystore.properties
 *.jks
+
+# Ad network config (App ID/ad-unit ID thật) — lưu ở royt93/myKeyStore/com.samsunggalaxy.bmicalculator
+# thay vì commit vào repo public này (bị scraper bot dò ca-app-pub-... trước khi app launch).
+doc/admob/
