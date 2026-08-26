@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 VIP’i aç</string>
     <string name="vip_section_upgrade">✨ Yükseltme paketleri</string>
     <string name="vip_section_more">⚙ Daha fazla</string>
+
+    <string name="widget_description">Ana ekranınızda en son ağırlığınızı, BMI\'nizi ve 7 günlük eğilimi gösterir.</string>
+    <string name="widget_no_data">Henüz veri yok — ilk tartımınızı kaydetmek için uygulamayı açın</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Ağırlığı Health Connect ile senkronize et</string>
+    <string name="health_connect_unavailable_message">Health Connect bu cihaza yüklü değil</string>
+    <string name="install_health_connect_button">Health Connect\'i yükle</string>
+    <string name="health_connect_sync_now">Şimdi senkronize et</string>
+    <string name="health_connect_never_synced">Henüz senkronize edilmedi</string>
+    <string name="health_connect_last_sync">Son senkronizasyon: %1$s</string>
+    <string name="health_connect_permission_denied">Health Connect izni reddedildi</string>
+    <string name="health_connect_sync_success">Senkronize edildi: %1$d içe aktarıldı, %2$d dışa aktarıldı, %3$d güncellendi</string>
+    <string name="health_connect_sync_failed">Senkronizasyon başarısız oldu. Lütfen daha sonra tekrar deneyin.</string>
 </resources>
 

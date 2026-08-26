@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 VIP अनलॉक करें</string>
     <string name="vip_section_upgrade">✨ अपग्रेड प्लान</string>
     <string name="vip_section_more">⚙ अधिक</string>
+
+    <string name="widget_description">आपकी होम स्क्रीन पर नवीनतम वज़न, BMI और 7-दिन का ट्रेंड दिखाता है।</string>
+    <string name="widget_no_data">अभी तक कोई डेटा नहीं — अपना पहला वज़न दर्ज करने के लिए ऐप खोलें</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Health Connect के साथ वज़न सिंक करें</string>
+    <string name="health_connect_unavailable_message">इस डिवाइस पर Health Connect इंस्टॉल नहीं है</string>
+    <string name="install_health_connect_button">Health Connect इंस्टॉल करें</string>
+    <string name="health_connect_sync_now">अभी सिंक करें</string>
+    <string name="health_connect_never_synced">अभी तक सिंक नहीं हुआ</string>
+    <string name="health_connect_last_sync">आख़िरी सिंक %1$s</string>
+    <string name="health_connect_permission_denied">Health Connect अनुमति अस्वीकार कर दी गई</string>
+    <string name="health_connect_sync_success">सिंक हुआ: %1$d आयात, %2$d निर्यात, %3$d अपडेट किए गए</string>
+    <string name="health_connect_sync_failed">सिंक विफल रहा। कृपया बाद में पुनः प्रयास करें।</string>
 </resources>
 

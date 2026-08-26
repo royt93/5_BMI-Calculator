@@ -309,5 +309,20 @@
     <string name="vip_section_unlock">🔑 ปลดล็อก VIP</string>
     <string name="vip_section_upgrade">✨ แผนอัปเกรด</string>
     <string name="vip_section_more">⚙ เพิ่มเติม</string>
+
+    <string name="widget_description">แสดงน้ำหนักล่าสุด ค่า BMI และแนวโน้ม 7 วันบนหน้าจอหลักของคุณ</string>
+    <string name="widget_no_data">ยังไม่มีข้อมูล — เปิดแอปเพื่อบันทึกน้ำหนักครั้งแรกของคุณ</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">ซิงค์น้ำหนักกับ Health Connect</string>
+    <string name="health_connect_unavailable_message">ยังไม่ได้ติดตั้ง Health Connect บนอุปกรณ์นี้</string>
+    <string name="install_health_connect_button">ติดตั้ง Health Connect</string>
+    <string name="health_connect_sync_now">ซิงค์ตอนนี้</string>
+    <string name="health_connect_never_synced">ยังไม่เคยซิงค์</string>
+    <string name="health_connect_last_sync">ซิงค์ล่าสุด %1$s</string>
+    <string name="health_connect_permission_denied">การอนุญาต Health Connect ถูกปฏิเสธ</string>
+    <string name="health_connect_sync_success">ซิงค์แล้ว: นำเข้า %1$d, ส่งออก %2$d, อัปเดต %3$d</string>
+    <string name="health_connect_sync_failed">การซิงค์ล้มเหลว โปรดลองอีกครั้งในภายหลัง</string>
 </resources>
 

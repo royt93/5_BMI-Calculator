@@ -309,5 +309,20 @@
     <string name="vip_section_unlock">🔑 VIP 잠금 해제</string>
     <string name="vip_section_upgrade">✨ 업그레이드 플랜</string>
     <string name="vip_section_more">⚙ 더보기</string>
+
+    <string name="widget_description">홈 화면에서 최신 체중, BMI, 7일 추세를 확인하세요.</string>
+    <string name="widget_no_data">아직 데이터가 없습니다 — 앱을 열어 첫 체중을 기록하세요</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Health Connect와 체중 동기화</string>
+    <string name="health_connect_unavailable_message">이 기기에 Health Connect가 설치되어 있지 않습니다</string>
+    <string name="install_health_connect_button">Health Connect 설치</string>
+    <string name="health_connect_sync_now">지금 동기화</string>
+    <string name="health_connect_never_synced">아직 동기화되지 않음</string>
+    <string name="health_connect_last_sync">마지막 동기화 %1$s</string>
+    <string name="health_connect_permission_denied">Health Connect 권한이 거부되었습니다</string>
+    <string name="health_connect_sync_success">동기화됨: 가져오기 %1$d개, 내보내기 %2$d개, 업데이트 %3$d개</string>
+    <string name="health_connect_sync_failed">동기화에 실패했습니다. 나중에 다시 시도해 주세요.</string>
 </resources>
 

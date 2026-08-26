@@ -107,4 +107,75 @@ class BmiDaoTest {
     fun updateBodyFatPercentage_unknownRecordId_returnsZeroRowsAffected() = runBlocking {
         assertEquals(0, dao.updateBodyFatPercentage(recordId = 999L, value = 20.0))
     }
+
+    // ---- EPIC-09 T09.1/T09.2 — widget sparkline window + Health Connect sync linkage ----
+
+    @Test
+    fun getRecordsSince_excludesRecordsOlderThanCutoff() = runBlocking {
+        dao.insert(record(timestamp = 1000L, weight = 68.0)) // before cutoff — excluded
+        dao.insert(record(timestamp = 5000L, weight = 70.0))
+        dao.insert(record(timestamp = 6000L, weight = 71.0))
+
+        val recent = dao.getRecordsSince(1L, sinceTimestampMs = 5000L)
+
+        assertEquals(2, recent.size)
+        assertEquals(70.0, recent[0].weight, 0.001) // ASC order
+        assertEquals(71.0, recent[1].weight, 0.001)
+    }
+
+    @Test
+    fun linkHealthConnectRecord_thenGetRecordByHealthConnectId_findsIt() = runBlocking {
+        val id = dao.insert(record(timestamp = 1000L, weight = 70.0))
+
+        dao.linkHealthConnectRecord(id, "hc-abc-123")
+
+        val found = dao.getRecordByHealthConnectId("hc-abc-123")
+        assertEquals(id, found!!.id)
+    }
+
+    @Test
+    fun getRecordByHealthConnectId_unknownId_returnsNull() = runBlocking {
+        assertNull(dao.getRecordByHealthConnectId("does-not-exist"))
+    }
+
+    @Test
+    fun getRecordsBySource_filtersCorrectly() = runBlocking {
+        dao.insert(record(timestamp = 1000L, weight = 70.0).copy(source = BmiRecord.SOURCE_APP))
+        dao.insert(record(timestamp = 2000L, weight = 71.0).copy(source = BmiRecord.SOURCE_HEALTH_CONNECT))
+
+        val appRecords = dao.getRecordsBySource(1L, BmiRecord.SOURCE_APP)
+        val hcRecords = dao.getRecordsBySource(1L, BmiRecord.SOURCE_HEALTH_CONNECT)
+
+        assertEquals(1, appRecords.size)
+        assertEquals(70.0, appRecords[0].weight, 0.001)
+        assertEquals(1, hcRecords.size)
+        assertEquals(71.0, hcRecords[0].weight, 0.001)
+    }
+
+    @Test
+    fun updateWeightFromSync_updatesInPlace_doesNotInsertNewRecord() = runBlocking {
+        val id = dao.insert(record(timestamp = 1000L, weight = 70.0))
+
+        val rowsUpdated = dao.updateWeightFromSync(id, weight = 72.5, bmi = 23.7, timestamp = 2000L)
+
+        assertEquals(1, rowsUpdated)
+        assertEquals(1, dao.getRecordCount(1L))
+        val updated = dao.getMostRecentRecord(1L)
+        assertEquals(72.5, updated!!.weight, 0.001)
+        assertEquals(23.7, updated.bmi, 0.001)
+        assertEquals(2000L, updated.timestamp)
+    }
+
+    @Test
+    fun newRecord_defaultsToAppSource_withNoHealthConnectLink() = runBlocking {
+        val id = dao.insert(record(timestamp = 1000L, weight = 70.0))
+
+        val inserted = dao.getRecordByHealthConnectId("nonexistent") // sanity: unrelated lookup returns null
+        assertNull(inserted)
+
+        val stored = dao.getMostRecentRecord(1L)
+        assertEquals(id, stored!!.id)
+        assertEquals(BmiRecord.SOURCE_APP, stored.source)
+        assertNull(stored.healthConnectRecordId)
+    }
 }

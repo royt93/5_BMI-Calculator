@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [BmiRecord::class, Profile::class, BodyMeasurement::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -47,6 +47,16 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // EPIC-09 T09.2 — Health Connect sync linkage. `source` defaults to 'APP' so every
+        // pre-existing row (all created in-app before this migration) is correctly tagged
+        // without a backfill pass.
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE bmi_records ADD COLUMN source TEXT NOT NULL DEFAULT 'APP'")
+                db.execSQL("ALTER TABLE bmi_records ADD COLUMN healthConnectRecordId TEXT")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -54,7 +64,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "bmi_database"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 instance

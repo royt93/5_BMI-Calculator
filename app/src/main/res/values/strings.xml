@@ -640,4 +640,19 @@
     <string name="vip_section_unlock">🔑 Unlock VIP</string>
     <string name="vip_section_upgrade">✨ Upgrade Plans</string>
     <string name="vip_section_more">⚙ More</string>
+
+    <string name="widget_description">Shows your latest weight, BMI, and a 7-day trend on your home screen.</string>
+    <string name="widget_no_data">No data yet — open the app to log your first weigh-in</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Sync weight with Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect isn\'t installed on this device</string>
+    <string name="install_health_connect_button">Install Health Connect</string>
+    <string name="health_connect_sync_now">Sync now</string>
+    <string name="health_connect_never_synced">Never synced yet</string>
+    <string name="health_connect_last_sync">Last synced %1$s</string>
+    <string name="health_connect_permission_denied">Health Connect permission was denied</string>
+    <string name="health_connect_sync_success">Synced: %1$d imported, %2$d exported, %3$d updated</string>
+    <string name="health_connect_sync_failed">Sync failed. Please try again later.</string>
 </resources>

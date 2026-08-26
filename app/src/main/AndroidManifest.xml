@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- EPIC-09 T09.2 — androidx.health.connect:connect-client declares minSdk 26, but this
+         app supports minSdk 24. Every call site that touches the library is gated behind
+         Build.VERSION.SDK_INT >= 26 at runtime (see HealthConnectManager.isAvailable), so
+         Android 7.0/7.1 devices simply never reach that code path — they couldn't install the
+         Health Connect provider app on that OS version anyway. -->
+    <uses-sdk tools:overrideLibrary="androidx.health.connect.client" />
+
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -9,6 +16,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <!-- EPIC-09 T09.2 — Health Connect bidirectional weight sync (opt-in, off by default). -->
+    <uses-permission android:name="android.permission.health.READ_WEIGHT" />
+    <uses-permission android:name="android.permission.health.WRITE_WEIGHT" />
+
+    <!-- Package-visibility (Android 11+): lets HealthConnectClient.getSdkStatus() detect
+         whether the Health Connect provider app is installed, for the Settings fallback UI. -->
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
 
     <application
         android:name=".GalaxyApp"
@@ -91,6 +108,20 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
+
+        <!-- EPIC-09 T09.1 — home-screen widget. exported=true is required so the launcher
+             (system UI, a different app/process) can deliver ACTION_APPWIDGET_UPDATE; the
+             broadcast itself is OS-protected, so no other app can spoof it despite the export. -->
+        <receiver
+            android:name=".widget.BmiWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_bmi_info" />
+        </receiver>
 
     </application>
 

@@ -102,6 +102,12 @@ android {
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
+        // Pre-existing bug found via `lintDevDebug` while working on EPIC-09: StreakManager.kt/
+        // MainAct.kt use java.time.LocalDate unconditionally with no minSdk gate. minSdk is 24
+        // but java.time is API 26+ — every real Android 7.0/7.1 device would crash the instant
+        // streak tracking ran (i.e. nearly every session). Desugaring backports java.time to
+        // minSdk with no behavior change on API 26+ devices.
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -156,6 +162,13 @@ dependencies {
 
     // WorkManager (EPIC-08 T08.1: daily weigh-in reminder, Doze-safe)
     implementation("androidx.work:work-runtime-ktx:2.10.0")
+
+    // Health Connect (EPIC-09 T09.2: bidirectional weight sync). 1.1.0 is the current stable
+    // release and supports minSdk 24 — matches this app's minSdk, no manifest override needed.
+    implementation("androidx.health.connect:connect-client:1.1.0")
+
+    // Core library desugaring — backports java.time to minSdk 24 (see compileOptions comment).
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
     implementation("com.google.android.play:review:2.0.2")
     implementation("com.google.android.play:review-ktx:2.0.2")

@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 VIP ontgrendelen</string>
     <string name="vip_section_upgrade">✨ Upgrade-pakketten</string>
     <string name="vip_section_more">⚙ Meer</string>
+
+    <string name="widget_description">Toont je laatste gewicht, BMI en een trend van 7 dagen op je startscherm.</string>
+    <string name="widget_no_data">Nog geen gegevens — open de app om je eerste weging te registreren</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Gewicht synchroniseren met Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect is niet geïnstalleerd op dit apparaat</string>
+    <string name="install_health_connect_button">Health Connect installeren</string>
+    <string name="health_connect_sync_now">Nu synchroniseren</string>
+    <string name="health_connect_never_synced">Nog niet gesynchroniseerd</string>
+    <string name="health_connect_last_sync">Laatst gesynchroniseerd op %1$s</string>
+    <string name="health_connect_permission_denied">Toestemming voor Health Connect is geweigerd</string>
+    <string name="health_connect_sync_success">Gesynchroniseerd: %1$d geïmporteerd, %2$d geëxporteerd, %3$d bijgewerkt</string>
+    <string name="health_connect_sync_failed">Synchronisatie mislukt. Probeer het later opnieuw.</string>
 </resources>
 

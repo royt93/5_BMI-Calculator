@@ -24,6 +24,10 @@ class PreferencesManager(private val context: Context) {
         val REMINDER_ENABLED = booleanPreferencesKey("reminder_enabled")
         val REMINDER_HOUR = intPreferencesKey("reminder_hour")
         val REMINDER_MINUTE = intPreferencesKey("reminder_minute")
+        // EPIC-09 T09.2 — Health Connect bidirectional weight sync, off by default (opt-in,
+        // avoids requesting a sensitive health permission nobody asked for).
+        val HEALTH_CONNECT_SYNC_ENABLED = booleanPreferencesKey("health_connect_sync_enabled")
+        val LAST_HEALTH_CONNECT_SYNC_TIMESTAMP = longPreferencesKey("last_health_connect_sync_timestamp")
     }
 
     val themeMode: Flow<String> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
@@ -61,6 +65,14 @@ class PreferencesManager(private val context: Context) {
 
     val reminderMinute: Flow<Int> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
         preferences[REMINDER_MINUTE] ?: 0
+    }
+
+    val healthConnectSyncEnabled: Flow<Boolean> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
+        preferences[HEALTH_CONNECT_SYNC_ENABLED] ?: false
+    }
+
+    val lastHealthConnectSyncTimestamp: Flow<Long?> = context.dataStore.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map { preferences ->
+        preferences[LAST_HEALTH_CONNECT_SYNC_TIMESTAMP]
     }
 
     suspend fun setThemeMode(mode: String) {
@@ -109,6 +121,18 @@ class PreferencesManager(private val context: Context) {
         context.dataStore.edit { preferences ->
             preferences[REMINDER_HOUR] = hour
             preferences[REMINDER_MINUTE] = minute
+        }
+    }
+
+    suspend fun setHealthConnectSyncEnabled(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[HEALTH_CONNECT_SYNC_ENABLED] = enabled
+        }
+    }
+
+    suspend fun setLastHealthConnectSyncTimestamp(timestamp: Long) {
+        context.dataStore.edit { preferences ->
+            preferences[LAST_HEALTH_CONNECT_SYNC_TIMESTAMP] = timestamp
         }
     }
 }

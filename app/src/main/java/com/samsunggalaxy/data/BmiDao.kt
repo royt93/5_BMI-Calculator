@@ -46,4 +46,29 @@ interface BmiDao {
     // caller can detect the record having been deleted concurrently (0 = nothing was updated).
     @Query("UPDATE bmi_records SET bodyFatPercentage = :value WHERE id = :recordId")
     suspend fun updateBodyFatPercentage(recordId: Long, value: Double): Int
+
+    // EPIC-09 T09.1 — widget 7-day sparkline needs a bounded time window, not a row LIMIT
+    // (a LIMIT-based query would include entries older than 7 days if the user hasn't
+    // logged every day).
+    @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND timestamp >= :sinceTimestampMs ORDER BY timestamp ASC")
+    suspend fun getRecordsSince(profileId: Long, sinceTimestampMs: Long): List<BmiRecord>
+
+    // EPIC-09 T09.2 — Health Connect sync: find the local row already linked to a given
+    // Health Connect record so an update can be applied in place instead of duplicated.
+    @Query("SELECT * FROM bmi_records WHERE healthConnectRecordId = :healthConnectRecordId LIMIT 1")
+    suspend fun getRecordByHealthConnectId(healthConnectRecordId: String): BmiRecord?
+
+    @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND source = :source ORDER BY timestamp ASC")
+    suspend fun getRecordsBySource(profileId: Long, source: String): List<BmiRecord>
+
+    @Query("UPDATE bmi_records SET healthConnectRecordId = :healthConnectRecordId WHERE id = :recordId")
+    suspend fun linkHealthConnectRecord(recordId: Long, healthConnectRecordId: String): Int
+
+    @Query("UPDATE bmi_records SET weight = :weight, bmi = :bmi, timestamp = :timestamp WHERE id = :recordId")
+    suspend fun updateWeightFromSync(recordId: Long, weight: Double, bmi: Double, timestamp: Long): Int
+
+    // EPIC-09 T09.2 — collected before a bulk delete (Settings "Clear History") so the linked
+    // Health Connect records can be removed too; otherwise the next sync re-imports them.
+    @Query("SELECT healthConnectRecordId FROM bmi_records WHERE profileId = :profileId AND healthConnectRecordId IS NOT NULL")
+    suspend fun getHealthConnectRecordIds(profileId: Long): List<String>
 }

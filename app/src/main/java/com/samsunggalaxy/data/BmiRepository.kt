@@ -129,4 +129,30 @@ class BmiRepository(
     suspend fun getMeasurementCount(profileId: Long): Int {
         return bodyMeasurementDao.getCount(profileId)
     }
+
+    // EPIC-09 T09.1 — widget sparkline: bounded time window, not row-count LIMIT.
+    suspend fun getRecordsSince(profileId: Long, sinceTimestampMs: Long): List<BmiRecord> {
+        return bmiDao.getRecordsSince(profileId, sinceTimestampMs)
+    }
+
+    // EPIC-09 T09.2 — Health Connect sync
+    suspend fun getRecordByHealthConnectId(healthConnectRecordId: String): BmiRecord? {
+        return bmiDao.getRecordByHealthConnectId(healthConnectRecordId)
+    }
+
+    suspend fun getRecordsBySource(profileId: Long, source: String): List<BmiRecord> {
+        return bmiDao.getRecordsBySource(profileId, source)
+    }
+
+    suspend fun linkHealthConnectRecord(recordId: Long, healthConnectRecordId: String) {
+        bmiDao.linkHealthConnectRecord(recordId, healthConnectRecordId)
+    }
+
+    suspend fun updateWeightFromSync(recordId: Long, weight: Double, bmi: Double, timestamp: Long) {
+        bmiDao.updateWeightFromSync(recordId, weight, bmi, timestamp)
+    }
+
+    suspend fun getHealthConnectRecordIds(profileId: Long): List<String> {
+        return bmiDao.getHealthConnectRecordIds(profileId)
+    }
 }

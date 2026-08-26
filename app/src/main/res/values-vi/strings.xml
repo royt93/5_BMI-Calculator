@@ -312,4 +312,19 @@
     <string name="vip_section_unlock">🔑 Mở khoá VIP</string>
     <string name="vip_section_upgrade">✨ Gói nâng cấp</string>
     <string name="vip_section_more">⚙ Khác</string>
+
+    <string name="widget_description">Hiển thị cân nặng mới nhất, BMI và xu hướng 7 ngày trên màn hình chính của bạn.</string>
+    <string name="widget_no_data">Chưa có dữ liệu — mở ứng dụng để ghi lại lần cân đầu tiên</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Đồng bộ cân nặng với Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect chưa được cài đặt trên thiết bị này</string>
+    <string name="install_health_connect_button">Cài đặt Health Connect</string>
+    <string name="health_connect_sync_now">Đồng bộ ngay</string>
+    <string name="health_connect_never_synced">Chưa từng đồng bộ</string>
+    <string name="health_connect_last_sync">Đồng bộ lần cuối %1$s</string>
+    <string name="health_connect_permission_denied">Quyền truy cập Health Connect đã bị từ chối</string>
+    <string name="health_connect_sync_success">Đã đồng bộ: nhập %1$d, xuất %2$d, cập nhật %3$d</string>
+    <string name="health_connect_sync_failed">Đồng bộ thất bại. Vui lòng thử lại sau.</string>
 </resources>

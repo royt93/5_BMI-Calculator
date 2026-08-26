@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 Разблокировать VIP</string>
     <string name="vip_section_upgrade">✨ Тарифы Premium</string>
     <string name="vip_section_more">⚙ Ещё</string>
+
+    <string name="widget_description">Показывает ваш последний вес, ИМТ и тренд за 7 дней на главном экране.</string>
+    <string name="widget_no_data">Пока нет данных — откройте приложение, чтобы записать первое взвешивание</string>
+    <string name="widget_bmi_value">ИМТ %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Синхронизировать вес с Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect не установлен на этом устройстве</string>
+    <string name="install_health_connect_button">Установить Health Connect</string>
+    <string name="health_connect_sync_now">Синхронизировать сейчас</string>
+    <string name="health_connect_never_synced">Ещё не синхронизировано</string>
+    <string name="health_connect_last_sync">Последняя синхронизация: %1$s</string>
+    <string name="health_connect_permission_denied">В разрешении Health Connect отказано</string>
+    <string name="health_connect_sync_success">Синхронизировано: импортировано %1$d, экспортировано %2$d, обновлено %3$d</string>
+    <string name="health_connect_sync_failed">Не удалось синхронизировать. Попробуйте ещё раз позже.</string>
 </resources>
 

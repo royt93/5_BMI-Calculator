@@ -309,5 +309,20 @@
     <string name="vip_section_unlock">🔑 VIPをアンロック</string>
     <string name="vip_section_upgrade">✨ アップグレードプラン</string>
     <string name="vip_section_more">⚙ その他</string>
+
+    <string name="widget_description">最新の体重、BMI、7日間の推移をホーム画面に表示します。</string>
+    <string name="widget_no_data">まだデータがありません — アプリを開いて最初の体重を記録してください</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Health Connectと体重を同期する</string>
+    <string name="health_connect_unavailable_message">この端末にはHealth Connectがインストールされていません</string>
+    <string name="install_health_connect_button">Health Connectをインストール</string>
+    <string name="health_connect_sync_now">今すぐ同期</string>
+    <string name="health_connect_never_synced">まだ同期されていません</string>
+    <string name="health_connect_last_sync">最終同期: %1$s</string>
+    <string name="health_connect_permission_denied">Health Connectの権限が拒否されました</string>
+    <string name="health_connect_sync_success">同期完了: インポート%1$d件、エクスポート%2$d件、更新%3$d件</string>
+    <string name="health_connect_sync_failed">同期に失敗しました。後でもう一度お試しください。</string>
 </resources>
 

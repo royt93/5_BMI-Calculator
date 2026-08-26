@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 解锁 VIP</string>
     <string name="vip_section_upgrade">✨ 升级方案</string>
     <string name="vip_section_more">⚙ 更多</string>
+
+    <string name="widget_description">在主屏幕上显示您的最新体重、BMI 和 7 天趋势。</string>
+    <string name="widget_no_data">暂无数据 — 打开应用记录您的第一次体重</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">与 Health Connect 同步体重</string>
+    <string name="health_connect_unavailable_message">此设备未安装 Health Connect</string>
+    <string name="install_health_connect_button">安装 Health Connect</string>
+    <string name="health_connect_sync_now">立即同步</string>
+    <string name="health_connect_never_synced">尚未同步</string>
+    <string name="health_connect_last_sync">上次同步时间：%1$s</string>
+    <string name="health_connect_permission_denied">Health Connect 权限被拒绝</string>
+    <string name="health_connect_sync_success">已同步：导入 %1$d 项，导出 %2$d 项，更新 %3$d 项</string>
+    <string name="health_connect_sync_failed">同步失败，请稍后重试。</string>
 </resources>
 

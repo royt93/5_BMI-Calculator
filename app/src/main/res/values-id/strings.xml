@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 Buka VIP</string>
     <string name="vip_section_upgrade">✨ Paket Upgrade</string>
     <string name="vip_section_more">⚙ Lainnya</string>
+
+    <string name="widget_description">Menampilkan berat badan, BMI, dan tren 7 hari terakhir di layar utama Anda.</string>
+    <string name="widget_no_data">Belum ada data — buka aplikasi untuk mencatat berat badan pertama Anda</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Sinkronkan berat badan dengan Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect belum terpasang di perangkat ini</string>
+    <string name="install_health_connect_button">Pasang Health Connect</string>
+    <string name="health_connect_sync_now">Sinkronkan sekarang</string>
+    <string name="health_connect_never_synced">Belum pernah disinkronkan</string>
+    <string name="health_connect_last_sync">Sinkronisasi terakhir %1$s</string>
+    <string name="health_connect_permission_denied">Izin Health Connect ditolak</string>
+    <string name="health_connect_sync_success">Tersinkron: %1$d diimpor, %2$d diekspor, %3$d diperbarui</string>
+    <string name="health_connect_sync_failed">Sinkronisasi gagal. Silakan coba lagi nanti.</string>
 </resources>
 

@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 Sblocca VIP</string>
     <string name="vip_section_upgrade">✨ Piani di upgrade</string>
     <string name="vip_section_more">⚙ Altro</string>
+
+    <string name="widget_description">Mostra il tuo ultimo peso, IMC e un andamento di 7 giorni sulla schermata Home.</string>
+    <string name="widget_no_data">Nessun dato ancora — apri l\'app per registrare la tua prima pesata</string>
+    <string name="widget_bmi_value">IMC %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Sincronizza il peso con Health Connect</string>
+    <string name="health_connect_unavailable_message">Health Connect non è installato su questo dispositivo</string>
+    <string name="install_health_connect_button">Installa Health Connect</string>
+    <string name="health_connect_sync_now">Sincronizza ora</string>
+    <string name="health_connect_never_synced">Mai sincronizzato</string>
+    <string name="health_connect_last_sync">Ultima sincronizzazione: %1$s</string>
+    <string name="health_connect_permission_denied">L\'autorizzazione di Health Connect è stata negata</string>
+    <string name="health_connect_sync_success">Sincronizzato: %1$d importati, %2$d esportati, %3$d aggiornati</string>
+    <string name="health_connect_sync_failed">Sincronizzazione non riuscita. Riprova più tardi.</string>
 </resources>
 

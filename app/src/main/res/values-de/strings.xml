@@ -309,5 +309,20 @@
     <string name="vip_section_unlock">🔑 VIP freischalten</string>
     <string name="vip_section_upgrade">✨ Upgrade-Pakete</string>
     <string name="vip_section_more">⚙ Mehr</string>
+
+    <string name="widget_description">Zeigt dein aktuelles Gewicht, BMI und einen 7-Tage-Trend auf deinem Startbildschirm.</string>
+    <string name="widget_no_data">Noch keine Daten — öffne die App, um deine erste Messung einzutragen</string>
+    <string name="widget_bmi_value">BMI %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">Gewicht mit Health Connect synchronisieren</string>
+    <string name="health_connect_unavailable_message">Health Connect ist auf diesem Gerät nicht installiert</string>
+    <string name="install_health_connect_button">Health Connect installieren</string>
+    <string name="health_connect_sync_now">Jetzt synchronisieren</string>
+    <string name="health_connect_never_synced">Noch nie synchronisiert</string>
+    <string name="health_connect_last_sync">Zuletzt synchronisiert: %1$s</string>
+    <string name="health_connect_permission_denied">Die Berechtigung für Health Connect wurde verweigert</string>
+    <string name="health_connect_sync_success">Synchronisiert: %1$d importiert, %2$d exportiert, %3$d aktualisiert</string>
+    <string name="health_connect_sync_failed">Synchronisierung fehlgeschlagen. Bitte versuche es später erneut.</string>
 </resources>
 

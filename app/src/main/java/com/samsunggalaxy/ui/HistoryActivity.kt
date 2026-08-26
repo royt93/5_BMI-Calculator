@@ -35,6 +35,7 @@ import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.widget.WidgetUpdateHelper
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
 import kotlinx.coroutines.Dispatchers
@@ -562,6 +563,12 @@ class HistoryActivity : BaseActivity() {
     private fun deleteRecord(record: BmiRecord) {
         lifecycleScope.launch {
             repository.deleteRecord(record)
+            WidgetUpdateHelper.updateAllWidgets(applicationContext)
+            // EPIC-09 T09.2 — without this, the next Health Connect sync would find the still-
+            // present linked record and re-import it as "new", resurrecting the deletion.
+            record.healthConnectRecordId?.let {
+                com.samsunggalaxy.health.HealthConnectManager.deleteRecords(applicationContext, listOf(it))
+            }
         }
     }
 

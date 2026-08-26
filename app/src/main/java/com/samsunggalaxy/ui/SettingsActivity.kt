@@ -20,6 +20,9 @@ import com.samsunggalaxy.BaseActivity
 import com.samsunggalaxy.R
 import com.samsunggalaxy.data.AppDatabase
 import com.samsunggalaxy.data.BmiRepository
+import com.samsunggalaxy.health.HealthConnectManager
+import com.samsunggalaxy.health.HealthConnectSyncScheduler
+import com.samsunggalaxy.widget.WidgetUpdateHelper
 import com.samsunggalaxy.notification.ReminderScheduler
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.LocaleHelper
@@ -41,12 +44,17 @@ class SettingsActivity : BaseActivity() {
     private lateinit var switchReminder: MaterialSwitch
     private lateinit var reminderTimeContainer: View
     private lateinit var tvReminderTime: TextView
+    private lateinit var switchHealthConnect: MaterialSwitch
+    private lateinit var tvHealthConnectStatus: TextView
+    private lateinit var healthConnectInstallContainer: View
+    private lateinit var healthConnectSyncNowContainer: View
 
     // Guards against the listener re-persisting the value it just read while
     // programmatically checking a button to reflect the stored preference.
     private var suppressUnitListener = false
     private var suppressThemeListener = false
     private var suppressReminderListener = false
+    private var suppressHealthConnectListener = false
     private var reminderHour = 8
     private var reminderMinute = 0
 
@@ -62,6 +70,21 @@ class SettingsActivity : BaseActivity() {
             switchReminder.isChecked = false
             suppressReminderListener = false
             Toast.makeText(this, getString(R.string.reminder_permission_denied), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    // EPIC-09 T09.2 — must be registered before STARTED, same constraint as the notification
+    // permission request above.
+    private val requestHealthConnectPermissions = registerForActivityResult(
+        HealthConnectManager.requestPermissionsContract()
+    ) { granted ->
+        if (granted.containsAll(HealthConnectManager.requiredPermissions())) {
+            enableHealthConnectSync()
+        } else {
+            suppressHealthConnectListener = true
+            switchHealthConnect.isChecked = false
+            suppressHealthConnectListener = false
+            Toast.makeText(this, getString(R.string.health_connect_permission_denied), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -85,6 +108,10 @@ class SettingsActivity : BaseActivity() {
         switchReminder = findViewById(R.id.switchReminder)
         reminderTimeContainer = findViewById(R.id.reminderTimeContainer)
         tvReminderTime = findViewById(R.id.tvReminderTime)
+        switchHealthConnect = findViewById(R.id.switchHealthConnect)
+        tvHealthConnectStatus = findViewById(R.id.tvHealthConnectStatus)
+        healthConnectInstallContainer = findViewById(R.id.healthConnectInstallContainer)
+        healthConnectSyncNowContainer = findViewById(R.id.healthConnectSyncNowContainer)
 
         findViewById<View>(R.id.ivBack)?.setOnClickListener {
             finish()
@@ -107,6 +134,7 @@ class SettingsActivity : BaseActivity() {
         setupThemeToggle()
         setupClearHistory()
         setupReminder()
+        setupHealthConnect()
         updateLanguageDisplay()
         loadPersistedToggleStates()
     }
@@ -133,6 +161,8 @@ class SettingsActivity : BaseActivity() {
             val reminderEnabled = prefs.reminderEnabled.first()
             reminderHour = prefs.reminderHour.first()
             reminderMinute = prefs.reminderMinute.first()
+            val healthConnectEnabled = prefs.healthConnectSyncEnabled.first()
+            val lastSync = prefs.lastHealthConnectSyncTimestamp.first()
             withContext(Dispatchers.Main) {
                 suppressUnitListener = true
                 toggleUnitSystem.check(
@@ -155,6 +185,11 @@ class SettingsActivity : BaseActivity() {
                 suppressReminderListener = false
                 reminderTimeContainer.visibility = if (reminderEnabled) View.VISIBLE else View.GONE
                 updateReminderTimeText()
+
+                suppressHealthConnectListener = true
+                switchHealthConnect.isChecked = healthConnectEnabled
+                suppressHealthConnectListener = false
+                updateHealthConnectUi(healthConnectEnabled, lastSync)
             }
         }
     }
@@ -213,6 +248,101 @@ class SettingsActivity : BaseActivity() {
         }
     }
 
+    /**
+     * EPIC-09 T09.2 — per the resolved UX decision, the toggle+row always shows (never hidden)
+     * even when Health Connect isn't installed; that state instead disables the switch and
+     * surfaces an "Install Health Connect" row that deep-links to the Play Store listing.
+     */
+    private fun setupHealthConnect() {
+        val available = HealthConnectManager.isAvailable(this)
+        switchHealthConnect.isEnabled = available
+        healthConnectInstallContainer.visibility = if (available) View.GONE else View.VISIBLE
+
+        switchHealthConnect.setOnCheckedChangeListener { _, isChecked ->
+            if (suppressHealthConnectListener) return@setOnCheckedChangeListener
+            if (isChecked) {
+                lifecycleScope.launch {
+                    if (HealthConnectManager.hasAllPermissions(this@SettingsActivity)) {
+                        enableHealthConnectSync()
+                    } else {
+                        requestHealthConnectPermissions.launch(HealthConnectManager.requiredPermissions())
+                    }
+                }
+            } else {
+                healthConnectSyncNowContainer.visibility = View.GONE
+                lifecycleScope.launch(Dispatchers.IO) {
+                    prefs.setHealthConnectSyncEnabled(false)
+                    HealthConnectSyncScheduler.cancel(this@SettingsActivity)
+                }
+            }
+        }
+
+        healthConnectInstallContainer.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, HealthConnectManager.installProviderIntentUri()))
+        }
+
+        healthConnectSyncNowContainer.setOnClickListener { syncHealthConnectNow() }
+    }
+
+    private fun enableHealthConnectSync() {
+        healthConnectSyncNowContainer.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.IO) {
+            prefs.setHealthConnectSyncEnabled(true)
+            HealthConnectSyncScheduler.schedule(this@SettingsActivity)
+        }
+        syncHealthConnectNow()
+    }
+
+    private fun syncHealthConnectNow() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val profileId = repository.getCurrentProfile()?.id ?: return@launch
+            val result = HealthConnectManager.syncNow(this@SettingsActivity, repository, profileId)
+            // Only a real Success counts as "synced" — recording the timestamp/showing the
+            // "Last synced" state for Unavailable/MissingPermissions/Failed would tell the user
+            // sync is healthy when it silently didn't run (e.g. permission revoked from system
+            // Settings without the in-app toggle being touched).
+            var lastSyncMs: Long? = prefs.lastHealthConnectSyncTimestamp.first()
+            if (result is HealthConnectManager.SyncResult.Success) {
+                lastSyncMs = System.currentTimeMillis()
+                prefs.setLastHealthConnectSyncTimestamp(lastSyncMs)
+            }
+            withContext(Dispatchers.Main) {
+                if (isFinishing || isDestroyed) return@withContext
+                updateHealthConnectUi(enabled = true, lastSyncMs = lastSyncMs)
+                when (result) {
+                    is HealthConnectManager.SyncResult.Success -> Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.health_connect_sync_success, result.imported, result.exported, result.updated),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    is HealthConnectManager.SyncResult.Failed -> Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.health_connect_sync_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    HealthConnectManager.SyncResult.MissingPermissions -> Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.health_connect_permission_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun updateHealthConnectUi(enabled: Boolean, lastSyncMs: Long?) {
+        healthConnectSyncNowContainer.visibility = if (enabled) View.VISIBLE else View.GONE
+        tvHealthConnectStatus.text = when {
+            !HealthConnectManager.isAvailable(this) -> getString(R.string.health_connect_unavailable_message)
+            lastSyncMs == null -> getString(R.string.health_connect_never_synced)
+            else -> {
+                val time = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(java.util.Date(lastSyncMs))
+                getString(R.string.health_connect_last_sync, time)
+            }
+        }
+    }
+
     private fun setupUnitToggle() {
         toggleUnitSystem.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (suppressUnitListener || !isChecked) return@addOnButtonCheckedListener
@@ -248,7 +378,13 @@ class SettingsActivity : BaseActivity() {
     private fun clearHistory() {
         lifecycleScope.launch(Dispatchers.IO) {
             val profileId = repository.getCurrentProfile()?.id ?: 1L
+            // EPIC-09 T09.2 — collect before deleting locally, else the ids are gone by the
+            // time we'd need them; without this cleanup the next sync would re-import every
+            // linked record right back, silently undoing "Clear History".
+            val healthConnectRecordIds = repository.getHealthConnectRecordIds(profileId)
             repository.clearHistory(profileId)
+            WidgetUpdateHelper.updateAllWidgets(applicationContext)
+            HealthConnectManager.deleteRecords(applicationContext, healthConnectRecordIds)
             withContext(Dispatchers.Main) {
                 if (!isFinishing && !isDestroyed) {
                     Toast.makeText(this@SettingsActivity, getString(R.string.clear_history_done), Toast.LENGTH_SHORT).show()

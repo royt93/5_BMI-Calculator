@@ -275,5 +275,20 @@
     <string name="vip_section_unlock">🔑 فتح VIP</string>
     <string name="vip_section_upgrade">✨ خطط الترقية</string>
     <string name="vip_section_more">⚙ المزيد</string>
+
+    <string name="widget_description">يعرض آخر وزن ومؤشر كتلة الجسم واتجاه 7 أيام على الشاشة الرئيسية.</string>
+    <string name="widget_no_data">لا توجد بيانات بعد — افتح التطبيق لتسجيل أول وزن لك</string>
+    <string name="widget_bmi_value">مؤشر كتلة الجسم %1$.1f</string>
+
+    <string name="health_connect_section_title">HEALTH CONNECT</string>
+    <string name="health_connect_toggle_label">مزامنة الوزن مع Health Connect</string>
+    <string name="health_connect_unavailable_message">تطبيق Health Connect غير مثبت على هذا الجهاز</string>
+    <string name="install_health_connect_button">تثبيت Health Connect</string>
+    <string name="health_connect_sync_now">مزامنة الآن</string>
+    <string name="health_connect_never_synced">لم تتم المزامنة بعد</string>
+    <string name="health_connect_last_sync">آخر مزامنة %1$s</string>
+    <string name="health_connect_permission_denied">تم رفض إذن Health Connect</string>
+    <string name="health_connect_sync_success">تمت المزامنة: تم استيراد %1$d، وتصدير %2$d، وتحديث %3$d</string>
+    <string name="health_connect_sync_failed">فشلت المزامنة. يرجى المحاولة مرة أخرى لاحقًا.</string>
 </resources>
 
