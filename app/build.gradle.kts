@@ -66,20 +66,22 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false") // false = AppLovin MAX
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "true") // true = AdMob (đổi 2026-08-26, xem doc/AD.MD)
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3940256099942544/6300978111\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3940256099942544/9257395921\"")
-            // TEST rewarded ID — TODO: thay bằng production ID khi user cấp
+            // Debug CHỦ Ý giữ Google test ID (không phải thiếu sót) — QC không cần đăng ký test device.
             buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
         }
         getByName("release") {
             //nho check APPLICATION_ID trong manifest
-            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "false") // false = AppLovin MAX
+            buildConfigField("Boolean", "IS_ENABLE_ADMOB", "true") // true = AdMob (đổi 2026-08-26, xem doc/AD.MD)
             buildConfigField("String", "ADMOB_BANNER_ID",       "\"ca-app-pub-3612191981543807/9117482667\"")
             buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4216509777\"")
             buildConfigField("String", "ADMOB_APP_OPEN_ID",     "\"ca-app-pub-3612191981543807/5066557013\"")
-            // TEST rewarded ID — TODO: thay bằng production ID khi user cấp ID thật
+            // 🚨 BLOCKER RELEASE: vẫn là Google TEST ID — user xác nhận (2026-08-26) sẽ cấp ID thật
+            // sau. TUYỆT ĐỐI không build/ship assembleProductionRelease lên Play Store trước khi
+            // đổi dòng này — ship test ID lên production vi phạm chính sách AdMob.
             buildConfigField("String", "ADMOB_REWARDED_ID",     "\"ca-app-pub-3940256099942544/5224354917\"")
 
             isMinifyEnabled = true
