@@ -8,7 +8,7 @@ Native Android BMI Calculator app, single Gradle module (`:app`), written in Kot
 
 ## Build & run
 
-Toolchain pinned to JDK 17 (`java.toolchain.languageVersion = 17`), Kotlin 2.1.21, AGP 8.9.2, `compileSdk` 36 / `minSdk` 24. Gradle config cache is enabled (`org.gradle.unsafe.configuration-cache=true`).
+Toolchain pinned to JDK 17 (`java.toolchain.languageVersion = 17`), Kotlin 2.1.21, AGP 8.9.2, `compileSdk` 37 / `targetSdk` 37 / `minSdk` 24. Gradle config cache is enabled (`org.gradle.unsafe.configuration-cache=true`).
 
 Two `productFlavors` × two `buildTypes`:
 
@@ -19,7 +19,7 @@ Common Gradle tasks (use the wrapper):
 
 ```bash
 ./gradlew assembleDevDebug              # day-to-day dev APK
-./gradlew assembleProductionRelease     # signed release APK (needs keystore.properties + keystores.jks)
+./gradlew assembleProductionRelease     # signed release APK (needs the external myKeyStore repo checked out as a sibling dir)
 ./gradlew compileDevDebugKotlin         # fast type-check (canonical "did it build?" check used in docs)
 ./gradlew installDevDebug               # install on connected device/emulator
 ./gradlew clean
@@ -32,7 +32,7 @@ Run a single unit test: `./gradlew testDevDebugUnitTest --tests "com.samsunggala
 
 ### Signing & secrets
 
-Release signing reads from `keystore.properties` at repo root (key/value pairs: `storeFile`, `storePassword`, `keyAlias`, `keyPassword`). Both `keystore.properties` and `app/keystores.jks` are sensitive — **do not commit changes to them** and do not echo their contents in logs/PRs. The signing block is wrapped in an existence check so non-release builds work without the file.
+Release signing reads `keystore.properties` (key/value pairs: `storeFile`, `storePassword`, `keyAlias`, `keyPassword`) and the keystore file it points at from an **external private repo**, `@mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/` (sibling of this repo, hardcoded absolute path in `app/build.gradle.kts`) — not from this repo. This repo keeps no keystore/credentials copy. Do not echo the loaded credentials in logs/PRs. The signing block is wrapped in an existence check so non-release builds work without that external repo present.
 
 `local.properties` (SDK path) is git-ignored as usual.
 
@@ -42,7 +42,7 @@ Release signing reads from `keystore.properties` at repo root (key/value pairs: 
 
 `SplashAct` (LAUNCHER) → first-run shows `FirstRunLanguageSheet` to pick language → `MainAct` → user fills weight/height/age/gender → `ResultAct`. Side screens from `MainAct` menu: `HistoryActivity` (unified **Weight Dashboard**, see below), `CalculatorsActivity` (hub for `BmrCalculatorActivity`, `TdeeCalculatorActivity`, `IdealWeightCalculatorActivity`, `BodyFatCalculatorActivity`), `SettingsActivity`. All non-launcher activities are `exported=false`.
 
-`HistoryActivity` (EPIC-07) merges what used to be two separate screens — a BMI-only chart here and a weight/height-only chart in `TrackerBottomSheet` — into one dashboard: a `TabLayout` series switcher (BMI / Weight / Height), a goal row (single source of truth for goal weight, moved from `ResultAct`'s old standalone goal card), a linear-regression ETA estimate (`CalculatorUtils.estimateGoalEtaDays`), and a quick-log FAB that inserts a weight-only `BmiRecord` reusing the latest known height/age/gender/profile without the full `MainAct` wizard. `TrackerBottomSheet` still exists in the codebase but `HistoryActivity` is now the canonical place to view trends — don't add new chart logic to `TrackerBottomSheet`. Goal-line math: convert `goalWeight` → BMI using the **latest** record's height (not the first record's — that was a bug, see `doc/task/todo/EPIC-00-critical-bugs.md` T-series), and for the Weight series draw the goal line directly at `goalWeight` (no conversion needed). `ResultAct`'s reward-ad "Get Detailed Plan" button is still commented-out dead code (`doc/task/todo/EPIC-03-reward-ad-detailed-plan.md`) — deferred, not yet wired to unlock anything in the dashboard.
+`HistoryActivity` (EPIC-07) merges what used to be two separate screens — a BMI-only chart here and a weight/height-only chart in `TrackerBottomSheet` — into one dashboard: a `TabLayout` series switcher (BMI / Weight / Height), a goal row (single source of truth for goal weight, moved from `ResultAct`'s old standalone goal card), a linear-regression ETA estimate (`CalculatorUtils.estimateGoalEtaDays`), and a quick-log FAB that inserts a weight-only `BmiRecord` reusing the latest known height/age/gender/profile without the full `MainAct` wizard. `TrackerBottomSheet` still exists in the codebase but `HistoryActivity` is now the canonical place to view trends — don't add new chart logic to `TrackerBottomSheet`. Goal-line math: convert `goalWeight` → BMI using the **latest** record's height (not the first record's — that was a bug, see `doc/task/done/EPIC-00-critical-bugs.md` T-series), and for the Weight series draw the goal line directly at `goalWeight` (no conversion needed). `ResultAct`'s reward-ad "Get Detailed Plan" button is still commented-out dead code (`doc/task/todo/EPIC-03-reward-ad-detailed-plan.md`) — deferred, not yet wired to unlock anything in the dashboard.
 
 Every Activity extends `BaseActivity` (sets locale via `LocaleHelper.onAttach`, forces `fontScale=1.0`, enables adaptive refresh rate once in `onCreate`).
 
@@ -77,7 +77,7 @@ VIP truth lives in the SDK, not app persistence: `AdManager.isVipByKeyActive()` 
 
 Three independent persistence mechanisms — pick the right one when adding state:
 
-- **Room** (`data/AppDatabase.kt`, DB name `bmi_database`, version 2) — structured app data: `BmiRecord` (history) and `Profile` (multi-profile support, `goalWeight` column added in `MIGRATION_1_2`). All DB work goes through `BmiRepository`. When adding columns, write a `Migration` rather than bumping `fallbackToDestructiveMigration` — user health data must not be wiped.
+- **Room** (`data/AppDatabase.kt`, DB name `bmi_database`, version 5) — structured app data: `BmiRecord` (history), `Profile` (multi-profile support, `goalWeight` column added in `MIGRATION_1_2`), and `body_measurements` (waist/neck/hip/chest, added in `MIGRATION_2_3`, EPIC-08). `MIGRATION_3_4` (EPIC-09) adds Health Connect linkage columns (`source`, `healthConnectRecordId`) to `bmi_records`; `MIGRATION_4_5` adds `photoPath` (Idea I1, progress photo timeline). All DB work goes through `BmiRepository`. When adding columns, write a `Migration` rather than bumping `fallbackToDestructiveMigration` — user health data must not be wiped.
 - **DataStore Preferences** (`utils/PreferencesManager.kt`, file `bmi_settings`) — typed app settings: `theme_mode`, `unit_system`, `language`, `current_profile_id`, `activity_level`, `is_language_selected`.
 - **SharedPreferences** — gamification + locale only:
   - `streak_prefs` (`StreakManager`) — current/best streak + last check date.
@@ -115,3 +115,4 @@ When a task touches one of these areas, read the matching doc first — they hav
 - `doc/TODO.md` — gamification feature spec (Streak / Health Tips / Badges) including string keys per locale.
 - `doc/Security.md` — open security findings (manifest secrets, backup rules, logging).
 - `doc/BUGS_FIXED.md`, `doc/memory_leak.md` — catalog of past defects and the patterns introduced to avoid them.
+- `doc/task/INDEX.md` — feature-epic tracker; epics live under `doc/task/{done,inprogress,todo}/EPIC-NN-*.md`, backlog ideas in `doc/task/IDEAS.md`. Check `done/` before assuming a described epic is unimplemented.
