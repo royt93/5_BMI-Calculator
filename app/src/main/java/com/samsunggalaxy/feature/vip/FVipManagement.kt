@@ -116,7 +116,7 @@ class FVipManagement : Fragment() {
         if (_binding == null) return
         val active = AdManager.isVipByKeyActive()
         val expiry = AdManager.getVipByKeyExpiry()
-        val grantedAt = vipPrefs.getGrantedAtMs()
+        val grantedAt = AdManager.getVipGrantedAtMs()
 
         if (active && expiry > 0L) {
             renderActive(grantedAt, expiry)
@@ -328,20 +328,15 @@ class FVipManagement : Fragment() {
     // ============================================================
 
     private fun handleRedeemClicked() {
-        val input = binding.etRedeem.text?.toString()?.trim().orEmpty()
-        if (input.isEmpty()) {
-            binding.tilRedeem.error = getString(R.string.vip_redeem_invalid)
-            return
-        }
-        val days = VipKeys.lookupDays(input)
-        if (days == null) {
+        val token = binding.etRedeem.text?.toString()?.trim().orEmpty()
+        if (token.isEmpty()) {
             binding.tilRedeem.error = getString(R.string.vip_redeem_invalid)
             return
         }
         binding.tilRedeem.error = null
-        val ok = AdManager.activateVipByKey(requireContext(), AdKeys.VIP_SECRET, days)
+        val ok = AdManager.activateVipByToken(requireContext(), token)
         if (ok) {
-            onVipActivated(days)
+            onVipActivated(daysUntil(AdManager.getVipByKeyExpiry()))
         } else {
             showFailedDialog()
         }
@@ -354,25 +349,23 @@ class FVipManagement : Fragment() {
             if (earned) {
                 grantViaRewarded()
             } else {
-                // Fallback: try interstitial. Nếu cũng fail, hiển thị toast.
-                AdManager.showInterstitial(activity) { adShown ->
+                // Policy reward-ad (Step 7 rule 6 + AD_PROMPT_AOS.MD:1731): rewarded không earned →
+                // fallback interstitial CHỈ để monetize, TUYỆT ĐỐI không cấp reward ở nhánh này
+                // (dù shown hay không, user KHÔNG earn lần này).
+                AdManager.showInterstitial(activity) {
                     if (!isAdded || _binding == null) return@showInterstitial
-                    if (adShown) {
-                        grantViaRewarded()
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.vip_rewarded_load_failed),
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.vip_rewarded_load_failed),
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 }
             }
         }
     }
 
     private fun grantViaRewarded() {
-        val ok = AdManager.activateVipByKey(requireContext(), AdKeys.VIP_SECRET, days = 3)
+        val ok = AdManager.grantVipDays(requireContext(), days = 3)
         if (ok) {
             Toast.makeText(
                 requireContext(),
@@ -385,8 +378,15 @@ class FVipManagement : Fragment() {
         }
     }
 
+    /** Số ngày còn lại tính từ `expiresAtMs`, làm tròn lên — dùng cho message "granted N days" của token. */
+    private fun daysUntil(expiresAtMs: Long): Int {
+        val remainingMs = (expiresAtMs - System.currentTimeMillis()).coerceAtLeast(0L)
+        return kotlin.math.ceil(remainingMs / TimeUnit.DAYS.toMillis(1).toDouble()).toInt().coerceAtLeast(1)
+    }
+
     private fun onVipActivated(days: Int) {
-        vipPrefs.saveGrantedAtMs(System.currentTimeMillis())
+        // grantedAtMs KHÔNG tự lưu — SDK 1.6.21 đã expose AdManager.getVipGrantedAtMs(), tự lưu sẽ
+        // sai khi VIP được cấp qua đường khác (vd cộng dồn token trên VIP đang active).
         vipPrefs.markUserRedeemed()
         playConfetti()
         bindUi()
@@ -414,8 +414,8 @@ class FVipManagement : Fragment() {
             .setMessage(R.string.vip_revoke_all_confirm_message)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.confirm) { _, _ ->
+                // clearVipByKey() đã tự xoá cả getVipGrantedAtMs() phía SDK, không cần dọn riêng.
                 AdManager.clearVipByKey()
-                vipPrefs.clearGrantedAtMs()
                 bindUi()
             }
             .show()

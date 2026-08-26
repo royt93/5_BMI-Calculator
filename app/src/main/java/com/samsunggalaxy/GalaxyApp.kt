@@ -8,6 +8,7 @@ import com.roy.sdkadbmob.AdManager
 import com.roy.sdkadbmob.AdSafetyLimits
 import com.roy.sdkadbmob.AdSdkConfig
 import com.roy.sdkadbmob.ErrorReporter
+import com.roy.sdkadbmob.PaidEventListener
 import com.samsunggalaxy.common.const.AdKeys
 import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.LocaleHelper
@@ -47,6 +48,11 @@ class GalaxyApp : Application() {
             applovinRewardedId = BuildConfig.APPLOVIN_REWARDED_ID,
             applovinSdkKey = BuildConfig.APPLOVIN_SDK_KEY,
             vipKeySecret = AdKeys.VIP_SECRET,
+            vipTokenPublicKey = BuildConfig.VIP_TOKEN_PUBLIC_KEY,
+            // Step 7 rule 2 (AD_PROMPT_AOS.MD): App Open không được đè splash. Field cũ
+            // `appOpenExcludedActivityNames` fallback theo tên string "SplashActivity" — class
+            // thật ở đây là `SplashAct`, không khớp default ngầm đó, nên phải khai tường minh.
+            appOpenExcludedActivities = listOf(com.samsunggalaxy.ui.SplashAct::class.java),
             safety = safetyLimits,
         )
 
@@ -57,10 +63,16 @@ class GalaxyApp : Application() {
             }
         }
 
+        // Revenue tracking — PHẢI set trong Application.onCreate (không phải Activity): SDK gắn
+        // "chủ sở hữu" listener là Activity foreground lúc set, tự xoá khi Activity đó destroy.
+        AdManager.paidEventListener = PaidEventListener { adType, valueMicros, currency, precision, adSource ->
+            AppLog.d("AdRevenue: $adType ${valueMicros / 1_000_000.0} $currency $precision $adSource")
+        }
+
         AdManager.setConfig(adConfig)
-        // SDK 1.1.3 đã built-in 1-day grace auto-trial trong init() (xem
-        // AdManager.kt:499-543 of SDK source). KHÔNG được gọi `activateVipByKey`
-        // ở app-side để grant 1 ngày — sẽ stomp giá trị SDK ghi (installBeginMs+24h).
+        // SDK có built-in 1-day grace auto-trial trong init() (installBeginMs+24h). KHÔNG được
+        // gọi `activateVipByKey`/`grantVipDays` ở app-side để grant 1 ngày này — sẽ stomp giá
+        // trị SDK tự ghi.
         AdManager.initialize(this) { success, gaid ->
             AppLog.d("AdManager init: success=$success, gaid=$gaid")
         }

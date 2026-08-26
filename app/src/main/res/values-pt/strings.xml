@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calculadora de IMC</string>
+    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Faixa de peso IMC normal para a altura: 18.5 – 24.9</string>
     <string name="privacy_policy">Política de privacidade</string>
     <string name="rate_app">Avaliar app</string>

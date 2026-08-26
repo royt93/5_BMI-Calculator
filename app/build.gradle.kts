@@ -45,6 +45,14 @@ android {
             "String", "PRIVACY_POLICY_URL",
             "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
         )
+
+        // VIP token ECDSA P-256 public key — chỉ giữ public key, private key lưu ngoài repo
+        // (@mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/vip_token_keypair.txt).
+        // Sinh bằng AdManager.generateVipKeyPair() ngày 2026-08-26 khi migrate lên SDK 1.6.21.
+        buildConfigField(
+            "String", "VIP_TOKEN_PUBLIC_KEY",
+            "\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMRr5VOL01OuGu8s2dfmH9aOr8gFcbVwOUsgXCM9OVa3fpezRIkbHZmR9AJNc4g73bvHdr-3aJPAz4peVQ8LWcA\""
+        )
     }
 
     signingConfigs {
@@ -137,7 +145,7 @@ dependencies {
 
     // AdmobApplovinWrapper SDK — AdMob + AppLovin MAX + 7 lớp AdSafety + VIP API
     // Replaces: play-services-ads + applovin mediation
-    implementation("com.github.royt93:AdmobApplovinWrapper:1.1.3")
+    implementation("com.github.royt93:AdmobApplovinWrapper:1.6.21")
 
     // Room database
     val roomVersion = "2.7.0"

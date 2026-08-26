@@ -32,6 +32,10 @@
         </intent>
     </queries>
 
+    <!-- Android 12+ attribution tag cho ad SDK — tránh warning "attributionTag not declared"
+         liên tục trong logcat (AdmobApplovinWrapper migrate 1.6.21, targetSdk 37 >= 31). -->
+    <attribution android:tag="ads" android:label="@string/attribution_ads_label" />
+
     <application
         android:name=".GalaxyApp"
         android:allowBackup="true"

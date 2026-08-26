@@ -4,6 +4,177 @@
 
 ---
 
+# 🆕 MIGRATE 1.1.3 → 1.6.21 (2026-08-26 — ✅ Implemented + smoke-tested)
+
+> Nguồn: `doc/AD_PROMPT_AOS.MD` (Section 0 + Step 1–7, phần AI-migration). Tag `1.6.21` — mới nhất trên
+> JitPack lúc migrate (`gh api repos/royt93/AdmobApplovinWrapper/tags`), CI `build-and-test` xanh.
+>
+> **Kết quả smoke test thật trên Samsung A50s (SM-A507FN, Android 11), build `devDebug`:**
+> - Cold start: init/consent/AppLovin provider init — không crash, log sạch (`getDiagnostics` path).
+> - `paidEventListener` bắn đúng (`AdRevenue: rewarded 0.0 USD ESTIMATED AppLovin`) — xác nhận wiring
+>   Bước 2 hoạt động thật, không chỉ compile được.
+> - VIP token ECDSA — full vòng đời verify thật trên device: mint token qua
+>   `AdManager.generateVipToken` (instrumented test, key riêng đã sinh) → `activateVipByToken` trả
+>   `true` → dialog "Đã kích hoạt VIP 7 ngày" → active card hiện đúng countdown/expiry → `clearVipByKey`
+>   qua nút "Thu hồi VIP" → quay về Free state đúng. Không dùng `activateVipByKey`/`VipKeys.lookupDays`
+>   nào còn sót lại.
+> - Rewarded ad request/show qua `showRewarded` hoạt động qua SDK thật (không mock) — AdSafety counter
+>   tăng đúng (`hourly=1/999`, `daily=1/9999`). **Không verify được nhánh `earned=true` → `grantVipDays`**
+>   vì test-ad creative của AppLovin trên máy này không render nút đóng sau >2 phút chờ (quirk môi
+>   trường test ads, không phải lỗi code — cùng hiện tượng lặp lại ở App Open ad sau đó). `grantVipDays`
+>   là 1 lời gọi API đơn giản khớp đúng chữ ký SDK đã verify qua javap, rủi ro thấp — **khuyến nghị QA
+>   xác nhận thủ công nhánh earned=true khi có network/device khác** trước khi release.
+> - Build `assembleDevDebug` + `assembleProductionRelease` xanh cả hai — `vipKeySecret` hiện tại
+>   (không phải default mẫu) nên release không crash ở `setConfig()`.
+>
+> Build variant khác/flow khác (banner/interstitial ở MainAct+ResultAct, App Open resume) — không
+> đổi code, kế thừa hành vi cũ, không smoke lại riêng.
+
+## 🔍 Independent review round (2026-08-26, sau khi user hỏi lại "sao không dùng AdMob")
+
+User đặt câu hỏi tại sao dùng AppLovin thay vì AdMob. Fact-check: `IS_ENABLE_ADMOB=false` là quyết định
+từ 1 commit CŨ ("Introduced IS_ENABLE_ADMOB (set to false) to prioritize AppLovin MAX"), không phải đổi
+trong lần migrate hôm nay — và `AD_PROMPT_AOS.MD` cấm rõ AI tự đổi flag này. Đã chạy 3 agent AI độc lập
+(`codex exec`, `claude` phiên thứ 2, `gemini`/`agy`, mỗi agent không thấy context của nhau) review lại
+câu hỏi provider + soát diff migrate. Kết quả:
+
+- **Provider AppLovin vs AdMob**: **KHÔNG đồng thuận** — codex và claude#2 cho rằng giữ AppLovin hợp lý
+  (không có bằng chứng AdMob tốt hơn chỉ từ code, đây là quyết định vận hành cần dữ liệu eCPM/fill thật
+  để đổi, không phải lỗi kỹ thuật). Gemini cho rằng KHÔNG hợp lý cho app utility (AppLovin MAX tối ưu cho
+  gaming/UA traffic dày, thiếu mediation adapter trong dependency tree, utility app traffic mỏng sẽ eCPM
+  thấp hơn AdMob). **Kết luận: đây là quyết định business cần A/B test thật, không phải bug — giữ nguyên
+  AppLovin theo scope đã duyệt, KHÔNG tự đổi.**
+- **Correction 1 quan trọng**: nhận định ban đầu của tôi "AdMob ID 100% còn test ID" là **SAI**. Thực tế
+  chỉ `ADMOB_REWARDED_ID` bản release còn là Google test ID (`app/build.gradle.kts` dòng ~82); banner/
+  interstitial/app-open release đã là ID thật (publisher `3612191981543807`). Cả 3 agent đồng thuận điểm
+  này.
+- **2 gap thật trong diff hôm nay** (cả 3 agent hội tụ, đối chiếu đúng `AD_PROMPT_AOS.MD:1726` +
+  `:1731`) — **đã fix**:
+  1. `FVipManagement`/`VipPrefs` vẫn tự lưu `grantedAtMs` qua `System.currentTimeMillis()` thay vì đọc
+     `AdManager.getVipGrantedAtMs()` (SDK 1.6.21 đã expose, spec cấm tự lưu vì sẽ lệch khi VIP cấp qua
+     đường khác) → đã đổi `bindUi()` sang đọc thẳng SDK, xoá `saveGrantedAtMs`/`getGrantedAtMs`/
+     `clearGrantedAtMs` khỏi `VipPrefs.kt`.
+  2. Bản sửa bug fallback ban đầu **xoá hẳn** interstitial thay vì giữ nó ở dạng monetization-only (spec
+     dòng 1731: fallback interstitial vẫn phải **show** để kiếm tiền, chỉ KHÔNG được cấp reward) → đã
+     khôi phục `AdManager.showInterstitial(activity) { ... }` trong nhánh `earned=false`, callback chỉ
+     toast, không gọi bất kỳ hàm cấp VIP nào.
+- **1 gap policy pre-existing phát hiện thêm** (không phải lỗi hôm nay, nhưng đúng phạm vi Step 7 rule 2
+  của chính spec migrate) — **đã fix**: `AdSdkConfig.appOpenExcludedActivities` chưa từng khai
+  `SplashAct::class.java`. Field cũ `appOpenExcludedActivityNames` chỉ fallback theo string
+  `"SplashActivity"` — class thật của app là `SplashAct`, không khớp → App Open có thể đè lên splash/
+  language-sheet nếu app bị background rồi resume đúng lúc đó. Đã thêm
+  `appOpenExcludedActivities = listOf(SplashAct::class.java)` vào `GalaxyApp.kt`.
+- **1 gap i18n** (claude#2 phát hiện): string `attribution_ads_label` mới chỉ có ở `values/` mặc định,
+  thiếu 15 locale còn lại — vi phạm convention chính project (CLAUDE.md: thêm string mới vào MỌI locale).
+  Đã thêm (English fallback, cùng nội dung `values/`) vào cả 15 file `values-*/strings.xml`.
+- Build lại `assembleDevDebug` + `assembleProductionRelease` + `lintDevDebug` sau các fix — xanh hết.
+
+**QA round 2 trên device thật (Samsung A50s) sau các fix trên:**
+- Mint token mới (5 ngày) qua instrumented test tạm → redeem qua UI → dialog "Đã kích hoạt VIP 5 ngày"
+  đúng → active card hiện `Kích hoạt: 26/08/2026 20:45` — **đọc đúng từ `AdManager.getVipGrantedAtMs()`**
+  (không còn qua `VipPrefs` đã xoá), countdown/progress render đúng.
+- "Thu hồi VIP" → confirm dialog → `clearVipByKey()` → về Free state đúng, không cần dọn `VipPrefs`
+  riêng (đúng như comment mới).
+- `appOpenExcludedActivities` mới không phá luồng `initSplashScreen` (App Open ở Splash vẫn load/show
+  bình thường — exclusion chỉ chặn nhánh **tự-động resume**, không ảnh hưởng lời gọi tường minh).
+- Bấm "Xem quảng cáo → 3 ngày VIP" → `showRewarded` load/show qua SDK thật, không crash tới lúc ad hiện
+  (cùng pipeline y hệt lần smoke test đầu). **Vẫn KHÔNG verify được nhánh `earned=false` → interstitial
+  fallback mới khôi phục** — cùng quirk môi trường: test-ad creative không có nút đóng/không tự dismiss
+  sau nhiều phút chờ, kể cả back button. Force-stop app để thoát, cold start lại sau đó sạch, không
+  crash residual.
+- **Còn lại chưa verify sống**: nhánh `earned=false` → `AdManager.showInterstitial(activity) { toast }`
+  (code đã review kỹ bởi 3 agent, chữ ký khớp đúng SDK qua javap, nhưng chưa tận mắt thấy chạy) và nhánh
+  `earned=true` → `grantVipDays` (như QA round 1). Cả hai đều bị chặn bởi cùng 1 hạn chế môi trường test
+  ads, không phải nghi vấn về code. Khuyến nghị QA xác nhận 2 nhánh này trên network/device khác trước
+  release, hoặc dùng `AdManager.openAdInspector()` để soi trực tiếp.
+
+## 0. Bối cảnh
+
+| Field | Giá trị |
+|---|---|
+| Lib version cũ → mới | `1.1.3` → `1.6.21` |
+| Flavor | `dev`/`production` (không cần `gms`/`nongms` — app chỉ ship Google Play, dùng thẳng AAR JitPack) |
+| Provider | AppLovin MAX giữ nguyên (`IS_ENABLE_ADMOB=false` cả 2 flavor) |
+| Build variant debug/release phải xanh | `assembleDevDebug` / `assembleProductionRelease` |
+| VIP flow | **Đổi sang token ECDSA** (quyết định user 2026-08-26) — bỏ `activateVipByKey` + `VipKeys.kt` static Base64 list |
+| Lần fail trước | User không nhớ rõ nguyên nhân — không có ghi chép; xử lý bằng cách build+test từng bước nhỏ, không đổi nhiều thứ cùng lúc |
+
+## 1. Touchpoint table
+
+| Slot | File | API cũ (1.1.3) | API mới (1.6.21) | Đổi gì |
+|---|---|---|---|---|
+| Init | `GalaxyApp.kt:37-66` | `AdSdkConfig(...)` + `setConfig` + `initialize` | giữ nguyên 2-step, thêm field mới | thêm `paidEventListener` (revenue tracking), thêm `vipTokenPublicKey`, đổi `vipKeySecret` sang giá trị riêng ≥16 ký tự |
+| Consent | `SplashAct.kt:88` | `requestConsentInfoUpdate` + `initSplashScreen` | giữ nguyên — cả 2 API vẫn tồn tại ở 1.6.21 | không đổi (đã đúng pattern) |
+| Banner | `MainAct.kt:362`, `ResultAct.kt:139` | `loadBanner(autoManageLifecycle=true)` | giữ nguyên | không đổi |
+| Interstitial | `ResultAct.kt:420` | `showInterstitial` | giữ nguyên | không đổi |
+| Rewarded → VIP | `FVipManagement.kt:352-370` | `showRewarded` → `activateVipByKey(days=3)` | `showRewarded` → `AdManager.grantVipDays(ctx, 3)` | đổi API cấp thưởng (không qua verify key nữa) |
+| VIP redeem (user nhập key) | `FVipManagement.kt:340-347` | `VipKeys.lookupDays` (static) → `activateVipByKey` | user nhập **token** → `activateVipByToken(ctx, token)` | đổi model phân phối — xem mục 3 |
+| Interstitial fallback khi rewarded fail | `FVipManagement.kt:358-368` | **BUG**: gọi `grantViaRewarded()` nếu `adShown=true` | KHÔNG cấp thưởng — chỉ show ad (nếu có) rồi báo fail | bắt buộc sửa — vi phạm Step 7 rule 6 (chính sách reward) |
+
+## 2. Kế hoạch từng bước
+
+### Bước 1 — Bump lib version
+- `app/build.gradle.kts:140`: `1.1.3` → `1.6.21`.
+- Build thử ngay (`compileDevDebugKotlin`) để lộ mọi breaking API compile-time trước khi sửa logic.
+
+### Bước 2 — `AdSdkConfig` / `GalaxyApp.onCreate`
+- Đổi `vipKeySecret` sang chuỗi ngẫu nhiên riêng ≥16 ký tự (secret hiện tại `VipKeys.VIP_SECRET` — kiểm tra không phải giá trị mẫu `"TPLdev0402dev@"`, nếu đúng vậy đổi ngay — **release sẽ crash nếu để mặc định**).
+- Thêm `vipTokenPublicKey = BuildConfig.VIP_TOKEN_PUBLIC_KEY` vào `AdSdkConfig` (xem Bước 3 — sinh keypair).
+- Thêm `AdManager.paidEventListener = PaidEventListener { adType, valueMicros, currency, precision, adSource -> ... }` **trong `Application.onCreate()`** (không set từ Activity — SDK auto-xoá listener khi Activity destroy).
+
+### Bước 3 — Sinh ECDSA keypair + chuyển VIP redeem sang token
+1. Chạy `AdManager.generateVipKeyPair()` **1 lần, offline** (debug build hoặc unit test tạm) → lấy `(privateKeyBase64, publicKeyBase64)`.
+2. Public key → `buildConfigField("String", "VIP_TOKEN_PUBLIC_KEY", "\"<public>\"")`.
+3. Private key → **KHÔNG commit vào repo app này** — lưu vào repo private `@mckimquyen/myKeyStore` (cùng chỗ đang giữ keystore signing, theo pattern hiện tại của project) hoặc password manager riêng.
+4. Xoá `VipKeys.kt` static Base64 key list + `lookupDays()`.
+5. `FVipManagement.handleRedeemClicked()`: đổi validate từ `VipKeys.lookupDays(input)` sang `AdManager.activateVipByToken(requireContext(), input)` (token tự mã hoá số ngày, không cần lookup local nữa).
+6. `FVipManagement.grantViaRewarded()`: đổi `activateVipByKey(ctx, secret, 3)` → `AdManager.grantVipDays(requireContext(), 3)`.
+7. **Cần công cụ mint token cho support/QA** (thay việc gửi static key qua Notion/Slack trước đây) — đề xuất: 1 unit test JVM tạm (`@Ignore`, chạy tay khi cần) gọi `AdManager.generateVipToken(privateKeyBase64, days)` in ra token, KHÔNG ship vào app. Quyết định cụ thể hình thức tool này hỏi lại user khi tới bước code.
+
+### Bước 4 — Fix bug policy (Step 7 rule 6)
+- `FVipManagement.handleWatchAdClicked()`: nhánh fallback interstitial hiện gọi `grantViaRewarded()` khi `adShown=true` — **xoá dòng này**. Fallback interstitial (nếu còn giữ) chỉ được show ad làm "an ủi", KHÔNG gọi bất kỳ hàm cấp VIP nào. Nếu rewarded fail → luôn kết thúc bằng toast `vip_rewarded_load_failed`, không nhánh nào cấp thưởng.
+
+### Bước 5 — Đọc kỹ 4 breaking change 1.5.5→1.6.1 (áp dụng dù nhảy thẳng 1.1.3→1.6.21)
+- `grantRewardOnEarn` default nay `true` — không cần đổi code (project không cấp thưởng ở `rewardedListener`, đã cấp ở callback `showRewarded`), nhưng verify KHÔNG có chỗ nào cấp thưởng trùng qua `AdEvent.Rewarded`/`rewardedListener` (grep hiện tại: không có) — giữ nguyên, chỉ cấp ở callback `showRewarded`.
+- `AdSafetyStatus.totalImpressions`/`fullscreenClicks` rename → project không dùng field này ở đâu (grep xác nhận) — không cần sửa.
+- Số ad/user/ngày sẽ tăng dần theo session-reset mới (30 phút background) — không cần code, chỉ **theo dõi tuần đầu sau release**.
+- GPP (US states) — bỏ qua, app hiện không target riêng US state nào ngoài chuẩn.
+
+### Bước 6 — Manifest housekeeping
+- Thêm `<attribution android:tag="ads" android:label="Ad Networks (AdMob / AppLovin MAX)" />` vào `<manifest>` (targetSdk 37 ≥ 31, tránh warning logcat liên tục).
+- Giữ nguyên `<meta-data com.google.android.gms.ads.APPLICATION_ID>` hiện có (đúng rồi, không đổi).
+
+### Bước 7 — Build & test
+- `./gradlew compileDevDebugKotlin` sau Bước 1 (soi lỗi compile sớm).
+- `./gradlew assembleDevDebug assembleProductionRelease` — cả 2 phải xanh.
+- `./gradlew testDevDebugUnitTest`.
+- Test device thật: verify banner/interstitial/rewarded/VIP redeem bằng **token mới** + `AdManager.getDiagnostics()` log để confirm consent/provider đúng.
+- Đăng ký lại test-device hash nếu SDK đổi format hash (Bước 3b trong AD_PROMPT_AOS.MD) — verify nhãn "Test Ad" vẫn hiện đúng sau upgrade.
+
+## 3. Đã giải quyết / còn tồn đọng
+
+- ✅ **Tool mint token**: dùng instrumented test tạm (`app/src/androidTest`, xoá ngay sau khi lấy output)
+  gọi `AdManager.generateVipKeyPair()` rồi `AdManager.generateVipToken(...)` — chạy trên chính device,
+  không cần tool riêng. Muốn mint thêm cho user/QA thật: viết lại instrumented test tương tự với private
+  key ở `@mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/vip_token_keypair.txt`, xoá sau khi dùng.
+- ✅ **`VipKeys.VIP_SECRET`**: đã xác nhận KHÔNG phải giá trị mẫu (`"9fA0q7eN!27cLx04@..."`, 31 ký tự) —
+  giữ nguyên, không đổi (đổi sẽ vô hiệu hoá tamper-check của user đang active VIP).
+- ⚠️ **Còn tồn đọng**: AdMob ID thật (banner/interstitial/appopen/rewarded) vẫn là **Google test ID** vì
+  `IS_ENABLE_ADMOB=false` — không chặn migrate lần này (AdMob đang tắt), nhưng nếu tương lai bật AdMob
+  cần ID thật trước.
+- ⚠️ **Còn tồn đọng**: nhánh `earned=true` của rewarded ad (`grantViaRewarded` → `grantVipDays`) chưa
+  verify được trên device thật do test-ad creative không đóng được (xem ghi chú smoke test ở đầu file)
+  — cần QA xác nhận thủ công trước khi release.
+
+## 4. KHÔNG làm (theo "Cấm" của template)
+
+- Không đổi `IS_ENABLE_ADMOB` (giữ AppLovin MAX).
+- Không thêm ad slot mới ngoài 4 slot hiện có.
+- Không refactor code không liên quan ad/VIP.
+- Không tự fill ad ID production — chỉ đổi API/config theo kế hoạch trên.
+
+---
+
 ## 0. BỐI CẢNH MIGRATE (1.1.1 → 1.1.3)
 
 | Field | Giá trị |
