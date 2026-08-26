@@ -53,6 +53,16 @@ interface BmiDao {
     @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND timestamp >= :sinceTimestampMs ORDER BY timestamp ASC")
     suspend fun getRecordsSince(profileId: Long, sinceTimestampMs: Long): List<BmiRecord>
 
+    // Idea I1 — Progress Photo Timeline. Attaches a photo onto an already-saved record, same
+    // narrow-update pattern as updateBodyFatPercentage — the photo is picked/captured after the
+    // automatic save already inserted the row. Returns rows affected (0 = record was deleted
+    // concurrently).
+    @Query("UPDATE bmi_records SET photoPath = :photoPath WHERE id = :recordId")
+    suspend fun updatePhotoPath(recordId: Long, photoPath: String?): Int
+
+    @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND photoPath IS NOT NULL ORDER BY timestamp DESC")
+    suspend fun getRecordsWithPhotos(profileId: Long): List<BmiRecord>
+
     // EPIC-09 T09.2 — Health Connect sync: find the local row already linked to a given
     // Health Connect record so an update can be applied in place instead of duplicated.
     @Query("SELECT * FROM bmi_records WHERE healthConnectRecordId = :healthConnectRecordId LIMIT 1")

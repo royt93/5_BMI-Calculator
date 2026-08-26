@@ -94,6 +94,20 @@
     <string name="delete_record">記録を削除</string>
     <string name="are_you_sure_delete">この記録を削除してもよろしいですか？</string>
     <string name="cancel">キャンセル</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">経過写真を追加</string>
+    <string name="progress_photo_added_label">写真を追加しました ✓</string>
+    <string name="progress_photo_take_photo">写真を撮る</string>
+    <string name="progress_photo_choose_gallery">ギャラリーから選ぶ</string>
+    <string name="progress_photo_privacy_disclosure">写真はこの端末にのみ保存されます — アップロードや共有は一切行われません。</string>
+    <string name="progress_photo_error">その写真を保存できませんでした</string>
+    <string name="progress_photos_title">経過写真</string>
+    <string name="progress_photos_empty">体重記録から写真を追加してタイムラインを始めましょう</string>
+    <string name="progress_photos_select_two">比較する写真を2枚選んでください</string>
+    <string name="progress_photos_compare_button">比較</string>
+    <string name="progress_photos_before_label">ビフォー</string>
+    <string name="progress_photos_after_label">アフター</string>
     <string name="delete">削除</string>
 
     <!-- Activity Levels -->

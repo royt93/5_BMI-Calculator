@@ -94,6 +94,20 @@
     <string name="delete_record">ลบบันทึก</string>
     <string name="are_you_sure_delete">คุณแน่ใจหรือไม่ว่าต้องการลบบันทึกนี้?</string>
     <string name="cancel">ยกเลิก</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">เพิ่มรูปความคืบหน้า</string>
+    <string name="progress_photo_added_label">เพิ่มรูปแล้ว ✓</string>
+    <string name="progress_photo_take_photo">ถ่ายรูป</string>
+    <string name="progress_photo_choose_gallery">เลือกจากคลังภาพ</string>
+    <string name="progress_photo_privacy_disclosure">รูปภาพจะอยู่ในอุปกรณ์นี้เท่านั้น — ไม่มีการอัปโหลดหรือแชร์ใดๆ</string>
+    <string name="progress_photo_error">บันทึกรูปนี้ไม่สำเร็จ</string>
+    <string name="progress_photos_title">รูปความคืบหน้า</string>
+    <string name="progress_photos_empty">เพิ่มรูปจากการชั่งน้ำหนักครั้งใดก็ได้เพื่อเริ่มไทม์ไลน์ของคุณ</string>
+    <string name="progress_photos_select_two">เลือกสองรูปเพื่อเปรียบเทียบ</string>
+    <string name="progress_photos_compare_button">เปรียบเทียบ</string>
+    <string name="progress_photos_before_label">ก่อน</string>
+    <string name="progress_photos_after_label">หลัง</string>
     <string name="delete">ลบ</string>
 
     <!-- Activity Levels -->

@@ -79,6 +79,20 @@
     <string name="delete_record">Elimina record</string>
     <string name="are_you_sure_delete">Sei sicuro di voler eliminare questo record?</string>
     <string name="cancel">Annulla</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Aggiungi una foto dei progressi</string>
+    <string name="progress_photo_added_label">Foto aggiunta ✓</string>
+    <string name="progress_photo_take_photo">Scatta foto</string>
+    <string name="progress_photo_choose_gallery">Scegli dalla galleria</string>
+    <string name="progress_photo_privacy_disclosure">Le foto restano solo su questo dispositivo — non vengono mai caricate né condivise.</string>
+    <string name="progress_photo_error">Impossibile salvare quella foto</string>
+    <string name="progress_photos_title">Foto dei progressi</string>
+    <string name="progress_photos_empty">Aggiungi una foto da qualsiasi pesata per iniziare la tua timeline</string>
+    <string name="progress_photos_select_two">Seleziona due foto da confrontare</string>
+    <string name="progress_photos_compare_button">Confronta</string>
+    <string name="progress_photos_before_label">Prima</string>
+    <string name="progress_photos_after_label">Dopo</string>
     <string name="delete">Elimina</string>
     <string name="goal_weight_title">🎯 Il mio obiettivo</string>
     <string name="goal_weight_current">Attuale: %1$.1f kg</string>

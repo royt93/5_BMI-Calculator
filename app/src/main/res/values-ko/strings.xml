@@ -94,6 +94,20 @@
     <string name="delete_record">기록 삭제</string>
     <string name="are_you_sure_delete">이 기록을 삭제하시겠습니까?</string>
     <string name="cancel">취소</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">진행 사진 추가</string>
+    <string name="progress_photo_added_label">사진 추가됨 ✓</string>
+    <string name="progress_photo_take_photo">사진 촬영</string>
+    <string name="progress_photo_choose_gallery">갤러리에서 선택</string>
+    <string name="progress_photo_privacy_disclosure">사진은 이 기기에만 저장됩니다 — 업로드되거나 공유되지 않습니다.</string>
+    <string name="progress_photo_error">사진을 저장하지 못했습니다</string>
+    <string name="progress_photos_title">진행 사진</string>
+    <string name="progress_photos_empty">체중 기록에서 사진을 추가해 타임라인을 시작하세요</string>
+    <string name="progress_photos_select_two">비교할 사진 두 장을 선택하세요</string>
+    <string name="progress_photos_compare_button">비교</string>
+    <string name="progress_photos_before_label">비포</string>
+    <string name="progress_photos_after_label">애프터</string>
     <string name="delete">삭제</string>
 
     <!-- Activity Levels -->

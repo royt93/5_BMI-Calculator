@@ -94,6 +94,20 @@
     <string name="delete_record">Delete Record</string>
     <string name="are_you_sure_delete">Are you sure you want to delete this record?</string>
     <string name="cancel">Cancel</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Add a progress photo</string>
+    <string name="progress_photo_added_label">Photo added ✓</string>
+    <string name="progress_photo_take_photo">Take photo</string>
+    <string name="progress_photo_choose_gallery">Choose from gallery</string>
+    <string name="progress_photo_privacy_disclosure">Photos stay only on this device — never uploaded or shared.</string>
+    <string name="progress_photo_error">Couldn\'t save that photo</string>
+    <string name="progress_photos_title">Progress Photos</string>
+    <string name="progress_photos_empty">Add a photo from any weigh-in to start your timeline</string>
+    <string name="progress_photos_select_two">Select two photos to compare</string>
+    <string name="progress_photos_compare_button">Compare</string>
+    <string name="progress_photos_before_label">Before</string>
+    <string name="progress_photos_after_label">After</string>
     <string name="delete">Delete</string>
 
     <!-- Goal Weight Feature -->

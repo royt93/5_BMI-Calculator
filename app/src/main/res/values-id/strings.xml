@@ -79,6 +79,20 @@
     <string name="delete_record">Hapus catatan</string>
     <string name="are_you_sure_delete">Apakah Anda yakin ingin menghapus catatan ini?</string>
     <string name="cancel">Batal</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Tambahkan foto perkembangan</string>
+    <string name="progress_photo_added_label">Foto ditambahkan ✓</string>
+    <string name="progress_photo_take_photo">Ambil foto</string>
+    <string name="progress_photo_choose_gallery">Pilih dari galeri</string>
+    <string name="progress_photo_privacy_disclosure">Foto hanya tersimpan di perangkat ini — tidak pernah diunggah atau dibagikan.</string>
+    <string name="progress_photo_error">Foto tidak dapat disimpan</string>
+    <string name="progress_photos_title">Foto Perkembangan</string>
+    <string name="progress_photos_empty">Tambahkan foto dari catatan berat badan mana pun untuk memulai linimasa Anda</string>
+    <string name="progress_photos_select_two">Pilih dua foto untuk dibandingkan</string>
+    <string name="progress_photos_compare_button">Bandingkan</string>
+    <string name="progress_photos_before_label">Sebelum</string>
+    <string name="progress_photos_after_label">Sesudah</string>
     <string name="delete">Hapus</string>
     <string name="goal_weight_title">🎯 Target saya</string>
     <string name="goal_weight_current">Saat ini: %1$.1f kg</string>

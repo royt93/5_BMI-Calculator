@@ -25,7 +25,11 @@ data class BmiRecord(
     // Health Connect record it's paired with (null = never synced) so the sync worker can
     // tell an update from a brand-new record and avoid re-importing/re-exporting in a loop.
     val source: String = SOURCE_APP,
-    val healthConnectRecordId: String? = null
+    val healthConnectRecordId: String? = null,
+    // Idea I1 — Progress Photo Timeline. Absolute path to a JPEG under this app's own
+    // external-files/photos/ dir (never MediaStore/shared storage) — null when no photo
+    // was attached to this weigh-in.
+    val photoPath: String? = null
 ) {
     companion object {
         const val SOURCE_APP = "APP"

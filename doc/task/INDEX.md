@@ -23,9 +23,9 @@ P0 = làm ngay (blocker/flagship) · P1 = sprint tới · P2 = sprint sau · P3 
 | ✅ **EPIC-07 Weight Dashboard hợp nhất (FLAGSHIP)** | ✨ | P0 | 16 | `done/EPIC-07-weight-dashboard.md` |
 | ✅ EPIC-08 Engagement features (reminder/export/measurements) | ✨ | P2 | 21 | `done/EPIC-08-engagement-features.md` |
 | ✅ EPIC-09 Platform extensions (widget/Health Connect) | ✨ | P3 | 21 | `done/EPIC-09-platform-extensions.md` |
-| Ideas độc quyền — ✅ I2+I3+I4+I6+I8+I9 xong | 💡 | — | — | `IDEAS.md` |
+| Ideas độc quyền — ✅ I1+I2+I3+I4+I6+I8+I9 xong | 💡 | — | — | `IDEAS.md` |
 
-**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-01 + EPIC-02 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 + EPIC-09 (115 pts) + Idea I2 (Smart Insights) + I3 (Share Progress Card) + I4 (Family Challenge Mode) + I6 (Quick-log Notification Action) + I8 (Export PDF Report) + I9 (Weekly Coach). Còn lại: EPIC-03 (deferred, ad-related) + Idea I1 (Progress Photo Timeline, chưa chọn).**
+**Tổng**: 10 epic, ~45 task con, ~118 story points. **Đã xong: EPIC-00 + EPIC-01 + EPIC-02 + EPIC-04 + EPIC-05 + EPIC-06 + EPIC-07 + EPIC-08 + EPIC-09 (115 pts) + Idea I2 (Smart Insights) + I3 (Share Progress Card) + I4 (Family Challenge Mode) + I6 (Quick-log Notification Action) + I8 (Export PDF Report) + I9 (Weekly Coach) + I1 (Progress Photo Timeline). Tất cả idea trong roadmap đã chọn đều xong. Còn lại: EPIC-03 (deferred, ad-related) — item duy nhất chưa implement trong toàn bộ backlog.**
 
 ## Đã implement (2026-08-23) — chi tiết
 

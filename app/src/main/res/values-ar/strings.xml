@@ -79,6 +79,20 @@
     <string name="delete_record">حذف السجل</string>
     <string name="are_you_sure_delete">هل أنت متأكد أنك تريد حذف هذا السجل؟</string>
     <string name="cancel">إلغاء</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">إضافة صورة للتقدم</string>
+    <string name="progress_photo_added_label">تمت إضافة الصورة ✓</string>
+    <string name="progress_photo_take_photo">التقاط صورة</string>
+    <string name="progress_photo_choose_gallery">الاختيار من المعرض</string>
+    <string name="progress_photo_privacy_disclosure">تبقى الصور على هذا الجهاز فقط — لا يتم رفعها أو مشاركتها أبدًا.</string>
+    <string name="progress_photo_error">تعذّر حفظ هذه الصورة</string>
+    <string name="progress_photos_title">صور التقدم</string>
+    <string name="progress_photos_empty">أضف صورة من أي عملية وزن لبدء الجدول الزمني الخاص بك</string>
+    <string name="progress_photos_select_two">اختر صورتين للمقارنة</string>
+    <string name="progress_photos_compare_button">مقارنة</string>
+    <string name="progress_photos_before_label">قبل</string>
+    <string name="progress_photos_after_label">بعد</string>
     <string name="delete">حذف</string>
     <string name="goal_weight_title">🎯 هدفي</string>
     <string name="goal_weight_current">الحالي: %1$.1f كجم</string>

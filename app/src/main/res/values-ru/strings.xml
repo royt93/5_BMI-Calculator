@@ -79,6 +79,20 @@
     <string name="delete_record">Удалить запись</string>
     <string name="are_you_sure_delete">Вы уверены, что хотите удалить эту запись?</string>
     <string name="cancel">Отмена</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Добавить фото прогресса</string>
+    <string name="progress_photo_added_label">Фото добавлено ✓</string>
+    <string name="progress_photo_take_photo">Сделать фото</string>
+    <string name="progress_photo_choose_gallery">Выбрать из галереи</string>
+    <string name="progress_photo_privacy_disclosure">Фото хранятся только на этом устройстве — они никогда не загружаются и не передаются.</string>
+    <string name="progress_photo_error">Не удалось сохранить это фото</string>
+    <string name="progress_photos_title">Фото прогресса</string>
+    <string name="progress_photos_empty">Добавьте фото к любому взвешиванию, чтобы начать свою хронологию</string>
+    <string name="progress_photos_select_two">Выберите два фото для сравнения</string>
+    <string name="progress_photos_compare_button">Сравнить</string>
+    <string name="progress_photos_before_label">До</string>
+    <string name="progress_photos_after_label">После</string>
     <string name="delete">Удалить</string>
     <string name="goal_weight_title">🎯 Моя цель</string>
     <string name="goal_weight_current">Текущий: %1$.1f кг</string>

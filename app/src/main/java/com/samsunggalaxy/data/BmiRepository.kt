@@ -117,6 +117,16 @@ class BmiRepository(
         return getMostRecentRecord(profile.id)
     }
 
+    /** Idea I1 — attach/replace/clear (null) a photo onto an existing record. Returns rows affected. */
+    suspend fun updateRecordPhotoPath(recordId: Long, photoPath: String?): Int {
+        return bmiDao.updatePhotoPath(recordId, photoPath)
+    }
+
+    /** Idea I1 — Progress Photo Timeline: every record for this profile that has a photo attached. */
+    suspend fun getRecordsWithPhotos(profileId: Long): List<BmiRecord> {
+        return bmiDao.getRecordsWithPhotos(profileId)
+    }
+
     // EPIC-08 T08.3 — body measurements (waist/neck/hip/chest) tracked over time
     suspend fun insertMeasurement(measurement: BodyMeasurement): Long {
         return bodyMeasurementDao.insert(measurement)

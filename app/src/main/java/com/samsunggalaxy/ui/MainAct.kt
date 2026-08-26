@@ -707,6 +707,12 @@ class MainAct : BaseActivity() {
             startActivity(Intent(this, FamilyChallengeActivity::class.java))
         }
 
+        val menuProgressPhotos = dialog.findViewById<LinearLayout>(R.id.menuProgressPhotos)
+        menuProgressPhotos?.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, ProgressPhotosActivity::class.java))
+        }
+
         menuRateApp.setOnClickListener {
             dialog.dismiss()
             rateApp(packageName)

@@ -79,6 +79,20 @@
     <string name="delete_record">Kaydı sil</string>
     <string name="are_you_sure_delete">Bu kaydı silmek istediğinizden emin misiniz?</string>
     <string name="cancel">İptal</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">İlerleme fotoğrafı ekle</string>
+    <string name="progress_photo_added_label">Fotoğraf eklendi ✓</string>
+    <string name="progress_photo_take_photo">Fotoğraf çek</string>
+    <string name="progress_photo_choose_gallery">Galeriden seç</string>
+    <string name="progress_photo_privacy_disclosure">Fotoğraflar yalnızca bu cihazda kalır — asla yüklenmez veya paylaşılmaz.</string>
+    <string name="progress_photo_error">Bu fotoğraf kaydedilemedi</string>
+    <string name="progress_photos_title">İlerleme Fotoğrafları</string>
+    <string name="progress_photos_empty">Zaman çizelgenizi başlatmak için herhangi bir tartıma fotoğraf ekleyin</string>
+    <string name="progress_photos_select_two">Karşılaştırmak için iki fotoğraf seçin</string>
+    <string name="progress_photos_compare_button">Karşılaştır</string>
+    <string name="progress_photos_before_label">Önce</string>
+    <string name="progress_photos_after_label">Sonra</string>
     <string name="delete">Sil</string>
     <string name="goal_weight_title">🎯 Hedefim</string>
     <string name="goal_weight_current">Mevcut: %1$.1f kg</string>

@@ -79,6 +79,20 @@
     <string name="delete_record">Record verwijderen</string>
     <string name="are_you_sure_delete">Weet u zeker dat u dit record wilt verwijderen?</string>
     <string name="cancel">Annuleren</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Voortgangsfoto toevoegen</string>
+    <string name="progress_photo_added_label">Foto toegevoegd ✓</string>
+    <string name="progress_photo_take_photo">Foto maken</string>
+    <string name="progress_photo_choose_gallery">Kiezen uit galerij</string>
+    <string name="progress_photo_privacy_disclosure">Foto\'s blijven alleen op dit apparaat — nooit geüpload of gedeeld.</string>
+    <string name="progress_photo_error">Kon die foto niet opslaan</string>
+    <string name="progress_photos_title">Voortgangsfoto\'s</string>
+    <string name="progress_photos_empty">Voeg bij een weging een foto toe om uw tijdlijn te starten</string>
+    <string name="progress_photos_select_two">Selecteer twee foto\'s om te vergelijken</string>
+    <string name="progress_photos_compare_button">Vergelijken</string>
+    <string name="progress_photos_before_label">Voor</string>
+    <string name="progress_photos_after_label">Na</string>
     <string name="delete">Verwijderen</string>
     <string name="goal_weight_title">🎯 Mijn doel</string>
     <string name="goal_weight_current">Huidig: %1$.1f kg</string>

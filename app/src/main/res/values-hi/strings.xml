@@ -79,6 +79,20 @@
     <string name="delete_record">रिकॉर्ड हटाएं</string>
     <string name="are_you_sure_delete">क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?</string>
     <string name="cancel">रद्द करें</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">प्रगति फ़ोटो जोड़ें</string>
+    <string name="progress_photo_added_label">फ़ोटो जोड़ी गई ✓</string>
+    <string name="progress_photo_take_photo">फ़ोटो लें</string>
+    <string name="progress_photo_choose_gallery">गैलरी से चुनें</string>
+    <string name="progress_photo_privacy_disclosure">फ़ोटो केवल इसी डिवाइस पर रहती हैं — कभी अपलोड या साझा नहीं की जातीं।</string>
+    <string name="progress_photo_error">वह फ़ोटो सेव नहीं हो सकी</string>
+    <string name="progress_photos_title">प्रगति फ़ोटो</string>
+    <string name="progress_photos_empty">अपनी टाइमलाइन शुरू करने के लिए किसी भी वज़न प्रविष्टि से फ़ोटो जोड़ें</string>
+    <string name="progress_photos_select_two">तुलना के लिए दो फ़ोटो चुनें</string>
+    <string name="progress_photos_compare_button">तुलना करें</string>
+    <string name="progress_photos_before_label">पहले</string>
+    <string name="progress_photos_after_label">बाद</string>
     <string name="delete">हटाएं</string>
     <string name="goal_weight_title">🎯 मेरा लक्ष्य</string>
     <string name="goal_weight_current">वर्तमान: %1$.1f किग्रा</string>

@@ -79,6 +79,20 @@
     <string name="delete_record">删除记录</string>
     <string name="are_you_sure_delete">确定要删除此记录吗？</string>
     <string name="cancel">取消</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">添加进度照片</string>
+    <string name="progress_photo_added_label">照片已添加 ✓</string>
+    <string name="progress_photo_take_photo">拍照</string>
+    <string name="progress_photo_choose_gallery">从相册选择</string>
+    <string name="progress_photo_privacy_disclosure">照片仅保存在本设备上 — 绝不会上传或分享。</string>
+    <string name="progress_photo_error">无法保存该照片</string>
+    <string name="progress_photos_title">进度照片</string>
+    <string name="progress_photos_empty">从任意一次称重记录添加照片，开始你的时间线</string>
+    <string name="progress_photos_select_two">选择两张照片进行对比</string>
+    <string name="progress_photos_compare_button">对比</string>
+    <string name="progress_photos_before_label">前</string>
+    <string name="progress_photos_after_label">后</string>
     <string name="delete">删除</string>
     <string name="goal_weight_title">🎯 我的目标</string>
     <string name="goal_weight_current">当前：%1$.1f 千克</string>

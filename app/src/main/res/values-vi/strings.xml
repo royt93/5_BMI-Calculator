@@ -94,6 +94,20 @@
     <string name="delete_record">Xóa hồ sơ</string>
     <string name="are_you_sure_delete">Bạn có chắc chắn muốn xóa hồ sơ này?</string>
     <string name="cancel">Hủy</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Thêm ảnh tiến trình</string>
+    <string name="progress_photo_added_label">Đã thêm ảnh ✓</string>
+    <string name="progress_photo_take_photo">Chụp ảnh</string>
+    <string name="progress_photo_choose_gallery">Chọn từ thư viện</string>
+    <string name="progress_photo_privacy_disclosure">Ảnh chỉ lưu trên thiết bị này — không bao giờ được tải lên hay chia sẻ.</string>
+    <string name="progress_photo_error">Không thể lưu ảnh đó</string>
+    <string name="progress_photos_title">Ảnh Tiến Trình</string>
+    <string name="progress_photos_empty">Thêm ảnh từ bất kỳ lần cân nào để bắt đầu dòng thời gian của bạn</string>
+    <string name="progress_photos_select_two">Chọn hai ảnh để so sánh</string>
+    <string name="progress_photos_compare_button">So sánh</string>
+    <string name="progress_photos_before_label">Trước</string>
+    <string name="progress_photos_after_label">Sau</string>
     <string name="delete">Xóa</string>
 
     <!-- Goal Weight Feature -->

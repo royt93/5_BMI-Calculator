@@ -25,6 +25,11 @@
          whether the Health Connect provider app is installed, for the Settings fallback UI. -->
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
+        <!-- Idea I1 — package-visibility (Android 11+) so ActivityResultContracts.TakePicture()
+             can resolve a camera app via ACTION_IMAGE_CAPTURE. -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
     </queries>
 
     <application
@@ -101,6 +106,10 @@
 
         <activity
             android:name=".feature.vip.VipActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.ProgressPhotosActivity"
             android:exported="false" />
 
         <provider

@@ -3,4 +3,8 @@
     <external-path
         name="external_files"
         path="Android/data/com.samsunggalaxy.bmicalculator/files/" />
+    <!-- Idea I1 — Progress Photo Timeline: internal storage, more private than external-files. -->
+    <files-path
+        name="photos"
+        path="photos/" />
 </paths>

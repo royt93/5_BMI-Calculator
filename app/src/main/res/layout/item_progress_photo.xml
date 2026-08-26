@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:id="@+id/viewSelectedOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#804CAF50"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvSelectedCheck"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_glass_card_small"
+                android:gravity="center"
+                android:text="✓"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvPhotoDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#80000000"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

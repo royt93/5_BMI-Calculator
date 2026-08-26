@@ -178,4 +178,58 @@ class BmiDaoTest {
         assertEquals(BmiRecord.SOURCE_APP, stored.source)
         assertNull(stored.healthConnectRecordId)
     }
+
+    // ---- Idea I1 — Progress Photo Timeline ----
+
+    @Test
+    fun updatePhotoPath_attachesPhotoOntoExistingRecord() = runBlocking {
+        val id = dao.insert(record(timestamp = 1000L, weight = 70.0))
+
+        val rowsAffected = dao.updatePhotoPath(id, "/data/photos/photo_1.jpg")
+
+        assertEquals(1, rowsAffected)
+        assertEquals("/data/photos/photo_1.jpg", dao.getMostRecentRecord(1L)!!.photoPath)
+    }
+
+    @Test
+    fun updatePhotoPath_deletedRecord_returnsZeroRowsAffected() = runBlocking {
+        assertEquals(0, dao.updatePhotoPath(recordId = 999L, photoPath = "/data/photos/photo_1.jpg"))
+    }
+
+    @Test
+    fun updatePhotoPath_nullClearsAnExistingPhoto() = runBlocking {
+        val id = dao.insert(record(timestamp = 1000L, weight = 70.0))
+        dao.updatePhotoPath(id, "/data/photos/photo_1.jpg")
+
+        dao.updatePhotoPath(id, null)
+
+        assertNull(dao.getMostRecentRecord(1L)!!.photoPath)
+    }
+
+    @Test
+    fun getRecordsWithPhotos_onlyReturnsRecordsThatHaveAPhoto_mostRecentFirst() = runBlocking {
+        val withoutPhoto = dao.insert(record(timestamp = 1000L, weight = 70.0))
+        val olderWithPhoto = dao.insert(record(timestamp = 2000L, weight = 69.0))
+        val newerWithPhoto = dao.insert(record(timestamp = 3000L, weight = 68.0))
+        dao.updatePhotoPath(olderWithPhoto, "/data/photos/older.jpg")
+        dao.updatePhotoPath(newerWithPhoto, "/data/photos/newer.jpg")
+
+        val withPhotos = dao.getRecordsWithPhotos(1L)
+
+        assertEquals(2, withPhotos.size)
+        assertEquals(listOf(newerWithPhoto, olderWithPhoto), withPhotos.map { it.id })
+        assertEquals(true, withPhotos.none { it.id == withoutPhoto })
+    }
+
+    @Test
+    fun getRecordsWithPhotos_isScopedPerProfile() = runBlocking {
+        val ownRecord = dao.insert(record(timestamp = 1000L, weight = 70.0, profileId = 1L))
+        val otherProfileRecord = dao.insert(record(timestamp = 1000L, weight = 60.0, profileId = 2L))
+        dao.updatePhotoPath(ownRecord, "/data/photos/mine.jpg")
+        dao.updatePhotoPath(otherProfileRecord, "/data/photos/other.jpg")
+
+        val withPhotos = dao.getRecordsWithPhotos(1L)
+
+        assertEquals(listOf(ownRecord), withPhotos.map { it.id })
+    }
 }

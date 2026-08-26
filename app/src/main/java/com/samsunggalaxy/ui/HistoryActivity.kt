@@ -769,6 +769,12 @@ class HistoryActivity : BaseActivity() {
             record.healthConnectRecordId?.let {
                 com.samsunggalaxy.health.HealthConnectManager.deleteRecords(applicationContext, listOf(it))
             }
+            // Idea I1 — the photo lives in this app's private storage only; nothing else
+            // references it once its record is gone, so it must be cleaned up here too.
+            // File I/O — off the main dispatcher this coroutine otherwise runs on.
+            record.photoPath?.let { path ->
+                withContext(Dispatchers.IO) { com.samsunggalaxy.photo.PhotoStorageHelper.deletePhoto(path) }
+            }
         }
     }
 
@@ -832,11 +838,22 @@ class HistoryAdapter(
         private val tvTrend: TextView = itemView.findViewById(R.id.tvTrend)
         private val btnDelete: View = itemView.findViewById(R.id.btnDelete)
         private val viewDot: View = itemView.findViewById(R.id.viewCategoryDot)
+        private val cardPhotoThumb: View = itemView.findViewById(R.id.cardPhotoThumb)
+        private val ivPhotoThumb: android.widget.ImageView = itemView.findViewById(R.id.ivPhotoThumb)
 
         fun bind(record: BmiRecord, position: Int) {
             val ctx = itemView.context
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             tvDate.text = dateFormat.format(Date(record.timestamp))
+
+            // Idea I1 — Progress Photo Timeline thumbnail.
+            val photoPath = record.photoPath
+            if (photoPath != null) {
+                cardPhotoThumb.isVisible = true
+                ivPhotoThumb.setImageBitmap(com.samsunggalaxy.photo.PhotoStorageHelper.decodeThumbnail(photoPath))
+            } else {
+                cardPhotoThumb.isVisible = false
+            }
             tvBmi.text = "BMI: ${String.format("%.1f", record.bmi)}"
             tvDetails.text = "${UnitFormatter.formatWeight(record.weight, unitSystem)} • ${UnitFormatter.formatHeight(record.height, unitSystem)}"
 

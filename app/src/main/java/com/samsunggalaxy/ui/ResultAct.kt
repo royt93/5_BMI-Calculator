@@ -42,7 +42,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
+import com.samsunggalaxy.photo.PhotoStorageHelper
 import android.widget.EditText
+import android.widget.ImageView
+import java.io.File
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity() {
@@ -54,6 +57,26 @@ class ResultAct : BaseActivity() {
     private var gender: Int = 0
     private var age: Int = 25
     private lateinit var repository: BmiRepository
+
+    // Idea I1 — Progress Photo Timeline. No lateinit (CLAUDE.md convention): populated once
+    // saveToHistory() finishes inserting this weigh-in's record; the Add Photo card is a no-op
+    // tap until then (save typically completes well before the UI finishes animating in).
+    private var savedRecordId: Long? = null
+    private var pendingCameraFile: File? = null
+
+    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        val file = pendingCameraFile
+        pendingCameraFile = null
+        if (success && file != null) {
+            attachPhoto { if (PhotoStorageHelper.normalizeInPlace(file)) file else null }
+        }
+    }
+
+    private val pickPhotoLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
+            attachPhoto { PhotoStorageHelper.copyFromUri(this, uri) }
+        }
+    }
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -167,6 +190,9 @@ class ResultAct : BaseActivity() {
         }
         _binding.ivShare.setOnClickListener {
             shareImage()
+        }
+        _binding.root.findViewById<View>(R.id.cardAddPhoto)?.setOnClickListener {
+            launchAddPhotoFlow()
         }
 
         // Reward Ad — deferred until SDK adds showRewardedAd support
@@ -576,6 +602,10 @@ class ResultAct : BaseActivity() {
                     record = record,
                     goalWeight = currentProfile?.goalWeight
                 )
+                // Idea I1 — the just-inserted row is the latest for this profile (single writer
+                // at this moment), so this avoids widening RecordSaveHelper's shared return type
+                // just for this one caller's needs.
+                savedRecordId = repository.getMostRecentRecord(profileId)?.id
 
                 if (newlyEarned.isNotEmpty()) {
                     val badge = newlyEarned.first()
@@ -594,6 +624,81 @@ class ResultAct : BaseActivity() {
         } catch (e: Exception) {
             Log.e("roy93~", "saveToHistory error", e)
         }
+    }
+
+    // ---- Idea I1 — Progress Photo Timeline ----
+
+    private fun launchAddPhotoFlow() {
+        if (savedRecordId == null) return // record not saved yet — rare race, silently ignore
+        val options = arrayOf(
+            getString(R.string.progress_photo_take_photo),
+            getString(R.string.progress_photo_choose_gallery)
+        )
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.progress_photo_add_label))
+            .setMessage(getString(R.string.progress_photo_privacy_disclosure))
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> launchCamera()
+                    1 -> pickPhotoLauncher.launch(
+                        androidx.activity.result.PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
+    }
+
+    private fun launchCamera() {
+        try {
+            val (file, uri) = PhotoStorageHelper.createCaptureTarget(this)
+            pendingCameraFile = file
+            takePictureLauncher.launch(uri)
+        } catch (e: Exception) {
+            Log.e("roy93~", "launchCamera error", e)
+            displayToast(getString(R.string.progress_photo_error))
+        }
+    }
+
+    /**
+     * [produceFile] runs on the IO dispatcher — decodes/normalizes/copies the photo to disk.
+     * The DB write happens before the UI update: if the user backs out of the screen while
+     * this coroutine is still running, lifecycleScope cancels it — persisting first means the
+     * photo is never orphaned (recorded on the BmiRecord) even if the thumbnail never shows.
+     */
+    private fun attachPhoto(produceFile: () -> File?) {
+        val recordId = savedRecordId ?: return
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val file = produceFile()
+                if (file != null) {
+                    repository.updateRecordPhotoPath(recordId, file.absolutePath)
+                }
+                withContext(Dispatchers.Main) {
+                    if (isFinishing || isDestroyed) return@withContext
+                    if (file != null) {
+                        showPhotoThumbnail(file.absolutePath)
+                    } else {
+                        displayToast(getString(R.string.progress_photo_error))
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("roy93~", "attachPhoto error", e)
+                withContext(Dispatchers.Main) {
+                    if (isFinishing || isDestroyed) return@withContext
+                    displayToast(getString(R.string.progress_photo_error))
+                }
+            }
+        }
+    }
+
+    private fun showPhotoThumbnail(path: String) {
+        val thumb = _binding.root.findViewById<ImageView>(R.id.ivProgressPhotoThumb) ?: return
+        val label = _binding.root.findViewById<TextView>(R.id.tvProgressPhotoLabel) ?: return
+        val bitmap = PhotoStorageHelper.decodeThumbnail(path) ?: return
+        thumb.setImageBitmap(bitmap)
+        thumb.scaleType = ImageView.ScaleType.CENTER_CROP
+        label.text = getString(R.string.progress_photo_added_label)
     }
 
     override fun onDestroy() {

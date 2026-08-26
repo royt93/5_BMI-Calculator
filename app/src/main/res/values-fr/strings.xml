@@ -94,6 +94,20 @@
     <string name="delete_record">Supprimer l\'enregistrement</string>
     <string name="are_you_sure_delete">Êtes-vous sûr de vouloir supprimer cet enregistrement ?</string>
     <string name="cancel">Annuler</string>
+
+    <!-- Idea I1 — Progress Photo Timeline -->
+    <string name="progress_photo_add_label">Ajouter une photo de progression</string>
+    <string name="progress_photo_added_label">Photo ajoutée ✓</string>
+    <string name="progress_photo_take_photo">Prendre une photo</string>
+    <string name="progress_photo_choose_gallery">Choisir depuis la galerie</string>
+    <string name="progress_photo_privacy_disclosure">Les photos restent uniquement sur cet appareil — jamais envoyées ni partagées.</string>
+    <string name="progress_photo_error">Impossible d\'enregistrer cette photo</string>
+    <string name="progress_photos_title">Photos de progression</string>
+    <string name="progress_photos_empty">Ajoutez une photo depuis une pesée pour démarrer votre chronologie</string>
+    <string name="progress_photos_select_two">Sélectionnez deux photos à comparer</string>
+    <string name="progress_photos_compare_button">Comparer</string>
+    <string name="progress_photos_before_label">Avant</string>
+    <string name="progress_photos_after_label">Après</string>
     <string name="delete">Supprimer</string>
 
     <!-- Activity Levels -->
