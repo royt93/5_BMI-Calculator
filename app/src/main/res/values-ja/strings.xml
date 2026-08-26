@@ -358,6 +358,16 @@
     <string name="insight_stable_day">📅 %1$sはあなたの最も安定した体重測定日です</string>
     <string name="insight_streak_correlation">🔥 フルストリークの週: 平均%1$s 対 他の週の%2$s</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 ウィークリーコーチ</string>
+    <string name="coach_empty">記録を続けて週間プランを解除しましょう</string>
+    <string name="coach_calorie_target_loss">🎯 今週は%2$s減らすために1日あたり%1$dカロリーを目安にしましょう</string>
+    <string name="coach_calorie_target_gain">🎯 今週は%2$s増やすために1日あたり%1$dカロリーを目安にしましょう</string>
+    <string name="coach_calorie_target_maintain">🎯 現在の体重を維持するために1日あたり%1$dカロリーを目安にしましょう</string>
+    <string name="coach_checkin_log_more">📝 より正確な傾向を知るために、今週は体重をもっと頻繁に記録しましょう</string>
+    <string name="coach_checkin_on_track">✅ 継続的に記録できています — その調子です！</string>
+    <string name="coach_disclaimer">あなた自身のデータに基づく一般的な目安であり、医学的なアドバイスではありません。</string>
+
     <string name="family_challenge">ファミリーチャレンジ</string>
     <string name="family_challenge_title">ファミリーチャレンジ</string>
     <string name="family_challenge_subtitle">この端末のプロフィール間で連続記録と進捗を比較します</string>

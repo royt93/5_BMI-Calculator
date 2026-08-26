@@ -690,6 +690,16 @@
     <string name="insight_stable_day">📅 %1$s is your most consistent weigh-in day</string>
     <string name="insight_streak_correlation">🔥 Full-streak weeks: %1$s avg vs %2$s on other weeks</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Weekly Coach</string>
+    <string name="coach_empty">Keep logging to unlock your weekly plan</string>
+    <string name="coach_calorie_target_loss">🎯 Aim for ~%1$d kcal/day this week to lose ~%2$s</string>
+    <string name="coach_calorie_target_gain">🎯 Aim for ~%1$d kcal/day this week to gain ~%2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 Aim for ~%1$d kcal/day to maintain your current weight</string>
+    <string name="coach_checkin_log_more">📝 Log your weight more often this week for a more reliable trend</string>
+    <string name="coach_checkin_on_track">✅ You\'re logging consistently — keep it up!</string>
+    <string name="coach_disclaimer">General estimate based on your own data, not medical advice.</string>
+
     <string name="family_challenge">Family Challenge</string>
     <string name="family_challenge_title">Family Challenge</string>
     <string name="family_challenge_subtitle">Compare streaks and progress across profiles on this device</string>

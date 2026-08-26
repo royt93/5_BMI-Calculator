@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s是你最规律的称重日</string>
     <string name="insight_streak_correlation">🔥 全勤周：平均%1$s，其他周平均%2$s</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 每周教练</string>
+    <string name="coach_empty">继续记录以解锁你的每周计划</string>
+    <string name="coach_calorie_target_loss">🎯 本周目标约为每天%1$d卡路里，以减少约%2$s</string>
+    <string name="coach_calorie_target_gain">🎯 本周目标约为每天%1$d卡路里，以增加约%2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 目标约为每天%1$d卡路里，以维持你当前的体重</string>
+    <string name="coach_checkin_log_more">📝 本周更频繁地记录你的体重，以获得更可靠的趋势</string>
+    <string name="coach_checkin_on_track">✅ 你一直在坚持记录 — 继续保持！</string>
+    <string name="coach_disclaimer">基于你自身数据的一般性估算，并非医学建议。</string>
+
     <string name="family_challenge">家庭挑战</string>
     <string name="family_challenge_title">家庭挑战</string>
     <string name="family_challenge_subtitle">比较此设备上各资料之间的连续记录和进度</string>

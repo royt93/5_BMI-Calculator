@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s is je meest consistente weegdag</string>
     <string name="insight_streak_correlation">🔥 Weken met volledige streak: gemiddeld %1$s tegenover %2$s in andere weken</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Wekelijkse coach</string>
+    <string name="coach_empty">Blijf loggen om uw weekplan te ontgrendelen</string>
+    <string name="coach_calorie_target_loss">🎯 Streef deze week naar ongeveer %1$d kcal/dag om ongeveer %2$s af te vallen</string>
+    <string name="coach_calorie_target_gain">🎯 Streef deze week naar ongeveer %1$d kcal/dag om ongeveer %2$s aan te komen</string>
+    <string name="coach_calorie_target_maintain">🎯 Streef naar ongeveer %1$d kcal/dag om uw huidige gewicht te behouden</string>
+    <string name="coach_checkin_log_more">📝 Log uw gewicht deze week vaker voor een betrouwbaardere trend</string>
+    <string name="coach_checkin_on_track">✅ U logt consistent — ga zo door!</string>
+    <string name="coach_disclaimer">Algemene schatting op basis van uw eigen gegevens, geen medisch advies.</string>
+
     <string name="family_challenge">Familie-uitdaging</string>
     <string name="family_challenge_title">Familie-uitdaging</string>
     <string name="family_challenge_subtitle">Vergelijk reeksen en voortgang tussen profielen op dit apparaat</string>

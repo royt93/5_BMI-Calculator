@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s é o seu dia de pesagem mais consistente</string>
     <string name="insight_streak_correlation">🔥 Semanas com sequência completa: média de %1$s vs %2$s nas outras semanas</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Coach semanal</string>
+    <string name="coach_empty">Continue registrando para desbloquear seu plano semanal</string>
+    <string name="coach_calorie_target_loss">🎯 Busque cerca de %1$d kcal/dia esta semana para perder cerca de %2$s</string>
+    <string name="coach_calorie_target_gain">🎯 Busque cerca de %1$d kcal/dia esta semana para ganhar cerca de %2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 Busque cerca de %1$d kcal/dia para manter seu peso atual</string>
+    <string name="coach_checkin_log_more">📝 Registre seu peso com mais frequência esta semana para uma tendência mais confiável</string>
+    <string name="coach_checkin_on_track">✅ Você está registrando de forma consistente — continue assim!</string>
+    <string name="coach_disclaimer">Estimativa geral baseada nos seus próprios dados, não é um conselho médico.</string>
+
     <string name="family_challenge">Desafio em Família</string>
     <string name="family_challenge_title">Desafio em Família</string>
     <string name="family_challenge_subtitle">Compare sequências e progresso entre perfis neste dispositivo</string>

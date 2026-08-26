@@ -361,6 +361,16 @@
     <string name="insight_stable_day">📅 %1$s là ngày cân đều đặn nhất của bạn</string>
     <string name="insight_streak_correlation">🔥 Các tuần đạt streak đầy đủ: trung bình %1$s so với %2$s ở các tuần khác</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Huấn luyện viên hàng tuần</string>
+    <string name="coach_empty">Tiếp tục ghi lại để mở khóa kế hoạch hàng tuần của bạn</string>
+    <string name="coach_calorie_target_loss">🎯 Đặt mục tiêu khoảng %1$d cal/ngày trong tuần này để giảm khoảng %2$s</string>
+    <string name="coach_calorie_target_gain">🎯 Đặt mục tiêu khoảng %1$d cal/ngày trong tuần này để tăng khoảng %2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 Đặt mục tiêu khoảng %1$d cal/ngày để duy trì cân nặng hiện tại của bạn</string>
+    <string name="coach_checkin_log_more">📝 Ghi lại cân nặng thường xuyên hơn trong tuần này để có xu hướng đáng tin cậy hơn</string>
+    <string name="coach_checkin_on_track">✅ Bạn đang ghi lại đều đặn — tiếp tục phát huy nhé!</string>
+    <string name="coach_disclaimer">Ước tính chung dựa trên dữ liệu của riêng bạn, không phải lời khuyên y tế.</string>
+
     <string name="family_challenge">Thử Thách Gia Đình</string>
     <string name="family_challenge_title">Thử Thách Gia Đình</string>
     <string name="family_challenge_subtitle">So sánh chuỗi ngày và tiến trình giữa các hồ sơ trên thiết bị này</string>

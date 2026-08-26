@@ -358,6 +358,16 @@
     <string name="insight_stable_day">📅 %1$s เป็นวันชั่งน้ำหนักที่สม่ำเสมอที่สุดของคุณ</string>
     <string name="insight_streak_correlation">🔥 สัปดาห์ที่ต่อเนื่องเต็มรูปแบบ: เฉลี่ย %1$s เทียบกับ %2$s ในสัปดาห์อื่น</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 โค้ชรายสัปดาห์</string>
+    <string name="coach_empty">บันทึกต่อไปเพื่อปลดล็อกแผนรายสัปดาห์ของคุณ</string>
+    <string name="coach_calorie_target_loss">🎯 ตั้งเป้าประมาณ %1$d แคลอรี่/วันในสัปดาห์นี้เพื่อลดน้ำหนักประมาณ %2$s</string>
+    <string name="coach_calorie_target_gain">🎯 ตั้งเป้าประมาณ %1$d แคลอรี่/วันในสัปดาห์นี้เพื่อเพิ่มน้ำหนักประมาณ %2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 ตั้งเป้าประมาณ %1$d แคลอรี่/วันเพื่อรักษาน้ำหนักปัจจุบันของคุณ</string>
+    <string name="coach_checkin_log_more">📝 บันทึกน้ำหนักของคุณให้บ่อยขึ้นในสัปดาห์นี้เพื่อแนวโน้มที่แม่นยำยิ่งขึ้น</string>
+    <string name="coach_checkin_on_track">✅ คุณบันทึกอย่างสม่ำเสมอ — ทำแบบนี้ต่อไป!</string>
+    <string name="coach_disclaimer">การประมาณการทั่วไปโดยอิงจากข้อมูลของคุณเอง ไม่ใช่คำแนะนำทางการแพทย์</string>
+
     <string name="family_challenge">ความท้าทายของครอบครัว</string>
     <string name="family_challenge_title">ความท้าทายของครอบครัว</string>
     <string name="family_challenge_subtitle">เปรียบเทียบสตรีคและความคืบหน้าระหว่างโปรไฟล์บนอุปกรณ์นี้</string>

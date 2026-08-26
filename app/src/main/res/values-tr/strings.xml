@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s en tutarlı tartım gününüz</string>
     <string name="insight_streak_correlation">🔥 Tam seri haftalar: ortalama %1$s, diğer haftalarda ortalama %2$s</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Haftalık Koç</string>
+    <string name="coach_empty">Haftalık planınızın kilidini açmak için kaydetmeye devam edin</string>
+    <string name="coach_calorie_target_loss">🎯 Bu hafta yaklaşık %2$s vermek için günde yaklaşık %1$d kal hedefleyin</string>
+    <string name="coach_calorie_target_gain">🎯 Bu hafta yaklaşık %2$s almak için günde yaklaşık %1$d kal hedefleyin</string>
+    <string name="coach_calorie_target_maintain">🎯 Mevcut kilonuzu korumak için günde yaklaşık %1$d kal hedefleyin</string>
+    <string name="coach_checkin_log_more">📝 Daha güvenilir bir eğilim için bu hafta kilonuzu daha sık kaydedin</string>
+    <string name="coach_checkin_on_track">✅ Düzenli olarak kaydediyorsunuz — böyle devam edin!</string>
+    <string name="coach_disclaimer">Kendi verilerinize dayalı genel bir tahmindir, tıbbi tavsiye değildir.</string>
+
     <string name="family_challenge">Aile Yarışması</string>
     <string name="family_challenge_title">Aile Yarışması</string>
     <string name="family_challenge_subtitle">Bu cihazdaki profiller arasında serileri ve ilerlemeyi karşılaştırın</string>

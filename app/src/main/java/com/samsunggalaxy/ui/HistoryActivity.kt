@@ -37,6 +37,7 @@ import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.utils.CoachEngine
 import com.samsunggalaxy.utils.InsightsEngine
 import com.samsunggalaxy.widget.WidgetUpdateHelper
 import com.samsunggalaxy.utils.PreferencesManager
@@ -78,6 +79,10 @@ class HistoryActivity : BaseActivity() {
     // updateInsights() which onCreate always calls after setupViews() via loadData().
     private var llInsightsList: LinearLayout? = null
     private var tvInsightsEmpty: TextView? = null
+    // Idea I9 — same nullable/populated-in-setupViews pattern as the Smart Insights fields above.
+    private var llCoachList: LinearLayout? = null
+    private var tvCoachEmpty: TextView? = null
+    private var tvCoachDisclaimer: TextView? = null
 
     private var currentSeries = Series.BMI
     private var records: List<BmiRecord> = emptyList()
@@ -117,6 +122,9 @@ class HistoryActivity : BaseActivity() {
         fabQuickLog = findViewById(R.id.fabQuickLog)
         llInsightsList = findViewById(R.id.llInsightsList)
         tvInsightsEmpty = findViewById(R.id.tvInsightsEmpty)
+        llCoachList = findViewById(R.id.llCoachList)
+        tvCoachEmpty = findViewById(R.id.tvCoachEmpty)
+        tvCoachDisclaimer = findViewById(R.id.tvCoachDisclaimer)
 
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -198,7 +206,8 @@ class HistoryActivity : BaseActivity() {
                     updateChart()
                     updateGoalRow()
                     updateEmptyState()
-                    updateInsights()
+                    val weeklyChanges = updateInsights()
+                    updateCoach(weeklyChanges)
                 }
                 // EPIC-08 T08.3 — independent series. Its own empty-state check (below) is
                 // per-tab, since a user can delete all BmiRecords via History while measurement
@@ -231,14 +240,14 @@ class HistoryActivity : BaseActivity() {
      * when the data doesn't yet support any of the three insight types (new users, sparse
      * logging) rather than a partial/misleading card.
      */
-    private fun updateInsights() {
-        val insightsList = llInsightsList ?: return
-        val emptyLabel = tvInsightsEmpty ?: return
-        insightsList.removeAllViews()
-        val lines = mutableListOf<String>()
-
+    private fun updateInsights(): List<InsightsEngine.WeeklyChange> {
         val recordPairs = records.map { it.timestamp to it.weight }
         val weeklyChanges = InsightsEngine.computeWeeklyChanges(recordPairs)
+
+        val insightsList = llInsightsList ?: return weeklyChanges
+        val emptyLabel = tvInsightsEmpty ?: return weeklyChanges
+        insightsList.removeAllViews()
+        val lines = mutableListOf<String>()
 
         val bestWeek = InsightsEngine.findBestWeek(weeklyChanges)
         if (bestWeek != null && bestWeek.deltaKg < 0) {
@@ -273,6 +282,57 @@ class HistoryActivity : BaseActivity() {
                 setPadding(0, 8, 0, 8)
             }
             insightsList.addView(row)
+        }
+        return weeklyChanges
+    }
+
+    /**
+     * Idea I9 — local rule-based Coach: prescriptive nudges (weekly calorie target + check-in
+     * cadence) built on top of I2's InsightsEngine weekly buckets. Same cold-start handling as
+     * updateInsights() — hides the card content and shows the empty message when there isn't
+     * enough data yet, rather than a partial/misleading suggestion.
+     *
+     * [precomputedWeeklyChanges] lets the records-changed observer reuse updateInsights()'s
+     * result instead of re-bucketing the same records into weeks twice per emission; other
+     * callers (e.g. after saving a goal weight, which doesn't change weekly cadence) pass null
+     * and this recomputes it — a rare, cheap call, not worth threading state through for.
+     */
+    private fun updateCoach(precomputedWeeklyChanges: List<InsightsEngine.WeeklyChange>? = null) {
+        val coachList = llCoachList ?: return
+        val emptyLabel = tvCoachEmpty ?: return
+        val disclaimer = tvCoachDisclaimer ?: return
+        coachList.removeAllViews()
+        val lines = mutableListOf<String>()
+
+        records.lastOrNull()?.let { latestRecord ->
+            CoachEngine.suggestWeeklyCalorieTarget(latestRecord.tdee, latestRecord.weight, currentGoalWeight)?.let { suggestion ->
+                val rateText = UnitFormatter.formatWeight(kotlin.math.abs(suggestion.weeklyRateKg), unitSystem)
+                lines += when {
+                    suggestion.weeklyRateKg < 0 -> getString(R.string.coach_calorie_target_loss, suggestion.targetCalories, rateText)
+                    suggestion.weeklyRateKg > 0 -> getString(R.string.coach_calorie_target_gain, suggestion.targetCalories, rateText)
+                    else -> getString(R.string.coach_calorie_target_maintain, suggestion.targetCalories)
+                }
+            }
+        }
+
+        val weeklyChanges = precomputedWeeklyChanges ?: InsightsEngine.computeWeeklyChanges(records.map { it.timestamp to it.weight })
+        CoachEngine.suggestCheckInFrequency(weeklyChanges)?.let { advice ->
+            lines += when (advice) {
+                CoachEngine.CheckInFrequencyAdvice.LOG_MORE_OFTEN -> getString(R.string.coach_checkin_log_more)
+                CoachEngine.CheckInFrequencyAdvice.ON_TRACK -> getString(R.string.coach_checkin_on_track)
+            }
+        }
+
+        emptyLabel.isVisible = lines.isEmpty()
+        disclaimer.isVisible = lines.isNotEmpty()
+        lines.forEach { line ->
+            val row = TextView(this).apply {
+                text = line
+                textSize = 14f
+                setTextColor(ContextCompat.getColor(this@HistoryActivity, R.color.textColor))
+                setPadding(0, 8, 0, 8)
+            }
+            coachList.addView(row)
         }
     }
 
@@ -486,6 +546,7 @@ class HistoryActivity : BaseActivity() {
                         currentGoalWeight = input
                         updateChart()
                         updateGoalRow()
+                        updateCoach()
                     }
                 }
             }

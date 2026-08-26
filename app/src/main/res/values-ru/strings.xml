@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s — ваш самый стабильный день взвешивания</string>
     <string name="insight_streak_correlation">🔥 Недели с полной серией: в среднем %1$s против %2$s в остальные недели</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Недельный коуч</string>
+    <string name="coach_empty">Продолжайте вести записи, чтобы открыть свой недельный план</string>
+    <string name="coach_calorie_target_loss">🎯 Стремитесь к ~%1$d ккал/день на этой неделе, чтобы сбросить ~%2$s</string>
+    <string name="coach_calorie_target_gain">🎯 Стремитесь к ~%1$d ккал/день на этой неделе, чтобы набрать ~%2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 Стремитесь к ~%1$d ккал/день, чтобы сохранить текущий вес</string>
+    <string name="coach_checkin_log_more">📝 Записывайте свой вес чаще на этой неделе для более точного тренда</string>
+    <string name="coach_checkin_on_track">✅ Вы регулярно ведёте записи — так держать!</string>
+    <string name="coach_disclaimer">Общая оценка на основе ваших собственных данных, не является медицинской рекомендацией.</string>
+
     <string name="family_challenge">Семейное испытание</string>
     <string name="family_challenge_title">Семейное испытание</string>
     <string name="family_challenge_subtitle">Сравнивайте серии и прогресс между профилями на этом устройстве</string>

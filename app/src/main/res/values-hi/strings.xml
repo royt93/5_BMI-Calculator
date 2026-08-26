@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s आपका सबसे नियमित वज़न-माप दिन है</string>
     <string name="insight_streak_correlation">🔥 पूर्ण-स्ट्रीक सप्ताह: औसत %1$s बनाम अन्य सप्ताहों में %2$s</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 साप्ताहिक कोच</string>
+    <string name="coach_empty">अपनी साप्ताहिक योजना अनलॉक करने के लिए लॉग करते रहें</string>
+    <string name="coach_calorie_target_loss">🎯 इस सप्ताह लगभग %2$s घटाने के लिए रोज़ाना करीब %1$d कैलोरी का लक्ष्य रखें</string>
+    <string name="coach_calorie_target_gain">🎯 इस सप्ताह लगभग %2$s बढ़ाने के लिए रोज़ाना करीब %1$d कैलोरी का लक्ष्य रखें</string>
+    <string name="coach_calorie_target_maintain">🎯 अपना मौजूदा वज़न बनाए रखने के लिए रोज़ाना करीब %1$d कैलोरी का लक्ष्य रखें</string>
+    <string name="coach_checkin_log_more">📝 अधिक भरोसेमंद रुझान के लिए इस सप्ताह अपना वज़न ज़्यादा बार लॉग करें</string>
+    <string name="coach_checkin_on_track">✅ आप लगातार लॉग कर रहे हैं — ऐसे ही जारी रखें!</string>
+    <string name="coach_disclaimer">आपके अपने डेटा पर आधारित एक सामान्य अनुमान, यह चिकित्सीय सलाह नहीं है।</string>
+
     <string name="family_challenge">पारिवारिक चुनौती</string>
     <string name="family_challenge_title">पारिवारिक चुनौती</string>
     <string name="family_challenge_subtitle">इस डिवाइस पर प्रोफ़ाइलों में स्ट्रीक और प्रगति की तुलना करें</string>

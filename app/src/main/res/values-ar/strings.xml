@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s هو يوم وزنك الأكثر انتظامًا</string>
     <string name="insight_streak_correlation">🔥 أسابيع السلسلة الكاملة: متوسط %1$s مقابل %2$s في الأسابيع الأخرى</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 المدرب الأسبوعي</string>
+    <string name="coach_empty">واصل التسجيل لفتح خطتك الأسبوعية</string>
+    <string name="coach_calorie_target_loss">🎯 استهدف حوالي %1$d سعرة حرارية في اليوم هذا الأسبوع لخسارة حوالي %2$s</string>
+    <string name="coach_calorie_target_gain">🎯 استهدف حوالي %1$d سعرة حرارية في اليوم هذا الأسبوع لاكتساب حوالي %2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 استهدف حوالي %1$d سعرة حرارية في اليوم للحفاظ على وزنك الحالي</string>
+    <string name="coach_checkin_log_more">📝 سجّل وزنك بشكل أكثر انتظامًا هذا الأسبوع للحصول على اتجاه أكثر دقة</string>
+    <string name="coach_checkin_on_track">✅ أنت تسجّل بانتظام — واصل هكذا!</string>
+    <string name="coach_disclaimer">تقدير عام استنادًا إلى بياناتك الخاصة، وليس نصيحة طبية.</string>
+
     <string name="family_challenge">تحدي العائلة</string>
     <string name="family_challenge_title">تحدي العائلة</string>
     <string name="family_challenge_subtitle">قارن السلاسل والتقدم بين الملفات الشخصية على هذا الجهاز</string>

@@ -324,6 +324,16 @@
     <string name="insight_stable_day">📅 %1$s adalah hari penimbangan paling konsisten Anda</string>
     <string name="insight_streak_correlation">🔥 Minggu dengan streak penuh: rata-rata %1$s vs %2$s di minggu lainnya</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Pelatih Mingguan</string>
+    <string name="coach_empty">Terus catat untuk membuka rencana mingguan Anda</string>
+    <string name="coach_calorie_target_loss">🎯 Targetkan sekitar %1$d kal/hari minggu ini untuk turun sekitar %2$s</string>
+    <string name="coach_calorie_target_gain">🎯 Targetkan sekitar %1$d kal/hari minggu ini untuk naik sekitar %2$s</string>
+    <string name="coach_calorie_target_maintain">🎯 Targetkan sekitar %1$d kal/hari untuk mempertahankan berat badan Anda saat ini</string>
+    <string name="coach_checkin_log_more">📝 Catat berat badan Anda lebih sering minggu ini untuk tren yang lebih akurat</string>
+    <string name="coach_checkin_on_track">✅ Anda mencatat secara konsisten — pertahankan!</string>
+    <string name="coach_disclaimer">Perkiraan umum berdasarkan data Anda sendiri, bukan saran medis.</string>
+
     <string name="family_challenge">Tantangan Keluarga</string>
     <string name="family_challenge_title">Tantangan Keluarga</string>
     <string name="family_challenge_subtitle">Bandingkan streak dan progres antar profil di perangkat ini</string>

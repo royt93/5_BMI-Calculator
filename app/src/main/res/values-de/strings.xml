@@ -358,6 +358,16 @@
     <string name="insight_stable_day">📅 %1$s ist dein konstantester Wiegetag</string>
     <string name="insight_streak_correlation">🔥 Wochen mit voller Serie: %1$s im Schnitt gegenüber %2$s in anderen Wochen</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 Wochen-Coach</string>
+    <string name="coach_empty">Erfasse weiter Daten, um deinen Wochenplan freizuschalten</string>
+    <string name="coach_calorie_target_loss">🎯 Ziel: diese Woche etwa %1$d kcal/Tag, um etwa %2$s abzunehmen</string>
+    <string name="coach_calorie_target_gain">🎯 Ziel: diese Woche etwa %1$d kcal/Tag, um etwa %2$s zuzunehmen</string>
+    <string name="coach_calorie_target_maintain">🎯 Ziel: etwa %1$d kcal/Tag, um dein aktuelles Gewicht zu halten</string>
+    <string name="coach_checkin_log_more">📝 Erfasse dein Gewicht diese Woche öfter für einen zuverlässigeren Trend</string>
+    <string name="coach_checkin_on_track">✅ Du erfasst regelmäßig — weiter so!</string>
+    <string name="coach_disclaimer">Allgemeine Schätzung basierend auf deinen eigenen Daten, keine medizinische Beratung.</string>
+
     <string name="family_challenge">Familien-Challenge</string>
     <string name="family_challenge_title">Familien-Challenge</string>
     <string name="family_challenge_subtitle">Vergleiche Streaks und Fortschritt zwischen Profilen auf diesem Gerät</string>

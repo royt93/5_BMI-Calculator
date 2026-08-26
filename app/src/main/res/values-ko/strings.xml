@@ -358,6 +358,16 @@
     <string name="insight_stable_day">📅 %1$s은(는) 가장 꾸준한 체중 측정 요일입니다</string>
     <string name="insight_streak_correlation">🔥 완전 연속 기록 주: 평균 %1$s 대 다른 주 평균 %2$s</string>
 
+    <!-- Idea I9 — local rule-based Coach -->
+    <string name="coach_section_title">🧭 주간 코치</string>
+    <string name="coach_empty">계속 기록하여 주간 플랜을 잠금 해제하세요</string>
+    <string name="coach_calorie_target_loss">🎯 이번 주 약 %2$s 감량을 위해 하루 약 %1$d 칼로리를 목표로 하세요</string>
+    <string name="coach_calorie_target_gain">🎯 이번 주 약 %2$s 증량을 위해 하루 약 %1$d 칼로리를 목표로 하세요</string>
+    <string name="coach_calorie_target_maintain">🎯 현재 체중을 유지하려면 하루 약 %1$d 칼로리를 목표로 하세요</string>
+    <string name="coach_checkin_log_more">📝 더 정확한 추세를 위해 이번 주 체중을 더 자주 기록하세요</string>
+    <string name="coach_checkin_on_track">✅ 꾸준히 기록하고 계세요 — 이대로 계속하세요!</string>
+    <string name="coach_disclaimer">사용자의 데이터를 기반으로 한 일반적인 추정치이며, 의학적 조언이 아닙니다.</string>
+
     <string name="family_challenge">가족 챌린지</string>
     <string name="family_challenge_title">가족 챌린지</string>
     <string name="family_challenge_subtitle">이 기기의 프로필 간 연속 기록과 진행 상황을 비교하세요</string>
