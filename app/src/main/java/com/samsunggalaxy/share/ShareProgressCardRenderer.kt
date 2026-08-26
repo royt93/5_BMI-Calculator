@@ -65,8 +65,7 @@ object ShareProgressCardRenderer {
         canvas.drawText(context.getString(R.string.share_progress_period_label, periodDays), centerX, 330f, periodPaint)
 
         val deltaText = if (deltaKg != null) {
-            val sign = if (deltaKg > 0) "+" else ""
-            sign + UnitFormatter.formatWeight(deltaKg, unitSystem)
+            UnitFormatter.formatSignedWeightDelta(deltaKg, unitSystem)
         } else {
             context.getString(R.string.share_progress_no_data)
         }

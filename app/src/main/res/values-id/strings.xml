@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">Data belum cukup</string>
     <string name="share_progress_not_enough_data_toast">Catat setidaknya 2 kali penimbangan untuk membagikan progres Anda</string>
     <string name="share_progress_error">Gagal membagikan</string>
+    <string name="insights_section_title">💡 Wawasan Cerdas</string>
+    <string name="insights_empty">Terus catat untuk membuka wawasan</string>
+    <string name="insight_best_week">🏆 Minggu terbaik: turun %1$s (minggu %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s adalah hari penimbangan paling konsisten Anda</string>
+    <string name="insight_streak_correlation">🔥 Minggu dengan streak penuh: rata-rata %1$s vs %2$s di minggu lainnya</string>
 </resources>
 

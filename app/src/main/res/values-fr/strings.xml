@@ -332,5 +332,10 @@
     <string name="share_progress_no_data">Pas encore assez de données</string>
     <string name="share_progress_not_enough_data_toast">Enregistrez au moins 2 pesées pour partager vos progrès</string>
     <string name="share_progress_error">Échec du partage</string>
+    <string name="insights_section_title">💡 Analyses intelligentes</string>
+    <string name="insights_empty">Continuez à enregistrer pour débloquer des analyses</string>
+    <string name="insight_best_week">🏆 Meilleure semaine : %1$s perdus (semaine du %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s est votre jour de pesée le plus régulier</string>
+    <string name="insight_streak_correlation">🔥 Semaines en série complète : %1$s de moyenne contre %2$s les autres semaines</string>
 </resources>
 

@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">Aún no hay suficientes datos</string>
     <string name="share_progress_not_enough_data_toast">Registra al menos 2 pesajes para compartir tu progreso</string>
     <string name="share_progress_error">Error al compartir</string>
+    <string name="insights_section_title">💡 Información inteligente</string>
+    <string name="insights_empty">Sigue registrando para desbloquear información</string>
+    <string name="insight_best_week">🏆 Mejor semana: perdiste %1$s (semana del %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s es tu día de pesaje más constante</string>
+    <string name="insight_streak_correlation">🔥 Semanas con racha completa: %1$s de media frente a %2$s en otras semanas</string>
 </resources>
 

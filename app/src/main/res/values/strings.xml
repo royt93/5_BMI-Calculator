@@ -663,4 +663,10 @@
     <string name="share_progress_no_data">Not enough data yet</string>
     <string name="share_progress_not_enough_data_toast">Log at least 2 weigh-ins to share your progress</string>
     <string name="share_progress_error">Share failed</string>
+
+    <string name="insights_section_title">💡 Smart Insights</string>
+    <string name="insights_empty">Keep logging to unlock insights</string>
+    <string name="insight_best_week">🏆 Best week: lost %1$s (week of %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s is your most consistent weigh-in day</string>
+    <string name="insight_streak_correlation">🔥 Full-streak weeks: %1$s avg vs %2$s on other weeks</string>
 </resources>

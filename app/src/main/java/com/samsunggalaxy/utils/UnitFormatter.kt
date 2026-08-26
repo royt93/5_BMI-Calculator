@@ -33,6 +33,12 @@ object UnitFormatter {
     fun formatWeight(kg: Double, unitSystem: String): String =
         String.format("%.1f %s", weightToDisplay(kg, unitSystem), weightUnitLabel(unitSystem))
 
+    /** Same as [formatWeight] but with an explicit "+" for gains (loss already reads with "-" from %.1f). */
+    fun formatSignedWeightDelta(kg: Double, unitSystem: String): String {
+        val sign = if (kg > 0) "+" else ""
+        return sign + formatWeight(kg, unitSystem)
+    }
+
     fun formatHeight(cm: Double, unitSystem: String): String =
         String.format("%.1f %s", heightToDisplay(cm, unitSystem), heightUnitLabel(unitSystem))
 }

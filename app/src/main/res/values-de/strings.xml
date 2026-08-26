@@ -332,5 +332,10 @@
     <string name="share_progress_no_data">Noch nicht genügend Daten</string>
     <string name="share_progress_not_enough_data_toast">Erfasse mindestens 2 Gewichtseinträge, um deinen Fortschritt zu teilen</string>
     <string name="share_progress_error">Teilen fehlgeschlagen</string>
+    <string name="insights_section_title">💡 Intelligente Einblicke</string>
+    <string name="insights_empty">Erfasse weiter Daten, um Einblicke freizuschalten</string>
+    <string name="insight_best_week">🏆 Beste Woche: %1$s verloren (Woche vom %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s ist dein konstantester Wiegetag</string>
+    <string name="insight_streak_correlation">🔥 Wochen mit voller Serie: %1$s im Schnitt gegenüber %2$s in anderen Wochen</string>
 </resources>
 

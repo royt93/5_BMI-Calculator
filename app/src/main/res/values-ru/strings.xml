@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">Пока недостаточно данных</string>
     <string name="share_progress_not_enough_data_toast">Запишите минимум 2 взвешивания, чтобы поделиться прогрессом</string>
     <string name="share_progress_error">Не удалось поделиться</string>
+    <string name="insights_section_title">💡 Умные подсказки</string>
+    <string name="insights_empty">Продолжайте вести записи, чтобы открыть аналитику</string>
+    <string name="insight_best_week">🏆 Лучшая неделя: похудение на %1$s (неделя %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s — ваш самый стабильный день взвешивания</string>
+    <string name="insight_streak_correlation">🔥 Недели с полной серией: в среднем %1$s против %2$s в остальные недели</string>
 </resources>
 

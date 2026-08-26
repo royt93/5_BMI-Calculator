@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">Henüz yeterli veri yok</string>
     <string name="share_progress_not_enough_data_toast">İlerlemenizi paylaşmak için en az 2 tartım kaydedin</string>
     <string name="share_progress_error">Paylaşma başarısız oldu</string>
+    <string name="insights_section_title">💡 Akıllı İçgörüler</string>
+    <string name="insights_empty">İçgörüleri açmak için kaydetmeye devam edin</string>
+    <string name="insight_best_week">🏆 En iyi hafta: %1$s kayıp (hafta %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s en tutarlı tartım gününüz</string>
+    <string name="insight_streak_correlation">🔥 Tam seri haftalar: ortalama %1$s, diğer haftalarda ortalama %2$s</string>
 </resources>
 

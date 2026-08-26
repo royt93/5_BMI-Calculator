@@ -335,4 +335,9 @@
     <string name="share_progress_no_data">Chưa đủ dữ liệu</string>
     <string name="share_progress_not_enough_data_toast">Ghi lại ít nhất 2 lần cân để chia sẻ tiến trình của bạn</string>
     <string name="share_progress_error">Chia sẻ thất bại</string>
+    <string name="insights_section_title">💡 Thông tin chi tiết thông minh</string>
+    <string name="insights_empty">Tiếp tục ghi lại để mở khóa thông tin chi tiết</string>
+    <string name="insight_best_week">🏆 Tuần tốt nhất: giảm %1$s (tuần %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s là ngày cân đều đặn nhất của bạn</string>
+    <string name="insight_streak_correlation">🔥 Các tuần đạt streak đầy đủ: trung bình %1$s so với %2$s ở các tuần khác</string>
 </resources>

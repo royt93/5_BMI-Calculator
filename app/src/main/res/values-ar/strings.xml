@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">لا توجد بيانات كافية بعد</string>
     <string name="share_progress_not_enough_data_toast">سجّل وزنك مرتين على الأقل لمشاركة تقدمك</string>
     <string name="share_progress_error">فشلت المشاركة</string>
+    <string name="insights_section_title">💡 رؤى ذكية</string>
+    <string name="insights_empty">واصل التسجيل لفتح الرؤى</string>
+    <string name="insight_best_week">🏆 أفضل أسبوع: خسارة %1$s (أسبوع %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s هو يوم وزنك الأكثر انتظامًا</string>
+    <string name="insight_streak_correlation">🔥 أسابيع السلسلة الكاملة: متوسط %1$s مقابل %2$s في الأسابيع الأخرى</string>
 </resources>
 

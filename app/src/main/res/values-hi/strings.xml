@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">अभी पर्याप्त डेटा नहीं है</string>
     <string name="share_progress_not_enough_data_toast">अपनी प्रगति साझा करने के लिए कम से कम 2 वज़न प्रविष्टियाँ दर्ज करें</string>
     <string name="share_progress_error">साझा करना विफल रहा</string>
+    <string name="insights_section_title">💡 स्मार्ट जानकारियाँ</string>
+    <string name="insights_empty">जानकारियाँ अनलॉक करने के लिए लॉग करते रहें</string>
+    <string name="insight_best_week">🏆 सबसे अच्छा सप्ताह: %1$s घटा (सप्ताह %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s आपका सबसे नियमित वज़न-माप दिन है</string>
+    <string name="insight_streak_correlation">🔥 पूर्ण-स्ट्रीक सप्ताह: औसत %1$s बनाम अन्य सप्ताहों में %2$s</string>
 </resources>
 

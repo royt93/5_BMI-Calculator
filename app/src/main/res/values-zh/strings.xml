@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">数据尚不足</string>
     <string name="share_progress_not_enough_data_toast">至少记录2次体重才能分享你的进度</string>
     <string name="share_progress_error">分享失败</string>
+    <string name="insights_section_title">💡 智能洞察</string>
+    <string name="insights_empty">继续记录以解锁洞察</string>
+    <string name="insight_best_week">🏆 最佳一周：减少%1$s（%2$s那一周）</string>
+    <string name="insight_stable_day">📅 %1$s是你最规律的称重日</string>
+    <string name="insight_streak_correlation">🔥 全勤周：平均%1$s，其他周平均%2$s</string>
 </resources>
 

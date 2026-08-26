@@ -332,5 +332,10 @@
     <string name="share_progress_no_data">まだデータが不足しています</string>
     <string name="share_progress_not_enough_data_toast">進捗を共有するには、少なくとも2回の体重記録が必要です</string>
     <string name="share_progress_error">共有に失敗しました</string>
+    <string name="insights_section_title">💡 スマートインサイト</string>
+    <string name="insights_empty">記録を続けてインサイトを解除しましょう</string>
+    <string name="insight_best_week">🏆 ベストウィーク: %1$s減少（%2$sの週）</string>
+    <string name="insight_stable_day">📅 %1$sはあなたの最も安定した体重測定日です</string>
+    <string name="insight_streak_correlation">🔥 フルストリークの週: 平均%1$s 対 他の週の%2$s</string>
 </resources>
 

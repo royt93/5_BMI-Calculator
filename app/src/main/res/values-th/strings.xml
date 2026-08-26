@@ -332,5 +332,10 @@
     <string name="share_progress_no_data">ยังมีข้อมูลไม่เพียงพอ</string>
     <string name="share_progress_not_enough_data_toast">บันทึกน้ำหนักอย่างน้อย 2 ครั้งเพื่อแชร์ความคืบหน้าของคุณ</string>
     <string name="share_progress_error">แชร์ไม่สำเร็จ</string>
+    <string name="insights_section_title">💡 ข้อมูลเชิงลึกอัจฉริยะ</string>
+    <string name="insights_empty">บันทึกต่อไปเพื่อปลดล็อกข้อมูลเชิงลึก</string>
+    <string name="insight_best_week">🏆 สัปดาห์ที่ดีที่สุด: ลดลง %1$s (สัปดาห์ %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s เป็นวันชั่งน้ำหนักที่สม่ำเสมอที่สุดของคุณ</string>
+    <string name="insight_streak_correlation">🔥 สัปดาห์ที่ต่อเนื่องเต็มรูปแบบ: เฉลี่ย %1$s เทียบกับ %2$s ในสัปดาห์อื่น</string>
 </resources>
 

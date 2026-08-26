@@ -9,10 +9,20 @@ Gắn ảnh (chụp local, không upload cloud) vào mỗi lần cân, xem lại
 - Ưu: hiệu ứng "wow" trực quan hơn số liệu thuần, chia sẻ mạng xã hội tốt (viral tiềm năng), giữ chân user vì cần tích luỹ ảnh theo thời gian.
 - Nhược: cần xin quyền Camera + Storage (thêm attack surface, đối lập với hướng giảm permission ở T02.3), cần cam kết rõ "chỉ lưu local" trong Privacy Policy để tránh lo ngại quyền riêng tư (ảnh cơ thể là dữ liệu nhạy cảm).
 
-## I2 — Smart Insights on-device (không cần API/AI trả phí)
+## ✅ I2 — Smart Insights on-device (không cần API/AI trả phí) — ĐÃ XONG (2026-08-26)
 Phân tích thống kê đơn giản trên dữ liệu đã có: tuần giảm/tăng nhanh nhất, ngày trong tuần cân nặng ổn định nhất, tương quan streak ↔ xu hướng cân nặng ("Những tuần bạn duy trì streak, cân nặng giảm trung bình X kg nhanh hơn").
 - Ưu: **chi phí 0** (không gọi LLM API), tận dụng 100% dữ liệu đã có sẵn trong Room, khác biệt vì hầu hết app đối thủ chỉ hiện số BMI thô.
 - Nhược: cần đủ dữ liệu lịch sử mới có insight hay (cold-start problem cho user mới).
+
+**Implementation**: `utils/InsightsEngine.kt` (pure functions, unit test đầy đủ) — 3 loại insight:
+1. **Best week**: tuần giảm cân nhiều nhất (first-vs-last trong tuần, chỉ hiện khi thật sự là giảm cân, không claim sai khi user chỉ tăng cân).
+2. **Most stable day-of-week**: ngày trong tuần có độ lệch chuẩn cân nặng thấp nhất (dùng `java.time.DayOfWeek` — an toàn nhờ core library desugaring đã bật ở EPIC-09).
+3. **Streak correlation**: so trung bình delta cân nặng/tuần giữa "tuần giữ streak đủ 7 ngày" vs "tuần log ít hơn".
+Card mới trong `HistoryActivity`'s Weight Dashboard, dưới Progress card — ẩn insight nào chưa đủ data thay vì hiện số sai lệch, hiện toàn bộ cold-start message nếu chưa có insight nào.
+
+Audit `/code-review high`: 3 finding, cả 3 đều fix — (1) card hardcode nền trắng đục thay vì `bg_glass_card_main` theme-aware như card khác cùng màn hình → text gần như vô hình ở dark mode (bug nghiêm trọng nhất, đã verify lại bằng smoke test cả light/dark mode sau fix); (2) 2 field UI mới dùng `lateinit` vi phạm rule "No lateinit" của CLAUDE.md → đổi sang nullable + safe-call; (3) map `records` 2 lần dư thừa → gộp 1 lần.
+
+Test: 9 unit test mới (`InsightsEngineTest`) + 83 unit total + 56 instrumented pass. Smoke test tay 2 lần (trước và sau fix dark mode) trên `emulator-5554` với data giả lập 2 tuần (insert qua sqlite3 vì UI wizard MainAct dùng SwipeButton khó mô phỏng qua adb) — card hiện đúng cả 3 insight, không crash, dark mode đọc được rõ ràng sau fix. i18n: 5 string mới dịch đủ 17 locale.
 
 ## ✅ I3 — Share Progress Card (ảnh tổng kết đẹp để đăng story/Zalo/Facebook) — ĐÃ XONG (2026-08-26)
 Xuất 1 ảnh card (kiểu Spotify Wrapped/Strava) tóm tắt: "Trong 30 ngày, giảm 2.3kg, streak 18 ngày" kèm mini chart.

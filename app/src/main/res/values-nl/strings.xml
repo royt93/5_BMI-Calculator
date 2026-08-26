@@ -298,5 +298,10 @@
     <string name="share_progress_no_data">Nog niet genoeg gegevens</string>
     <string name="share_progress_not_enough_data_toast">Log minstens 2 weegmomenten om je voortgang te delen</string>
     <string name="share_progress_error">Delen mislukt</string>
+    <string name="insights_section_title">💡 Slimme inzichten</string>
+    <string name="insights_empty">Blijf loggen om inzichten te ontgrendelen</string>
+    <string name="insight_best_week">🏆 Beste week: %1$s verloren (week van %2$s)</string>
+    <string name="insight_stable_day">📅 %1$s is je meest consistente weegdag</string>
+    <string name="insight_streak_correlation">🔥 Weken met volledige streak: gemiddeld %1$s tegenover %2$s in andere weken</string>
 </resources>
 

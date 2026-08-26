@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -35,6 +36,7 @@ import com.samsunggalaxy.data.BodyMeasurement
 import com.samsunggalaxy.sdkadbmob.UIUtils
 import com.samsunggalaxy.utils.AppLog
 import com.samsunggalaxy.utils.CalculatorUtils
+import com.samsunggalaxy.utils.InsightsEngine
 import com.samsunggalaxy.widget.WidgetUpdateHelper
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
@@ -71,6 +73,10 @@ class HistoryActivity : BaseActivity() {
     private lateinit var tvGoalEta: TextView
     private lateinit var fabQuickLog: FloatingActionButton
     private lateinit var adapter: HistoryAdapter
+    // No lateinit (CLAUDE.md convention) — populated in setupViews(), read only from
+    // updateInsights() which onCreate always calls after setupViews() via loadData().
+    private var llInsightsList: LinearLayout? = null
+    private var tvInsightsEmpty: TextView? = null
 
     private var currentSeries = Series.BMI
     private var records: List<BmiRecord> = emptyList()
@@ -108,6 +114,9 @@ class HistoryActivity : BaseActivity() {
         tvGoalSummary = findViewById(R.id.tvGoalSummary)
         tvGoalEta = findViewById(R.id.tvGoalEta)
         fabQuickLog = findViewById(R.id.fabQuickLog)
+        llInsightsList = findViewById(R.id.llInsightsList)
+        tvInsightsEmpty = findViewById(R.id.tvInsightsEmpty)
+
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = HistoryAdapter { record ->
@@ -187,6 +196,7 @@ class HistoryActivity : BaseActivity() {
                     updateChart()
                     updateGoalRow()
                     updateEmptyState()
+                    updateInsights()
                 }
                 // EPIC-08 T08.3 — independent series. Its own empty-state check (below) is
                 // per-tab, since a user can delete all BmiRecords via History while measurement
@@ -211,6 +221,57 @@ class HistoryActivity : BaseActivity() {
         // Goal row/FAB depend on having at least one weigh-in at all, independent of which
         // series tab is showing.
         cardGoalRow.isVisible = records.isNotEmpty()
+    }
+
+    /**
+     * Idea I2 — Smart Insights: on-device stats over the profile's full weigh-in history (not
+     * just the visible chart window), no API/LLM calls. Silently shows the cold-start message
+     * when the data doesn't yet support any of the three insight types (new users, sparse
+     * logging) rather than a partial/misleading card.
+     */
+    private fun updateInsights() {
+        val insightsList = llInsightsList ?: return
+        val emptyLabel = tvInsightsEmpty ?: return
+        insightsList.removeAllViews()
+        val lines = mutableListOf<String>()
+
+        val recordPairs = records.map { it.timestamp to it.weight }
+        val weeklyChanges = InsightsEngine.computeWeeklyChanges(recordPairs)
+
+        val bestWeek = InsightsEngine.findBestWeek(weeklyChanges)
+        if (bestWeek != null && bestWeek.deltaKg < 0) {
+            val weekOf = java.text.SimpleDateFormat("MMM dd, yyyy", java.util.Locale.getDefault())
+                .format(java.util.Date(java.time.LocalDate.ofEpochDay(bestWeek.weekStartEpochDay).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli()))
+            lines += getString(
+                R.string.insight_best_week,
+                UnitFormatter.formatWeight(-bestWeek.deltaKg, unitSystem),
+                weekOf
+            )
+        }
+
+        InsightsEngine.findMostStableDayOfWeek(recordPairs)?.let { day ->
+            val dayName = day.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.getDefault())
+            lines += getString(R.string.insight_stable_day, dayName)
+        }
+
+        InsightsEngine.compareStreakWeeks(weeklyChanges)?.let { correlation ->
+            lines += getString(
+                R.string.insight_streak_correlation,
+                UnitFormatter.formatSignedWeightDelta(correlation.fullStreakAvgDeltaKg, unitSystem),
+                UnitFormatter.formatSignedWeightDelta(correlation.otherWeeksAvgDeltaKg, unitSystem)
+            )
+        }
+
+        emptyLabel.isVisible = lines.isEmpty()
+        lines.forEach { line ->
+            val row = TextView(this).apply {
+                text = line
+                textSize = 14f
+                setTextColor(ContextCompat.getColor(this@HistoryActivity, R.color.textColor))
+                setPadding(0, 8, 0, 8)
+            }
+            insightsList.addView(row)
+        }
     }
 
     private fun updateChart() {
