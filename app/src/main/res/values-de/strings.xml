@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BMI Calculator</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Werbenetzwerke (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normaler BMI-Gewichtsbereich: 18.5 – 24.9</string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="rate_app">App bewerten</string>
@@ -26,7 +26,7 @@
     <string name="select_language">Sprache auswählen</string>
     <string name="unit_system_title">Einheitensystem</string>
     <string name="unit_metric">Metrisch (kg, cm)</string>
-    <string name="unit_imperial">Imperial (lbs, in)</string>
+    <string name="unit_imperial">Imperial (lbs, Zoll)</string>
     <string name="theme_title">Design</string>
     <string name="theme_system">System</string>
     <string name="theme_light">Hell</string>
@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">Vergleichen</string>
     <string name="progress_photos_before_label">Vorher</string>
     <string name="progress_photos_after_label">Nachher</string>
+    <string name="progress_photo_pick_record_title">Wähle eine Wiegung</string>
+    <string name="progress_photo_no_records_available">Alle deine Wiegungen haben bereits ein Foto</string>
+    <string name="progress_photo_no_weighins_yet">Erfasse zuerst eine Wiegung, dann kannst du ein Foto daran anhängen</string>
     <string name="delete">Löschen</string>
 
     <!-- Activity Levels -->

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Máy Tính BMI</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Mạng quảng cáo (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Phạm vi cân nặng BMI bình thường: 18.5 – 24.9</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="rate_app">Đánh giá ứng dụng</string>
@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">So sánh</string>
     <string name="progress_photos_before_label">Trước</string>
     <string name="progress_photos_after_label">Sau</string>
+    <string name="progress_photo_pick_record_title">Chọn một lần cân</string>
+    <string name="progress_photo_no_records_available">Tất cả lần cân của bạn đã có ảnh</string>
+    <string name="progress_photo_no_weighins_yet">Hãy cân trước, sau đó bạn có thể gắn ảnh cho lần cân đó</string>
     <string name="delete">Xóa</string>
 
     <!-- Goal Weight Feature -->

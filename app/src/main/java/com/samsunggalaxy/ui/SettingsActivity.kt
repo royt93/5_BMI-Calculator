@@ -78,7 +78,10 @@ class SettingsActivity : BaseActivity() {
     private val requestHealthConnectPermissions = registerForActivityResult(
         HealthConnectManager.requestPermissionsContract()
     ) { granted ->
-        if (granted.containsAll(HealthConnectManager.requiredPermissions())) {
+        // Health Connect lets the user grant READ/WRITE independently on its own permission
+        // screen — treat any grant as usable (sync degrades to import-only/export-only) and
+        // only show "denied" when NEITHER was granted.
+        if (granted.any { it in HealthConnectManager.requiredPermissions() }) {
             enableHealthConnectSync()
         } else {
             suppressHealthConnectListener = true
@@ -262,7 +265,7 @@ class SettingsActivity : BaseActivity() {
             if (suppressHealthConnectListener) return@setOnCheckedChangeListener
             if (isChecked) {
                 lifecycleScope.launch {
-                    if (HealthConnectManager.hasAllPermissions(this@SettingsActivity)) {
+                    if (HealthConnectManager.hasAnyPermission(this@SettingsActivity)) {
                         enableHealthConnectSync()
                     } else {
                         requestHealthConnectPermissions.launch(HealthConnectManager.requiredPermissions())

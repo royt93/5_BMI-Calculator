@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BMI Hesaplayıcı</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Reklam Ağları (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Boy için normal BMI kilo aralığı: 18,5 – 24,9</string>
     <string name="privacy_policy">Gizlilik politikası</string>
     <string name="rate_app">Uygulamayı derecelendir</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">Karşılaştır</string>
     <string name="progress_photos_before_label">Önce</string>
     <string name="progress_photos_after_label">Sonra</string>
+    <string name="progress_photo_pick_record_title">Bir tartım seç</string>
+    <string name="progress_photo_no_records_available">Tüm tartımlarınızda zaten fotoğraf var</string>
+    <string name="progress_photo_no_weighins_yet">Önce bir tartım kaydedin, ardından ona bir fotoğraf ekleyebilirsiniz</string>
     <string name="delete">Sil</string>
     <string name="goal_weight_title">🎯 Hedefim</string>
     <string name="goal_weight_current">Mevcut: %1$.1f kg</string>

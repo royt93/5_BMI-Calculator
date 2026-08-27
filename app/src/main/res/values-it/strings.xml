@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calcolatore BMI</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Reti pubblicitarie (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Intervallo di peso BMI normale per l\'altezza: 18,5 – 24,9</string>
     <string name="privacy_policy">Informativa sulla privacy</string>
     <string name="rate_app">Valuta l\'app</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">Confronta</string>
     <string name="progress_photos_before_label">Prima</string>
     <string name="progress_photos_after_label">Dopo</string>
+    <string name="progress_photo_pick_record_title">Scegli una pesata</string>
+    <string name="progress_photo_no_records_available">Tutte le tue pesate hanno già una foto</string>
+    <string name="progress_photo_no_weighins_yet">Registra prima una pesata, poi potrai allegarle una foto</string>
     <string name="delete">Elimina</string>
     <string name="goal_weight_title">🎯 Il mio obiettivo</string>
     <string name="goal_weight_current">Attuale: %1$.1f kg</string>

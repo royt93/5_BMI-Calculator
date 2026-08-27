@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">Compare</string>
     <string name="progress_photos_before_label">Before</string>
     <string name="progress_photos_after_label">After</string>
+    <string name="progress_photo_pick_record_title">Choose a weigh-in</string>
+    <string name="progress_photo_no_records_available">All your weigh-ins already have a photo</string>
+    <string name="progress_photo_no_weighins_yet">Log a weigh-in first, then you can attach a photo to it</string>
     <string name="delete">Delete</string>
 
     <!-- Goal Weight Feature -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Калькулятор ИМТ</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Рекламные сети (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Нормальный диапазон ИМТ для роста: 18,5 – 24,9</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="rate_app">Оценить приложение</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">Сравнить</string>
     <string name="progress_photos_before_label">До</string>
     <string name="progress_photos_after_label">После</string>
+    <string name="progress_photo_pick_record_title">Выберите запись веса</string>
+    <string name="progress_photo_no_records_available">Ко всем вашим записям веса уже прикреплено фото</string>
+    <string name="progress_photo_no_weighins_yet">Сначала запишите вес, затем сможете прикрепить к нему фото</string>
     <string name="delete">Удалить</string>
     <string name="goal_weight_title">🎯 Моя цель</string>
     <string name="goal_weight_current">Текущий: %1$.1f кг</string>

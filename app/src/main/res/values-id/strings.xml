@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kalkulator BMI</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Jaringan Iklan (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Rentang berat badan BMI normal untuk tinggi badan: 18,5 – 24,9</string>
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="rate_app">Beri nilai aplikasi</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">Bandingkan</string>
     <string name="progress_photos_before_label">Sebelum</string>
     <string name="progress_photos_after_label">Sesudah</string>
+    <string name="progress_photo_pick_record_title">Pilih catatan berat badan</string>
+    <string name="progress_photo_no_records_available">Semua catatan berat badan Anda sudah memiliki foto</string>
+    <string name="progress_photo_no_weighins_yet">Catat berat badan dahulu, lalu Anda bisa melampirkan foto untuk itu</string>
     <string name="delete">Hapus</string>
     <string name="goal_weight_title">🎯 Target saya</string>
     <string name="goal_weight_current">Saat ini: %1$.1f kg</string>

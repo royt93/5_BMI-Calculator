@@ -252,7 +252,7 @@ class MainAct : BaseActivity() {
         val dialogView = android.view.LayoutInflater.from(this).inflate(R.layout.dialog_profile_name, null)
         val etName = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etProfileName)
 
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.onboarding_profile_title))
             .setView(dialogView)
             .setCancelable(false)
@@ -280,6 +280,19 @@ class MainAct : BaseActivity() {
             }
             .setNegativeButton(getString(R.string.onboarding_skip)) { _, _ -> markAsked() }
             .show()
+
+        // AlertDialog doesn't auto-focus/show the keyboard on its EditText. SOFT_INPUT_STATE_VISIBLE
+        // alone isn't reliable here (dialog window isn't focusable yet at the instant .show()
+        // returns) — requestFocus()+showSoftInput() must run on the next frame via post(), after
+        // the dialog's window actually has input focus.
+        dialog.window?.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        etName.post {
+            etName.requestFocus()
+            dialog.window?.let { window ->
+                androidx.core.view.WindowInsetsControllerCompat(window, etName)
+                    .show(androidx.core.view.WindowInsetsCompat.Type.ime())
+            }
+        }
     }
 
     override fun onPause() {

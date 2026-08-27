@@ -117,6 +117,32 @@
             android:name=".ui.ProgressPhotosActivity"
             android:exported="false" />
 
+        <!-- EPIC-09 T09.2 — Health Connect requires the requesting app to declare a rationale
+             entry point, or its own permission screen self-finishes without ever showing UI
+             (confirmed on-device: logcat "App should support rationale intent, finishing!").
+             Two declarations cover both eras: androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE
+             (standalone Health Connect app, older OS) and the activity-alias below
+             (Android 14+ system module, VIEW_PERMISSION_USAGE contract). -->
+        <activity
+            android:name=".health.HealthConnectRationaleActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".health.HealthConnectPermissionUsageAlias"
+            android:exported="true"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:targetActivity=".health.HealthConnectRationaleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.samsunggalaxy.MainActivity.provider"

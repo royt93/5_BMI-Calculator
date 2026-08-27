@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -42,10 +41,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import com.samsunggalaxy.utils.PreferencesManager
 import com.samsunggalaxy.utils.UnitFormatter
+import com.samsunggalaxy.photo.PhotoCaptureFlow
 import com.samsunggalaxy.photo.PhotoStorageHelper
 import android.widget.EditText
 import android.widget.ImageView
-import java.io.File
 import kotlin.jvm.java
 
 class ResultAct : BaseActivity() {
@@ -62,21 +61,22 @@ class ResultAct : BaseActivity() {
     // saveToHistory() finishes inserting this weigh-in's record; the Add Photo card is a no-op
     // tap until then (save typically completes well before the UI finishes animating in).
     private var savedRecordId: Long? = null
-    private var pendingCameraFile: File? = null
 
-    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-        val file = pendingCameraFile
-        pendingCameraFile = null
-        if (success && file != null) {
-            attachPhoto { if (PhotoStorageHelper.normalizeInPlace(file)) file else null }
+    private val photoCaptureFlow = PhotoCaptureFlow(
+        activity = this,
+        onAttached = { file ->
+            val recordId = savedRecordId
+            if (recordId != null) {
+                repository.updateRecordPhotoPath(recordId, file.absolutePath)
+            }
+            withContext(Dispatchers.Main) {
+                if (!isFinishing && !isDestroyed) showPhotoThumbnail(file.absolutePath)
+            }
+        },
+        onFailed = {
+            if (!isFinishing && !isDestroyed) displayToast(getString(R.string.progress_photo_error))
         }
-    }
-
-    private val pickPhotoLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            attachPhoto { PhotoStorageHelper.copyFromUri(this, uri) }
-        }
-    }
+    )
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -630,66 +630,7 @@ class ResultAct : BaseActivity() {
 
     private fun launchAddPhotoFlow() {
         if (savedRecordId == null) return // record not saved yet — rare race, silently ignore
-        val options = arrayOf(
-            getString(R.string.progress_photo_take_photo),
-            getString(R.string.progress_photo_choose_gallery)
-        )
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.progress_photo_add_label))
-            .setMessage(getString(R.string.progress_photo_privacy_disclosure))
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> launchCamera()
-                    1 -> pickPhotoLauncher.launch(
-                        androidx.activity.result.PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                }
-            }
-            .setNegativeButton(getString(R.string.cancel), null)
-            .show()
-    }
-
-    private fun launchCamera() {
-        try {
-            val (file, uri) = PhotoStorageHelper.createCaptureTarget(this)
-            pendingCameraFile = file
-            takePictureLauncher.launch(uri)
-        } catch (e: Exception) {
-            Log.e("roy93~", "launchCamera error", e)
-            displayToast(getString(R.string.progress_photo_error))
-        }
-    }
-
-    /**
-     * [produceFile] runs on the IO dispatcher — decodes/normalizes/copies the photo to disk.
-     * The DB write happens before the UI update: if the user backs out of the screen while
-     * this coroutine is still running, lifecycleScope cancels it — persisting first means the
-     * photo is never orphaned (recorded on the BmiRecord) even if the thumbnail never shows.
-     */
-    private fun attachPhoto(produceFile: () -> File?) {
-        val recordId = savedRecordId ?: return
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val file = produceFile()
-                if (file != null) {
-                    repository.updateRecordPhotoPath(recordId, file.absolutePath)
-                }
-                withContext(Dispatchers.Main) {
-                    if (isFinishing || isDestroyed) return@withContext
-                    if (file != null) {
-                        showPhotoThumbnail(file.absolutePath)
-                    } else {
-                        displayToast(getString(R.string.progress_photo_error))
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("roy93~", "attachPhoto error", e)
-                withContext(Dispatchers.Main) {
-                    if (isFinishing || isDestroyed) return@withContext
-                    displayToast(getString(R.string.progress_photo_error))
-                }
-            }
-        }
+        photoCaptureFlow.showCaptureSourceDialog(onCancel = {})
     }
 
     private fun showPhotoThumbnail(path: String) {

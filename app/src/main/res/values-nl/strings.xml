@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BMI Calculator</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">Advertentienetwerken (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">Normaal BMI gewichtsbereik voor de lengte: 18,5 – 24,9</string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="rate_app">App beoordelen</string>
@@ -17,7 +17,7 @@
     <string name="ad_label">Advertentie</string>
     <string name="menu">Menu</string>
     <string name="history">Geschiedenis</string>
-    <string name="calculators">Calculators</string>
+    <string name="calculators">Rekenmachines</string>
     <string name="settings">Instellingen</string>
     <string name="language">Taal</string>
     <string name="select_language">Taal selecteren</string>
@@ -45,8 +45,8 @@
     <string name="clear_history_confirm_title">Alle geschiedenis wissen?</string>
     <string name="clear_history_confirm_message">Dit verwijdert permanent alle BMI-records van het huidige profiel. Dit kan niet ongedaan worden gemaakt.</string>
     <string name="clear_history_done">Geschiedenis gewist</string>
-    <string name="bmr_calculator">BMR Calculator</string>
-    <string name="tdee_calculator">TDEE Calculator</string>
+    <string name="bmr_calculator">BMR-calculator</string>
+    <string name="tdee_calculator">TDEE-calculator</string>
     <string name="ideal_weight_calculator">Ideaal Gewicht Calculator</string>
     <string name="body_fat_calculator">Lichaamsvet Calculator</string>
     <string name="bmr_description">Bereken calorieverbranding in rust</string>
@@ -57,7 +57,7 @@
     <string name="male">Man</string>
     <string name="female">Vrouw</string>
     <string name="activity_level">Activiteitsniveau</string>
-    <string name="calculator">Calculator</string>
+    <string name="calculator">Rekenmachine</string>
     <string name="please_enter_valid_values">Voer geldige waarden in</string>
     <string name="please_enter_valid_measurements">Voer geldige metingen in</string>
     <string name="track_your_health">Volg uw gezondheid</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">Vergelijken</string>
     <string name="progress_photos_before_label">Voor</string>
     <string name="progress_photos_after_label">Na</string>
+    <string name="progress_photo_pick_record_title">Kies een weegmoment</string>
+    <string name="progress_photo_no_records_available">Al je weegmomenten hebben al een foto</string>
+    <string name="progress_photo_no_weighins_yet">Leg eerst een weegmoment vast, dan kun je er een foto aan toevoegen</string>
     <string name="delete">Verwijderen</string>
     <string name="goal_weight_title">🎯 Mijn doel</string>
     <string name="goal_weight_current">Huidig: %1$.1f kg</string>
@@ -183,7 +186,7 @@
     <string name="tracker_decreased">gedaald</string>
     <string name="tracker_summary_30d">Uw %1$s %2$s %3$s %4$s in de afgelopen 30 dagen</string>
     <string name="streak_title">%d dagen op rij!</string>
-    <string name="streak_best">Best: %d</string>
+    <string name="streak_best">Beste: %d</string>
     <string name="streak_motivation">Blijf doorgaan! Houd uw BMI dagelijks bij</string>
     <string name="streak_start">Begin vandaag uw reeks!</string>
     <string name="achievements_menu">Prestaties</string>

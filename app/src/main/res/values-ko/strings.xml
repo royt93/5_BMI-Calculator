@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BMI Calculator</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">광고 네트워크 (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">정상 BMI 체중 범위: 18.5 – 24.9</string>
     <string name="privacy_policy">개인정보 보호정책</string>
     <string name="rate_app">앱 평가하기</string>
@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">비교</string>
     <string name="progress_photos_before_label">비포</string>
     <string name="progress_photos_after_label">애프터</string>
+    <string name="progress_photo_pick_record_title">체중 기록 선택</string>
+    <string name="progress_photo_no_records_available">모든 체중 기록에 이미 사진이 있어요</string>
+    <string name="progress_photo_no_weighins_yet">먼저 체중을 기록하면 사진을 추가할 수 있어요</string>
     <string name="delete">삭제</string>
 
     <!-- Activity Levels -->

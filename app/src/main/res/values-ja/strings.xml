@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BMI Calculator</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">広告ネットワーク (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">正常なBMI体重範囲: 18.5 – 24.9</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="rate_app">アプリを評価</string>
@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">比較</string>
     <string name="progress_photos_before_label">ビフォー</string>
     <string name="progress_photos_after_label">アフター</string>
+    <string name="progress_photo_pick_record_title">体重記録を選択</string>
+    <string name="progress_photo_no_records_available">すべての体重記録に写真が追加済みです</string>
+    <string name="progress_photo_no_weighins_yet">まず体重を記録すると、そこに写真を追加できます</string>
     <string name="delete">削除</string>
 
     <!-- Activity Levels -->

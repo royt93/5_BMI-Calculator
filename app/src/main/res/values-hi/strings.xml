@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">बीएमआई कैलकुलेटर</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">विज्ञापन नेटवर्क (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">ऊंचाई के लिए सामान्य बीएमआई वजन सीमा: 18.5 – 24.9</string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="rate_app">ऐप रेट करें</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">तुलना करें</string>
     <string name="progress_photos_before_label">पहले</string>
     <string name="progress_photos_after_label">बाद</string>
+    <string name="progress_photo_pick_record_title">एक वज़न प्रविष्टि चुनें</string>
+    <string name="progress_photo_no_records_available">आपकी सभी वज़न प्रविष्टियों में पहले से ही फ़ोटो है</string>
+    <string name="progress_photo_no_weighins_yet">पहले एक वज़न प्रविष्टि दर्ज करें, फिर आप उसमें फ़ोटो जोड़ सकते हैं</string>
     <string name="delete">हटाएं</string>
     <string name="goal_weight_title">🎯 मेरा लक्ष्य</string>
     <string name="goal_weight_current">वर्तमान: %1$.1f किग्रा</string>

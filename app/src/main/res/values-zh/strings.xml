@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BMI计算器</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">广告网络 (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">正常BMI体重范围（按身高）：18.5 – 24.9</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="rate_app">评价应用</string>
@@ -94,6 +94,9 @@
     <string name="progress_photos_compare_button">对比</string>
     <string name="progress_photos_before_label">前</string>
     <string name="progress_photos_after_label">后</string>
+    <string name="progress_photo_pick_record_title">选择一次称重记录</string>
+    <string name="progress_photo_no_records_available">你所有的称重记录都已经有照片了</string>
+    <string name="progress_photo_no_weighins_yet">请先记录一次称重，之后即可为其添加照片</string>
     <string name="delete">删除</string>
     <string name="goal_weight_title">🎯 我的目标</string>
     <string name="goal_weight_current">当前：%1$.1f 千克</string>

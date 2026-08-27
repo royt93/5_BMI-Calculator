@@ -38,10 +38,9 @@ import java.util.concurrent.TimeUnit
  * an export/import ping-pong loop.
  */
 object HealthConnectManager {
-    private val REQUIRED_PERMISSIONS = setOf(
-        HealthPermission.getReadPermission(WeightRecord::class),
-        HealthPermission.getWritePermission(WeightRecord::class)
-    )
+    private val READ_PERMISSION = HealthPermission.getReadPermission(WeightRecord::class)
+    private val WRITE_PERMISSION = HealthPermission.getWritePermission(WeightRecord::class)
+    private val REQUIRED_PERMISSIONS = setOf(READ_PERMISSION, WRITE_PERMISSION)
     private const val PROVIDER_PACKAGE = "com.google.android.apps.healthdata"
     private const val SYNC_WINDOW_DAYS = 30L
 
@@ -63,11 +62,27 @@ object HealthConnectManager {
         return HealthConnectClient.getOrCreate(context)
     }
 
-    suspend fun hasAllPermissions(context: Context): Boolean {
-        val client = getClientOrNull(context) ?: return false
-        val granted = client.permissionController.getGrantedPermissions()
-        return granted.containsAll(REQUIRED_PERMISSIONS)
+    private suspend fun grantedPermissions(context: Context): Set<String> {
+        val client = getClientOrNull(context) ?: return emptySet()
+        return client.permissionController.getGrantedPermissions()
     }
+
+    /** Both READ and WRITE granted. Health Connect lets the user grant these independently on
+     * its own permission screen, so most call sites should use [hasAnyPermission] plus the
+     * per-permission checks below instead of requiring this all-or-nothing state. */
+    suspend fun hasAllPermissions(context: Context): Boolean =
+        grantedPermissions(context).containsAll(REQUIRED_PERMISSIONS)
+
+    /** At least one of READ/WRITE granted — the correct gate for "is sync usable at all",
+     * since a partial grant should degrade (import-only or export-only), not be treated as denied. */
+    suspend fun hasAnyPermission(context: Context): Boolean =
+        grantedPermissions(context).any { it in REQUIRED_PERMISSIONS }
+
+    suspend fun hasReadPermission(context: Context): Boolean =
+        READ_PERMISSION in grantedPermissions(context)
+
+    suspend fun hasWritePermission(context: Context): Boolean =
+        WRITE_PERMISSION in grantedPermissions(context)
 
     /**
      * EPIC-09 T09.2 — must be called whenever a local record with a non-null
@@ -78,7 +93,7 @@ object HealthConnectManager {
      */
     suspend fun deleteRecords(context: Context, healthConnectRecordIds: List<String>) {
         if (healthConnectRecordIds.isEmpty()) return
-        if (!isAvailable(context) || !hasAllPermissions(context)) return
+        if (!isAvailable(context) || !hasWritePermission(context)) return
         try {
             val client = HealthConnectClient.getOrCreate(context)
             client.deleteRecords(WeightRecord::class, recordIdsList = healthConnectRecordIds, clientRecordIdsList = emptyList())
@@ -97,17 +112,23 @@ object HealthConnectManager {
     /** EPIC-09 T09.2 — last-write-wins bidirectional sync for one profile's weight records. */
     suspend fun syncNow(context: Context, repository: BmiRepository, profileId: Long): SyncResult {
         if (!isAvailable(context)) return SyncResult.Unavailable
-        if (!hasAllPermissions(context)) return SyncResult.MissingPermissions
+        val granted = grantedPermissions(context)
+        val canRead = READ_PERMISSION in granted
+        val canWrite = WRITE_PERMISSION in granted
+        if (!canRead && !canWrite) return SyncResult.MissingPermissions
         val client = HealthConnectClient.getOrCreate(context)
 
         return try {
             val sinceMs = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(SYNC_WINDOW_DAYS)
-            val hcRecords = client.readRecords(
-                ReadRecordsRequest(
-                    recordType = WeightRecord::class,
-                    timeRangeFilter = TimeRangeFilter.after(Instant.ofEpochMilli(sinceMs))
-                )
-            ).records
+            // Only fetch when READ is granted — calling readRecords() without it throws.
+            val hcRecords = if (canRead) {
+                client.readRecords(
+                    ReadRecordsRequest(
+                        recordType = WeightRecord::class,
+                        timeRangeFilter = TimeRangeFilter.after(Instant.ofEpochMilli(sinceMs))
+                    )
+                ).records
+            } else emptyList()
             val hcById = hcRecords.associateBy { it.metadata.id }.toMutableMap()
 
             val localRecords = repository.getRecordsSince(profileId, sinceMs)
@@ -118,26 +139,41 @@ object HealthConnectManager {
             for (local in localRecords) {
                 val linkedHcId = local.healthConnectRecordId
                 if (linkedHcId != null) {
-                    val hc = hcById.remove(linkedHcId)
-                    if (hc == null) continue // linked record was deleted on the Health Connect side — out of scope for v1
+                    if (canRead) {
+                        val hc = hcById.remove(linkedHcId)
+                        if (hc == null) continue // linked record was deleted on the Health Connect side — out of scope for v1
 
-                    // Comparison uses lastModifiedTime (wall-clock edit recency, the correct
-                    // signal for "which side changed more recently"); the value actually stored
-                    // uses hc.time (the weigh-in's real timestamp) — see the import branch below
-                    // for why conflating the two corrupts the displayed date.
-                    val hcModifiedMs = hc.metadata.lastModifiedTime.toEpochMilli()
-                    when {
-                        hcModifiedMs > local.timestamp -> {
-                            val newBmi = CalculatorUtils.calculateBMI(hc.weight.inKilograms, local.height)
-                            repository.updateWeightFromSync(local.id, hc.weight.inKilograms, newBmi, hc.time.toEpochMilli())
-                            updated++
+                        // Comparison uses lastModifiedTime (wall-clock edit recency, the correct
+                        // signal for "which side changed more recently"); the value actually stored
+                        // uses hc.time (the weigh-in's real timestamp) — see the import branch below
+                        // for why conflating the two corrupts the displayed date.
+                        val hcModifiedMs = hc.metadata.lastModifiedTime.toEpochMilli()
+                        when {
+                            hcModifiedMs > local.timestamp -> {
+                                val newBmi = CalculatorUtils.calculateBMI(hc.weight.inKilograms, local.height)
+                                repository.updateWeightFromSync(local.id, hc.weight.inKilograms, newBmi, hc.time.toEpochMilli())
+                                updated++
+                            }
+                            canWrite && local.timestamp > hcModifiedMs && local.source == BmiRecord.SOURCE_APP -> {
+                                pushToHealthConnect(client, local, existingHealthConnectRecordId = linkedHcId)
+                                updated++
+                            }
                         }
-                        local.timestamp > hcModifiedMs && local.source == BmiRecord.SOURCE_APP -> {
+                    } else if (canWrite && local.source == BmiRecord.SOURCE_APP) {
+                        // Write-only grant: can't fetch the HC side to compare recency, so push
+                        // blindly — still better than silently doing nothing until READ is granted.
+                        // Caught locally (unlike the canRead branch's push, which can't hit this):
+                        // updateRecords() throws if the linked HC record was deleted on that side
+                        // since we have no way to detect that without READ — one stale link must
+                        // not abort the whole sync loop and drop every other record's progress.
+                        try {
                             pushToHealthConnect(client, local, existingHealthConnectRecordId = linkedHcId)
                             updated++
+                        } catch (e: Exception) {
+                            AppLog.w("HealthConnectManager.syncNow write-only push failed for record ${local.id}", e)
                         }
                     }
-                } else if (local.source == BmiRecord.SOURCE_APP) {
+                } else if (canWrite && local.source == BmiRecord.SOURCE_APP) {
                     val newHcId = pushToHealthConnect(client, local, existingHealthConnectRecordId = null)
                     repository.linkHealthConnectRecord(local.id, newHcId)
                     exported++
@@ -146,7 +182,7 @@ object HealthConnectManager {
 
             // Remaining hcById entries have no local counterpart — import as new records, reusing
             // the current profile's latest height/gender/age (same pattern as HistoryActivity's
-            // weight-only quick-log FAB, EPIC-07 T07.5).
+            // weight-only quick-log FAB, EPIC-07 T07.5). Empty (nothing to import) when !canRead.
             val latestKnown = repository.getMostRecentRecord(profileId)
             for (hc in hcById.values) {
                 val height = latestKnown?.height ?: continue // no baseline height yet — skip, nothing sane to compute BMI against

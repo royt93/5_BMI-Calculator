@@ -63,6 +63,11 @@ interface BmiDao {
     @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND photoPath IS NOT NULL ORDER BY timestamp DESC")
     suspend fun getRecordsWithPhotos(profileId: Long): List<BmiRecord>
 
+    // Idea I1 — lets ProgressPhotosActivity offer "attach a photo" for a past weigh-in, not
+    // just the one just saved in ResultAct (that was the only write site before this).
+    @Query("SELECT * FROM bmi_records WHERE profileId = :profileId AND photoPath IS NULL ORDER BY timestamp DESC")
+    suspend fun getRecordsWithoutPhoto(profileId: Long): List<BmiRecord>
+
     // EPIC-09 T09.2 — Health Connect sync: find the local row already linked to a given
     // Health Connect record so an update can be applied in place instead of duplicated.
     @Query("SELECT * FROM bmi_records WHERE healthConnectRecordId = :healthConnectRecordId LIMIT 1")

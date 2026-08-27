@@ -127,6 +127,11 @@ class BmiRepository(
         return bmiDao.getRecordsWithPhotos(profileId)
     }
 
+    /** Idea I1 — past weigh-ins still eligible to get a photo attached (used by the picker in ProgressPhotosActivity). */
+    suspend fun getRecordsWithoutPhoto(profileId: Long): List<BmiRecord> {
+        return bmiDao.getRecordsWithoutPhoto(profileId)
+    }
+
     // EPIC-08 T08.3 — body measurements (waist/neck/hip/chest) tracked over time
     suspend fun insertMeasurement(measurement: BodyMeasurement): Long {
         return bodyMeasurementDao.insert(measurement)

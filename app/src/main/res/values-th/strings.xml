@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BMI Calculator</string>
-    <string name="attribution_ads_label">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="attribution_ads_label">เครือข่ายโฆษณา (AdMob / AppLovin MAX)</string>
     <string name="normal_bmi_weight_range_for_the_height_18_5_24_9">ช่วงน้ำหนัก BMI ปกติ: 18.5 – 24.9</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="rate_app">ให้คะแนนแอป</string>
@@ -109,6 +109,9 @@
     <string name="progress_photos_compare_button">เปรียบเทียบ</string>
     <string name="progress_photos_before_label">ก่อน</string>
     <string name="progress_photos_after_label">หลัง</string>
+    <string name="progress_photo_pick_record_title">เลือกบันทึกน้ำหนัก</string>
+    <string name="progress_photo_no_records_available">บันทึกน้ำหนักทั้งหมดของคุณมีรูปภาพแล้ว</string>
+    <string name="progress_photo_no_weighins_yet">บันทึกน้ำหนักก่อน แล้วคุณจะสามารถแนบรูปภาพให้กับบันทึกนั้นได้</string>
     <string name="delete">ลบ</string>
 
     <!-- Activity Levels -->

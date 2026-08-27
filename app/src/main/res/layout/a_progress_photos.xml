@@ -52,9 +52,22 @@
             app:autoSizeStepGranularity="1sp"
             android:textStyle="bold" />
 
-        <View
+        <androidx.cardview.widget.CardView
             android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            app:cardBackgroundColor="#30FFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivAddPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:src="@drawable/ic_add_24"
+                android:contentDescription="@string/progress_photo_add_label"
+                app:tint="@color/textColor" />
+        </androidx.cardview.widget.CardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
