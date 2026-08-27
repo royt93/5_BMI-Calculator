@@ -10,5 +10,8 @@
     <device-transfer>
         <!-- Loại trừ DB khi chuyển thiết bị -->
         <exclude domain="database" path="bmi_database" />
+        <!-- VIP/trial ledger — loại trừ để chặn abuse trial/VIP qua D2D device-transfer -->
+        <exclude domain="sharedpref" path="loitp_admob.xml" />
+        <exclude domain="sharedpref" path="vip_screen_prefs.xml" />
     </device-transfer>
 </data-extraction-rules>

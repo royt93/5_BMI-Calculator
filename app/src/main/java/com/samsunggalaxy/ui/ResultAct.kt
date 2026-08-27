@@ -703,9 +703,8 @@ class ResultAct : BaseActivity() {
 
     override fun onDestroy() {
         handler.removeCallbacksAndMessages(null)
-        // Defensive: SDK autoManageLifecycle xử lý destroy banner, nhưng manual destroy
-        // idempotent (per SDK contract) đảm bảo không leak refs giữa app + lib.
-        adView?.let { AdManager.bannerDestroy(it) }
+        // adView KHÔNG tự bannerDestroy() ở đây — autoManageLifecycle=true đã tự hook Activity
+        // onDestroy (AD_PROMPT_AOS.MD: "Đừng vừa để true vừa tự gọi tay 3 hàm trên").
         adView = null
         super.onDestroy()
     }

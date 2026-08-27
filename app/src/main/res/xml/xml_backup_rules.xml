@@ -7,4 +7,7 @@
     <exclude domain="sharedpref" path="bmi_settings.preferences_pb" />
     <exclude domain="sharedpref" path="streak_prefs.xml" />
     <exclude domain="sharedpref" path="badge_prefs.xml" />
+    <!-- VIP/trial ledger — loại trừ để chặn khôi phục trial/VIP qua backup restore -->
+    <exclude domain="sharedpref" path="loitp_admob.xml" />
+    <exclude domain="sharedpref" path="vip_screen_prefs.xml" />
 </full-backup-content>

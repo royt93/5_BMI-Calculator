@@ -56,7 +56,10 @@ class GalaxyApp : Application() {
             safety = safetyLimits,
         )
 
+        AdManager.setConfig(adConfig)
+
         // Observability hook — forward SDK exception vào logcat (no Crashlytics yet).
+        // Gọi SAU setConfig() theo đúng thứ tự mẫu SDK (AD_PROMPT_AOS.MD Phụ lục B.1).
         AdManager.errorReporter = ErrorReporter { throwable, context ->
             if (BuildConfig.DEBUG) {
                 Log.w("roy93~Err", "[$context] ${throwable.message}", throwable)
@@ -69,7 +72,6 @@ class GalaxyApp : Application() {
             AppLog.d("AdRevenue: $adType ${valueMicros / 1_000_000.0} $currency $precision $adSource")
         }
 
-        AdManager.setConfig(adConfig)
         // Bước 3b (AD_PROMPT_AOS.MD) — BẮT BUỘC trước khi QA với ad-unit ID thật: khai hash test
         // device để tránh invalid traffic (KHÔNG PHẢI GAID). Danh sách đầy đủ + cách thu thập:
         // @mckimquyen/myKeyStore/com.samsunggalaxy.bmicalculator/test_device_ids.md

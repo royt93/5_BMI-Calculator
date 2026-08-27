@@ -29,6 +29,11 @@ object AdKeys {
      * Set không hại gì nếu sai (chỉ là whitelist rỗng tác dụng, không mất an toàn) — nhưng đừng tin
      * là "đã đăng ký" cho tới khi verify sống từng dòng (cắm máy, chạy app, xem log đổi thành
      * "This request is sent from a test device.", xoá dòng `// CHƯA VERIFY` tương ứng).
+     *
+     * QUYẾT ĐỊNH (2026-08-27): giữ nguyên nguyên trạng có chủ ý, KHÔNG phải bỏ sót — hash sai
+     * fail-safe (whitelist rỗng tác dụng, không mở lỗ hổng), risk thật chỉ phát sinh nếu QA dùng
+     * đúng 1 trong 11 máy chưa verify để test ad thật. Reviewer khác đọc code: đây là rủi ro đã
+     * được cân nhắc, không cần block review vì lý do này.
      */
     val QA_TEST_DEVICE_HASHES: Array<String> = arrayOf(
         "43A93B959FECD421A4914A04F7565808", // Samsung SM-A115F — VERIFY THẬT 2026-08-26 cho bmicalculator

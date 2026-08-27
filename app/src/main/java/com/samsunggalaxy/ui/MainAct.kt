@@ -759,12 +759,13 @@ class MainAct : BaseActivity() {
     override fun onDestroy() {
         handler.removeCallbacks(exitResetRunnable)
         handler.removeCallbacks(navigationRunnable)
-        // Memory leak guards — explicit cleanup even if SDK autoManageLifecycle handles too.
+        // Memory leak guards.
         vipBadgePulseAnimator?.cancel()
         vipBadgePulseAnimator?.removeAllUpdateListeners()
         vipBadgePulseAnimator = null
         _binding.tvVipBadge.animate().cancel()
-        adView?.let { AdManager.bannerDestroy(it) }
+        // adView KHÔNG tự bannerDestroy() ở đây — autoManageLifecycle=true đã tự hook Activity
+        // onDestroy (AD_PROMPT_AOS.MD: "Đừng vừa để true vừa tự gọi tay 3 hàm trên").
         adView = null
         super.onDestroy()
     }
