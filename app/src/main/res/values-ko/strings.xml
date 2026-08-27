@@ -339,6 +339,10 @@
     <string name="vip_success_title">성공</string>
     <string name="vip_success_message">%1$d일 동안 VIP가 활성화되었습니다</string>
     <string name="vip_failed_title">실패</string>
+    <string name="vip_queued_title">처리 중…</string>
+    <string name="vip_queued_message">토큰은 유효한 것으로 보이지만 광고 SDK가 아직 시작 중입니다. 몇 초 후 자동으로 적용됩니다 — 이는 실패가 아닙니다. 별도 조치가 필요 없으며, 완료되면 결과 대화상자가 표시됩니다.</string>
+    <string name="vip_token_no_effect_title">이미 적용된 토큰입니다</string>
+    <string name="vip_token_no_effect_message">이 토큰은 유효하지만 현재 VIP 기간이 이 토큰이 부여하는 기간보다 이미 더 길어서 추가된 날짜가 없으며, 이 토큰은 다시 사용할 수 없습니다.</string>
     <string name="vip_rewarded_load_failed">광고가 준비되지 않았습니다. 나중에 다시 시도해주세요.</string>
     <string name="vip_rewarded_earned_message">감사합니다! 3일 VIP가 지급되었습니다.</string>
     <string name="confirm">확인</string>

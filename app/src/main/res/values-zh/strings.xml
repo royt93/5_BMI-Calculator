@@ -305,6 +305,10 @@
     <string name="vip_success_title">成功</string>
     <string name="vip_success_message">VIP 已激活 %1$d 天</string>
     <string name="vip_failed_title">失败</string>
+    <string name="vip_queued_title">处理中…</string>
+    <string name="vip_queued_message">您的令牌看起来有效，但广告 SDK 仍在启动中。几秒钟后将自动应用 — 这不是失败。无需任何操作，完成后您将看到结果对话框。</string>
+    <string name="vip_token_no_effect_title">令牌已生效</string>
+    <string name="vip_token_no_effect_message">此令牌有效，但您当前的 VIP 时长已经超过该令牌授予的天数 — 未添加额外天数，且该令牌无法再次使用。</string>
     <string name="vip_rewarded_load_failed">广告未准备好。请稍后重试。</string>
     <string name="vip_rewarded_earned_message">谢谢!已授予 3 天 VIP。</string>
     <string name="confirm">确认</string>

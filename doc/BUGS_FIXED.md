@@ -72,6 +72,26 @@
 - `ProfileDao.kt:29-33`
 - `BmiRepository.kt:52-54`
 
+### 8. **Toolbar Title Overflow On Narrow Screens** ⚠️ MODERATE (found 2026-08-26, TECNO BG6 720px width)
+**Issue**: 12 activity toolbars share a copy-pasted title `TextView` pattern with no `maxLines`/
+`ellipsize`/autosize — on screens narrower than the design reference (720px physical width, common
+budget devices), long titles (esp. Vietnamese, e.g. "Máy Tính BMI") wrap to 2 lines. The toolbar
+container (`match_parent`/fixed-height, not truly `wrap_content`-safe with a 2-line child) doesn't
+grow to fit, so the second line visually overlaps the screen content below instead of being clipped
+or the toolbar growing — real, reproducible UI corruption, not a screenshot artifact.
+**Impact**: Title text overlapped page content on `MainAct`, `ResultAct`, and 10 other screens
+(Calculators hub, BMR/TDEE/Body-Fat/Ideal-Weight calculators, Settings, History, VIP, Family
+Challenge, Progress Photos) on narrower/lower-DPI devices.
+**Fix**: Added `android:maxLines="1"` + `android:ellipsize="end"` (safety net) + AppCompat
+`app:autoSizeTextType="uniform"` (`autoSizeMinTextSize`/`autoSizeMaxTextSize`/`autoSizeStepGranularity`)
+to each toolbar title `TextView` — text now always fits on one line, shrinking automatically instead
+of wrapping/overlapping, adapts to any screen width/locale without hardcoding shorter strings.
+
+**Files Modified**: `a_main.xml`, `a_result.xml`, `a_vip.xml`, `a_calculators.xml`,
+`a_bmr_calculator.xml`, `a_tdee_calculator.xml`, `a_body_fat_calculator.xml`,
+`a_ideal_weight_calculator.xml`, `a_settings.xml`, `a_history.xml`, `a_family_challenge.xml`,
+`a_progress_photos.xml`
+
 ## ✅ Logic Validation Checks (Already Correct)
 
 ### 1. **Input Validation** ✓

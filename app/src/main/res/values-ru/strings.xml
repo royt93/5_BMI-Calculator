@@ -305,6 +305,10 @@
     <string name="vip_success_title">Успех</string>
     <string name="vip_success_message">VIP активирован на %1$d дней</string>
     <string name="vip_failed_title">Ошибка</string>
+    <string name="vip_queued_title">Обработка…</string>
+    <string name="vip_queued_message">Ваш токен выглядит действительным, но SDK рекламы ещё запускается. Он будет применён автоматически через несколько секунд — это НЕ ошибка. Никаких действий не требуется; вы увидите диалог с результатом, как только всё будет готово.</string>
+    <string name="vip_token_no_effect_title">Токен уже учтён</string>
+    <string name="vip_token_no_effect_message">Этот токен действителен, но ваш текущий VIP-статус уже длится дольше, чем предоставляет токен — дополнительные дни не были добавлены, и токен нельзя использовать повторно.</string>
     <string name="vip_rewarded_load_failed">Реклама не готова. Повторите попытку позже.</string>
     <string name="vip_rewarded_earned_message">Спасибо! Предоставлен VIP на 3 дня.</string>
     <string name="confirm">Подтвердить</string>

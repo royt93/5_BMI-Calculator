@@ -305,6 +305,10 @@
     <string name="vip_success_title">Succes</string>
     <string name="vip_success_message">VIP geactiveerd voor %1$d dagen</string>
     <string name="vip_failed_title">Mislukt</string>
+    <string name="vip_queued_title">Bezig met verwerken…</string>
+    <string name="vip_queued_message">Je token lijkt geldig, maar de advertentie-SDK is nog aan het opstarten. Het wordt automatisch toegepast binnen enkele seconden — dit is GEEN fout. Geen actie nodig; je ziet een resultaatvenster zodra het klaar is.</string>
+    <string name="vip_token_no_effect_title">Token al gedekt</string>
+    <string name="vip_token_no_effect_message">Deze token is geldig, maar je huidige VIP-status duurt al langer dan wat de token toekent — er zijn geen extra dagen toegevoegd en de token kan niet opnieuw worden gebruikt.</string>
     <string name="vip_rewarded_load_failed">Advertentie niet gereed. Probeer het later opnieuw.</string>
     <string name="vip_rewarded_earned_message">Bedankt! 3 dagen VIP toegekend.</string>
     <string name="confirm">Bevestigen</string>

@@ -15,12 +15,14 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         android:background="@drawable/rounded_blue_bg"
-        android:gravity="start|center_vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:gravity="center"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
         android:text="@string/ad_label"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="7sp"
         android:textStyle="bold" />
 
     <FrameLayout

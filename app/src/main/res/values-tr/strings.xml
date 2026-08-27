@@ -305,6 +305,10 @@
     <string name="vip_success_title">Başarılı</string>
     <string name="vip_success_message">%1$d gün için VIP aktifleştirildi</string>
     <string name="vip_failed_title">Başarısız</string>
+    <string name="vip_queued_title">İşleniyor…</string>
+    <string name="vip_queued_message">Jetonunuz geçerli görünüyor, ancak reklam SDK\'sı hâlâ başlatılıyor. Birkaç saniye içinde otomatik olarak uygulanacaktır — bu bir hata DEĞİLDİR. Herhangi bir işlem yapmanıza gerek yok; işlem tamamlandığında bir sonuç iletişim kutusu göreceksiniz.</string>
+    <string name="vip_token_no_effect_title">Jeton Zaten Kapsandı</string>
+    <string name="vip_token_no_effect_message">Bu jeton geçerli, ancak mevcut VIP durumunuz zaten jetonun sağladığından daha uzun sürüyor — ekstra gün eklenmedi ve jeton yeniden kullanılamaz.</string>
     <string name="vip_rewarded_load_failed">Reklam hazır değil. Lütfen daha sonra tekrar deneyin.</string>
     <string name="vip_rewarded_earned_message">Teşekkürler! 3 gün VIP verildi.</string>
     <string name="confirm">Onayla</string>

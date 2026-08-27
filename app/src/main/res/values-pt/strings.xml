@@ -305,6 +305,10 @@
     <string name="vip_success_title">Sucesso</string>
     <string name="vip_success_message">VIP ativado por %1$d dias</string>
     <string name="vip_failed_title">Falha</string>
+    <string name="vip_queued_title">Processando…</string>
+    <string name="vip_queued_message">Seu token parece válido, mas o SDK de anúncios ainda está iniciando. Ele será aplicado automaticamente em alguns segundos — isso NÃO é uma falha. Nenhuma ação necessária; você verá uma caixa de diálogo com o resultado assim que terminar.</string>
+    <string name="vip_token_no_effect_title">Token já coberto</string>
+    <string name="vip_token_no_effect_message">Este token é válido, mas seu VIP atual já dura mais do que ele concede — nenhum dia extra foi adicionado, e o token não pode ser reutilizado.</string>
     <string name="vip_rewarded_load_failed">Anúncio não pronto. Tente novamente mais tarde.</string>
     <string name="vip_rewarded_earned_message">Obrigado! 3 dias VIP concedidos.</string>
     <string name="confirm">Confirmar</string>

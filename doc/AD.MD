@@ -4,6 +4,108 @@
 
 ---
 
+## ✅ Round 4 — đóng 4 gap từ audit "chấm điểm 8.5/10" (2026-08-26, user pick qua AskUserQuestion)
+
+Tham khảo trực tiếp sample chính thức của SDK (`app/src/main/java/com/roy/admobwrapper/vip/ActVipManagement.kt`
+trên GitHub `royt93/AdmobApplovinWrapper`) thay vì tự nghĩ pattern — sample có race-condition fix mà tự
+viết chắc chắn sẽ bỏ sót (vd `setCurrentActivity()` phải gọi TRƯỚC `setPendingVipTokenResultListener`,
+baseline phải lưu TRÊN main thread TRƯỚC khi thread nền chạy).
+
+1. **`isVipTokenPending` — implement đầy đủ** (`FVipManagement.kt`):
+   - `AdManager.setCurrentActivity(requireActivity())` trước `setPendingVipTokenResultListener` (đúng
+     thứ tự — sai thứ tự thì listener bị gán nhầm owner, tự xoá khi Activity TRƯỚC destroy).
+   - `activateVipByToken()` chuyển sang chạy trên **background thread** (không phải main thread như
+     trước) — theo đúng comment của sample: dùng `SharedPreferences.commit()` đồng bộ nội bộ, chạy main
+     thread sẽ StrictMode violation/jank. Đây là 1 lỗi thật phát hiện thêm ngoài phạm vi hỏi ban đầu.
+   - Nhánh `isVipTokenPending` → dialog "Đang xử lý…" (KHÔNG phải fail), khoá nút Redeem, kết quả thật
+     tới qua listener → `daysAdded()`.
+   - `AdManager.setPendingVipTokenResultListener(null)` ở `onDestroyView` — tránh leak fragment (SDK
+     singleton sống suốt process, không tự clear như `paidEventListener`).
+2. **`daysAdded()` thay `daysUntil()`** — tính đúng số ngày token vừa cấp THỰC SỰ cộng thêm (delta từ
+   baseline `maxOf(expiry cũ, now)`), không phải tổng hạn còn lại. Case `addedDays == 0` (token hợp lệ
+   nhưng VIP hiện tại đã dài hơn) → dialog riêng "Token đã được tính" thay vì báo thành công sai.
+3. **Debug diagnostics entry point**: long-press vương miện (`ivCrown`) → `AppLog.d(AdManager.getDiagnostics())`
+   — gate tự động qua `AppLog` (không log gì ở release), verify sống qua logcat thật.
+4. **Test coverage mới**:
+   - `FVipManagementDaysAddedTest.kt` (JVM unit test, 6 case: fresh-exact/fresh-partial-day-rounds-up/no-effect-token-shorter/baseline=expiry/latency-drift-still-rounds-up/sub-day-delta) — xanh.
+   - `FVipManagementRedeemInstrumentedTest.kt` (device, garbage token → reject an toàn, không cấp VIP) — 1/1 pass.
+   - Nhánh `isVipTokenPending`/no-effect KHÔNG viết instrumented test được (cần seam `@InternalAdApi`
+     chỉ dành cho test suite của chính SDK, không public cho consumer app) — đã ghi rõ trong test file,
+     verify thay bằng tay: redeem token 5 ngày → dialog "Đã kích hoạt VIP 5 ngày" đúng (fresh, baseline=now).
+     Case "no effect" xác nhận **không reachable qua UI hiện tại** — `sectionUnlock` (chứa cả ô redeem
+     lẫn nút watch-ad) tự ẩn khi VIP active, nên không double-redeem được qua UI bình thường; chỉ
+     reachable lý thuyết qua race pending-listener × grace-trial async, verify thủ công không khả thi
+     trong session này.
+
+**Verify sống trên device (Samsung A11)**: redeem 5-ngày → background thread (tid khác main, xác nhận
+đúng thread) → dialog đúng "5 ngày" → revoke OK → long-press diagnostics ra đúng log → không crash bất
+kỳ bước nào. Build `assembleDevDebug`+`assembleProductionRelease`+`testDevDebugUnitTest`+`lintDevDebug`
+— xanh hết, 15/15 test suite pass (không regress test cũ).
+
+**Điểm sau round 4**: 3/4 gap đóng hoàn toàn + verify được; gap thứ 4 (test-device fleet coverage,
+11/12 chưa verify) là giới hạn phần cứng đã biết, không phải code.
+
+## 🔒 Round 5 — hardening redeem: multi-submit không correlation (2026-08-27, audit lặp lại 5 vòng độc lập)
+
+Sau round 4, `armRedeemLockoutSafetyNet()` (mở khoá `btnRedeem` sau 20s nếu token bị SDK queue mà mất
+mạng) tạo ra 1 finding HIGH mới: user có thể bấm Redeem lần 2 trong lúc token lần 1 CHƯA resolve (SDK
+chỉ giữ được 1 `pendingActivateToken`), không có correlation ID nào phân biệt callback nào thuộc lần
+nào.
+
+**Nỗ lực 1 — generation counter (`redeemGeneration`/`queuedGeneration`)**: cố phân loại callback đúng/
+sai SAU KHI đã cho phép 2 lệnh SDK tồn tại song song. 3 agent độc lập (codex 7.8/10, gemini 8.4/10,
+claude 7.5/10 — TB 7.9/10, THẤP HƠN round 4) đều chỉ ra cùng 1 lỗi thật: điều kiện
+`queuedGeneration == null || queuedGeneration == redeemGeneration` cấp nhầm ownership cho callback CŨ
+đúng lúc nguy hiểm nhất (ngay sau khi safety-net timeout clear `queuedGeneration = null`), có thể xoá
+baseline của lần MỚI, mở khoá nút giữa lúc lần mới còn đang gọi SDK, và tệ nhất — NUỐT MẤT 1 kết quả
+thất bại thật của lần mới không hiện dialog gì. **Đã xoá bỏ hoàn toàn generation counter** — không giữ
+lại bất kỳ phần nào của nỗ lực này.
+
+**Nỗ lực 2 (áp dụng) — entry-guard chặn tận gốc**: thay vì phân loại callback sau khi đã cho 2 lệnh SDK
+tồn tại, chặn KHÔNG cho gọi `activateVipByToken()` lần 2 khi `AdManager.isVipTokenPending == true`:
+
+```kotlin
+if (AdManager.isVipTokenPending) {
+    if (expiryBeforeQueuedActivate == null) {
+        expiryBeforeQueuedActivate = AdManager.getVipByKeyExpiry()
+    }
+    binding.btnRedeem.isEnabled = false
+    showTokenQueuedDialog()
+    armRedeemLockoutSafetyNet()
+    return
+}
+```
+đặt đầu `handleRedeemClicked()`, TRƯỚC khi set baseline mới/spawn Thread. `armRedeemLockoutSafetyNet()`
+giờ chỉ còn 1 dòng mở khoá UI, KHÔNG đụng `expiryBeforeQueuedActivate` nữa. `handlePendingTokenResult()`
+quay lại xử lý vô điều kiện (không còn `ownsCurrentState`) vì tại bất kỳ lúc nào chỉ có đúng 1 lần
+redeem sở hữu state.
+
+3 agent review lại (codex 8.3/10, claude 9.0/10, gemini timeout không trả lời được) đều xác nhận: cách
+này đúng hướng, đơn giản hơn, đóng được đường phổ biến (double-tap UI, resubmit sau safety-net). Nhưng
+**codex đọc source thật SDK 1.6.21** (`AdManager.kt`, hàm `retryPendingVipTokenIfAny()`) và tìm ra 1
+race SDK-internal còn sót — KHÔNG thể đóng hoàn toàn từ app-side:
+
+```kotlin
+private fun retryPendingVipTokenIfAny(context: Context) {
+    pendingActivateToken.getAndSet(null)?.let { pending ->   // ← isVipTokenPending = false NGAY ĐÂY
+        val activated = activateVipByKey(context, pending, days = 0)   // verify chữ ký CHƯA xong
+        ...
+    }
+}
+```
+`isVipTokenPending` bị set `false` NGAY LẬP TỨC lúc SDK bắt đầu retry token cũ (dequeue), TRƯỚC KHI
+verify chữ ký + invoke listener xong. Nếu app gọi `activateVipByToken()` cho 1 token MỚI đúng vào cửa sổ
+cực hẹp này (giữa `getAndSet(null)` và `activateVipByKey()` trả về — cỡ mili-giây, không phải 20 giây
+như bug gốc), entry-guard đọc `isVipTokenPending == false` và vẫn cho gọi SDK lần 2. Đây là giới hạn của
+chính SDK 1.6.21, không phải bug app-side — SDK cần expose thêm trạng thái kiểu
+`isVipTokenResolutionInFlight` hoặc API atomic `tryActivateVipByToken()` mới đóng dứt điểm được.
+
+**Kết luận round 5**: bug HIGH gốc (cửa sổ 20 giây do chính safety-net app tạo ra) đã đóng thực chất.
+Residual race còn lại chỉ ở tầng SDK-internal, cửa sổ mili-giây, cần cả 2 điều kiện hiếm gặp trùng nhau
+(SDK tự động retry token cũ đúng lúc user bấm token mới) — chấp nhận là rủi ro tồn dư đã biết, ghi nhận
+ở đây thay vì tiếp tục vá app-side (không thể vá triệt để nếu không đổi SDK). Điểm trung bình 2/3 agent
+đọc được: (8.3 + 9.0) / 2 = 8.65/10.
+
 ## 🔀 Đổi provider AppLovin → AdMob (2026-08-26, quyết định user sau round review độc lập)
 
 User quyết định chuyển hẳn provider chính sang AdMob (cả debug + release) sau khi đọc kết quả 3-agent

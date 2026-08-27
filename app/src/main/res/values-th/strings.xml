@@ -339,6 +339,10 @@
     <string name="vip_success_title">สำเร็จ</string>
     <string name="vip_success_message">เปิดใช้งาน VIP เป็นเวลา %1$d วัน</string>
     <string name="vip_failed_title">ล้มเหลว</string>
+    <string name="vip_queued_title">กำลังประมวลผล…</string>
+    <string name="vip_queued_message">โทเค็นของคุณดูเหมือนจะถูกต้อง แต่ระบบ SDK โฆษณายังคงเริ่มต้นอยู่ ระบบจะนำไปใช้โดยอัตโนมัติภายในไม่กี่วินาที — นี่ไม่ใช่ความล้มเหลว ไม่ต้องดำเนินการใด ๆ คุณจะเห็นกล่องข้อความแสดงผลลัพธ์เมื่อเสร็จสิ้น</string>
+    <string name="vip_token_no_effect_title">ใช้โทเค็นนี้ไปแล้ว</string>
+    <string name="vip_token_no_effect_message">โทเค็นนี้ถูกต้อง แต่สถานะ VIP ปัจจุบันของคุณมีระยะเวลานานกว่าที่โทเค็นนี้ให้อยู่แล้ว — จึงไม่มีการเพิ่มวันพิเศษ และไม่สามารถใช้โทเค็นนี้ซ้ำได้</string>
     <string name="vip_rewarded_load_failed">โฆษณายังไม่พร้อม กรุณาลองอีกครั้งในภายหลัง</string>
     <string name="vip_rewarded_earned_message">ขอบคุณ! ได้รับ VIP 3 วันแล้ว</string>
     <string name="confirm">ยืนยัน</string>

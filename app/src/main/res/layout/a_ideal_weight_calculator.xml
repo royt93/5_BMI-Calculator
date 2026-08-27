@@ -45,6 +45,12 @@
                 android:text="@string/ideal_weight_calculator"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeStepGranularity="1sp"
                 android:textStyle="bold" />
 
             <View

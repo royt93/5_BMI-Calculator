@@ -339,6 +339,10 @@
     <string name="vip_success_title">成功</string>
     <string name="vip_success_message">%1$d日間VIPを有効化しました</string>
     <string name="vip_failed_title">失敗</string>
+    <string name="vip_queued_title">処理中…</string>
+    <string name="vip_queued_message">トークンは有効なようですが、広告SDKがまだ起動中です。数秒後に自動的に適用されます — これは失敗ではありません。特に操作は不要です。完了すると結果のダイアログが表示されます。</string>
+    <string name="vip_token_no_effect_title">トークンは既に反映済みです</string>
+    <string name="vip_token_no_effect_message">このトークンは有効ですが、現在のVIP期間がこのトークンで付与される期間より既に長いため、追加日数は加算されませんでした。このトークンは再利用できません。</string>
     <string name="vip_rewarded_load_failed">広告の準備ができていません。後でもう一度お試しください。</string>
     <string name="vip_rewarded_earned_message">ありがとうございます!3日間VIPを付与しました。</string>
     <string name="confirm">確認</string>

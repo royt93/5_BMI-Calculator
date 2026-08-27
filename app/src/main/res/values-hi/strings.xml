@@ -305,6 +305,10 @@
     <string name="vip_success_title">सफलता</string>
     <string name="vip_success_message">%1$d दिनों के लिए VIP सक्रिय</string>
     <string name="vip_failed_title">विफल</string>
+    <string name="vip_queued_title">प्रोसेस हो रहा है…</string>
+    <string name="vip_queued_message">आपका टोकन मान्य लग रहा है, लेकिन विज्ञापन SDK अभी भी शुरू हो रहा है। यह कुछ सेकंड में अपने आप लागू हो जाएगा — यह कोई विफलता नहीं है। कोई कार्रवाई आवश्यक नहीं; पूरा होते ही आपको परिणाम का डायलॉग दिखाई देगा।</string>
+    <string name="vip_token_no_effect_title">टोकन पहले से ही कवर है</string>
+    <string name="vip_token_no_effect_message">यह टोकन मान्य है, लेकिन आपकी मौजूदा VIP अवधि पहले से ही इससे अधिक लंबी है — कोई अतिरिक्त दिन नहीं जोड़ा गया, और इस टोकन का दोबारा उपयोग नहीं किया जा सकता।</string>
     <string name="vip_rewarded_load_failed">विज्ञापन तैयार नहीं है। बाद में पुनः प्रयास करें।</string>
     <string name="vip_rewarded_earned_message">धन्यवाद! 3 दिन VIP प्रदान किया गया।</string>
     <string name="confirm">पुष्टि करें</string>

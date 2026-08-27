@@ -305,6 +305,10 @@
     <string name="vip_success_title">Berhasil</string>
     <string name="vip_success_message">VIP diaktifkan selama %1$d hari</string>
     <string name="vip_failed_title">Gagal</string>
+    <string name="vip_queued_title">Memproses…</string>
+    <string name="vip_queued_message">Token Anda terlihat valid, tetapi SDK iklan masih memulai. Token akan diterapkan secara otomatis dalam beberapa detik — ini BUKAN kegagalan. Tidak perlu tindakan apa pun; Anda akan melihat dialog hasil setelah selesai.</string>
+    <string name="vip_token_no_effect_title">Token Sudah Tercakup</string>
+    <string name="vip_token_no_effect_message">Token ini valid, tetapi status VIP Anda saat ini sudah berlangsung lebih lama dari yang diberikan token ini — tidak ada hari tambahan yang ditambahkan, dan token tidak dapat digunakan lagi.</string>
     <string name="vip_rewarded_load_failed">Iklan belum siap. Coba lagi nanti.</string>
     <string name="vip_rewarded_earned_message">Terima kasih! 3 hari VIP diberikan.</string>
     <string name="confirm">Konfirmasi</string>

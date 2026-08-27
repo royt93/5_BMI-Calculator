@@ -669,6 +669,10 @@
     <string name="vip_success_title">Success</string>
     <string name="vip_success_message">VIP activated for %1$d days</string>
     <string name="vip_failed_title">Failed</string>
+    <string name="vip_queued_title">Processing…</string>
+    <string name="vip_queued_message">Your token looks valid, but the ads SDK is still starting up. It will be applied automatically in a few seconds — this is NOT a failure. No action needed; you\'ll see a result dialog once it\'s done.</string>
+    <string name="vip_token_no_effect_title">Token Already Covered</string>
+    <string name="vip_token_no_effect_message">This token is valid, but your current VIP already lasts longer than what it grants — no extra days were added, and the token cannot be reused.</string>
     <string name="vip_rewarded_load_failed">Ad not ready. Please try again later.</string>
     <string name="vip_rewarded_earned_message">Thanks! 3 days VIP granted.</string>
     <string name="confirm">Confirm</string>

@@ -339,6 +339,10 @@
     <string name="vip_success_title">Succès</string>
     <string name="vip_success_message">VIP activé pour %1$d jours</string>
     <string name="vip_failed_title">Échec</string>
+    <string name="vip_queued_title">Traitement en cours…</string>
+    <string name="vip_queued_message">Votre jeton semble valide, mais le SDK publicitaire est encore en cours de démarrage. Il sera appliqué automatiquement dans quelques secondes — ce n\'est PAS un échec. Aucune action requise ; une boîte de dialogue de résultat s\'affichera une fois terminé.</string>
+    <string name="vip_token_no_effect_title">Jeton déjà couvert</string>
+    <string name="vip_token_no_effect_message">Ce jeton est valide, mais votre statut VIP actuel dure déjà plus longtemps que ce qu\'il accorde — aucun jour supplémentaire n\'a été ajouté, et le jeton ne peut pas être réutilisé.</string>
     <string name="vip_rewarded_load_failed">Annonce non prête. Veuillez réessayer plus tard.</string>
     <string name="vip_rewarded_earned_message">Merci ! 3 jours VIP accordés.</string>
     <string name="confirm">Confirmer</string>

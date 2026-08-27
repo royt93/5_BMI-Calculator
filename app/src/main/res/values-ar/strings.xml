@@ -305,6 +305,10 @@
     <string name="vip_success_title">نجاح</string>
     <string name="vip_success_message">تم تفعيل VIP لمدة %1$d أيام</string>
     <string name="vip_failed_title">فشل</string>
+    <string name="vip_queued_title">جارٍ المعالجة…</string>
+    <string name="vip_queued_message">يبدو الرمز صالحًا، لكن حزمة الإعلانات (SDK) ما زالت قيد التشغيل. سيتم تطبيقه تلقائيًا خلال ثوانٍ قليلة — هذا ليس فشلاً. لا حاجة لأي إجراء؛ سترى مربع حوار بالنتيجة بمجرد الانتهاء.</string>
+    <string name="vip_token_no_effect_title">الرمز مُستوفى بالفعل</string>
+    <string name="vip_token_no_effect_message">هذا الرمز صالح، لكن عضويتك المميزة الحالية تدوم بالفعل أطول مما يمنحه هذا الرمز — لم تتم إضافة أي أيام إضافية، ولا يمكن إعادة استخدام هذا الرمز.</string>
     <string name="vip_rewarded_load_failed">الإعلان غير جاهز. يرجى المحاولة لاحقًا.</string>
     <string name="vip_rewarded_earned_message">شكرًا! تم منح VIP لمدة 3 أيام.</string>
     <string name="confirm">تأكيد</string>

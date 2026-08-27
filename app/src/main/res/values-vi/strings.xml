@@ -341,6 +341,10 @@
     <string name="vip_success_title">Thành công</string>
     <string name="vip_success_message">Đã kích hoạt VIP %1$d ngày</string>
     <string name="vip_failed_title">Thất bại</string>
+    <string name="vip_queued_title">Đang xử lý…</string>
+    <string name="vip_queued_message">Token có vẻ hợp lệ nhưng hệ thống quảng cáo vẫn đang khởi động. Token sẽ được áp dụng tự động trong vài giây — đây KHÔNG phải lỗi. Không cần làm gì thêm, bạn sẽ thấy thông báo kết quả ngay sau đó.</string>
+    <string name="vip_token_no_effect_title">Token đã được tính</string>
+    <string name="vip_token_no_effect_message">Token này hợp lệ, nhưng VIP hiện tại của bạn đã dài hơn thời hạn token cấp — không có ngày nào được cộng thêm, và token này không thể dùng lại.</string>
     <string name="vip_rewarded_load_failed">Quảng cáo chưa sẵn sàng. Vui lòng thử lại sau.</string>
     <string name="vip_rewarded_earned_message">Cảm ơn bạn! Đã tặng 3 ngày VIP.</string>
     <string name="confirm">Xác nhận</string>
